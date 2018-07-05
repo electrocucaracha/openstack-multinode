@@ -14,6 +14,7 @@ and the usage of those images to deploy the OpenStack services.
     $ git clone http://github.com/electrocucaracha/vagrant-kolla
     $ cd vagrant-kolla
     $ vagrant up
+    $ vagrant up installer
 
 ## License
 
