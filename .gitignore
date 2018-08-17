@@ -2,3 +2,4 @@
 *.log
 etc/passwords.yml
 etc/admin-openrc.sh
+.tox/
