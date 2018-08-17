@@ -9,34 +9,34 @@
 ##############################################################################
 
 - name: "control01"
-  ip: "10.10.10.3"
+  ip: "10.10.13.4"
   memory: 8192
   cpus: 2
 - name: "control02"
-  ip: "10.10.10.4"
+  ip: "10.10.13.5"
   memory: 8192
   cpus: 2
 - name: "control03"
-  ip: "10.10.10.5"
+  ip: "10.10.13.6"
   memory: 8192
   cpus: 2
 - name: "compute01"
-  ip: "10.10.10.6"
+  ip: "10.10.13.7"
   memory: 8192
   cpus: 2
 - name: "network01"
-  ip: "10.10.10.7"
+  ip: "10.10.13.8"
   memory: 8192
   cpus: 2
 - name: "network02"
-  ip: "10.10.10.8"
+  ip: "10.10.13.9"
   memory: 8192
   cpus: 2
 - name: "storage01"
-  ip: "10.10.10.9"
+  ip: "10.10.13.10"
   memory: 8192
   cpus: 2
 - name: "monitoring01"
-  ip: "10.10.10.9"
+  ip: "10.10.13.11"
   memory: 8192
   cpus: 2

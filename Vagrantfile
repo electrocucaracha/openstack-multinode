@@ -37,6 +37,7 @@ Vagrant.configure("2") do |config|
     config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""
     config.proxy.https    = ENV['https_proxy'] || ENV['HTTPS_PROXY'] || ""
     config.proxy.no_proxy = $no_proxy
+    config.proxy.enabled = { docker: false }
   end
 
   nodes.each do |node|
@@ -67,7 +68,8 @@ Vagrant.configure("2") do |config|
   config.vm.define :installer, primary: true, autostart: false do |installer|
     installer.vm.hostname = "multicloud"
     installer.ssh.insert_key = false
-    installer.vm.network :private_network, :ip => "10.10.10.2", :type => :static
+    installer.vm.synced_folder './etc', '/etc/kolla/', create: true
+    installer.vm.network :private_network, :ip => "10.10.13.2", :type => :static
     installer.vm.provision 'shell', :path => "postinstall.sh"
   end
 end

@@ -1,2 +1,4 @@
 .vagrant
 *.log
+etc/passwords.yml
+etc/admin-openrc.sh
