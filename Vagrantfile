@@ -19,8 +19,8 @@ if ENV['no_proxy'] != nil or ENV['NO_PROXY']
     $no_proxy += "," + node['ip']
   end
   $subnet = "192.168.121"
-  # NOTE: This range is based on vagrant-libvirt network definition
-  (1..27).each do |i|
+  # NOTE: This range is based on vagrant-libvirt network definition CIDR 192.168.121.0/27
+  (1..31).each do |i|
     $no_proxy += ",#{$subnet}.#{i}"
   end
 end
@@ -45,15 +45,16 @@ Vagrant.configure("2") do |config|
       nodeconfig.vm.hostname = node['name']
       nodeconfig.ssh.insert_key = false
       nodeconfig.vm.network :private_network, :ip => node['ip'], :type => :static
-      nodeconfig.vm.provider 'virtualbox' do |v|
-        v.customize ["modifyvm", :id, "--memory", node['memory']]
-        v.customize ["modifyvm", :id, "--cpus", node['cpus']]
+      [:virtualbox, :libvirt].each do |provider|
+        nodeconfig.vm.provider provider do |p, override|
+          p.cpus = 4
+          p.memory = 20480
+        end
       end
       nodeconfig.vm.provider 'libvirt' do |v|
-        v.memory = node['memory']
-        v.cpus = node['cpus']
         v.nested = true
         v.cpu_mode = 'host-passthrough'
+        v.management_network_address = "192.168.121.0/27"
       end
     end
   end
