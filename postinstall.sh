@@ -8,6 +8,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+set -o nounset
+set -o pipefail
+
 function install_docker {
     local max_concurrent_downloads=${1:-3}
 
@@ -55,6 +58,7 @@ install_docker
 apt install -y python2.7 python-dev build-essential sshpass
 
 curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
+pip install python-openstackclient
 
 for repo in kolla kolla-ansible; do
     git clone https://github.com/openstack/$repo
@@ -66,12 +70,16 @@ done
 mkdir -p /etc/ansible/
 cat << EOLF > /etc/ansible/ansible.cfg
 [defaults]
-host_key_checking = false
+host_key_checking=False
+pipelining=True
+forks=100
 EOLF
+inventory_file=/vagrant/inventory/hosts.ini
 
 kolla-build --config-file /etc/kolla/kolla-build.conf
 kolla-genpwd
-kolla-ansible -vvv deploy -i /vagrant/inventory/hosts.ini | tee openstack-deployment.log
-kolla-ansible post-deploy -i /vagrant/inventory/hosts.ini
-pip install python-openstackclient
+ansible -i $inventory_file all -m ping
+for action in bootstrap-servers prechecks deploy post-deploy; do
+    kolla-ansible -vvv -i $inventory_file $action | tee $action.log
+done
 echo "source /etc/kolla/admin-openrc.sh" >> .profile
