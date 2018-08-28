@@ -17,7 +17,8 @@ its usage. This script supports two Virtualization technologies
 ## Execution
 
     $ vagrant up
-    $ vagrant up installer
+    $ vagrant up registry
+    $ vagrant up undercloud
 
 ## License
 

@@ -8,35 +8,73 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+- name: "registry"
+  nics:
+    tunnel_ip: "10.10.13.2"
+  memory: 16384
+  cpus: 4
+  volumes:
+    - name: sda
+      size: 50
+      mount: /var/lib/docker/
+  roles:
+    - registry
+    - test
 - name: "control01"
-  ip: "10.10.13.4"
+  nics:
+    tunnel_ip: "10.10.13.4"
   memory: 8192
-  cpus: 2
+  cpus: 4
+  roles:
+    - controller
 - name: "control02"
-  ip: "10.10.13.5"
+  nics:
+    tunnel_ip: "10.10.13.5"
   memory: 8192
-  cpus: 2
+  cpus: 4
+  roles:
+    - controller
 - name: "control03"
-  ip: "10.10.13.6"
+  nics:
+    tunnel_ip: "10.10.13.6"
   memory: 8192
-  cpus: 2
+  cpus: 4
+  roles:
+    - controller
 - name: "compute01"
-  ip: "10.10.13.7"
-  memory: 8192
-  cpus: 2
+  nics:
+    tunnel_ip: "10.10.13.7"
+    storage_ip: "10.10.14.7"
+  memory: 65536
+  cpus: 16
+  roles:
+    - compute
 - name: "network01"
-  ip: "10.10.13.8"
+  nics:
+    tunnel_ip: "10.10.13.8"
   memory: 8192
-  cpus: 2
+  cpus: 16
+  roles:
+    - network
 - name: "network02"
-  ip: "10.10.13.9"
+  nics:
+    tunnel_ip: "10.10.13.9"
   memory: 8192
-  cpus: 2
+  cpus: 16
+  roles:
+    - network
 - name: "storage01"
-  ip: "10.10.13.10"
-  memory: 8192
-  cpus: 2
+  nics:
+    tunnel_ip: "10.10.13.10"
+    storage_ip: "10.10.14.10"
+  memory: 16384
+  cpus: 8
+  roles:
+    - storage
 - name: "monitoring01"
-  ip: "10.10.13.11"
+  nics:
+    tunnel_ip: "10.10.13.11"
   memory: 8192
-  cpus: 2
+  cpus: 4
+  roles:
+    - monitoring

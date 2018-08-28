@@ -3,3 +3,4 @@
 etc/passwords.yml
 etc/admin-openrc.sh
 .tox/
+sources.list
