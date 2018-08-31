@@ -60,4 +60,4 @@ bash $kolla_folder/tools/start-registry
 
 # Kolla Docker images creation
 pip install $kolla_folder
-kolla-build --config-file /etc/kolla/kolla-build.conf
+kolla-build --config-file /etc/kolla/kolla-build.ini
