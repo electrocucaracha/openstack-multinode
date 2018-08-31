@@ -54,6 +54,9 @@ Vagrant.configure("2") do |config|
       if node['nics'].has_key? "storage_ip"
         nodeconfig.vm.network :private_network, :ip => node['nics']['storage_ip'], :type => :static # Storage Network - This interface is used virtual machines to communicate to Ceph.
       end
+      if node['roles'].include?('network')
+        nodeconfig.vm.network :private_network, ip: '0.0.0.0', auto_network: true  # External Network - This is the raw interface given to neutron as its external network port.
+      end
       [:virtualbox, :libvirt].each do |provider|
         nodeconfig.vm.provider provider do |p, override|
           p.cpus = node['cpus']
@@ -91,6 +94,7 @@ Vagrant.configure("2") do |config|
         end
         if node['roles'].include?('registry')
           nodeconfig.vm.provision 'shell', :path => "registry.sh"
+          nodeconfig.vm.synced_folder './etc/kolla/', '/etc/kolla/', create: true
         end
       end
     end
@@ -98,13 +102,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :undercloud, primary: true, autostart: false do |undercloud|
     undercloud.vm.hostname = "undercloud"
-    undercloud.vm.provision 'shell', :path => "postinstall.sh"
-    undercloud.vm.synced_folder './etc', '/etc/kolla/', create: true
-    [:virtualbox, :libvirt].each do |provider|
-      undercloud.vm.provider provider do |p, override|
-        p.cpus = 16
-        p.memory = 8192
-      end
-    end
+    undercloud.vm.provision 'shell', :path => "undercloud.sh"
+    undercloud.vm.synced_folder './etc/kolla-ansible/', '/etc/kolla/', create: true
   end
 end

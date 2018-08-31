@@ -1,6 +1,6 @@
 .vagrant
 *.log
-etc/passwords.yml
-etc/admin-openrc.sh
+etc/kolla-ansible/passwords.yml
+etc/kolla-ansible/admin-openrc.sh
 .tox/
 sources.list
