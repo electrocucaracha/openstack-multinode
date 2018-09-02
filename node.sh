@@ -56,6 +56,9 @@ fi
 
 # Setup proxy variables
 if [ -f /vagrant/sources.list ]; then
-    cat /vagrant/sources.list >> /etc/apt/sources.list
+    cp /vagrant/sources.list /etc/apt/sources.list
 fi
+apt update
 apt-get -y install python-dev
+groupadd docker
+usermod -aG docker vagrant
