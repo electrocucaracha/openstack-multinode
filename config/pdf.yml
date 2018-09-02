@@ -43,37 +43,44 @@
     - controller
 - name: "compute01"
   nics:
-    tunnel_ip: "10.10.13.7"
-    storage_ip: "10.10.14.7"
+    tunnel_ip: "10.10.13.33"
+    storage_ip: "10.10.14.33"
   memory: 65536
   cpus: 16
   roles:
     - compute
 - name: "network01"
   nics:
-    tunnel_ip: "10.10.13.8"
+    tunnel_ip: "10.10.13.65"
   memory: 8192
   cpus: 4
   roles:
     - network
 - name: "network02"
   nics:
-    tunnel_ip: "10.10.13.9"
+    tunnel_ip: "10.10.13.66"
+  memory: 8192
+  cpus: 4
+  roles:
+    - network
+- name: "network03"
+  nics:
+    tunnel_ip: "10.10.13.67"
   memory: 8192
   cpus: 4
   roles:
     - network
 - name: "storage01"
   nics:
-    tunnel_ip: "10.10.13.10"
-    storage_ip: "10.10.14.10"
+    tunnel_ip: "10.10.13.97"
+    storage_ip: "10.10.14.97"
   memory: 8192
   cpus: 4
   roles:
     - storage
 - name: "monitoring01"
   nics:
-    tunnel_ip: "10.10.13.11"
+    tunnel_ip: "10.10.13.129"
   memory: 8192
   cpus: 4
   roles:
