@@ -19,7 +19,6 @@
       mount: /var/lib/docker/
   roles:
     - registry
-    - test
 - name: "control01"
   nics:
     tunnel_ip: "10.10.13.4"
