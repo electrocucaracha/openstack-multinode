@@ -8,6 +8,8 @@ in the target Virtual Machines and other specialized scripts to setup
 the [internal image registry](registry.sh) and the
 [installer or undecloud](undercloud.sh) VM.
 
+![Diagram](doc/img/diagram.png)
+
 ## Initial Setup
 
 This project uses [Vagrant tool][2] for provisioning Virtual Machines
