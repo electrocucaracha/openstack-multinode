@@ -13,7 +13,7 @@ set -o pipefail
 set -o xtrace
 
 kolla_folder=/opt/kolla
-kolla_version=master
+kolla_version=stable-rocky
 kolla_tarball=kolla-$kolla_version.tar.gz
 
 # configure_docker_proxy() - Configures Proxy settings for Docker service
@@ -52,12 +52,13 @@ wget http://tarballs.openstack.org/kolla/$kolla_tarball
 tar -C /opt -xzf $kolla_tarball
 mv /opt/kolla-*/ $kolla_folder
 
-bash $kolla_folder/tools/setup_Debian.sh
+cd $kolla_folder
+./tools/setup_Debian.sh
 configure_docker_proxy
 
 # Start local registry
-bash $kolla_folder/tools/start-registry
+./tools/start-registry
 
 # Kolla Docker images creation
-pip install $kolla_folder
+pip install .
 kolla-build --config-file /etc/kolla/kolla-build.ini

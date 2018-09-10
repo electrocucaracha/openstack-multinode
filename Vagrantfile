@@ -2,13 +2,13 @@
 # vi: set ft=ruby :
 
 box = {
-  :virtualbox => 'ubuntu/xenial64',
-  :libvirt => 'elastic/ubuntu-16.04-x86_64'
+  :virtualbox => { :name => 'elastic/ubuntu-16.04-x86_64', :version => '20180708.0.0' },
+  :libvirt => { :name => 'elastic/ubuntu-16.04-x86_64', :version=> '20180210.0.0'}
 }
 
 require 'yaml'
-idf = ENV.fetch('IDF', 'config/pdf.yml')
-nodes = YAML.load_file(idf)
+pdf = File.dirname(__FILE__) + '/config/pdf.yml'
+nodes = YAML.load_file(pdf)
 
 provider = (ENV['VAGRANT_DEFAULT_PROVIDER'] || :virtualbox).to_sym
 puts "[INFO] Provider: #{provider} "
@@ -32,7 +32,8 @@ end
 
 
 Vagrant.configure("2") do |config|
-  config.vm.box =  box[provider]
+  config.vm.box =  box[provider][:name]
+  config.vm.box_version = box[provider][:version]
 
   if ENV['http_proxy'] != nil and Vagrant.has_plugin?('vagrant-proxyconf')
     config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""

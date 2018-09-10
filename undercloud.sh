@@ -14,7 +14,7 @@ set -o pipefail
 # Variables
 inventory_file=/vagrant/inventory/hosts.ini
 kolla_folder=/opt/kolla-ansible
-kolla_version=master
+kolla_version=stable-rocky
 kolla_tarball=kolla-ansible-$kolla_version.tar.gz
 
 apt install -y python2.7 python-dev build-essential sshpass
