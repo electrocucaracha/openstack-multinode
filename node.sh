@@ -53,6 +53,35 @@ if [[ -n "${dict_volumes+x}" ]]; then
         mount_external_partition ${kv%=*} ${kv#*=}
     done
 fi
+vendor_id=$(lscpu|grep "Vendor ID")
+if [[ $vendor_id == *GenuineIntel* ]]; then
+    kvm_ok=$(cat /sys/module/kvm_intel/parameters/nested)
+    if [[ $kvm_ok == 'N' ]]; then
+        echo "Enable Intel Nested-Virtualization"
+        rmmod kvm-intel
+        echo 'options kvm-intel nested=y' >> /etc/modprobe.d/dist.conf
+        modprobe kvm-intel
+    fi
+else
+    kvm_ok=$(cat /sys/module/kvm_amd/parameters/nested)
+    if [[ $kvm_ok == '0' ]]; then
+        echo "Enable AMD Nested-Virtualization"
+        rmmod kvm-amd
+        sh -c "echo 'options kvm-amd nested=1' >> /etc/modprobe.d/dist.conf"
+        modprobe kvm-amd
+    fi
+fi
+source /etc/os-release || source /usr/lib/os-release
+case ${ID,,} in
+    *suse)
+    ;;
+    ubuntu|debian)
+        apt-get install -y cpu-checker
+        kvm-ok
+    ;;
+    rhel|centos|fedora)
+    ;;
+esac
 
 # Setup proxy variables
 if [ -f /vagrant/sources.list ]; then
