@@ -8,9 +8,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+set -o errexit
 set -o nounset
 set -o pipefail
-set -o xtrace
 
 # usage() - Prints the usage of the program
 function usage {
@@ -89,5 +89,5 @@ if [ -f /vagrant/sources.list ]; then
 fi
 apt update
 apt-get -y install python-dev
-groupadd docker
+getent group docker || groupadd docker
 usermod -aG docker vagrant
