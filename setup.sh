@@ -8,8 +8,16 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+# Uncomment next line to debug
+# set -o xtrace
+
 set -o nounset
 set -o pipefail
+
+if [ "$EUID" -eq "0" ]; then
+  echo 'This script must be run as NON root.'
+  exit 1
+fi
 
 vagrant_version=2.1.4
 if ! $(vagrant version &>/dev/null); then
@@ -41,6 +49,7 @@ while getopts ":p:" OPTION; do
         ;;
     esac
 done
+
 if [[ -z "${provider+x}" ]]; then
     usage
     exit 1
@@ -153,8 +162,8 @@ esac
 if ! which pip; then
     curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 fi
-sudo pip install --upgrade pip
-sudo pip install tox
+sudo -E pip install --upgrade pip
+sudo -E pip install tox
 
 ${INSTALLER_CMD} ${packages[@]}
 if [[ ${http_proxy+x} ]]; then
@@ -164,4 +173,22 @@ if [ $VAGRANT_DEFAULT_PROVIDER == libvirt ]; then
     vagrant plugin install vagrant-libvirt
     sudo usermod -a -G $libvirt_group $USER # This might require to reload user's group assigments
     sudo systemctl restart libvirtd
+fi
+
+# In case firewalld is configured - open ports for nfs
+sudo systemctl status firewalld
+if [[ $? == 0 ]]; then
+     tcp_ports=($(sudo rpcinfo -p |grep -Po 'tcp.*' |grep -Po '\d+'| sort -u))
+     udp_ports=($(sudo rpcinfo -p |grep -Po 'udp.*' |grep -Po '\d+'| sort -u))
+     # Open ports
+     for p in ${tcp_ports[@]}
+     do
+         sudo firewall-cmd --permanent --add-port=$p/tcp
+     done
+     for p in ${udp_ports[@]}
+     do
+         sudo firewall-cmd --permanent --add-port=$p/udp
+     done
+     sudo firewall-cmd --reload
+     sudo systemctl restart firewalld
 fi
