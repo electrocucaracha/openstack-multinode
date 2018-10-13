@@ -14,12 +14,8 @@
 set -o nounset
 set -o pipefail
 
-if [ "$EUID" -eq "0" ]; then
-  echo 'This script must be run as NON root.'
-  exit 1
-fi
+vagrant_version=2.1.5
 
-vagrant_version=2.1.4
 if ! $(vagrant version &>/dev/null); then
     enable_vagrant_install=true
 else
@@ -70,6 +66,7 @@ packages=()
 case ${ID,,} in
     *suse)
     INSTALLER_CMD="sudo -H -E zypper -q install -y --no-recommends"
+    packages+=(python-devel)
 
     # Vagrant installation
     if [[ "${enable_vagrant_install+x}" ]]; then
@@ -104,6 +101,7 @@ case ${ID,,} in
     ubuntu|debian)
     libvirt_group="libvirtd"
     INSTALLER_CMD="sudo -H -E apt-get -y -q=3 install"
+    packages+=(python-dev)
 
     # Vagrant installation
     if [[ "${enable_vagrant_install+x}" ]]; then
@@ -133,6 +131,7 @@ case ${ID,,} in
     PKG_MANAGER=$(which dnf || which yum)
     sudo $PKG_MANAGER updateinfo
     INSTALLER_CMD="sudo -H -E ${PKG_MANAGER} -q -y install"
+    packages+=(python-devel)
 
     # Vagrant installation
     if [[ "${enable_vagrant_install+x}" ]]; then
@@ -159,13 +158,16 @@ case ${ID,,} in
 
 esac
 
+${INSTALLER_CMD} ${packages[@]}
 if ! which pip; then
     curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 fi
+
 sudo -E pip install --upgrade pip
 sudo -E pip install tox
 
 ${INSTALLER_CMD} ${packages[@]}
+
 if [[ ${http_proxy+x} ]]; then
     vagrant plugin install vagrant-proxyconf
 fi
