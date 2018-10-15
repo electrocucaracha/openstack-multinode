@@ -45,8 +45,7 @@ Vagrant.configure("2") do |config|
   end
 
   nodes.each do |node|
-    is_autostart = !node['roles'].include?("registry")
-    config.vm.define node['name'], autostart: is_autostart do |nodeconfig|
+    config.vm.define node['name'] do |nodeconfig|
       nodeconfig.vm.hostname = node['name']
       nodeconfig.ssh.insert_key = false
       nodeconfig.vm.network :private_network, :ip => node['nics']['tunnel_ip'], :type => :static # Tunnel Network - This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
@@ -79,7 +78,7 @@ Vagrant.configure("2") do |config|
         v.nested = true
         v.cpu_mode = 'host-passthrough'
         v.management_network_address = "192.168.121.0/27" # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
-        nodeconfig.vm.provision 'shell' do |sh|
+        config.vm.provision 'shell' do |sh|
           sh.path =  "node.sh"
           if node.has_key? "volumes"
             $volume_mounts_dict = ''

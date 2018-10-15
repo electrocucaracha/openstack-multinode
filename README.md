@@ -48,11 +48,9 @@ initialized in parallel using this commmand:
     $ export VAGRANT_DEFAULT_PROVIDER='libvirt'
     $ vagrant up
 
-The registry node can be started in other session, this is an internal
-Docker Hub of the OpenStack Kolla images will be consumed during the 
+This also starts the registry node, it is an internal Docker Hub that
+contains OpenStack Kolla images that will be consumed during the
 provisioning process.
-
-    $ vagrant up registry
 
 Finally, an additional node will be required which will be
 responsible for the provisioning tasks.
