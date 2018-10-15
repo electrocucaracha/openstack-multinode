@@ -71,6 +71,7 @@ else
         modprobe kvm-amd
     fi
 fi
+modprobe vhost_net
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
     *suse)
