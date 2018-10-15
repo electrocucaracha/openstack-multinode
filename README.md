@@ -13,7 +13,7 @@ the [internal image registry](registry.sh) and the
 ## Host System Requirements
 
 The system that will host VMs for the solution must be big enough to support
-the 11 VMs of the solution.
+the 11 VMs displayed at above diagram.
 
 VM configuration can be adjusted at [pdf.yml](config/pdf.yml).
 
