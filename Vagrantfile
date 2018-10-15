@@ -13,7 +13,7 @@ nodes = YAML.load_file(pdf)
 provider = (ENV['VAGRANT_DEFAULT_PROVIDER'] || :virtualbox).to_sym
 puts "[INFO] Provider: #{provider} "
 
-if ENV['no_proxy'] != nil or ENV['NO_PROXY']
+if ENV['no_proxy'] != nil or ENV['NO_PROXY'] != nil
   $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
   nodes.each do |node|
     $no_proxy += "," + node['nics']['tunnel_ip']
@@ -35,15 +35,13 @@ Vagrant.configure("2") do |config|
   config.vm.box =  box[provider][:name]
   config.vm.box_version = box[provider][:version]
 
-  if ENV['http_proxy'] != nil and Vagrant.has_plugin?('vagrant-proxyconf')
-    config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""
-    config.proxy.no_proxy = $no_proxy
-    config.proxy.enabled = { docker: false }
-  end
-  if ENV['https_proxy'] != nil and Vagrant.has_plugin?('vagrant-proxyconf')
-    config.proxy.https    = ENV['https_proxy'] || ENV['HTTPS_PROXY'] || ""
-    config.proxy.no_proxy = $no_proxy
-    config.proxy.enabled = { docker: false }
+  if Vagrant.has_plugin?('vagrant-proxyconf')
+    if ENV['http_proxy'] != nil or ENV['HTTP_PROXY'] != nil or ENV['https_proxy'] != nil or ENV['HTTPS_PROXY'] != nil
+      config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""
+      config.proxy.https    = ENV['https_proxy'] || ENV['HTTPS_PROXY'] || ""
+      config.proxy.no_proxy = $no_proxy
+      config.proxy.enabled = { docker: false }
+    end
   end
 
   nodes.each do |node|
@@ -102,6 +100,9 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define :undercloud, primary: true, autostart: false do |undercloud|
+    undercloud.vm.provider 'libvirt' do |v|
+        v.management_network_address = "192.168.121.0/27"
+    end
     undercloud.vm.hostname = "undercloud"
     undercloud.vm.provision 'shell', :path => "undercloud.sh"
     undercloud.vm.synced_folder './etc/kolla-ansible/', '/etc/kolla/', create: true

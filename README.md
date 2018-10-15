@@ -10,6 +10,30 @@ the [internal image registry](registry.sh) and the
 
 ![Diagram](doc/img/diagram.png)
 
+## Host System Requirements
+
+The system that will host VMs for the solution must be big enough to support
+the 11 VMs displayed at above diagram.
+
+VM configuration can be adjusted at [pdf.yml](config/pdf.yml).
+
+Current configuration:
+
+* (1) Registry Node [Ram:16Gb, Cpu: 4, Disk: 50Gb]
+* (3) Controllers Node [Ram:16Gb, Cpu:8]
+* (1) Compute Node [Ram:64Gb, Cpu:16]
+* (3) Network Nodes [Ram:8Gb, Cpu: 4]
+* (1) Storage Node [Ram:8Gb, Cpu: 4]
+* (1) Monitoring Node [Ram:8Gb, Cpu: 4]
+
+**TOTALS**
+
+| Element         | Size             |
+|-----------------|------------------|
+| Memory (RAM)    | 168Gb            |
+| CPU             | 64 Logical Cores |
+| Disk            | 150Gb            |
+
 ## Initial Setup
 
 It uses [Vagrant tool][2] for provisioning Virtual Machines
@@ -26,6 +50,7 @@ First of all, it's necessary to start the nodes which are going to be
 configured by the provisioning server. All these nodes can be
 initialized in parallel using this commmand:
 
+    $ export VAGRANT_DEFAULT_PROVIDER='libvirt'
     $ vagrant up
 
 The registry node can be started in other session, this is an internal
