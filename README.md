@@ -19,20 +19,15 @@ VM configuration can be adjusted at [pdf.yml](config/pdf.yml).
 
 Current configuration:
 
-* (1) Registry Node [Ram:16Gb, Cpu: 4, Disk: 50Gb]
-* (3) Controllers Node [Ram:16Gb, Cpu:8]
-* (1) Compute Node [Ram:64Gb, Cpu:16]
-* (3) Network Nodes [Ram:8Gb, Cpu: 4]
-* (1) Storage Node [Ram:8Gb, Cpu: 4]
-* (1) Monitoring Node [Ram:8Gb, Cpu: 4]
-
-**TOTALS**
-
-| Element         | Size             |
-|-----------------|------------------|
-| Memory (RAM)    | 168Gb            |
-| CPU             | 64 Logical Cores |
-| Disk            | 150Gb            |
+| Amount | Element           | Memory(GB) | vCPUs | Disk(GB) |
+|--------|-------------------|------------|-------|----------|
+| 1      | Registry Node     | 16         | 4     | 50       |
+| 3      | Controller Node   | 16         | 8     |          |
+| 1      | Compute Node      | 64         | 16    |          |
+| 3      | Network Node      | 8          | 4     |          |
+| 1      | Storage Node      | 8          | 4     |          |
+| 1      | Monitoring Node   | 8          | 4     |          |
+|        | Total             | 168        | 64    | 50       |
 
 ## Initial Setup
 
