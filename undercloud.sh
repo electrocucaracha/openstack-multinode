@@ -38,6 +38,6 @@ forks=100
 EOLF
 
 kolla-genpwd
-for action in bootstrap-servers prechecks deploy post-deploy; do
+for action in bootstrap-servers prechecks pull deploy check post-deploy; do
     kolla-ansible -vvv -i $inventory_file $action | tee $action.log
 done
