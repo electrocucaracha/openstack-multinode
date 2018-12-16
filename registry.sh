@@ -11,6 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o xtrace
+set -o errexit
 
 kolla_folder=/opt/kolla
 kolla_version=stable-rocky
@@ -74,6 +75,7 @@ mv /opt/kolla-*/ $kolla_folder
 rm $kolla_tarball
 
 cd $kolla_folder
+mkdir -p /etc/systemd/system/docker.service.d
 ./tools/setup_Debian.sh
 configure_docker_proxy
 

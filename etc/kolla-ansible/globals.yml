@@ -15,7 +15,7 @@
 #kolla_base_distro: "centos"
 
 # Valid options are [ binary, source ]
-#kolla_install_type: "binary"
+kolla_install_type: "source"
 
 # Valid option is Docker repository tag
 openstack_release: "7.0.0"
@@ -187,7 +187,7 @@ enable_congress: "no"
 enable_designate: "no"
 #enable_destroy_images: "no"
 enable_elasticsearch: "{{ 'yes' if enable_central_logging | bool or enable_freezer | bool or enable_osprofiler | bool or enable_skydive | bool or enable_monasca | bool else 'no' }}"
-enable_etcd: "no"
+enable_etcd: "yes"
 #enable_fluentd: "yes"
 enable_freezer: "no"
 #enable_gnocchi: "no"
@@ -225,7 +225,7 @@ enable_ironic_neutron_agent: "no"
 enable_ironic_pxe_uefi: "no"
 enable_kafka: "no"
 enable_karbor: "no"
-enable_kuryr: "no"
+enable_kuryr: "yes"
 enable_magnum: "no"
 enable_manila: "no"
 enable_manila_backend_generic: "no"
