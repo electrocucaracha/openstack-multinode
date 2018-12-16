@@ -75,7 +75,7 @@ mv /opt/kolla-*/ $kolla_folder
 rm $kolla_tarball
 
 cd $kolla_folder
-mkdir -p /etc/systemd/system/docker.service.d
+rm -rf /etc/systemd/system/docker.service.d
 ./tools/setup_Debian.sh
 configure_docker_proxy
 
