@@ -52,6 +52,7 @@ if [[ -n "${dict_volumes+x}" ]]; then
         mount_external_partition ${kv%=*} ${kv#*=}
     done
 fi
+
 vendor_id=$(lscpu|grep "Vendor ID")
 if [[ $vendor_id == *GenuineIntel* ]]; then
     kvm_ok=$(cat /sys/module/kvm_intel/parameters/nested)
@@ -60,6 +61,7 @@ if [[ $vendor_id == *GenuineIntel* ]]; then
         rmmod kvm-intel
         echo 'options kvm-intel nested=y' >> /etc/modprobe.d/dist.conf
         modprobe kvm-intel
+        echo kvm-intel >> /etc/modules
     fi
 else
     kvm_ok=$(cat /sys/module/kvm_amd/parameters/nested)
@@ -68,9 +70,11 @@ else
         rmmod kvm-amd
         sh -c "echo 'options kvm-amd nested=1' >> /etc/modprobe.d/dist.conf"
         modprobe kvm-amd
+        echo kvm-amd >> /etc/modules
     fi
 fi
 modprobe vhost_net
+echo vhost_net >> /etc/modules
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
     *suse)
@@ -87,7 +91,10 @@ esac
 if [ -f /vagrant/sources.list ]; then
     cp /vagrant/sources.list /etc/apt/sources.list
 fi
-apt update
+apt-get update
 apt-get -y install python-dev
-getent group docker || groupadd docker
-usermod -aG docker vagrant
+if [[ -z $(groups | grep docker) ]]; then
+    getent group docker || groupadd docker
+    usermod -aG docker $USER
+    newgrp docker
+fi
