@@ -80,7 +80,9 @@ rm -rf /etc/systemd/system/docker.service.d
 configure_docker_proxy
 
 # Start local registry
-./tools/start-registry
+if [[ -n $(docker ps -aqf "name=registry") ]]; then
+    ./tools/start-registry
+fi
 
 # Kolla Docker images creation
 pip install .
