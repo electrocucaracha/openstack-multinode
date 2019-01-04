@@ -80,7 +80,7 @@ rm -rf /etc/systemd/system/docker.service.d
 configure_docker_proxy
 
 # Start local registry
-if [[ -n $(docker ps -aqf "name=registry") ]]; then
+if [[ -z $(docker ps -aqf "name=registry") ]]; then
     ./tools/start-registry
 fi
 

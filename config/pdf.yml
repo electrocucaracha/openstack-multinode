@@ -12,10 +12,10 @@
   nics:
     tunnel_ip: "10.10.13.2"
   memory: 16384
-  cpus: 4
+  cpus: 16
   volumes:
     - name: sda
-      size: 50
+      size: 100
       mount: /var/lib/docker/
   roles:
     - registry
