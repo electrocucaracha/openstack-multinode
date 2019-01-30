@@ -32,7 +32,7 @@ end
 
 
 Vagrant.configure("2") do |config|
-  config.vm.box =  box[provider][:name]
+  config.vm.box = box[provider][:name]
   config.vm.box_version = box[provider][:version]
 
   if Vagrant.has_plugin?('vagrant-proxyconf')
@@ -55,6 +55,9 @@ Vagrant.configure("2") do |config|
       if node['roles'].include?('network')
         nodeconfig.vm.network :private_network, ip: '0.0.0.0', auto_network: true  # External Network - This is the raw interface given to neutron as its external network port.
       end
+      if node['roles'].include?('registry')
+        nodeconfig.vm.synced_folder './etc/kolla/', '/etc/kolla/', create: true
+      end
       [:virtualbox, :libvirt].each do |provider|
         nodeconfig.vm.provider provider do |p, override|
           p.cpus = node['cpus']
@@ -63,6 +66,7 @@ Vagrant.configure("2") do |config|
       end
 
       # Volumes
+      $volume_mounts_dict = ''
       nodeconfig.vm.provider 'virtualbox' do |v|
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
@@ -78,22 +82,19 @@ Vagrant.configure("2") do |config|
         v.nested = true
         v.cpu_mode = 'host-passthrough'
         v.management_network_address = "192.168.121.0/27" # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
-        config.vm.provision 'shell' do |sh|
-          sh.path =  "node.sh"
-          if node.has_key? "volumes"
-            $volume_mounts_dict = ''
-            node['volumes'].each do |volume|
-              $volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"
-              $volume_file = "./#{node['name']}-#{volume['name']}.qcow2"
-              v.storage :file, :bus => 'sata', :device => volume['name'], :size => volume['size']
-            end
-            sh.args = ['-v', $volume_mounts_dict[0...-1]]
+        if node.has_key? "volumes"
+          node['volumes'].each do |volume|
+            $volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"
+            $volume_file = "./#{node['name']}-#{volume['name']}.qcow2"
+            v.storage :file, :bus => 'sata', :device => volume['name'], :size => volume['size']
           end
         end
-        if node['roles'].include?('registry')
-          nodeconfig.vm.provision 'shell', :path => "registry.sh"
-          nodeconfig.vm.synced_folder './etc/kolla/', '/etc/kolla/', create: true
-        end
+      end
+
+      nodeconfig.vm.provision 'shell', privileged: false do |sh|
+        sh.env = {'OPENSTACK_NODE_ROLES': "#{node['roles'].join(" ")}", 'OPENSTACK_SCRIPTS_DIR': "/vagrant"}
+        sh.path =  "node.sh"
+        sh.args = ['-v', $volume_mounts_dict[0...-1]]
       end
     end
   end
@@ -103,7 +104,7 @@ Vagrant.configure("2") do |config|
         v.management_network_address = "192.168.121.0/27"
     end
     undercloud.vm.hostname = "undercloud"
-    undercloud.vm.provision 'shell', :path => "undercloud.sh"
+    undercloud.vm.provision 'shell', privileged: false, :path => "undercloud.sh"
     undercloud.vm.synced_folder './etc/kolla-ansible/', '/etc/kolla/', create: true
   end
 end

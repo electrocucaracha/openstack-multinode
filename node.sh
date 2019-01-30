@@ -10,6 +10,10 @@
 
 set -o nounset
 set -o pipefail
+set -o errexit
+
+# Configuration
+cd $OPENSTACK_SCRIPTS_DIR
 
 # usage() - Prints the usage of the program
 function usage {
@@ -25,13 +29,13 @@ function mount_external_partition {
     local dev_name="/dev/$1"
     local mount_dir=$2
 
-    sfdisk $dev_name --no-reread << EOF
+    sudo sfdisk $dev_name --no-reread << EOF
 ;
 EOF
-    mkfs -t ext4 ${dev_name}1
-    mkdir -p $mount_dir
-    mount ${dev_name}1 $mount_dir
-    echo "${dev_name}1 $mount_dir           ext4    errors=remount-ro,noatime,barrier=0 0       1" >> /etc/fstab
+    sudo mkfs -t ext4 ${dev_name}1
+    sudo mkdir -p $mount_dir
+    sudo mount ${dev_name}1 $mount_dir
+    echo "${dev_name}1 $mount_dir           ext4    errors=remount-ro,noatime,barrier=0 0       1" | sudo tee --append /etc/fstab
 }
 
 while getopts "h?v:" opt; do
@@ -46,7 +50,7 @@ while getopts "h?v:" opt; do
     esac
 done
 
-swapoff -a
+sudo swapoff -a
 if [[ -n "${dict_volumes+x}" ]]; then
     for kv in ${dict_volumes//,/ } ;do
         mount_external_partition ${kv%=*} ${kv#*=}
@@ -58,29 +62,29 @@ if [[ $vendor_id == *GenuineIntel* ]]; then
     kvm_ok=$(cat /sys/module/kvm_intel/parameters/nested)
     if [[ $kvm_ok == 'N' ]]; then
         echo "Enable Intel Nested-Virtualization"
-        rmmod kvm-intel
-        echo 'options kvm-intel nested=y' >> /etc/modprobe.d/dist.conf
-        modprobe kvm-intel
-        echo kvm-intel >> /etc/modules
+        sudo rmmod kvm-intel
+        echo 'options kvm-intel nested=y' | sudo tee --append /etc/modprobe.d/dist.conf
+        sudo modprobe kvm-intel
+        echo kvm-intel |sudo tee --append /etc/modules
     fi
 else
     kvm_ok=$(cat /sys/module/kvm_amd/parameters/nested)
     if [[ $kvm_ok == '0' ]]; then
         echo "Enable AMD Nested-Virtualization"
-        rmmod kvm-amd
-        sh -c "echo 'options kvm-amd nested=1' >> /etc/modprobe.d/dist.conf"
-        modprobe kvm-amd
-        echo kvm-amd >> /etc/modules
+        sudo rmmod kvm-amd
+        echo 'options kvm-amd nested=1' | sudo tee --append /etc/modprobe.d/dist.conf
+        sudo modprobe kvm-amd
+        echo kvm-amd | sudo tee --append /etc/modules
     fi
 fi
-modprobe vhost_net
-echo vhost_net >> /etc/modules
+sudo modprobe vhost_net
+echo vhost_net | sudo tee --append /etc/modules
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
     *suse)
     ;;
     ubuntu|debian)
-        apt-get install -y cpu-checker
+        sudo apt-get install -y cpu-checker
         kvm-ok
     ;;
     rhel|centos|fedora)
@@ -88,13 +92,18 @@ case ${ID,,} in
 esac
 
 # Setup proxy variables
-if [ -f /vagrant/sources.list ]; then
-    cp /vagrant/sources.list /etc/apt/sources.list
+if [ -f sources.list ]; then
+    sudo cp sources.list /etc/apt/sources.list
 fi
-apt-get update
-apt-get -y install python-dev
-if [[ -z $(groups | grep docker) ]]; then
-    getent group docker || groupadd docker
-    usermod -aG docker $USER
-    newgrp docker
-fi
+#sudo apt-get update
+#sudo apt-get -y install python-dev
+#if [[ $(groups | grep docker) ]]; then
+#    getent group docker || groupadd docker
+#    sudo usermod -aG docker $USER
+#fi
+
+for role in $OPENSTACK_NODE_ROLES; do
+    if [ -f $role.sh ]; then
+        sudo ./$role.sh
+    fi
+done

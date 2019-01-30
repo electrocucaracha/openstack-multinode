@@ -10,7 +10,6 @@
 
 set -o nounset
 set -o pipefail
-set -o xtrace
 set -o errexit
 
 kolla_folder=/opt/kolla
@@ -46,7 +45,6 @@ EOL
         bifrost_footer+="ENV no_proxy=\"\"\n"
     fi
     systemctl daemon-reload
-    usermod -aG docker $USER
 
     systemctl restart docker
     sleep 10
@@ -86,5 +84,6 @@ fi
 
 # Kolla Docker images creation
 pip install .
-kolla-build --config-file /etc/kolla/kolla-build.ini
+mkdir -p /var/log/kolla
+kolla-build --config-file /etc/kolla/kolla-build.ini --logs-dir /var/log/kolla
 #kolla-build --type source --template-override template-overrides.j2 bifrost-deploy

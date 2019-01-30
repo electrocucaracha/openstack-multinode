@@ -18,26 +18,24 @@ kolla_folder=/opt/kolla-ansible
 kolla_version=stable-rocky
 kolla_tarball=kolla-ansible-$kolla_version.tar.gz
 
-apt install -y python2.7 python-dev build-essential sshpass
+sudo apt install -y python2.7 python-dev build-essential sshpass
 curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 
 wget http://tarballs.openstack.org/kolla-ansible/$kolla_tarball
-tar -C /opt -xzf $kolla_tarball
-mv /opt/kolla-*/ $kolla_folder
-cp $kolla_folder/etc/kolla/passwords.yml /etc/kolla/
-pip install $kolla_folder
+sudo tar -C /opt -xzf $kolla_tarball
+sudo mv /opt/kolla-*/ $kolla_folder
+sudo cp $kolla_folder/etc/kolla/passwords.yml /etc/kolla/
+sudo -E -H pip install $kolla_folder
 
-pip install python-openstackclient
+sudo -E -H pip install python-openstackclient
 
-mkdir -p /etc/ansible/
-cat << EOLF > /etc/ansible/ansible.cfg
-[defaults]
-host_key_checking=False
-pipelining=True
-forks=100
-EOLF
+sudo mkdir -p /etc/ansible/
+echo "[defaults]" | sudo tee /etc/ansible/ansible.cfg
+echo "host_key_checking=False" | sudo tee --append /etc/ansible/ansible.cfg
+echo "pipelinig=True" | sudo tee --append /etc/ansible/ansible.cfg
+echo "forks=100" | sudo tee --append /etc/ansible/ansible.cfg
 
-kolla-genpwd
+sudo kolla-genpwd
 for action in bootstrap-servers prechecks pull deploy check post-deploy; do
-    kolla-ansible -vvv -i $inventory_file $action | tee $action.log
+    sudo kolla-ansible -vvv -i $inventory_file $action -e ansible_user=kolla | tee $action.log
 done

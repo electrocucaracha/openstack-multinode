@@ -8,19 +8,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Uncomment next line to debug
-# set -o xtrace
-
 set -o nounset
 set -o pipefail
+set -o errexit
 
-if [ "$EUID" -eq "0" ]; then
-    echo 'This script must be run as NON root.'
-    exit 1
-fi
-
-vagrant_version=2.1.5
-
+vagrant_version=2.2.3
 if ! $(vagrant version &>/dev/null); then
     enable_vagrant_install=true
 else
@@ -50,7 +42,6 @@ while getopts ":p:" OPTION; do
         ;;
     esac
 done
-
 if [[ -z "${provider+x}" ]]; then
     usage
     exit 1
@@ -124,7 +115,7 @@ case ${ID,,} in
         ;;
         libvirt)
         # vagrant-libvirt dependencies
-        packages+=(qemu libvirt-bin ebtables dnsmasq libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev)
+        packages+=(qemu libvirt-bin ebtables dnsmasq libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev cpu-checker)
         # NFS
         packages+=(nfs-kernel-server)
         ;;
@@ -163,15 +154,34 @@ case ${ID,,} in
 
 esac
 
+# Enable Nested-Virtualization
+vendor_id=$(lscpu|grep "Vendor ID")
+if [[ $vendor_id == *GenuineIntel* ]]; then
+    kvm_ok=$(cat /sys/module/kvm_intel/parameters/nested)
+    if [[ $kvm_ok == 'N' ]]; then
+        echo "Enable Intel Nested-Virtualization"
+        rmmod kvm-intel
+        echo 'options kvm-intel nested=y' >> /etc/modprobe.d/dist.conf
+        modprobe kvm-intel
+    fi
+else
+    kvm_ok=$(cat /sys/module/kvm_amd/parameters/nested)
+    if [[ $kvm_ok == '0' ]]; then
+        echo "Enable AMD Nested-Virtualization"
+        rmmod kvm-amd
+        sh -c "echo 'options kvm-amd nested=1' >> /etc/modprobe.d/dist.conf"
+        modprobe kvm-amd
+    fi
+fi
+modprobe vhost_net
+
 ${INSTALLER_CMD} ${packages[@]}
 if ! which pip; then
     curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
+else
+    sudo -H -E pip install --upgrade pip
 fi
-
-sudo -H -E pip install --upgrade pip
 sudo -H -E pip install tox
-
-
 if [[ ${http_proxy+x} ]]; then
     vagrant plugin install vagrant-proxyconf
 fi
@@ -179,20 +189,10 @@ if [ $VAGRANT_DEFAULT_PROVIDER == libvirt ]; then
     vagrant plugin install vagrant-libvirt
     sudo usermod -a -G $libvirt_group $USER # This might require to reload user's group assigments
     sudo systemctl restart libvirtd
-fi
 
-# In case firewalld is configured - open ports for nfs
-sudo systemctl status firewalld
-if [[ $? == 0 ]]; then
-    tcp_ports=($(sudo rpcinfo -p |grep -Po 'tcp.*' |grep -Po '\d+'| sort -u))
-    udp_ports=($(sudo rpcinfo -p |grep -Po 'udp.*' |grep -Po '\d+'| sort -u))
-    # Open ports
-    for p in ${tcp_ports[@]}; do
-        sudo firewall-cmd --permanent --add-port=$p/tcp
-    done
-    for p in ${udp_ports[@]}; do
-        sudo firewall-cmd --permanent --add-port=$p/udp
-    done
-    sudo firewall-cmd --reload
-    sudo systemctl restart firewalld
+    # Start statd service to prevent NFS lock errors
+    sudo systemctl enable rpc-statd
+    sudo systemctl start rpc-statd
+
+    kvm-ok
 fi
