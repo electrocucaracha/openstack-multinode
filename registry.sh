@@ -20,28 +20,28 @@ kolla_tarball=kolla-$kolla_version.tar.gz
 function configure_docker_proxy {
     bifrost_header=""
     bifrost_footer=""
-    if [ $http_proxy ]; then
+    if [[ "${HTTP_PROXY+x}" = "x"  ]]; then
         cat <<EOL > /etc/systemd/system/docker.service.d/http-proxy.conf
 [Service]
-Environment="HTTP_PROXY=$http_proxy"
+Environment="HTTP_PROXY=$HTTP_PROXY"
 EOL
-        bifrost_header+="ENV http_proxy=$http_proxy\n"
+        bifrost_header+="ENV http_proxy=$HTTP_PROXY\n"
         bifrost_footer+="ENV http_proxy=\"\"\n"
     fi
-    if [ $https_proxy ]; then
+    if [[ "${HTTPS_PROXY+x}" = "x" ]]; then
         cat <<EOL > /etc/systemd/system/docker.service.d/https-proxy.conf
 [Service]
-Environment="HTTPS_PROXY=$https_proxy"
+Environment="HTTPS_PROXY=$HTTPS_PROXY"
 EOL
-        bifrost_header+="ENV https_proxy=$https_proxy\n"
+        bifrost_header+="ENV https_proxy=$HTTPS_PROXY\n"
         bifrost_footer+="ENV https_proxy=\"\"\n"
     fi
-    if [ $no_proxy ]; then
+    if [[ "${NO_PROXY+x}" = "x" ]]; then
         cat <<EOL > /etc/systemd/system/docker.service.d/no-proxy.conf
 [Service]
-Environment="NO_PROXY=$no_proxy"
+Environment="NO_PROXY=$NO_PROXY"
 EOL
-        bifrost_header+="ENV no_proxy=$no_proxy\n"
+        bifrost_header+="ENV no_proxy=$NO_PROXY\n"
         bifrost_footer+="ENV no_proxy=\"\"\n"
     fi
     systemctl daemon-reload

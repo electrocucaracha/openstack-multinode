@@ -54,6 +54,7 @@ case $provider in
         usage
         exit 1
 esac
+# shellcheck disable=SC1091
 source /etc/os-release || source /usr/lib/os-release
 
 libvirt_group="libvirt"
@@ -64,7 +65,7 @@ case ${ID,,} in
     packages+=(python-devel)
 
     # Vagrant installation
-    if [[ "${enable_vagrant_install+x}" ]]; then
+    if [[ "${enable_vagrant_install+x}" = "x"  ]]; then
         vagrant_pgp="pgp_keys.asc"
         wget -q https://keybase.io/hashicorp/$vagrant_pgp
         wget -q https://releases.hashicorp.com/vagrant/$vagrant_version/vagrant_${vagrant_version}_x86_64.rpm
@@ -99,7 +100,7 @@ case ${ID,,} in
     packages+=(python-dev)
 
     # Vagrant installation
-    if [[ "${enable_vagrant_install+x}" ]]; then
+    if [[ "${enable_vagrant_install+x}" = "x" ]]; then
         wget -q https://releases.hashicorp.com/vagrant/$vagrant_version/vagrant_${vagrant_version}_x86_64.deb
         sudo dpkg -i vagrant_${vagrant_version}_x86_64.deb
         rm vagrant_${vagrant_version}_x86_64.deb
@@ -123,13 +124,13 @@ case ${ID,,} in
     ;;
 
     rhel|centos|fedora)
-    PKG_MANAGER=$(which dnf || which yum)
+    PKG_MANAGER=$(command -v dnf || command -v yum)
     sudo "$PKG_MANAGER" updateinfo
     INSTALLER_CMD="sudo -H -E ${PKG_MANAGER} -q -y install"
     packages+=(python-devel)
 
     # Vagrant installation
-    if [[ "${enable_vagrant_install+x}" ]]; then
+    if [[ "${enable_vagrant_install+x}" = "x"  ]]; then
         wget -q https://releases.hashicorp.com/vagrant/$vagrant_version/vagrant_${vagrant_version}_x86_64.rpm
         $INSTALLER_CMD vagrant_${vagrant_version}_x86_64.rpm
         rm vagrant_${vagrant_version}_x86_64.rpm
@@ -175,13 +176,13 @@ fi
 sudo modprobe vhost_net
 
 ${INSTALLER_CMD} "${packages[@]}"
-if ! which pip; then
+if ! command -v pip; then
     curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 else
     sudo -H -E pip install --upgrade pip
 fi
 sudo -H -E pip install tox
-if [[ ${http_proxy+x} ]]; then
+if [[ ${HTTP_PROXY+x} = "x"  ]]; then
     vagrant plugin install vagrant-proxyconf
 fi
 if [ "$VAGRANT_DEFAULT_PROVIDER" == libvirt ]; then
