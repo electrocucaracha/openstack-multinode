@@ -45,7 +45,6 @@ First of all, it's necessary to start the nodes which are going to be
 configured by the provisioning server. All these nodes can be
 initialized in parallel using this commmand:
 
-    $ export VAGRANT_DEFAULT_PROVIDER='libvirt'
     $ vagrant up
 
 This also starts the registry node, it is an internal Docker Hub that

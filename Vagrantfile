@@ -10,9 +10,6 @@ require 'yaml'
 pdf = File.dirname(__FILE__) + '/config/pdf.yml'
 nodes = YAML.load_file(pdf)
 
-provider = (ENV['VAGRANT_DEFAULT_PROVIDER'] || :virtualbox).to_sym
-puts "[INFO] Provider: #{provider} "
-
 if ENV['no_proxy'] != nil or ENV['NO_PROXY'] != nil
   $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
   nodes.each do |node|
@@ -32,8 +29,14 @@ end
 
 
 Vagrant.configure("2") do |config|
-  config.vm.box = box[provider][:name]
-  config.vm.box_version = box[provider][:version]
+  config.vm.provider :libvirt
+  config.vm.provider :virtualbox
+
+  config.vm.provider :libvirt do |v|
+    v.nested = true
+    v.cpu_mode = 'host-passthrough'
+    v.management_network_address = "192.168.121.0/27" # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
+  end
 
   if Vagrant.has_plugin?('vagrant-proxyconf')
     if ENV['http_proxy'] != nil or ENV['HTTP_PROXY'] != nil or ENV['https_proxy'] != nil or ENV['HTTPS_PROXY'] != nil
@@ -67,7 +70,9 @@ Vagrant.configure("2") do |config|
 
       # Volumes
       $volume_mounts_dict = ''
-      nodeconfig.vm.provider 'virtualbox' do |v|
+      nodeconfig.vm.provider :virtualbox do |v, override|
+        override.vm.box =  box[:virtualbox][:name]
+        override.vm.box_version = box[:virtualbox][:version]
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
             $volume_file = "#{node['name']}-#{volume['name']}.vdi"
@@ -78,10 +83,9 @@ Vagrant.configure("2") do |config|
           end
         end
       end
-      nodeconfig.vm.provider 'libvirt' do |v|
-        v.nested = true
-        v.cpu_mode = 'host-passthrough'
-        v.management_network_address = "192.168.121.0/27" # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
+      nodeconfig.vm.provider :libvirt do |v, override|
+        override.vm.box =  box[:libvirt][:name]
+        override.vm.box_version = box[:libvirt][:version]
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
             $volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"
@@ -100,9 +104,6 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define :undercloud, primary: true, autostart: false do |undercloud|
-    undercloud.vm.provider 'libvirt' do |v|
-        v.management_network_address = "192.168.121.0/27"
-    end
     undercloud.vm.hostname = "undercloud"
     undercloud.vm.provision 'shell', privileged: false, :path => "undercloud.sh"
     undercloud.vm.synced_folder './etc/kolla-ansible/', '/etc/kolla/', create: true
