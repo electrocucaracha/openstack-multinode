@@ -10,10 +10,9 @@
 
 set -o nounset
 set -o pipefail
-set -o errexit
 
-vagrant_version=2.2.3
-if ! $(vagrant version &>/dev/null); then
+vagrant_version=2.2.4
+if ! vagrant version &>/dev/null; then
     enable_vagrant_install=true
 else
     if [[ "$vagrant_version" != "$(vagrant version | awk 'NR==1{print $3}')" ]]; then
@@ -79,7 +78,7 @@ case ${ID,,} in
 
     case $VAGRANT_DEFAULT_PROVIDER in
         virtualbox)
-        wget -q http://download.virtualbox.org/virtualbox/rpm/opensuse/$VERSION/virtualbox.repo -P /etc/zypp/repos.d/
+        wget -q "http://download.virtualbox.org/virtualbox/rpm/opensuse/$VERSION/virtualbox.repo" -P /etc/zypp/repos.d/
         $INSTALLER_CMD --enablerepo=epel dkms
         wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | rpm --import -
         packages+=(VirtualBox-5.1)
@@ -125,7 +124,7 @@ case ${ID,,} in
 
     rhel|centos|fedora)
     PKG_MANAGER=$(which dnf || which yum)
-    sudo $PKG_MANAGER updateinfo
+    sudo "$PKG_MANAGER" updateinfo
     INSTALLER_CMD="sudo -H -E ${PKG_MANAGER} -q -y install"
     packages+=(python-devel)
 
@@ -160,22 +159,22 @@ if [[ $vendor_id == *GenuineIntel* ]]; then
     kvm_ok=$(cat /sys/module/kvm_intel/parameters/nested)
     if [[ $kvm_ok == 'N' ]]; then
         echo "Enable Intel Nested-Virtualization"
-        rmmod kvm-intel
-        echo 'options kvm-intel nested=y' >> /etc/modprobe.d/dist.conf
-        modprobe kvm-intel
+        sudo rmmod kvm-intel
+        echo 'options kvm-intel nested=y' | sudo tee --append /etc/modprobe.d/dist.conf
+        sudo modprobe kvm-intel
     fi
 else
     kvm_ok=$(cat /sys/module/kvm_amd/parameters/nested)
     if [[ $kvm_ok == '0' ]]; then
         echo "Enable AMD Nested-Virtualization"
-        rmmod kvm-amd
-        sh -c "echo 'options kvm-amd nested=1' >> /etc/modprobe.d/dist.conf"
-        modprobe kvm-amd
+        sudo rmmod kvm-amd
+        echo 'options kvm-amd nested=1' | sudo tee --append /etc/modprobe.d/dist.conf
+        sudo modprobe kvm-amd
     fi
 fi
-modprobe vhost_net
+sudo modprobe vhost_net
 
-${INSTALLER_CMD} ${packages[@]}
+${INSTALLER_CMD} "${packages[@]}"
 if ! which pip; then
     curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 else
@@ -185,14 +184,18 @@ sudo -H -E pip install tox
 if [[ ${http_proxy+x} ]]; then
     vagrant plugin install vagrant-proxyconf
 fi
-if [ $VAGRANT_DEFAULT_PROVIDER == libvirt ]; then
+if [ "$VAGRANT_DEFAULT_PROVIDER" == libvirt ]; then
     vagrant plugin install vagrant-libvirt
-    sudo usermod -a -G $libvirt_group $USER # This might require to reload user's group assigments
+    sudo usermod -a -G $libvirt_group "$USER" # This might require to reload user's group assigments
     sudo systemctl restart libvirtd
 
     # Start statd service to prevent NFS lock errors
     sudo systemctl enable rpc-statd
     sudo systemctl start rpc-statd
 
-    kvm-ok
+    case ${ID,,} in
+        ubuntu|debian)
+        kvm-ok
+        ;;
+    esac
 fi
