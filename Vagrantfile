@@ -2,8 +2,16 @@
 # vi: set ft=ruby :
 
 box = {
-  :virtualbox => { :name => 'elastic/ubuntu-16.04-x86_64', :version => '20180708.0.0' },
-  :libvirt => { :name => 'elastic/ubuntu-16.04-x86_64', :version=> '20180210.0.0'}
+  :virtualbox => {
+    :ubuntu => { :name => 'elastic/ubuntu-16.04-x86_64', :version=> '20180708.0.0' },
+    :centos => { :name => 'generic/centos7', :version=> '1.9.2' },
+    :opensuse => { :name => 'opensuse/openSUSE-42.1-x86_64', :version=> '1.0.1' }
+  },
+  :libvirt => {
+    :ubuntu => { :name => 'elastic/ubuntu-16.04-x86_64', :version=> '20180210.0.0' },
+    :centos => { :name => 'centos/7', :version=> '1901.01' },
+    :opensuse => { :name => 'opensuse/openSUSE-42.1-x86_64', :version=> '1.0.0' }
+  }
 }
 
 require 'yaml'
@@ -13,20 +21,25 @@ nodes = YAML.load_file(pdf)
 if ENV['no_proxy'] != nil or ENV['NO_PROXY'] != nil
   $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
   nodes.each do |node|
-    $no_proxy += "," + node['nics']['tunnel_ip']
-    if node['nics'].has_key? "storage_ip"
-      $no_proxy += "," + node['nics']['storage_ip']
+    if node.has_key? "nics"
+      if node['nics'].has_key? "tunnel_ip"
+        $no_proxy += "," + node['nics']['tunnel_ip']
+      end
+      if node['nics'].has_key? "storage_ip"
+        $no_proxy += "," + node['nics']['storage_ip']
+      end
     end
   end
-  $subnet = "192.168.121"
   # NOTE: This range is based on vagrant-libvirt network definition CIDR 192.168.121.0/27
   (1..31).each do |i|
-    $no_proxy += ",#{$subnet}.#{i}"
+    $no_proxy += ",192.168.121.#{i}"
   end
   # NOTE: This is the kolla_internal_vip_address value
   $no_proxy += ",10.10.13.3"
 end
 
+distro = (ENV['KRD_DISTRO'] || :ubuntu).to_sym
+puts "[INFO] Linux Distro: #{distro} "
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
@@ -51,9 +64,13 @@ Vagrant.configure("2") do |config|
     config.vm.define node['name'] do |nodeconfig|
       nodeconfig.vm.hostname = node['name']
       nodeconfig.ssh.insert_key = false
-      nodeconfig.vm.network :private_network, :ip => node['nics']['tunnel_ip'], :type => :static # Tunnel Network - This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
-      if node['nics'].has_key? "storage_ip"
-        nodeconfig.vm.network :private_network, :ip => node['nics']['storage_ip'], :type => :static # Storage Network - This interface is used virtual machines to communicate to Ceph.
+      if node.has_key? "nics"
+        if node['nics'].has_key? "tunnel_ip"
+          nodeconfig.vm.network :private_network, :ip => node['nics']['tunnel_ip'], :type => :static # Tunnel Network - This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
+        end
+        if node['nics'].has_key? "storage_ip"
+          nodeconfig.vm.network :private_network, :ip => node['nics']['storage_ip'], :type => :static # Storage Network - This interface is used virtual machines to communicate to Ceph.
+        end
       end
       if node['roles'].include?('network')
         nodeconfig.vm.network :private_network, ip: '0.0.0.0', auto_network: true  # External Network - This is the raw interface given to neutron as its external network port.
@@ -71,8 +88,8 @@ Vagrant.configure("2") do |config|
       # Volumes
       $volume_mounts_dict = ''
       nodeconfig.vm.provider :virtualbox do |v, override|
-        override.vm.box =  box[:virtualbox][:name]
-        override.vm.box_version = box[:virtualbox][:version]
+        override.vm.box =  box[:virtualbox][distro][:name]
+        override.vm.box_version = box[:virtualbox][distro][:version]
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
             $volume_file = "#{node['name']}-#{volume['name']}.vdi"
@@ -84,8 +101,8 @@ Vagrant.configure("2") do |config|
         end
       end
       nodeconfig.vm.provider :libvirt do |v, override|
-        override.vm.box =  box[:libvirt][:name]
-        override.vm.box_version = box[:libvirt][:version]
+        override.vm.box =  box[:libvirt][distro][:name]
+        override.vm.box_version = box[:libvirt][distro][:version]
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
             $volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"
