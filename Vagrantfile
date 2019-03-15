@@ -64,17 +64,7 @@ Vagrant.configure("2") do |config|
     config.vm.define node['name'] do |nodeconfig|
       nodeconfig.vm.hostname = node['name']
       nodeconfig.ssh.insert_key = false
-      if node.has_key? "nics"
-        if node['nics'].has_key? "tunnel_ip"
-          nodeconfig.vm.network :private_network, :ip => node['nics']['tunnel_ip'], :type => :static # Tunnel Network - This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
-        end
-        if node['nics'].has_key? "storage_ip"
-          nodeconfig.vm.network :private_network, :ip => node['nics']['storage_ip'], :type => :static # Storage Network - This interface is used virtual machines to communicate to Ceph.
-        end
-      end
-      if node['roles'].include?('network')
-        nodeconfig.vm.network :private_network, ip: '0.0.0.0', auto_network: true  # External Network - This is the raw interface given to neutron as its external network port.
-      end
+
       if node['roles'].include?('registry')
         nodeconfig.vm.synced_folder './etc/kolla/', '/etc/kolla/', create: true
       end
@@ -83,6 +73,16 @@ Vagrant.configure("2") do |config|
           p.cpus = node['cpus']
           p.memory = node['memory']
         end
+      end
+
+      # Networks
+      if node.has_key? "networks"
+        node['networks'].each do |network|
+            nodeconfig.vm.network :private_network, :ip => network['ip']
+        end
+      end
+      if node['roles'].include?('network')
+        nodeconfig.vm.network :private_network, ip: '0.0.0.0', auto_network: true  # External Network - This is the raw interface given to neutron as its external network port.
       end
 
       # Volumes
