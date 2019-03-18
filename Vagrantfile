@@ -49,6 +49,7 @@ Vagrant.configure("2") do |config|
     v.nested = true
     v.cpu_mode = 'host-passthrough'
     v.management_network_address = "192.168.121.0/27" # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
+    v.random_hostname = true
   end
 
   if Vagrant.has_plugin?('vagrant-proxyconf')
