@@ -21,12 +21,9 @@ nodes = YAML.load_file(pdf)
 if ENV['no_proxy'] != nil or ENV['NO_PROXY'] != nil
   $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
   nodes.each do |node|
-    if node.has_key? "nics"
-      if node['nics'].has_key? "tunnel_ip"
-        $no_proxy += "," + node['nics']['tunnel_ip']
-      end
-      if node['nics'].has_key? "storage_ip"
-        $no_proxy += "," + node['nics']['storage_ip']
+    if node.has_key? "networks"
+      node['networks'].each do |network|
+        $no_proxy += "," + network['ip']
       end
     end
   end
