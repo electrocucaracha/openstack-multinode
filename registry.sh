@@ -58,7 +58,9 @@ $bifrost_footer
 EOL
 }
 
+# shellcheck disable=SC1091
 source /etc/os-release || source /usr/lib/os-release
+
 case ${ID,,} in
     ubuntu|debian)
         sudo apt remove -y python-pip
@@ -78,8 +80,7 @@ rm $kolla_tarball
 
 cd $kolla_folder
 sudo rm -rf /etc/systemd/system/docker.service.d
- # shellcheck disable=SC1091
-source /etc/os-release || source /usr/lib/os-release
+
 case ${ID,,} in
     ubuntu|debian)
         ./tools/setup_Debian.sh
