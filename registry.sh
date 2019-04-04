@@ -11,8 +11,9 @@
 set -o nounset
 set -o pipefail
 set -o errexit
+set -o xtrace
 
-kolla_folder=/opt/kolla
+kolla_folder=/opt/kolla/
 kolla_version=stable-rocky
 kolla_tarball=kolla-$kolla_version.tar.gz
 
@@ -21,33 +22,28 @@ function configure_docker_proxy {
     bifrost_header=""
     bifrost_footer=""
     if [[ "${HTTP_PROXY+x}" = "x"  ]]; then
-        cat <<EOL > /etc/systemd/system/docker.service.d/http-proxy.conf
-[Service]
-Environment="HTTP_PROXY=$HTTP_PROXY"
-EOL
+        echo "[Service]" | sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf
+        echo "Environment=\"HTTP_PROXY=$HTTP_PROXY\"" | sudo tee --append /etc/systemd/system/docker.service.d/http-proxy.conf
         bifrost_header+="ENV http_proxy=$HTTP_PROXY\n"
         bifrost_footer+="ENV http_proxy=\"\"\n"
     fi
     if [[ "${HTTPS_PROXY+x}" = "x" ]]; then
-        cat <<EOL > /etc/systemd/system/docker.service.d/https-proxy.conf
-[Service]
-Environment="HTTPS_PROXY=$HTTPS_PROXY"
-EOL
+        echo "Environment=\"HTTPS_PROXY=$HTTPS_PROXY\"" | sudo tee --append /etc/systemd/system/docker.service.d/http-proxy.conf
         bifrost_header+="ENV https_proxy=$HTTPS_PROXY\n"
         bifrost_footer+="ENV https_proxy=\"\"\n"
     fi
     if [[ "${NO_PROXY+x}" = "x" ]]; then
-        cat <<EOL > /etc/systemd/system/docker.service.d/no-proxy.conf
-[Service]
-Environment="NO_PROXY=$NO_PROXY"
-EOL
+        echo "Environment=\"NO_PROXY=$NO_PROXY\"" | sudo tee --append /etc/systemd/system/docker.service.d/http-proxy.conf
         bifrost_header+="ENV no_proxy=$NO_PROXY\n"
         bifrost_footer+="ENV no_proxy=\"\"\n"
     fi
-    systemctl daemon-reload
-
-    systemctl restart docker
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
     sleep 10
+
+    if groups | grep -q docker; then
+        sudo usermod -aG docker "$USER"
+    fi
 
     cat <<EOL > template-overrides.j2
 {% extends parent_template %}
@@ -62,28 +58,47 @@ $bifrost_footer
 EOL
 }
 
-apt remove -y python-pip
-apt-get install -y python-dev
+source /etc/os-release || source /usr/lib/os-release
+case ${ID,,} in
+    ubuntu|debian)
+        sudo apt remove -y python-pip
+        sudo apt-get install -y python-dev
+    ;;
+    clear-linux-os)
+    ;;
+esac
 curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 
 # Get Kolla source code
 wget http://tarballs.openstack.org/kolla/$kolla_tarball
-tar -C /opt -xzf $kolla_tarball
-mv /opt/kolla-*/ $kolla_folder
+sudo tar -C /tmp -xzf $kolla_tarball
+sudo rm -rf $kolla_folder
+sudo mv /tmp/kolla-*/ $kolla_folder
 rm $kolla_tarball
 
 cd $kolla_folder
-rm -rf /etc/systemd/system/docker.service.d
-./tools/setup_Debian.sh
+sudo rm -rf /etc/systemd/system/docker.service.d
+ # shellcheck disable=SC1091
+source /etc/os-release || source /usr/lib/os-release
+case ${ID,,} in
+    ubuntu|debian)
+        ./tools/setup_Debian.sh
+    ;;
+    rhel|centos|fedora)
+        ./tools/setup_RedHat.sh
+    ;;
+    clear-linux-os)
+    ;;
+esac
 configure_docker_proxy
 
 # Start local registry
-if [[ -z $(docker ps -aqf "name=registry") ]]; then
-    ./tools/start-registry
+if [[ -z $(sudo docker ps -aqf "name=registry") ]]; then
+    sudo ./tools/start-registry
 fi
 
 # Kolla Docker images creation
-pip install .
-mkdir -p /var/log/kolla
-kolla-build --config-file /etc/kolla/kolla-build.ini --logs-dir /var/log/kolla
+sudo pip install .
+sudo mkdir -p /var/log/kolla
+sudo kolla-build --config-file /etc/kolla/kolla-build.ini --logs-dir /var/log/kolla
 #kolla-build --type source --template-override template-overrides.j2 bifrost-deploy

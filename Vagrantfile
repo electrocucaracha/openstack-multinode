@@ -5,12 +5,14 @@ box = {
   :virtualbox => {
     :ubuntu => { :name => 'elastic/ubuntu-16.04-x86_64', :version=> '20180708.0.0' },
     :centos => { :name => 'generic/centos7', :version=> '1.9.2' },
-    :opensuse => { :name => 'opensuse/openSUSE-42.1-x86_64', :version=> '1.0.1' }
+    :opensuse => { :name => 'opensuse/openSUSE-42.1-x86_64', :version=> '1.0.1' },
+    :clearlinux => { :name => 'AntonioMeireles/ClearLinux', :version=> '28510' }
   },
   :libvirt => {
     :ubuntu => { :name => 'elastic/ubuntu-16.04-x86_64', :version=> '20180210.0.0' },
     :centos => { :name => 'centos/7', :version=> '1901.01' },
-    :opensuse => { :name => 'opensuse/openSUSE-42.1-x86_64', :version=> '1.0.0' }
+    :opensuse => { :name => 'opensuse/openSUSE-42.1-x86_64', :version=> '1.0.0' },
+    :clearlinux => { :name => 'AntonioMeireles/ClearLinux', :version=> '28510' }
   }
 }
 
@@ -29,23 +31,31 @@ if ENV['no_proxy'] != nil or ENV['NO_PROXY'] != nil
   end
   # NOTE: This range is based on vagrant-libvirt network definition CIDR 192.168.121.0/27
   (1..31).each do |i|
-    $no_proxy += ",192.168.121.#{i}"
+    $no_proxy += ",192.168.122.#{i}"
   end
   # NOTE: This is the kolla_internal_vip_address value
   $no_proxy += ",10.10.13.3"
 end
 
-distro = (ENV['KRD_DISTRO'] || :ubuntu).to_sym
+distro = (ENV['OS_DISTRO'] || :ubuntu).to_sym
 puts "[INFO] Linux Distro: #{distro} "
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
 
-  config.vm.provider :libvirt do |v|
+  config.vm.synced_folder './', '/vagrant'
+  config.vm.provider :virtualbox do |v, override|
+    override.vm.box =  box[:virtualbox][distro][:name]
+    override.vm.box_version = box[:virtualbox][distro][:version]
+  end
+  config.vm.provider :libvirt do |v, override|
+    override.vm.box =  box[:libvirt][distro][:name]
+    override.vm.box_version = box[:libvirt][distro][:version]
     v.nested = true
     v.cpu_mode = 'host-passthrough'
-    v.management_network_address = "192.168.121.0/27" # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
+    v.management_network_address = "192.168.122.0/27"
+    v.management_network_name = "mgmt-net" # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
     v.random_hostname = true
   end
 
@@ -76,7 +86,8 @@ Vagrant.configure("2") do |config|
       # Networks
       if node.has_key? "networks"
         node['networks'].each do |network|
-            nodeconfig.vm.network :private_network, :ip => network['ip']
+            nodeconfig.vm.network :private_network, :ip => network['ip'], :type => :static,
+              libvirt__network_name: network['name']
         end
       end
       if node['roles'].include?('network')
@@ -86,8 +97,6 @@ Vagrant.configure("2") do |config|
       # Volumes
       $volume_mounts_dict = ''
       nodeconfig.vm.provider :virtualbox do |v, override|
-        override.vm.box =  box[:virtualbox][distro][:name]
-        override.vm.box_version = box[:virtualbox][distro][:version]
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
             $volume_file = "#{node['name']}-#{volume['name']}.vdi"
@@ -99,8 +108,6 @@ Vagrant.configure("2") do |config|
         end
       end
       nodeconfig.vm.provider :libvirt do |v, override|
-        override.vm.box =  box[:libvirt][distro][:name]
-        override.vm.box_version = box[:libvirt][distro][:version]
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
             $volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"

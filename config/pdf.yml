@@ -11,7 +11,7 @@
 # Network Definitions:
 
 # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
-# Tunnel Network - This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
+# Tunnel Network - This interface is used by Neutron for vm-to-vm traffic over tunnel-neted networks (like VxLan).
 # Storage Network - This interface is used virtual machines to communicate to Ceph.
 # External Network - This is the raw interface given to neutron as its external network port.
 
@@ -23,7 +23,7 @@
       size: 100
       mount: /var/lib/docker/
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.2"
   roles:
     - registry
@@ -31,7 +31,7 @@
   memory: 16384
   cpus: 8
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.4"
   roles:
     - controller
@@ -39,7 +39,7 @@
   memory: 16384
   cpus: 8
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.5"
   roles:
     - controller
@@ -47,7 +47,7 @@
   memory: 16384
   cpus: 8
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.6"
   roles:
     - controller
@@ -55,9 +55,9 @@
   memory: 65536
   cpus: 16
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.33"
-    - name: storage
+    - name: storage-net
       ip: "10.10.14.33"
   roles:
     - compute
@@ -65,7 +65,7 @@
   memory: 8192
   cpus: 4
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.65"
   roles:
     - network
@@ -73,7 +73,7 @@
   memory: 8192
   cpus: 4
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.66"
   roles:
     - network
@@ -81,7 +81,7 @@
   memory: 8192
   cpus: 4
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.67"
   roles:
     - network
@@ -89,17 +89,17 @@
   memory: 8192
   cpus: 4
   networks:
-    - name: 
+    - name: tunnel-net
       ip: "10.10.13.97"
-    - name: storage
+    - name: storage-net
       ip: "10.10.14.97"
   roles:
-    - storage
+    - storage-net
 - name: "monitoring01"
   memory: 8192
   cpus: 4
   networks:
-    - name: tunnel
+    - name: tunnel-net
       ip: "10.10.13.129"
   roles:
     - monitoring

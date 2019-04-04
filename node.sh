@@ -105,6 +105,6 @@ fi
 
 for role in $OPENSTACK_NODE_ROLES; do
     if [ -f "$role.sh" ]; then
-        sudo bash "$role.sh"
+        bash "$role.sh"
     fi
 done
