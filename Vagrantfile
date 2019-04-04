@@ -91,7 +91,8 @@ Vagrant.configure("2") do |config|
         end
       end
       if node['roles'].include?('network')
-        nodeconfig.vm.network :private_network, ip: '0.0.0.0', auto_network: true  # External Network - This is the raw interface given to neutron as its external network port.
+        nodeconfig.vm.network :private_network, ip: '0.0.0.0', auto_network: true,
+          libvirt__network_name: 'external-net'
       end
 
       # Volumes
