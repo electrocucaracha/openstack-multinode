@@ -14,7 +14,7 @@ set -o errexit
 set -o xtrace
 
 kolla_folder=/opt/kolla/
-kolla_version=stable-rocky
+kolla_version=stable-stein
 kolla_tarball=kolla-$kolla_version.tar.gz
 
 # configure_docker_proxy() - Configures Proxy settings for Docker service
@@ -41,9 +41,7 @@ function configure_docker_proxy {
     sudo systemctl restart docker
     sleep 10
 
-    if groups | grep -q docker; then
-        sudo usermod -aG docker "$USER"
-    fi
+    sudo usermod -aG docker "$USER"
 
     cat <<EOL > template-overrides.j2
 {% extends parent_template %}
@@ -78,7 +76,7 @@ sudo rm -rf $kolla_folder
 sudo mv /tmp/kolla-*/ $kolla_folder
 rm $kolla_tarball
 
-cd $kolla_folder
+cd $kolla_folder || exit 1
 sudo rm -rf /etc/systemd/system/docker.service.d
 
 case ${ID,,} in
@@ -89,6 +87,8 @@ case ${ID,,} in
         ./tools/setup_RedHat.sh
     ;;
     clear-linux-os)
+        sudo -E swupd bundle-add containers-basic
+        sudo systemctl unmask docker.service
     ;;
 esac
 configure_docker_proxy
@@ -101,5 +101,9 @@ fi
 # Kolla Docker images creation
 sudo pip install .
 sudo mkdir -p /var/log/kolla
-sudo kolla-build --config-file /etc/kolla/kolla-build.ini --logs-dir /var/log/kolla
+sudo kolla-build --config-file /etc/kolla/kolla-build.ini --logs-dir /var/log/kolla | tee output.json
+if [[ $(jq  '.failed | length ' output.json) != 0 ]]; then
+    jq  '.failed[].name' output.json
+    exit 1
+fi
 #kolla-build --type source --template-override template-overrides.j2 bifrost-deploy
