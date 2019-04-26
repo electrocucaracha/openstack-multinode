@@ -10,16 +10,16 @@
 
 # Network Definitions:
 
-# Management Network - This interface is used by OpenStack services and databases to communicate to each other.
-# Tunnel Network - This interface is used by Neutron for vm-to-vm traffic over tunnel-neted networks (like VxLan).
-# Storage Network - This interface is used virtual machines to communicate to Ceph.
-# External Network - This is the raw interface given to neutron as its external network port.
+# Management Network(mgmt-net) - This interface is used by OpenStack services and databases to communicate to each other.
+# Tunnel Network(tunnel-net) - This interface is used by Neutron for vm-to-vm traffic over tunnel-neted networks (like VxLan).
+# Storage Network(storage-net) - This interface is used virtual machines to communicate to Ceph.
+# External Network(external-net)  This is the raw interface given to neutron as its external network port.
 
 - name: "registry"
   memory: 16384
-  cpus: 16
+  cpus: 4
   volumes:
-    - name: sda
+    - name: vdb
       size: 100
       mount: /var/lib/docker/
   networks:
