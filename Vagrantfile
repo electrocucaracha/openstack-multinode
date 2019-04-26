@@ -55,7 +55,7 @@ Vagrant.configure("2") do |config|
     v.nested = true
     v.cpu_mode = 'host-passthrough'
     v.management_network_address = "192.168.122.0/27"
-    v.management_network_name = "mgmt-net" # Management Network - This interface is used by OpenStack services and databases to communicate to each other.
+    v.management_network_name = "mgmt-net"
     v.random_hostname = true
   end
 
@@ -86,13 +86,13 @@ Vagrant.configure("2") do |config|
       # Networks
       if node.has_key? "networks"
         node['networks'].each do |network|
-            nodeconfig.vm.network :private_network, :ip => network['ip'], :type => :static,
-              libvirt__network_name: network['name']
+          nodeconfig.vm.network :private_network, :ip => network['ip'], :type => :static,
+          libvirt__network_name: network['name']
         end
       end
       if node['roles'].include?('network')
         nodeconfig.vm.network :private_network, ip: '0.0.0.0', auto_network: true,
-          libvirt__network_name: 'external-net'
+        libvirt__network_name: 'external-net'
       end
 
       # Volumes
