@@ -96,15 +96,10 @@ esac
 if [ -f sources.list ]; then
     sudo cp sources.list /etc/apt/sources.list
 fi
-#sudo apt-get update
-#sudo apt-get -y install python-dev
-#if [[ $(groups | grep docker) ]]; then
-#    getent group docker || groupadd docker
-#    sudo usermod -aG docker $USER
-#fi
 
 for role in $OPENSTACK_NODE_ROLES; do
     if [ -f "$role.sh" ]; then
-        bash "$role.sh"
+        sudo mkdir -p /var/log/kolla/
+        bash "$role.sh" | sudo tee "/var/log/kolla/$role.log"
     fi
 done
