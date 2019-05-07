@@ -43,7 +43,7 @@ function configure_docker_proxy {
 
     sudo usermod -aG docker "$USER"
 
-    cat <<EOL > template-overrides.j2
+    cat <<EOL > "$HOME/template-overrides.j2"
 {% extends parent_template %}
 
 {% block bifrost_base_header %}
@@ -101,9 +101,9 @@ fi
 # Kolla Docker images creation
 sudo pip install .
 sudo mkdir -p /var/log/kolla
-sudo kolla-build --config-file /etc/kolla/kolla-build.ini --logs-dir /var/log/kolla | tee output.json
+sudo kolla-build --config-file /etc/kolla/kolla-build.ini | tee output.json
 if [[ $(jq  '.failed | length ' output.json) != 0 ]]; then
     jq  '.failed[].name' output.json
     exit 1
 fi
-#kolla-build --type source --template-override template-overrides.j2 bifrost-deploy
+#kolla-build --type source --template-override $HOME/template-overrides.j2 bifrost-deploy

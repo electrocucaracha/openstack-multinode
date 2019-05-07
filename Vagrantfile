@@ -128,7 +128,12 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :undercloud, primary: true, autostart: false do |undercloud|
     undercloud.vm.hostname = "undercloud"
-    undercloud.vm.provision 'shell', privileged: false, :path => "undercloud.sh"
+    undercloud.vm.provision 'shell', privileged: false do |sh|
+      sh.inline = <<-SHELL
+        cd /vagrant/
+        ./undercloud.sh | tee /home/vagrant/undercloud.log
+      SHELL
+    end
     undercloud.vm.synced_folder './etc/kolla-ansible/', '/etc/kolla/', create: true
   end
 end
