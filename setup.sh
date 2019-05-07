@@ -114,6 +114,15 @@ case ${ID,,} in
         packages+=(virtualbox-5.1 dkms)
         ;;
         libvirt)
+        case $VERSION_ID in
+            "16.04")
+            sudo apt install -y  software-properties-common
+            sudo add-apt-repository -y cloud-archive:queens
+            ;;
+            "18.04")
+            sudo add-apt-repository -y cloud-archive:stein
+            ;;
+        esac
         # vagrant-libvirt dependencies
         packages+=(qemu libvirt-bin ebtables dnsmasq libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev cpu-checker)
         # NFS
