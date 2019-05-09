@@ -4,3 +4,4 @@ etc/kolla-ansible/passwords.yml
 etc/kolla-ansible/admin-openrc.sh
 .tox/
 sources.list
+*.tar.gz
