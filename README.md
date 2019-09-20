@@ -56,6 +56,13 @@ responsible for the provisioning tasks.
 
     $ vagrant up undercloud
 
+## Dashboards
+
+| Service | URL                    |
+|---------|------------------------|
+| Horizon | http://10.10.13.3:80   |
+| Skydive | http://10.10.13.3:8085 |
+
 ## License
 
 Apache-2.0
