@@ -38,6 +38,7 @@ if ENV['no_proxy'] != nil or ENV['NO_PROXY'] != nil
 end
 
 distro = (ENV['OS_DISTRO'] || :ubuntu).to_sym
+os_release = (ENV['OS_RELEASE'] || "stable-stein").to_sym
 puts "[INFO] Linux Distro: #{distro} "
 
 Vagrant.configure("2") do |config|
@@ -119,7 +120,11 @@ Vagrant.configure("2") do |config|
       end
 
       nodeconfig.vm.provision 'shell', privileged: false do |sh|
-        sh.env = {'OPENSTACK_NODE_ROLES': "#{node['roles'].join(" ")}", 'OPENSTACK_SCRIPTS_DIR': "/vagrant"}
+        sh.env = {
+          'OPENSTACK_NODE_ROLES': "#{node['roles'].join(" ")}",
+          'OPENSTACK_SCRIPTS_DIR': "/vagrant",
+          'OPENSTACK_RELEASE': "#{os_release}"
+        }
         sh.path =  "node.sh"
         sh.args = ['-v', $volume_mounts_dict[0...-1]]
       end
@@ -129,6 +134,9 @@ Vagrant.configure("2") do |config|
   config.vm.define :undercloud, primary: true, autostart: false do |undercloud|
     undercloud.vm.hostname = "undercloud"
     undercloud.vm.provision 'shell', privileged: false do |sh|
+      sh.env = {
+        'OPENSTACK_RELEASE': "#{os_release}"
+      }
       sh.inline = <<-SHELL
         cd /vagrant/
         ./undercloud.sh | tee /home/vagrant/undercloud.log

@@ -14,7 +14,7 @@ set -o errexit
 set -o xtrace
 
 kolla_folder=/opt/kolla/
-kolla_version=stable-stein
+kolla_version=${OPENSTACK_RELEASE:-stable-train}
 kolla_tarball=kolla-$kolla_version.tar.gz
 
 # configure_docker_proxy() - Configures Proxy settings for Docker service

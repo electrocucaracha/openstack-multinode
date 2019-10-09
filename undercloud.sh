@@ -15,7 +15,7 @@ set -o pipefail
 # Variables
 inventory_file=./inventory/hosts.ini
 kolla_folder=/opt/kolla-ansible
-kolla_version=stable-stein
+kolla_version=${OPENSTACK_RELEASE:-stable-train}
 kolla_tarball=kolla-ansible-$kolla_version.tar.gz
 
 sudo apt install -y python2.7 python-dev build-essential sshpass
