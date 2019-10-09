@@ -70,11 +70,11 @@ esac
 curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 
 # Get Kolla source code
-wget http://tarballs.openstack.org/kolla/$kolla_tarball
-sudo tar -C /tmp -xzf $kolla_tarball
-sudo rm -rf $kolla_folder
-sudo mv /tmp/kolla-*/ $kolla_folder
-rm $kolla_tarball
+wget "http://tarballs.openstack.org/kolla/$kolla_tarball"
+sudo tar -C /tmp -xzf "$kolla_tarball"
+sudo rm -rf "$kolla_folder"
+sudo mv /tmp/kolla-*/ "$kolla_folder"
+rm "$kolla_tarball"
 
 cd $kolla_folder || exit 1
 sudo rm -rf /etc/systemd/system/docker.service.d

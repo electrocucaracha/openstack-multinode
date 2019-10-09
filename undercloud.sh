@@ -21,9 +21,9 @@ kolla_tarball=kolla-ansible-$kolla_version.tar.gz
 sudo apt install -y python2.7 python-dev build-essential sshpass
 curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 
-wget http://tarballs.openstack.org/kolla-ansible/$kolla_tarball
-sudo tar -C /opt -xzf $kolla_tarball
-rm $kolla_tarball
+wget "http://tarballs.openstack.org/kolla-ansible/$kolla_tarball"
+sudo tar -C /opt -xzf "$kolla_tarball"
+rm "$kolla_tarball"
 sudo mv /opt/kolla-*/ $kolla_folder
 sudo cp $kolla_folder/etc/kolla/passwords.yml /etc/kolla/
 sudo -E -H pip install --upgrade ansible
