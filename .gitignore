@@ -5,3 +5,5 @@ etc/kolla-ansible/admin-openrc.sh
 .tox/
 sources.list
 *.tar.gz
+output.json
+*.img

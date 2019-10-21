@@ -41,6 +41,8 @@ echo "forks=100" | sudo tee --append /etc/ansible/ansible.cfg
 
 sudo kolla-genpwd
 for action in bootstrap-servers prechecks pull deploy check post-deploy; do
-    sudo kolla-ansible -vvv -i $inventory_file $action -e 'ansible_user=kolla' -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee $action.log
+    sudo kolla-ansible -vvv -i "$inventory_file" "$action" -e 'ansible_user=kolla' -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee $action.log
 done
+
+# shellcheck disable=SC2002
 cat /etc/kolla/admin-openrc.sh | sudo tee --append /etc/environment

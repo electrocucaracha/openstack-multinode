@@ -70,6 +70,15 @@ responsible for the provisioning tasks.
 | Horizon | http://10.10.13.3:80   |
 | Skydive | http://10.10.13.3:8085 |
 
+
+## Deploy All-in-One configuration
+
+The [install.sh](samples/aio/install.sh) bash script provides the
+instructions for the deployment of an All-in-One OpenStack
+configuration. It's possible to run this script remotely:
+
+    $ curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/samples/install.sh | bash
+
 ## License
 
 Apache-2.0

@@ -1,0 +1,71 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
+# NOTE: This range is based on vagrant-libvirt network definition CIDR 192.168.121.0/24
+(1..254).each do |i|
+  $no_proxy += ",192.168.121.#{i}"
+end
+$no_proxy += ",10.10.13.7"
+$socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
+
+Vagrant.configure("2") do |config|
+  config.vm.provider :libvirt
+  config.vm.provider :virtualbox
+
+  config.vm.synced_folder '../../', '/vagrant'
+  config.vm.box = "elastic/ubuntu-16.04-x86_64"
+  config.ssh.insert_key = false
+  config.vm.hostname = "aio"
+  config.vm.provision 'shell'do |sh|
+    sh.inline = <<-SHELL
+      cd /vagrant
+      mkdir -p /root/.ssh
+      cat insecure_keys/key.pub | tee /root/.ssh/authorized_keys
+      cp insecure_keys/key /root/.ssh/id_rsa
+      sudo chmod 400 /root/.ssh/id_rsa
+      chmod og-wx /root/.ssh/authorized_keys
+    SHELL
+  end
+  config.vm.provision 'shell', privileged: false do |sh|
+    sh.inline = <<-SHELL
+      cd /vagrant
+      ./node.sh | tee node_aio.log
+    SHELL
+  end
+  config.vm.provision :reload
+  config.vm.provision 'shell', privileged: false do |sh|
+    sh.env = {
+      'SOCKS_PROXY': "#{$socks_proxy}",
+    }
+    sh.inline = <<-SHELL
+      OS_FLAVOR=aio OS_FOLDER=/vagrant/ bash /vagrant/samples/install.sh | tee install_aio.log
+    SHELL
+  end
+
+  [:virtualbox, :libvirt].each do |provider|
+  config.vm.provider provider do |p, override|
+      p.cpus = 16
+      p.memory = 32768
+    end
+  end
+
+  config.vm.provider :libvirt do |v, override|
+    v.cpu_mode = 'host-passthrough'
+    v.random_hostname = true
+    v.nested = true
+    v.management_network_address = "192.168.121.0/24"
+  end
+
+  config.vm.network :private_network, :ip => "10.10.13.7", :type => :static,
+    libvirt__network_name: "tunnel-net"
+
+  if ENV['http_proxy'] != nil and ENV['https_proxy'] != nil
+    if Vagrant.has_plugin?('vagrant-proxyconf')
+      config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""
+      config.proxy.https    = ENV['https_proxy'] || ENV['HTTPS_PROXY'] || ""
+      config.proxy.no_proxy = $no_proxy
+      config.proxy.enabled = { docker: false }
+    end
+  end
+end

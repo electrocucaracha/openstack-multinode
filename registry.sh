@@ -118,13 +118,13 @@ case ${ID,,} in
 esac
 curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 
-sudo -H -E pip install kolla==${kolla_version}
+sudo -H -E pip install kolla=="${kolla_version}"
 install_docker
 
 # Start local registry
 if [[ -z $(sudo docker ps -aqf "name=registry") ]]; then
     sudo -E docker run -d --name registry --restart=always \
-    -p ${docker_registry_port}:5000 -v registry:/var/lib/registry registry:2
+    -p "${docker_registry_port}":5000 -v registry:/var/lib/registry registry:2
 fi
 
 # Configure custom values
