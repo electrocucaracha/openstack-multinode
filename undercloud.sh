@@ -13,18 +13,20 @@ set -o nounset
 set -o pipefail
 
 # Variables
-inventory_file=./inventory/hosts.ini
+inventory_file=${OS_INVENTORY_FILE:-./inventory/hosts.ini}
 kolla_folder=/opt/kolla-ansible
-kolla_version=${OPENSTACK_RELEASE:-stable-train}
+kolla_version=${OS_KOLLA_VERSION:-8.0.1}
 kolla_tarball=kolla-ansible-$kolla_version.tar.gz
 
 sudo apt install -y python2.7 python-dev build-essential sshpass
 curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
 
-wget "http://tarballs.openstack.org/kolla-ansible/$kolla_tarball"
-sudo tar -C /opt -xzf "$kolla_tarball"
-rm "$kolla_tarball"
-sudo mv /opt/kolla-*/ $kolla_folder
+if [ ! -d ${kolla_folder} ]; then
+    wget "http://tarballs.openstack.org/kolla-ansible/$kolla_tarball"
+    sudo tar -C /opt -xzf "$kolla_tarball"
+    rm "$kolla_tarball"
+    sudo mv /opt/kolla-*/ $kolla_folder
+fi
 sudo cp $kolla_folder/etc/kolla/passwords.yml /etc/kolla/
 sudo -E -H pip install --upgrade ansible
 sudo -E -H pip install $kolla_folder
@@ -38,7 +40,7 @@ echo "pipelinig=True" | sudo tee --append /etc/ansible/ansible.cfg
 echo "forks=100" | sudo tee --append /etc/ansible/ansible.cfg
 
 sudo kolla-genpwd
-sudo mkdir -p /var/log/kolla/
 for action in bootstrap-servers prechecks pull deploy check post-deploy; do
     sudo kolla-ansible -vvv -i $inventory_file $action -e 'ansible_user=kolla' -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee $action.log
 done
+cat /etc/kolla/admin-openrc.sh | sudo tee --append /etc/environment

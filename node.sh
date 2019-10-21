@@ -100,7 +100,6 @@ fi
 echo "127.0.0.1       localhost      $(hostname)" | sudo tee /etc/hosts
 for role in $OPENSTACK_NODE_ROLES; do
     if [ -f "$role.sh" ]; then
-        sudo mkdir -p /var/log/kolla/
-        bash "$role.sh" | sudo tee "/var/log/kolla/$role.log"
+        bash "$role.sh" | sudo tee "$role.log"
     fi
 done
