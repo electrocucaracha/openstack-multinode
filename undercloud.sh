@@ -17,6 +17,7 @@ inventory_file=${OS_INVENTORY_FILE:-./inventory/hosts.ini}
 kolla_folder=/opt/kolla-ansible
 kolla_version=${OS_KOLLA_VERSION:-8.0.1}
 kolla_tarball=kolla-ansible-$kolla_version.tar.gz
+kolla_user=${OS_KOLLA_USER:-kolla}
 
 sudo apt install -y python2.7 python-dev build-essential sshpass
 curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
@@ -40,8 +41,9 @@ echo "pipelinig=True" | sudo tee --append /etc/ansible/ansible.cfg
 echo "forks=100" | sudo tee --append /etc/ansible/ansible.cfg
 
 sudo kolla-genpwd
+sudo rm -f /etc/docker/daemon.json
 for action in bootstrap-servers prechecks pull deploy check post-deploy; do
-    sudo kolla-ansible -vvv -i "$inventory_file" "$action" -e 'ansible_user=kolla' -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee $action.log
+    sudo kolla-ansible -vvv -i "$inventory_file" "$action" -e "ansible_user=${kolla_user}" -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee $action.log
 done
 
 # shellcheck disable=SC2002
