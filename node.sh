@@ -12,9 +12,6 @@ set -o nounset
 set -o pipefail
 set -o errexit
 
-# Configuration
-cd "$OPENSTACK_SCRIPTS_DIR"
-
 # usage() - Prints the usage of the program
 function usage {
     cat <<EOF
@@ -50,56 +47,22 @@ while getopts "h?v:" opt; do
     esac
 done
 
-sudo swapoff -a
 if [[ -n "${dict_volumes+x}" ]]; then
     for kv in ${dict_volumes//,/ } ;do
         mount_external_partition "${kv%=*}" "${kv#*=}"
     done
 fi
 
-vendor_id=$(lscpu|grep "Vendor ID")
-if [[ $vendor_id == *GenuineIntel* ]]; then
-    kvm_ok=$(cat /sys/module/kvm_intel/parameters/nested)
-    if [[ $kvm_ok == 'N' ]]; then
-        echo "Enable Intel Nested-Virtualization"
-        sudo rmmod kvm-intel
-        echo 'options kvm-intel nested=y' | sudo tee --append /etc/modprobe.d/dist.conf
-        sudo modprobe kvm-intel
-        echo kvm-intel |sudo tee --append /etc/modules
-    fi
-else
-    kvm_ok=$(cat /sys/module/kvm_amd/parameters/nested)
-    if [[ $kvm_ok == '0' ]]; then
-        echo "Enable AMD Nested-Virtualization"
-        sudo rmmod kvm-amd
-        echo 'options kvm-amd nested=1' | sudo tee --append /etc/modprobe.d/dist.conf
-        sudo modprobe kvm-amd
-        echo kvm-amd | sudo tee --append /etc/modules
-    fi
-fi
-sudo modprobe vhost_net
-echo vhost_net | sudo tee --append /etc/modules
-# shellcheck disable=SC1091
-source /etc/os-release || source /usr/lib/os-release
-case ${ID,,} in
-    *suse)
-    ;;
-    ubuntu|debian)
-        sudo apt-get install -y cpu-checker
-        kvm-ok
-    ;;
-    rhel|centos|fedora)
-    ;;
-esac
-
 # Setup proxy variables
 if [ -f sources.list ]; then
     sudo cp sources.list /etc/apt/sources.list
 fi
 
-echo "127.0.0.1       localhost      $(hostname)" | sudo tee /etc/hosts
-for role in $OPENSTACK_NODE_ROLES; do
-    if [ -f "$role.sh" ]; then
-        bash "$role.sh" | sudo tee "$role.log"
-    fi
-done
+#curl -fsSL https://raw.githubusercontent.com/electrocucaracha/bootstrap-vagrant/master/setup.sh | PROVIDER=libvirt ENABLE_VAGRANT_INSTALL=false bash
+if [[ -n ${OPENSTACK_NODE_ROLES} ]]; then
+    for role in $OPENSTACK_NODE_ROLES; do
+        if [ -f "$role.sh" ]; then
+            bash "$role.sh" | sudo tee "$role.log"
+        fi
+    done
+fi
