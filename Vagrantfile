@@ -28,10 +28,10 @@ end
 end
 # NOTE: This is the kolla_internal_vip_address value
 $no_proxy += ",10.10.13.3"
+$socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
 
 $distro = ENV['OS_DISTRO'] || "ubuntu"
 $distro_release = ENV['OS_DISTRO_RELEASE'] || "xenial"
-os_release = (ENV['OS_RELEASE'] || "stable-stein").to_sym
 puts "[INFO] Linux Distro: #{$distro} - #{$distro_release}"
 
 Vagrant.configure("2") do |config|
@@ -61,9 +61,6 @@ Vagrant.configure("2") do |config|
       nodeconfig.vm.hostname = node['name']
       nodeconfig.ssh.insert_key = false
 
-      if node['roles'].include?('registry')
-        nodeconfig.vm.synced_folder './etc/kolla/', '/etc/kolla/', create: true
-      end
       [:virtualbox, :libvirt].each do |provider|
         nodeconfig.vm.provider provider do |p, override|
           p.cpus = node['cpus']
@@ -83,9 +80,7 @@ Vagrant.configure("2") do |config|
         libvirt__network_name: 'external-net'
       end
 
-      # Volumes
-      $volume_mounts_dict = ''
-      nodeconfig.vm.provider :virtualbox do |v, override|
+      nodeconfig.vm.provider 'virtualbox' do |v, override|
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
             $volume_file = "#{node['name']}-#{volume['name']}.vdi"
@@ -95,12 +90,10 @@ Vagrant.configure("2") do |config|
             v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $volume_file]
           end
         end
-      end
+      end # virtualbox
       nodeconfig.vm.provider :libvirt do |v, override|
         if node.has_key? "volumes"
           node['volumes'].each do |volume|
-            $volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"
-            $volume_file = "./#{node['name']}-#{volume['name']}.qcow2"
             v.storage :file, :bus => 'sata', :device => volume['name'], :size => volume['size']
           end
         end
@@ -108,13 +101,19 @@ Vagrant.configure("2") do |config|
         if node['roles'].include?("compute")
           v.nested = true
         end
-      end
+      end #libvirt
 
+      $volume_mounts_dict = ''
+      if node.has_key? "volumes"
+        node['volumes'].each do |volume|
+          $volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"
+        end
+      end
       nodeconfig.vm.provision 'shell', privileged: false do |sh|
         sh.env = {
+          'SOCKS_PROXY': "#{$socks_proxy}",
           'OPENSTACK_NODE_ROLES': "#{node['roles'].join(" ")}",
-          'OPENSTACK_SCRIPTS_DIR': "/vagrant",
-          'OPENSTACK_RELEASE': "#{os_release}"
+          'OPENSTACK_SCRIPTS_DIR': "/vagrant"
         }
         sh.inline = <<-SHELL
           cd /vagrant/
@@ -127,9 +126,6 @@ Vagrant.configure("2") do |config|
   config.vm.define :undercloud, primary: true, autostart: false do |undercloud|
     undercloud.vm.hostname = "undercloud"
     undercloud.vm.provision 'shell', privileged: false do |sh|
-      sh.env = {
-        'OPENSTACK_RELEASE': "#{os_release}"
-      }
       sh.inline = <<-SHELL
         cd /vagrant/
         ./undercloud.sh | tee ~/undercloud.log
