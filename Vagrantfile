@@ -1,60 +1,47 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
-box = {
-  :virtualbox => {
-    :ubuntu => { :name => 'elastic/ubuntu-16.04-x86_64', :version=> '20180708.0.0' },
-    :centos => { :name => 'generic/centos7', :version=> '1.9.2' },
-    :opensuse => { :name => 'opensuse/openSUSE-42.1-x86_64', :version=> '1.0.1' },
-    :clearlinux => { :name => 'AntonioMeireles/ClearLinux', :version=> '28510' }
-  },
-  :libvirt => {
-    :ubuntu => { :name => 'elastic/ubuntu-16.04-x86_64', :version=> '20180210.0.0' },
-    :centos => { :name => 'centos/7', :version=> '1901.01' },
-    :opensuse => { :name => 'opensuse/openSUSE-42.1-x86_64', :version=> '1.0.0' },
-    :clearlinux => { :name => 'AntonioMeireles/ClearLinux', :version=> '28510' }
-  }
-}
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2020
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
 
 require 'yaml'
-pdf = File.dirname(__FILE__) + '/config/pdf.yml'
-nodes = YAML.load_file(pdf)
 
-if ENV['no_proxy'] != nil or ENV['NO_PROXY'] != nil
-  $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
-  nodes.each do |node|
-    if node.has_key? "networks"
-      node['networks'].each do |network|
-        $no_proxy += "," + network['ip']
-      end
+nodes = YAML.load_file(File.dirname(__FILE__) + '/config/pdf.yml')
+vagrant_boxes = YAML.load_file(File.dirname(__FILE__) + '/distros_supported.yml')
+
+$no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
+nodes.each do |node|
+  if node.has_key? "networks"
+    node['networks'].each do |network|
+      $no_proxy += "," + network['ip']
     end
   end
-  # NOTE: This range is based on vagrant-libvirt network definition CIDR 192.168.121.0/27
-  (1..31).each do |i|
-    $no_proxy += ",192.168.122.#{i}"
-  end
-  # NOTE: This is the kolla_internal_vip_address value
-  $no_proxy += ",10.10.13.3"
 end
+# NOTE: This range is based on mgmt-net network definition CIDR 192.168.122.0/27
+(1..31).each do |i|
+  $no_proxy += ",192.168.122.#{i},10.0.2.#{i}"
+end
+# NOTE: This is the kolla_internal_vip_address value
+$no_proxy += ",10.10.13.3"
 
-distro = (ENV['OS_DISTRO'] || :ubuntu).to_sym
+$distro = ENV['OS_DISTRO'] || "ubuntu"
+$distro_release = ENV['OS_DISTRO_RELEASE'] || "xenial"
 os_release = (ENV['OS_RELEASE'] || "stable-stein").to_sym
-puts "[INFO] Linux Distro: #{distro} "
+puts "[INFO] Linux Distro: #{$distro} - #{$distro_release}"
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
 
   config.vm.synced_folder './', '/vagrant'
-  config.vm.provider :virtualbox do |v, override|
-    override.vm.box =  box[:virtualbox][distro][:name]
-    override.vm.box_version = box[:virtualbox][distro][:version]
-  end
-  config.vm.provider :libvirt do |v, override|
-    override.vm.box =  box[:libvirt][distro][:name]
-    override.vm.box_version = box[:libvirt][distro][:version]
-    v.nested = true
-    v.cpu_mode = 'host-passthrough'
+  config.vm.box =  vagrant_boxes[$distro][$distro_release]["name"]
+  config.vm.box_version = vagrant_boxes[$distro][$distro_release]["version"]
+  config.vm.provider :libvirt do |v|
     v.management_network_address = "192.168.122.0/27"
     v.management_network_name = "mgmt-net"
     v.random_hostname = true
@@ -117,6 +104,10 @@ Vagrant.configure("2") do |config|
             v.storage :file, :bus => 'sata', :device => volume['name'], :size => volume['size']
           end
         end
+        v.cpu_mode = 'host-passthrough'
+        if node['roles'].include?("compute")
+          v.nested = true
+        end
       end
 
       nodeconfig.vm.provision 'shell', privileged: false do |sh|
@@ -125,8 +116,10 @@ Vagrant.configure("2") do |config|
           'OPENSTACK_SCRIPTS_DIR': "/vagrant",
           'OPENSTACK_RELEASE': "#{os_release}"
         }
-        sh.path =  "node.sh"
-        sh.args = ['-v', $volume_mounts_dict[0...-1]]
+        sh.inline = <<-SHELL
+          cd /vagrant/
+          ./node.sh -v "#{$volume_mounts_dict[0...-1]}" | tee ~/node.log
+        SHELL
       end
     end
   end
@@ -139,7 +132,7 @@ Vagrant.configure("2") do |config|
       }
       sh.inline = <<-SHELL
         cd /vagrant/
-        ./undercloud.sh | tee /home/vagrant/undercloud.log
+        ./undercloud.sh | tee ~/undercloud.log
       SHELL
     end
     undercloud.vm.synced_folder './etc/kolla-ansible/', '/etc/kolla/', create: true
