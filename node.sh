@@ -53,16 +53,12 @@ if [[ -n "${dict_volumes+x}" ]]; then
     done
 fi
 
-# Setup proxy variables
-if [ -f sources.list ]; then
-    sudo cp sources.list /etc/apt/sources.list
-fi
-
 #curl -fsSL https://raw.githubusercontent.com/electrocucaracha/bootstrap-vagrant/master/setup.sh | PROVIDER=libvirt ENABLE_VAGRANT_INSTALL=false bash
-if [[ -n ${OPENSTACK_NODE_ROLES} ]]; then
+#sudo apt-get purge --auto-remove libvirt-bin
+if [[ -n "${OPENSTACK_NODE_ROLES+x}" ]]; then
     for role in $OPENSTACK_NODE_ROLES; do
         if [ -f "$role.sh" ]; then
-            bash "$role.sh" | sudo tee "$role.log"
+            bash "$role.sh" | sudo tee "$HOME/$role.log"
         fi
     done
 fi
