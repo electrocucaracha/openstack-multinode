@@ -13,37 +13,39 @@ set -o nounset
 set -o pipefail
 
 # Variables
-inventory_file=${OS_INVENTORY_FILE:-./inventory/hosts.ini}
 kolla_folder=/opt/kolla-ansible
-kolla_version=${OS_KOLLA_VERSION:-8.0.1}
-kolla_tarball=kolla-ansible-$kolla_version.tar.gz
-kolla_user=${OS_KOLLA_USER:-kolla}
+kolla_version=${OS_KOLLA_VERSION:-9.0.0}
 
-sudo apt install -y python2.7 python-dev build-essential sshpass
-curl -sL https://bootstrap.pypa.io/get-pip.py | sudo python
+curl -fsSL http://bit.ly/pkgInstall | PKG="pip sshpass" bash
 
 if [ ! -d ${kolla_folder} ]; then
-    wget "http://tarballs.openstack.org/kolla-ansible/$kolla_tarball"
-    sudo tar -C /opt -xzf "$kolla_tarball"
-    rm "$kolla_tarball"
-    sudo mv /opt/kolla-*/ $kolla_folder
+    pushd "$(mktemp -d)"
+    curl -o kolla-ansible.tar.gz "http://tarballs.openstack.org/kolla-ansible/kolla-ansible-$kolla_version.tar.gz"
+    tar -xzf kolla-ansible.tar.gz
+    rm kolla-ansible.tar.gz
+    sudo mv kolla-ansible-${kolla_version} $kolla_folder
+    popd
 fi
-sudo cp $kolla_folder/etc/kolla/passwords.yml /etc/kolla/
+
 sudo -E -H pip install --upgrade ansible
 sudo -E -H pip install $kolla_folder
-
 sudo -E -H pip install python-openstackclient
 
-sudo mkdir -p /etc/ansible/
+sudo mkdir -p /etc/{kolla,ansible}
+sudo cp etc/kolla-ansible/globals.yml /etc/kolla/
+sudo cp $kolla_folder/etc/kolla/passwords.yml /etc/kolla/
+sudo sed -i "s/^openstack_release: .*/openstack_release: \"${OPENSTACK_RELEASE:-train}\"/g"  /etc/kolla/globals.yml
+
 echo "[defaults]" | sudo tee /etc/ansible/ansible.cfg
 echo "host_key_checking=False" | sudo tee --append /etc/ansible/ansible.cfg
 echo "pipelinig=True" | sudo tee --append /etc/ansible/ansible.cfg
 echo "forks=100" | sudo tee --append /etc/ansible/ansible.cfg
+echo "remote_tmp=/tmp/" | sudo tee --append /etc/ansible/ansible.cfg
 
 sudo kolla-genpwd
 sudo rm -f /etc/docker/daemon.json
 for action in bootstrap-servers prechecks pull deploy check post-deploy; do
-    sudo kolla-ansible -vvv -i "$inventory_file" "$action" -e "ansible_user=${kolla_user}" -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee $action.log
+    sudo kolla-ansible -vvv -i "${OS_INVENTORY_FILE:-./inventory/hosts.ini}" "$action" -e "ansible_user=${OS_KOLLA_USER:-kolla}" -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee ~/$action.log
 done
 
 # shellcheck disable=SC2002

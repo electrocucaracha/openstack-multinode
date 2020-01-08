@@ -131,6 +131,5 @@ Vagrant.configure("2") do |config|
         ./undercloud.sh | tee ~/undercloud.log
       SHELL
     end
-    undercloud.vm.synced_folder './etc/kolla-ansible/', '/etc/kolla/', create: true
   end
 end
