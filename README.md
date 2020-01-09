@@ -2,22 +2,37 @@
 [![Build Status](https://travis-ci.org/electrocucaracha/openstack-multinode.png)](https://travis-ci.org/electrocucaracha/openstack-multinode)
 
 This project offers instructions to deploy OpenStack services through
-[Kolla][1] tool in a Multi-Node configuration. The deployment process
-uses [node bash script](node.sh) to mount and format additional volumes
-in the target Virtual Machines and other specialized scripts to setup
-the [internal image registry](registry.sh) and the
-[installer or undecloud](undercloud.sh) VM.
+[Kolla][1] tool in the following configurations:
+
+* [All-in-One](samples/aio/): Kolla Docker Registry, OpenStack
+Controller and Compute roles installed on a single Ubuntu Xenial
+server. This configuration is limited so it's recommended only for
+Development purposes.
+* [No High Availability](samples/noha/): Kolla Docker Registry and
+OpenStack Controller role installed on a single CentOS 7 server. Two
+additional servers are provisioned with OpenStack Compute role. This
+configuration is useful to test distributed applications.
+* [Distributed](samples/distributed/): Every role is distributed among
+several Ubuntu servers. This configuration pretends to mimic the needs
+of a production environment.
+
+The deployment process uses [node bash script](node.sh) to mount and
+format additional volumes in the target Virtual Machines and other
+specialized scripts to setup additional roles, like the
+[internal image registry](registry.sh). The [undecloud](undercloud.sh)
+Virtual Machine is used to provision other servers.
 
 ![Diagram](doc/img/diagram.png)
 
 ## Host System Requirements
 
-The system that will host VMs for the solution must be big enough to support
-the 11 VMs displayed at above diagram.
+The system that will host VMs for the solution must be big enough to
+support the +10 Virtual Machines displayed at above diagram.
 
-VM configuration can be adjusted at [pdf.yml](config/pdf.yml).
+Some configuration details can be configured for the *Distributed*
+setup using its [pdf.yml](samples/distributed/pdf.yml).
 
-Current configuration:
+### Current configuration
 
 | Amount | Element           | Memory(GB) | vCPUs | Disk(GB) |
 |--------|-------------------|------------|-------|----------|
@@ -39,14 +54,16 @@ of the [bootstrap-vagrant project][3] for installing Vagrant
 dependencies and plugins required for its project. The script
 supports two Virtualization providers (Libvirt and VirtualBox).
 
-    $ curl -fsSL https://raw.githubusercontent.com/electrocucaracha/bootstrap-vagrant/master/setup.sh | PROVIDER=libvirt bash
+    $ curl -fsSL http://bit.ly/initVagrant | PROVIDER=libvirt bash
 
 Once Vagrant is installed, it's possible to deploy the demo with the
-following instruction:
+following instructions:
 
+    $ cd samples/distributed
     $ vagrant up
+    $ vagrant up undercloud
 
-## Execution
+### Explanation
 
 First of all, it's necessary to start the nodes which are going to be
 configured by the provisioning server. All these nodes can be
@@ -73,11 +90,11 @@ responsible for the provisioning tasks.
 
 ## Deploy All-in-One configuration
 
-The [install.sh](samples/aio/install.sh) bash script provides the
-instructions for the deployment of an All-in-One OpenStack
-configuration. It's possible to run this script remotely:
+The [install bash script](install.sh) provides instructions to 
+deploy an All-in-One OpenStack configuration. It's possible to run
+this script remotely:
 
-    $ curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/samples/install.sh | bash
+    $ curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/install.sh | bash
 
 ## License
 

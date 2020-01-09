@@ -1,5 +1,17 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2020
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+require 'yaml'
+
+vagrant_boxes = YAML.load_file(File.dirname(__FILE__) + '/../../distros_supported.yml')
 
 compute_nodes = [
   { :hostname => "compute01", :cpu => 16, :memory => 16384, :ip => "10.10.13.9" },
@@ -22,16 +34,9 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox
 
   config.vm.synced_folder '../../', '/vagrant'
-  config.vm.box = "elastic/ubuntu-16.04-x86_64"
+  config.vm.box =  vagrant_boxes["centos"][7]["name"]
+  config.vm.box_version = vagrant_boxes["centos"][7]["version"]
   config.ssh.insert_key = false
-  if ENV['http_proxy'] != nil and ENV['https_proxy'] != nil
-    if Vagrant.has_plugin?('vagrant-proxyconf')
-      config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""
-      config.proxy.https    = ENV['https_proxy'] || ENV['HTTPS_PROXY'] || ""
-      config.proxy.no_proxy = $no_proxy
-      config.proxy.enabled = { docker: false }
-    end
-  end
 
   config.vm.provider :libvirt do |v, override|
     v.cpu_mode = 'host-passthrough'
@@ -40,18 +45,12 @@ Vagrant.configure("2") do |config|
   end
   config.vm.provision 'shell' do |sh|
     sh.inline = <<-SHELL
+      cd /vagrant
       mkdir -p /root/.ssh
-      cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
+      cat insecure_keys/key.pub | tee /root/.ssh/authorized_keys
       chmod og-wx /root/.ssh/authorized_keys
     SHELL
-  end 
-  config.vm.provision 'shell', privileged: false do |sh|
-    sh.inline = <<-SHELL
-      cd /vagrant
-      ./node.sh | tee node_$(hostname).log
-    SHELL
-  end 
-  config.vm.provision :reload
+  end
 
   compute_nodes.each do |compute_node|
     config.vm.define "#{compute_node[:hostname]}" do |nodeconfig|
@@ -67,8 +66,15 @@ Vagrant.configure("2") do |config|
           p.memory = compute_node[:memory]
         end
       end
+      nodeconfig.vm.provision 'shell', privileged: false do |sh|
+        sh.inline = <<-SHELL
+          cd /vagrant
+          ./node.sh | tee ~/node_$(hostname).log
+        SHELL
+      end
     end
   end
+
 
   config.vm.define "controller01", primary: true, autostart: false do |controller01|
     controller01.vm.hostname = "controller01"
@@ -83,18 +89,41 @@ Vagrant.configure("2") do |config|
     controller01.vm.provision 'shell', privileged: false do |sh|
       sh.env = {
         'SOCKS_PROXY': "#{$socks_proxy}",
+        'OS_OVERRIDE_NETWORK': "false",
+        'OS_FLAVOR': "noha",
+        'OS_FOLDER': "/vagrant/"
       }
       sh.inline = <<-SHELL
-        OS_FLAVOR=noha OS_FOLDER=/vagrant/ bash /vagrant/samples/install.sh | tee install_noha.log
+        cd /vagrant
+        ./node.sh -v sda=/var/lib/docker/ | tee ~/node_controller01.log
+        ./install.sh | tee ~/install_controller01.log
       SHELL
     end
-    controller01.vm.network :private_network, :ip => "10.10.13.8", :type => :static,
-      libvirt__network_name: "tunnel-net"
     [:virtualbox, :libvirt].each do |provider|
       config.vm.provider provider do |p, override|
         p.cpus = 4
         p.memory = 8192
       end
+    end
+
+    $volume_file = "controller-sda.vdi"
+    controller01.vm.provider 'virtualbox' do |v, override|
+      unless File.exist?($volume_file)
+        v.customize ['createmedium', 'disk', '--filename', $volume_file, '--size', 50]
+      end
+      v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $volume_file]
+    end
+    controller01.vm.provider :libvirt do |v, override|
+      v.storage :file, :bus => 'sata', :device => 'sda', :size => 50
+    end
+  end
+
+  if ENV['http_proxy'] != nil and ENV['https_proxy'] != nil
+    if Vagrant.has_plugin?('vagrant-proxyconf')
+      config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""
+      config.proxy.https    = ENV['https_proxy'] || ENV['HTTPS_PROXY'] || ""
+      config.proxy.no_proxy = $no_proxy
+      config.proxy.enabled = { docker: false }
     end
   end
 end

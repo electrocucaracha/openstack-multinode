@@ -13,13 +13,13 @@ set -o pipefail
 set -o errexit
 
 pkgs=""
-for pkg in docker jq pip; do
+for pkg in docker jq pip git; do
     if ! command -v "$pkg"; then
         pkgs+=" $pkg"
     fi
 done
 if [ -n "$pkgs" ]; then
-    curl -fsSL http://bit.ly/pkgInstall | PKG=$pkgs bash
+    curl -fsSL http://bit.ly/pkgInstall | PKG_UDPATE=true PKG=$pkgs bash
 fi
 if ! command -v kolla-build; then
     sudo -H -E pip install kolla=="${OS_KOLLA_VERSION:-9.0.0}"
@@ -33,8 +33,9 @@ fi
 
 # Configure custom values
 sudo mkdir -p /etc/kolla
-sudo cp ./kolla-build.ini /etc/kolla/kolla-build.ini
+sudo cp ./etc/kolla/kolla-build.ini /etc/kolla/kolla-build.ini
 sudo sed -i "s/^tag = .*/tag = ${OPENSTACK_RELEASE:-train}/g" /etc/kolla/kolla-build.ini
+sudo sed -i "s/^registry = .*/registry = ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/kolla-build.ini
 
 bifrost_header=""
 bifrost_footer=""

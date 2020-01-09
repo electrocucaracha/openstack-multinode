@@ -23,17 +23,23 @@ if [ ! -d ${kolla_folder} ]; then
     curl -o kolla-ansible.tar.gz "http://tarballs.openstack.org/kolla-ansible/kolla-ansible-$kolla_version.tar.gz"
     tar -xzf kolla-ansible.tar.gz
     rm kolla-ansible.tar.gz
-    sudo mv kolla-ansible-${kolla_version} $kolla_folder
+    sudo mv "kolla-ansible-${kolla_version}" $kolla_folder
     popd
 fi
 
 sudo -E -H pip install --upgrade ansible
 sudo -E -H pip install $kolla_folder
+pkgs="python-devel"
+if ! command -v gcc; then
+    pkgs+=" gcc"
+fi
+if [ -n "$pkgs" ]; then
+    curl -fsSL http://bit.ly/pkgInstall | PKG=$pkgs bash
+fi
 sudo -E -H pip install python-openstackclient
 
 sudo mkdir -p /etc/{kolla,ansible}
-sudo cp etc/kolla-ansible/globals.yml /etc/kolla/
-sudo cp $kolla_folder/etc/kolla/passwords.yml /etc/kolla/
+sudo sed -i "s/^docker_registry: .*/docker_registry: ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/globals.yml
 sudo sed -i "s/^openstack_release: .*/openstack_release: \"${OPENSTACK_RELEASE:-train}\"/g"  /etc/kolla/globals.yml
 
 echo "[defaults]" | sudo tee /etc/ansible/ansible.cfg

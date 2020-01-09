@@ -11,8 +11,8 @@
 
 require 'yaml'
 
-nodes = YAML.load_file(File.dirname(__FILE__) + '/config/pdf.yml')
-vagrant_boxes = YAML.load_file(File.dirname(__FILE__) + '/distros_supported.yml')
+nodes = YAML.load_file(File.dirname(__FILE__) + '/pdf.yml')
+vagrant_boxes = YAML.load_file(File.dirname(__FILE__) + '/../../distros_supported.yml')
 
 $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
 nodes.each do |node|
@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
 
-  config.vm.synced_folder './', '/vagrant'
+  config.vm.synced_folder '../../', '/vagrant'
   config.vm.box =  vagrant_boxes[$distro][$distro_release]["name"]
   config.vm.box_version = vagrant_boxes[$distro][$distro_release]["version"]
   config.vm.provider :libvirt do |v|
@@ -128,6 +128,8 @@ Vagrant.configure("2") do |config|
     undercloud.vm.provision 'shell', privileged: false do |sh|
       sh.inline = <<-SHELL
         cd /vagrant/
+         sudo mkdir -p /etc/kolla
+         sudo cp -R ./etc/kolla/* /etc/kolla/
         ./undercloud.sh | tee ~/undercloud.log
       SHELL
     end
