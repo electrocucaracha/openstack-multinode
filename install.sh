@@ -16,8 +16,8 @@ set -o xtrace
 # Discovery process
 
 # Management network - Used for internal communication between OpenStack Components. The IP addresses on this network should be reachable only within the data center and is considered the Management Security Domain.
-mgmt_nic=$(ip route | grep "^192" | awk '{ print $3 }')
-mgmt_ip=$(ip addr | awk "/${mgmt_nic}\$/ { sub(/\/[0-9]*/, \"\","' $2); print $2}')
+mgmt_nic=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $5 }')
+mgmt_ip=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $7 }')
 
 # Guest network - Used for VM data communication within the cloud deployment. The IP addressing requirements of this network depend on the OpenStack Networking plug-in in use and the network configuration choices of the virtual networks made by the tenant. This network is considered the Guest Security Domain.
 
