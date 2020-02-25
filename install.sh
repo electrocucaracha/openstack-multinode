@@ -67,7 +67,7 @@ fi
 # Ensuring project's source code
 if [ ! -d "${OS_FOLDER}" ]; then
     if ! command -v git; then
-        curl -fsSL http://bit.ly/pkgInstall | PKG=git bash
+        curl -fsSL http://bit.ly/install_pkg | PKG=git bash
     fi
 
     echo "Cloning and configuring openstack-multinode project..."
@@ -83,6 +83,7 @@ DOCKER_REGISTRY_IP=${mgmt_ip} DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT} ./reg
 
 sudo mkdir -p /etc/kolla/config
 sudo cp -R etc/kolla/* /etc/kolla/
+sudo chown "$USER" /etc/kolla/passwords.yml
 # NOTE: Required for resolving rabbitmq hostname
 echo "127.0.0.1       localhost      $(hostname)" | sudo tee /etc/hosts
 sudo sed -i "s/^docker_registry: .*/docker_registry: ${mgmt_ip}:${DOCKER_REGISTRY_PORT}/g" /etc/kolla/globals.yml
@@ -112,14 +113,5 @@ DOCKER_REGISTRY_IP=${mgmt_ip} DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT} OS_IN
 
 # shellcheck disable=SC1091
 source /etc/kolla/admin-openrc.sh
-# shellcheck disable=SC1091
-source /etc/os-release || source /usr/lib/os-release
-case ${ID,,} in
-    ubuntu|debian)
-    /usr/local/share/kolla-ansible/init-runonce
-    ;;
-    rhel|centos|fedora)
-    /usr/share/kolla-ansible/init-runonce
-    ;;
-esac
+/opt/kolla-ansible/tools/init-runonce
 openstack flavor set m1.large --property pci_passthrough:alias=C62x:1

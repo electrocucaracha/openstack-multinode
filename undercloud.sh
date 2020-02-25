@@ -14,44 +14,43 @@ set -o pipefail
 
 # Variables
 kolla_folder=/opt/kolla-ansible
-kolla_version=${OS_KOLLA_VERSION:-9.0.0}
+kolla_version=${OS_KOLLA_ANSIBLE_VERSION:-9.0.1}
 
-curl -fsSL http://bit.ly/pkgInstall | PKG="pip sshpass" bash
-
-if [ ! -d ${kolla_folder} ]; then
-    pushd "$(mktemp -d)"
-    curl -o kolla-ansible.tar.gz "http://tarballs.openstack.org/kolla-ansible/kolla-ansible-$kolla_version.tar.gz"
-    tar -xzf kolla-ansible.tar.gz
-    rm kolla-ansible.tar.gz
-    sudo mv "kolla-ansible-${kolla_version}" $kolla_folder
-    popd
-fi
-
-sudo -E -H pip install --upgrade ansible
-sudo -E -H pip install $kolla_folder
-pkgs="python-devel"
+pkgs="python-devel pip sshpass"
 if ! command -v gcc; then
     pkgs+=" gcc"
 fi
-if [ -n "$pkgs" ]; then
-    curl -fsSL http://bit.ly/pkgInstall | PKG=$pkgs bash
+curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs PKG_PYTHON_MAJOR_VERSION=2 bash
+
+if [ ! -d ${kolla_folder} ]; then
+    pushd "$(mktemp -d)"
+    curl -o kolla-ansible.tar.gz "https://tarballs.opendev.org/openstack/kolla-ansible/kolla-ansible-${kolla_version}.tar.gz"
+    tar -xzf kolla-ansible.tar.gz
+    rm kolla-ansible.tar.gz
+    sudo mv kolla-ansible-* "$kolla_folder"
+    popd
 fi
-sudo -E -H pip install python-openstackclient
+
+pip install --upgrade ansible
+pip install $kolla_folder
+pip install python-openstackclient
 
 sudo mkdir -p /etc/{kolla,ansible}
-sudo sed -i "s/^docker_registry: .*/docker_registry: ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/globals.yml
-sudo sed -i "s/^openstack_release: .*/openstack_release: \"${OPENSTACK_RELEASE:-train}\"/g"  /etc/kolla/globals.yml
+sudo sed -i "s/^docker_registry: .*$/docker_registry: ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/globals.yml
+sudo sed -i "s/^openstack_release: .*$/openstack_release: \"${OPENSTACK_RELEASE:-train}\"/g"  /etc/kolla/globals.yml
 
-echo "[defaults]" | sudo tee /etc/ansible/ansible.cfg
-echo "host_key_checking=False" | sudo tee --append /etc/ansible/ansible.cfg
-echo "pipelinig=True" | sudo tee --append /etc/ansible/ansible.cfg
-echo "forks=100" | sudo tee --append /etc/ansible/ansible.cfg
-echo "remote_tmp=/tmp/" | sudo tee --append /etc/ansible/ansible.cfg
+sudo tee /etc/ansible/ansible.cfg << EOL
+[defaults]
+host_key_checking=False
+pipelinig=True
+forks=100
+remote_tmp=/tmp/
+EOL
 
-sudo kolla-genpwd
+kolla-genpwd
 sudo rm -f /etc/docker/daemon.json
 for action in bootstrap-servers prechecks pull deploy check post-deploy; do
-    sudo kolla-ansible -vvv -i "${OS_INVENTORY_FILE:-./inventory/hosts.ini}" "$action" -e "ansible_user=${OS_KOLLA_USER:-kolla}" -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee ~/$action.log
+    SNAP=$HOME/.local/ kolla-ansible -vvv -i "${OS_INVENTORY_FILE:-./inventory/hosts.ini}" "$action" -e "ansible_user=${OS_KOLLA_USER:-kolla}" -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee ~/$action.log
 done
 
 # shellcheck disable=SC2002

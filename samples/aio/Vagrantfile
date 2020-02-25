@@ -20,29 +20,37 @@ $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
 end
 $no_proxy += ",10.10.13.7"
 $socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
+$box=vagrant_boxes["ubuntu"]["xenial"]
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
 
   config.vm.synced_folder '../../', '/vagrant'
-  config.vm.box =  vagrant_boxes["ubuntu"]["xenial"]["name"]
-  config.vm.box_version = vagrant_boxes["ubuntu"]["xenial"]["version"]
+  config.vm.box =  $box["name"]
+  config.vm.box_version = $box["version"]
   config.ssh.insert_key = false
   config.vm.hostname = "aio"
-  config.vm.provision 'shell'do |sh|
-    sh.inline = <<-SHELL
-      cd /vagrant
-      mkdir -p /root/.ssh
-      cat insecure_keys/key.pub | tee /root/.ssh/authorized_keys
-      chmod og-wx /root/.ssh/authorized_keys
-      cp insecure_keys/key /root/.ssh/id_rsa
-      sudo chmod 400 /root/.ssh/id_rsa
-    SHELL
-  end
+  # OpenStack Tenk project requires to disable SELinux
+  config.vm.provision 'shell', inline: <<-SHELL
+    if command -v sestatus; then
+        sudo setenforce Permissive
+        sudo sed -i "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
+    fi
+  SHELL
+  config.vm.provision :reload
+  config.vm.provision 'shell', inline: <<-SHELL
+    cd /vagrant
+    mkdir -p /root/.ssh
+    cat insecure_keys/key.pub | tee /root/.ssh/authorized_keys
+    chmod og-wx /root/.ssh/authorized_keys
+    cp insecure_keys/key /root/.ssh/id_rsa
+    sudo chmod 400 /root/.ssh/id_rsa
+  SHELL
   config.vm.provision 'shell', privileged: false do |sh|
     sh.env = {
       'SOCKS_PROXY': "#{$socks_proxy}",
+#      'OPENSTACK_TAG': "train-centos8",
       'OS_FOLDER': "/vagrant/"
     }
     sh.inline = <<-SHELL
