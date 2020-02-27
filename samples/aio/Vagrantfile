@@ -20,7 +20,7 @@ $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
 end
 $no_proxy += ",10.10.13.7"
 $socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
-$box=vagrant_boxes["ubuntu"]["xenial"]
+$box=vagrant_boxes["ubuntu"]["bionic"]
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
@@ -40,12 +40,11 @@ Vagrant.configure("2") do |config|
   SHELL
   config.vm.provision :reload
   config.vm.provision 'shell', inline: <<-SHELL
-    cd /vagrant
     mkdir -p /root/.ssh
-    cat insecure_keys/key.pub | tee /root/.ssh/authorized_keys
-    chmod og-wx /root/.ssh/authorized_keys
-    cp insecure_keys/key /root/.ssh/id_rsa
-    sudo chmod 400 /root/.ssh/id_rsa
+    cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
+    chmod 700 ~/.ssh
+    chmod 600 ~/.ssh/authorized_keys
+    sed -i '/^PermitRootLogin no/d' /etc/ssh/sshd_config
   SHELL
   config.vm.provision 'shell', privileged: false do |sh|
     sh.env = {
@@ -55,15 +54,33 @@ Vagrant.configure("2") do |config|
     }
     sh.inline = <<-SHELL
       cd /vagrant
+
+      sudo mkdir -p /root/.ssh/
+      sudo cp insecure_keys/key /root/.ssh/id_rsa
+      cp insecure_keys/key ~/.ssh/id_rsa
+      cp insecure_keys/key.pub ~/.ssh/id_rsa.pub
+      sudo chmod 400 /root/.ssh/id_rsa
+      chown "$USER" ~/.ssh/id_rsa
+      chmod 400 ~/.ssh/id_rsa
+
+      source /etc/os-release || source /usr/lib/os-release
+      case ${ID,,} in
+          ubuntu|debian)
+              sudo apt-get update
+              sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
+          ;;
+      esac
+
       ./node.sh -v sda=/var/lib/docker/ | tee ~/node_aio.log
       ./install.sh | tee ~/install_aio.log
     SHELL
   end
 
+  # Intel's NUC BXNUC10I7FNHAA1
   [:virtualbox, :libvirt].each do |provider|
-  config.vm.provider provider do |p, override|
-      p.cpus = 16
-      p.memory = 32768
+  config.vm.provider provider do |p|
+      p.cpus = 12 # sockets * cores * threads
+      p.memory = 16384 # 2 x 8GB DDR4-2666
     end
   end
 
@@ -76,11 +93,12 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provider :libvirt do |v, override|
+    v.cputopology :sockets => 1, :cores => 6, :threads => 2 # Intel Core i7-10710U Processor
     v.cpu_mode = 'host-passthrough'
     v.random_hostname = true
     v.nested = true
     v.management_network_address = "192.168.121.0/24"
-    v.storage :file, :bus => 'sata', :device => 'sda', :size => 50
+    v.storage :file, :bus => 'sata', :device => 'sda', :size => 50 # ~30 GB Kolla Docker images
   end
 
   config.vm.network :private_network, :ip => "10.10.13.7", :type => :static,

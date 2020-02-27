@@ -111,6 +111,9 @@ DOCKER_REGISTRY_IP=${mgmt_ip} DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT} OS_IN
 
 # Post-Install actions
 
+# PEP 370 -- Per user site-packages directory
+[[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
+
 # shellcheck disable=SC1091
 source /etc/kolla/admin-openrc.sh
 /opt/kolla-ansible/tools/init-runonce

@@ -47,10 +47,13 @@ forks=100
 remote_tmp=/tmp/
 EOL
 
+# PEP 370 -- Per user site-packages directory
+[[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
+
 kolla-genpwd
 sudo rm -f /etc/docker/daemon.json
 for action in bootstrap-servers prechecks pull deploy check post-deploy; do
-    SNAP=$HOME/.local/ kolla-ansible -vvv -i "${OS_INVENTORY_FILE:-./inventory/hosts.ini}" "$action" -e "ansible_user=${OS_KOLLA_USER:-kolla}" -e 'ansible_become=true' -e 'ansible_become_method=sudo' | tee ~/$action.log
+    ./run_kaction.sh "$action"
 done
 
 # shellcheck disable=SC2002

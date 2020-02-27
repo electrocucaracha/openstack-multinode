@@ -70,8 +70,12 @@ EOL
 #sudo kolla-build --type source --template-override $HOME/template-overrides.j2 bifrost-deploy
 
 # Kolla Docker images creation
+kolla_cmd="kolla-build --config-file /etc/kolla/kolla-build.ini"
 newgrp docker <<EONG
-SNAP=$HOME/.local/ kolla-build --config-file /etc/kolla/kolla-build.ini | jq "." | tee "$HOME/output.json"
+# PEP 370 -- Per user site-packages directory
+[[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
+
+SNAP=$HOME/.local/ $kolla_cmd | jq "." | tee "$HOME/output.json"
 EONG
 if [[ $(jq  '.failed | length ' "$HOME/output.json") != 0 ]]; then
     jq  '.failed[].name' "$HOME/output.json"
