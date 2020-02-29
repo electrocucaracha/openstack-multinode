@@ -13,9 +13,10 @@ require 'yaml'
 
 vagrant_boxes = YAML.load_file(File.dirname(__FILE__) + '/../../distros_supported.yml')
 
+# Intel's NUC BXNUC10I7FNHAA1 + 2 x 32GB DDR4-2666
 compute_nodes = [
-  { :hostname => "compute01", :cpu => 16, :memory => 16384, :ip => "10.10.13.9" },
-  { :hostname => "compute02", :cpu => 16, :memory => 16384, :ip => "10.10.13.10" }
+  { :hostname => "compute01", :memory => 65536, :ip => "10.10.13.9" },
+  { :hostname => "compute02", :memory => 65536, :ip => "10.10.13.10" }
 ]
 
 $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
@@ -42,15 +43,20 @@ Vagrant.configure("2") do |config|
     v.cpu_mode = 'host-passthrough'
     v.random_hostname = true
     v.management_network_address = "192.168.121.0/24"
+    v.cputopology :sockets => 1, :cores => 6, :threads => 2 # Intel Core i7-10710U Processor
   end
-  config.vm.provision 'shell' do |sh|
-    sh.inline = <<-SHELL
-      cd /vagrant
-      mkdir -p /root/.ssh
-      cat insecure_keys/key.pub | tee /root/.ssh/authorized_keys
-      chmod og-wx /root/.ssh/authorized_keys
-    SHELL
-  end
+  config.vm.provision 'shell', inline: <<-SHELL
+    mkdir -p /root/.ssh
+    cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
+    chmod 700 ~/.ssh
+    chmod 600 ~/.ssh/authorized_keys
+    sed -i '/^PermitRootLogin no/d' /etc/ssh/sshd_config
+    if command -v sestatus; then
+        sudo setenforce Permissive
+        sudo sed -i "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
+    fi
+  SHELL
+  config.vm.provision :reload
 
   compute_nodes.each do |compute_node|
     config.vm.define "#{compute_node[:hostname]}" do |nodeconfig|
@@ -62,7 +68,7 @@ Vagrant.configure("2") do |config|
         libvirt__network_name: "tunnel-net"
       [:virtualbox, :libvirt].each do |provider|
         config.vm.provider provider do |p, override|
-          p.cpus = compute_node[:cpu]
+          p.cpus = 12 # sockets * cores * threads
           p.memory = compute_node[:memory]
         end
       end
@@ -78,14 +84,24 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "controller01", primary: true, autostart: false do |controller01|
     controller01.vm.hostname = "controller01"
-    controller01.vm.provision 'shell', privileged: false do |sh|
-      sh.inline = <<-SHELL
-        cd /vagrant
-        sudo mkdir -p /root/.ssh/
-        sudo cp insecure_keys/key /root/.ssh/id_rsa
-        sudo chmod 400 /root/.ssh/id_rsa
-      SHELL
-    end
+    config.vm.provision 'shell', privileged: false, inline: <<-SHELL
+      cd /vagrant
+      sudo mkdir -p /root/.ssh/
+      sudo cp insecure_keys/key /root/.ssh/id_rsa
+      cp insecure_keys/key ~/.ssh/id_rsa
+      cp insecure_keys/key.pub ~/.ssh/id_rsa.pub
+      sudo chmod 400 /root/.ssh/id_rsa
+      chown "$USER" ~/.ssh/id_rsa
+      chmod 400 ~/.ssh/id_rsa
+
+      source /etc/os-release || source /usr/lib/os-release
+      case ${ID,,} in
+          ubuntu|debian)
+              sudo apt-get update
+              sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
+          ;;
+      esac
+    SHELL
     controller01.vm.provision 'shell', privileged: false do |sh|
       sh.env = {
         'SOCKS_PROXY': "#{$socks_proxy}",
@@ -99,10 +115,11 @@ Vagrant.configure("2") do |config|
         ./install.sh | tee ~/install_controller01.log
       SHELL
     end
+    # Intel's NUC BXNUC10I7FNHAA1
     [:virtualbox, :libvirt].each do |provider|
       config.vm.provider provider do |p, override|
-        p.cpus = 4
-        p.memory = 8192
+        p.cpus = 12 # sockets * cores * threads
+        p.memory = 16384 # 2 x 8GB DDR4-2666
       end
     end
 
@@ -115,6 +132,7 @@ Vagrant.configure("2") do |config|
     end
     controller01.vm.provider :libvirt do |v, override|
       v.storage :file, :bus => 'sata', :device => 'sda', :size => 50
+      v.cputopology :sockets => 1, :cores => 6, :threads => 2 # Intel Core i7-10710U Processor
     end
   end
 
