@@ -44,6 +44,7 @@ fi
 
 # Validation process
 
+# Validating passwordless sudo
 if ! sudo -n "true"; then
     echo ""
     echo "passwordless sudo is needed for '$(id -nu)' user."
@@ -62,6 +63,14 @@ if [[ ${NO_PROXY+x} = "x" ]]; then
             exit 1
         fi
     done
+fi
+
+# Validating SELinux
+if command -v sestatus && [[ $(sestatus | grep Current) != *permissive* ]]; then
+    echo ""
+    echo "SELinux requires to be configured as Permissive mode."
+    echo "Please fix your /etc/selinux/config file."
+    exit 1
 fi
 
 # Ensuring project's source code
