@@ -35,10 +35,13 @@ EOF
     echo "${dev_name}1 $mount_dir           ext4    errors=remount-ro,noatime,barrier=0 0       1" | sudo tee --append /etc/fstab
 }
 
-while getopts "h?v:" opt; do
+while getopts "h?v:c:" opt; do
     case $opt in
         v)
             dict_volumes="$OPTARG"
+            ;;
+        c)
+            cinder_volumes="$OPTARG"
             ;;
         h|\?)
             usage
@@ -53,8 +56,14 @@ if [[ -n "${dict_volumes+x}" ]]; then
     done
 fi
 
-#curl -fsSL https://raw.githubusercontent.com/electrocucaracha/bootstrap-vagrant/master/setup.sh | PROVIDER=libvirt ENABLE_VAGRANT_INSTALL=false bash
-#sudo apt-get purge --auto-remove libvirt-bin
+if [[ -n "${cinder_volumes+x}" ]]; then
+    if ! command -v vgs; then
+        curl -fsSL http://bit.ly/install_pkg | PKG="lvm2" bash
+    fi
+    sudo pvcreate "$cinder_volumes"
+    sudo vgcreate cinder-volumes "$cinder_volumes"
+fi
+
 if [[ -n "${OPENSTACK_NODE_ROLES+x}" ]]; then
     for role in $OPENSTACK_NODE_ROLES; do
         if [ -f "$role.sh" ]; then

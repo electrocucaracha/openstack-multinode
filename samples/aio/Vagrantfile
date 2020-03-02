@@ -20,7 +20,7 @@ $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
 end
 $no_proxy += ",10.10.13.7"
 $socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
-$box=vagrant_boxes["ubuntu"]["bionic"]
+$box=vagrant_boxes["centos"][7]
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
@@ -31,14 +31,6 @@ Vagrant.configure("2") do |config|
   config.vm.box_version = $box["version"]
   config.ssh.insert_key = false
   config.vm.hostname = "aio"
-  # OpenStack Tenk project requires to disable SELinux
-  config.vm.provision 'shell', inline: <<-SHELL
-    if command -v sestatus; then
-        sudo setenforce Permissive
-        sudo sed -i "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
-    fi
-  SHELL
-  config.vm.provision :reload
   config.vm.provision 'shell', inline: <<-SHELL
     mkdir -p /root/.ssh
     cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
@@ -63,6 +55,14 @@ Vagrant.configure("2") do |config|
       chown "$USER" ~/.ssh/id_rsa
       chmod 400 ~/.ssh/id_rsa
 
+      if command -v sestatus; then
+          sudo setenforce Permissive
+          sudo sed -i "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
+      fi
+      #sudo ip link add veth0 type veth peer name veth1
+      #sudo ip addr add 10.10.13.7/24 dev veth0
+      #sudo ip link set veth0 up
+
       source /etc/os-release || source /usr/lib/os-release
       case ${ID,,} in
           ubuntu|debian)
@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
           ;;
       esac
 
-      ./node.sh -v sda=/var/lib/docker/ | tee ~/node_aio.log
+      ./node.sh -v sda=/var/lib/docker/ -c /dev/sdb | tee ~/node_aio.log
       ./install.sh | tee ~/install_aio.log
     SHELL
   end
@@ -85,11 +85,16 @@ Vagrant.configure("2") do |config|
   end
 
   $volume_file = "aio-sda.vdi"
+  $cinder_file = "aio-sdb.vdi"
   config.vm.provider 'virtualbox' do |v, override|
     unless File.exist?($volume_file)
       v.customize ['createmedium', 'disk', '--filename', $volume_file, '--size', 50]
     end
+    unless File.exist?($cinder_file)
+      v.customize ['createmedium', 'disk', '--filename', $cinder_file, '--size', 100]
+    end
     v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $volume_file]
+    v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $cinder_file]
   end
 
   config.vm.provider :libvirt do |v, override|
@@ -99,6 +104,7 @@ Vagrant.configure("2") do |config|
     v.nested = true
     v.management_network_address = "192.168.121.0/24"
     v.storage :file, :bus => 'sata', :device => 'sda', :size => 50 # ~30 GB Kolla Docker images
+    v.storage :file, :bus => 'sata', :device => 'sdb', :size => 100 # Cinder volume
   end
 
   config.vm.network :private_network, :ip => "10.10.13.7", :type => :static,
