@@ -18,7 +18,7 @@
 kolla_install_type: "binary"
 
 # Valid option is Docker repository tag
-openstack_release: "stein"
+openstack_release: "train"
 
 # Location of configuration overrides
 #node_custom_config: "/etc/kolla/config"
@@ -192,7 +192,7 @@ enable_etcd: "no"
 enable_freezer: "no"
 #enable_gnocchi: "no"
 enable_grafana: "no"
-enable_haproxy: "no"
+enable_haproxy: "yes"
 #enable_heat: "yes"
 #enable_horizon: "yes"
 #enable_horizon_blazar: "{{ enable_blazar | bool }}"
