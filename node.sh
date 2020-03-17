@@ -11,6 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o errexit
+set -o xtrace
 
 # usage() - Prints the usage of the program
 function usage {
@@ -50,19 +51,27 @@ while getopts "h?v:c:" opt; do
     esac
 done
 
-if [[ -n "${dict_volumes+x}" ]]; then
+if [ -n "${dict_volumes:-}" ]; then
     for kv in ${dict_volumes//,/ } ;do
         mount_external_partition "${kv%=*}" "${kv#*=}"
     done
 fi
 
-if [[ -n "${cinder_volumes+x}" ]]; then
+if [ -n "${cinder_volumes:-}" ]; then
     if ! command -v vgs; then
         curl -fsSL http://bit.ly/install_pkg | PKG="lvm2" bash
     fi
     sudo pvcreate "$cinder_volumes"
     sudo vgcreate cinder-volumes "$cinder_volumes"
 fi
+
+source /etc/os-release || source /usr/lib/os-release
+case ${ID,,} in
+    ubuntu|debian)
+        sudo apt-get update
+        sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
+    ;;
+esac
 
 if [[ -n "${OPENSTACK_NODE_ROLES+x}" ]]; then
     for role in $OPENSTACK_NODE_ROLES; do
@@ -72,6 +81,14 @@ if [[ -n "${OPENSTACK_NODE_ROLES+x}" ]]; then
     done
 fi
 # Install Cockpit services
-curl -fsSL http://bit.ly/install_pkg | PKG="cockpit" bash
+curl -fsSL http://bit.ly/install_pkg | PKG="cockpit" PKG_UDPATE="true" bash
 sudo systemctl enable cockpit
 sudo systemctl start cockpit
+
+# Disable IPv6
+sudo tee /etc/sysctl.conf << EOF
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+EOF
+sudo sysctl -p
