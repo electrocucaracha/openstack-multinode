@@ -117,9 +117,6 @@ DOCKER_REGISTRY_IP=${mgmt_ip} DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT} ./reg
 sudo mkdir -p /etc/kolla/config
 sudo cp -R etc/kolla/* /etc/kolla/
 sudo chown "$USER" /etc/kolla/passwords.yml
-# NOTE: Required for resolving rabbitmq hostname
-echo "127.0.0.1       localhost      $(hostname)" | sudo tee /etc/hosts
-sudo sed -i "s/^docker_registry: .*/docker_registry: ${mgmt_ip}:${DOCKER_REGISTRY_PORT}/g" /etc/kolla/globals.yml
 
 # These endpoints are the admin URL, the internal URL, and the external URL.
 sudo sed -i "s/^kolla_internal_vip_address: .*/kolla_internal_vip_address: ${kolla_internal_vip_address}/g" /etc/kolla/globals.yml
@@ -139,7 +136,6 @@ if [ "${OS_OVERRIDE_NETWORK:-true}" == "true" ]; then
     sudo sed -i "s/^#neutron_external_interface: .*/neutron_external_interface: \"${public_nic}\"/g" /etc/kolla/globals.yml
 fi
 
-sudo sed -i "s/^openstack_release: .*/openstack_release: \"${OPENSTACK_RELEASE}\"/g" /etc/kolla/globals.yml
 DOCKER_REGISTRY_IP=${mgmt_ip} DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT} OS_INVENTORY_FILE="./samples/${OS_FLAVOR}/hosts.ini" ./undercloud.sh
 
 # Post-Install actions
