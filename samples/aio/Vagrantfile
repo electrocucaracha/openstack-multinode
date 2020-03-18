@@ -86,14 +86,15 @@ Vagrant.configure("2") do |config|
   $volume_file = "aio-sda.vdi"
   $cinder_file = "aio-sdb.vdi"
   config.vm.provider 'virtualbox' do |v, override|
+    v.gui = false
     unless File.exist?($volume_file)
       v.customize ['createmedium', 'disk', '--filename', $volume_file, '--size', 50]
     end
     unless File.exist?($cinder_file)
       v.customize ['createmedium', 'disk', '--filename', $cinder_file, '--size', 100]
     end
-    v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $volume_file]
-    v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $cinder_file]
+    v.customize ['storageattach', :id, '--storagectl', $box["vb_controller"], '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $volume_file]
+    v.customize ['storageattach', :id, '--storagectl', $box["vb_controller"], '--port', 1, '--device', 1, '--type', 'hdd', '--medium', $cinder_file]
   end
 
   config.vm.provider :libvirt do |v, override|

@@ -32,10 +32,10 @@ mgmt_ip=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $7 }')
 # deployment scenarios. The IP addresses on this network should be
 # reachable by anyone on the Internet. This network is considered to
 # be in the Public Security Domain.
-if ! ip route | grep -q "^10"; then
+if ! ip route | grep "^10.10"; then
     public_nic=${mgmt_nic}
 else
-    public_nic=$(ip route | grep "^10" | awk '{ print $3 }')
+    public_nic=$(ip route | grep "^10.10" | awk '{ print $3 }')
 fi
 public_ip=$(ip addr | awk "/${public_nic}\$/ { sub(/\/[0-9]*/, \"\","' $2); print $2}')
 
