@@ -65,14 +65,6 @@ if [ -n "${cinder_volumes:-}" ]; then
     sudo vgcreate cinder-volumes "$cinder_volumes"
 fi
 
-source /etc/os-release || source /usr/lib/os-release
-case ${ID,,} in
-    ubuntu|debian)
-        sudo apt-get update
-        sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
-    ;;
-esac
-
 if [[ -n "${OPENSTACK_NODE_ROLES+x}" ]]; then
     for role in $OPENSTACK_NODE_ROLES; do
         if [ -f "$role.sh" ]; then
@@ -84,11 +76,3 @@ fi
 curl -fsSL http://bit.ly/install_pkg | PKG="cockpit" PKG_UDPATE="true" bash
 sudo systemctl enable cockpit
 sudo systemctl start cockpit
-
-# Disable IPv6
-sudo tee /etc/sysctl.conf << EOF
-net.ipv6.conf.all.disable_ipv6 = 1
-net.ipv6.conf.default.disable_ipv6 = 1
-net.ipv6.conf.lo.disable_ipv6 = 1
-EOF
-sudo sysctl -p
