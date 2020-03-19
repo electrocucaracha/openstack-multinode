@@ -14,13 +14,13 @@ setup using its [pdf.yml](pdf.yml).
 
 | Amount | Element           | Memory(GB) | vCPUs | Disk(GB) |
 |--------|-------------------|------------|-------|----------|
-| 1      | Registry Node     | 16         | 4     | 50       |
-| 3      | Controller Node   | 16         | 8     |          |
-| 1      | Compute Node      | 64         | 16    |          |
-| 3      | Network Node      | 8          | 4     |          |
-| 1      | Storage Node      | 8          | 4     |          |
-| 1      | Monitoring Node   | 8          | 4     |          |
-|        | Total             | 168        | 64    | 50       |
+| 1      | Registry Node     | 8          | 4     | 50       |
+| 3      | Controller Node   | 8          | 4     |          |
+| 1      | Compute Node      | 64         | 12    |          |
+| 3      | Network Node      | 4          | 4     |          |
+| 1      | Storage Node      | 4          | 4     |          |
+| 1      | Monitoring Node   | 4          | 12    |          |
+|        | Total             | 116        | 56    | 50       |
 
 ## Setup
 
