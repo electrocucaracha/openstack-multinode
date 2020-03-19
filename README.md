@@ -1,12 +1,50 @@
 # OpenStack Multi-Node Deployment
 [![Build Status](https://travis-ci.org/electrocucaracha/openstack-multinode.png)](https://travis-ci.org/electrocucaracha/openstack-multinode)
 
-This project offers instructions to deploy OpenStack services through
-[Kolla][1] tool in the following configurations:
+Package based management has been replaced by container based
+management systems which help to solve the availability, management
+and scalability aspects of deployment. These are some of the benefits
+of using a containerized deployment:
+
+* **OS agnostic:** Ability to run on any platform, regardless of the
+physical host OS.
+* **Easy to scale up/down:** The operation to add/remove OpenStack
+compute nodes is performed through starting/stopping containers.
+* **Fast deployment:** Containers already have binaries and
+configuration files so provisioning an OpenStack cluster can take
+few minutes.
+* **Easy to rollback:** Installing, patching or upgrading operations
+are atomic, either they will successfully complete or will fail. In
+case of failure, they can be removed and the system is back to its old
+state.
+* **In-place updates:** Instead of rolling-updates, one can follow the
+pattern on in-place updates. Whenever a new image is available, one
+can simply stop the old-container and start a new container with the
+latest image.
+* **Enabling/disabling services easily:** Given that everything is
+containerized, adding/removing services is now like starting/stopping
+containers.
+* **Self-healing deployment:** Services can be managed by Kubernetes
+or Docker Swarm and failed containers can be automatically restarted.
+This results in a self-healing deployment.
+* **Immutable and portable:** Images once built don’t change over
+time. Hence, you can recreate the same setup on different
+days/different environments with exact same piece of code running.
+Also, since everything is containerized, it can be moved from one
+place to another with ease.
+
+Almost all the technology giants have been shift their focus to
+container based architecture.
+
+[Kolla][1] is an OpenStack project which aims to provide
+production-ready containers for OpenStack deployment and management.
+This repository offers instructions to deploy OpenStack services
+through the use of [Kolla][1] installer in the following
+configurations:
 
 * [All-in-One](samples/aio/): Kolla Docker Registry, OpenStack
-Controller and Compute roles installed on a single Ubuntu Xenial
-server. This configuration is limited so it's recommended only for
+Controller and Compute roles installed on a single CentOS 7 server.
+This configuration is limited so it's recommended only for
 Development purposes.
 * [No High Availability](samples/noha/): Kolla Docker Registry and
 OpenStack Controller role installed on a single CentOS 7 server. Two
@@ -22,31 +60,7 @@ specialized scripts to setup additional roles, like the
 [internal image registry](registry.sh). The [undecloud](undercloud.sh)
 Virtual Machine is used to provision other servers.
 
-![Diagram](doc/img/diagram.png)
-
-## Host System Requirements
-
-The system that will host VMs for the solution must be big enough to
-support the +10 Virtual Machines displayed at above diagram.
-
-Some configuration details can be configured for the *Distributed*
-setup using its [pdf.yml](samples/distributed/pdf.yml).
-
-### Current configuration
-
-| Amount | Element           | Memory(GB) | vCPUs | Disk(GB) |
-|--------|-------------------|------------|-------|----------|
-| 1      | Registry Node     | 16         | 4     | 50       |
-| 3      | Controller Node   | 16         | 8     |          |
-| 1      | Compute Node      | 64         | 16    |          |
-| 3      | Network Node      | 8          | 4     |          |
-| 1      | Storage Node      | 8          | 4     |          |
-| 1      | Monitoring Node   | 8          | 4     |          |
-|        | Total             | 168        | 64    | 50       |
-
 ## Initial Setup
-
-## Setup
 
 This project uses [Vagrant tool][2] for provisioning Virtual Machines
 automatically. It's highly recommended to use the  *setup.sh* script
@@ -55,38 +69,6 @@ dependencies and plugins required for its project. The script
 supports two Virtualization providers (Libvirt and VirtualBox).
 
     $ curl -fsSL http://bit.ly/initVagrant | PROVIDER=libvirt bash
-
-Once Vagrant is installed, it's possible to deploy the demo with the
-following instructions:
-
-    $ cd samples/distributed
-    $ vagrant up
-    $ vagrant up undercloud
-
-### Explanation
-
-First of all, it's necessary to start the nodes which are going to be
-configured by the provisioning server. All these nodes can be
-initialized in parallel using this commmand:
-
-    $ vagrant up
-
-This also starts the registry node, it is an internal Docker Hub that
-contains OpenStack Kolla images that will be consumed during the
-provisioning process.
-
-Finally, an additional node will be required which will be
-responsible for the provisioning tasks.
-
-    $ vagrant up undercloud
-
-## Dashboards
-
-| Service | URL                    |
-|---------|------------------------|
-| Horizon | http://10.10.13.3:80   |
-| Skydive | http://10.10.13.3:8085 |
-
 
 ## Deploy All-in-One configuration
 
