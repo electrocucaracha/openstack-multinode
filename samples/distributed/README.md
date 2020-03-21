@@ -1,6 +1,6 @@
 # OpenStack Distributed Configuration
 
-![Diagram](../../doc/img/diagram.png)
+![Diagram](../../doc/img/diagram_distributed.png)
 
 ## Host System Requirements
 
