@@ -16,7 +16,7 @@ set -o pipefail
 [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 
 SNAP=$HOME/.local/ kolla-ansible -vvv \
-    -e "ansible_user=${OS_KOLLA_USER:-kolla}" \
+    -e "ansible_user=root" \
     -e 'ansible_become=true' -e 'ansible_become_method=sudo' "$1" \
-    -i "${OS_INVENTORY_FILE:-./inventory/hosts.ini}" \
+    -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" \
     --yes-i-really-really-mean-it

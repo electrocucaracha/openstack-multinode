@@ -80,7 +80,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision 'shell', privileged: false do |sh|
     sh.env = {
       'SOCKS_PROXY': "#{$socks_proxy}",
-#      'OPENSTACK_TAG': "train-centos8",
+      'OS_KOLLA_ENABLE_SKYDIVE': "yes",
       'OS_FOLDER': "/vagrant/"
     }
     sh.inline = <<-SHELL
@@ -95,6 +95,12 @@ Vagrant.configure("2") do |config|
       cd /vagrant
       ./node.sh -v sda=/var/lib/docker/ -c /dev/sdb | tee ~/node_aio.log
       ./install.sh | tee ~/install_aio.log
+
+      sudo curl -L git.io/scope -o /usr/local/bin/scope
+      sudo chmod a+x /usr/local/bin/scope
+      newgrp docker <<EONG
+      scope launch
+EONG
     SHELL
   end
 

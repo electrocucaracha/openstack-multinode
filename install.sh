@@ -13,7 +13,9 @@ set -o pipefail
 set -o errexit
 set -o xtrace
 
-# Discovery process
+#####################
+# Discovery process #
+#####################
 
 # Management network - Used for internal communication between
 # OpenStack Components. The IP addresses on this network should be
@@ -32,12 +34,6 @@ mgmt_ip=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $7 }')
 # deployment scenarios. The IP addresses on this network should be
 # reachable by anyone on the Internet. This network is considered to
 # be in the Public Security Domain.
-if ! ip route | grep "^10.10"; then
-    public_nic=${mgmt_nic}
-else
-    public_nic=$(ip route | grep "^10.10" | awk '{ print $3 }')
-fi
-public_ip=$(ip addr | awk "/${public_nic}\$/ { sub(/\/[0-9]*/, \"\","' $2); print $2}')
 
 # API network - Exposes all OpenStack APIs, including the OpenStack
 # Networking API, to tenants. The IP addresses on this network should
@@ -46,27 +42,28 @@ public_ip=$(ip addr | awk "/${public_nic}\$/ { sub(/\/[0-9]*/, \"\","' $2); prin
 # the external network that uses IP allocation ranges to use only less
 # than the full range of IP addresses in an IP block. This network is
 # considered the Public Security Domain.
-#
-# Kolla offers two options for assigning these endpoints to network
-# addresses:
-# - Combined: Where all three endpoints share the same IP address
-# - Separate: Where the external URL is assigned to an IP address that
-# is different than the IP address shared by the internal and admin URLs
-kolla_internal_vip_address=${OS_KOLLA_INTERNAL_VIP_ADDRESS:-$mgmt_ip}
-kolla_external_vip_address=${OS_KOLLA_EXTERNAL_VIP_ADDRESS:-$mgmt_ip}
-kolla_external_vip_interface=${OS_KOLLA_EXTERNAL_VIP_INTERFACE:-$mgmt_nic}
-enable_haproxy="yes"
-if [ "${kolla_external_vip_address}" == "${mgmt_ip}" ]; then
-    enable_haproxy="no"
+if ! ip route | grep "^10.10"; then
+    public_nic=${mgmt_nic}
+else
+    public_nic=$(ip route | grep "^10.10" | awk '{ print $3 }')
 fi
+public_ip=$(ip addr | awk "/${public_nic}\$/ { sub(/\/[0-9]*/, \"\","' $2); print $2}')
 
 export DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT:-6000}
 export OPENSTACK_RELEASE=${OPENSTACK_RELEASE:-train}
 OS_FOLDER=${OS_FOLDER:-/opt/openstack-multinode}
-OS_FLAVOR=${OS_FLAVOR:-aio}
-export OS_KOLLA_USER=${OS_KOLLA_USER:-root}
+export OS_KOLLA_INTERNAL_VIP_ADDRESS=$mgmt_ip
+export OS_KOLLA_NETWORK_INTERFACE=$mgmt_nic
+if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE:-}" ]; then
+    export OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE=$public_nic
+fi
+for os_var in $(printenv | grep OS_); do
+    echo "export $os_var" | sudo tee --append /etc/environment
+done
 
-# Validation process
+######################
+# Validation process #
+######################
 
 # Validating passwordless sudo
 if ! sudo -n "true"; then
@@ -80,7 +77,7 @@ if ! sudo -n "true"; then
 fi
 
 # Validating local IP addresses in no_proxy environment variable
-if [[ ${NO_PROXY+x} = "x" ]]; then
+if [ -n "${NO_PROXY:-}" ]; then
     for ip in $(hostname --ip-address || hostname -i) ${mgmt_ip} ${public_ip}; do
         if [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$  &&  $NO_PROXY != *"$ip"* ]]; then
             echo "The $ip IP address is not defined in NO_PROXY env"
@@ -108,35 +105,25 @@ if [ ! -d "${OS_FOLDER}" ]; then
     sudo chown -R "$USER" "${OS_FOLDER}"
 fi
 cd "${OS_FOLDER}" || exit
-
-# OpenStack Registry creation
-DOCKER_REGISTRY_IP=${mgmt_ip} DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT} ./registry.sh
-
-# OpenStack Deployment process
-
 sudo mkdir -p /etc/kolla/config
 sudo cp -R etc/kolla/* /etc/kolla/
 sudo chown "$USER" /etc/kolla/passwords.yml
 
-# These endpoints are the admin URL, the internal URL, and the external URL.
-sudo sed -i "s/^kolla_internal_vip_address: .*/kolla_internal_vip_address: ${kolla_internal_vip_address}/g" /etc/kolla/globals.yml
-sudo sed -i "s/^kolla_external_vip_address: .*/kolla_external_vip_address: ${kolla_external_vip_address}/g" /etc/kolla/globals.yml
-sudo sed -i "s/^enable_haproxy: .*/enable_haproxy: \"${enable_haproxy}\"/g" /etc/kolla/globals.yml
+###############################
+# OpenStack Registry creation #
+###############################
 
-if [ "${OS_OVERRIDE_NETWORK:-true}" == "true" ]; then
-    # While it is not used on its own, this provides the required default for other interfaces below.
-    sudo sed -i "s/^#network_interface: .*/network_interface: \"${mgmt_nic}\"/g" /etc/kolla/globals.yml
-    # This interface is used for the management network. The management network is the network OpenStack services uses to communicate to each other and the databases.
-    sudo sed -i "s/^#api_interface: .*/api_interface: \"${mgmt_nic}\"/g" /etc/kolla/globals.yml
-    # This interface is public-facing one. It’s used when you want HAProxy public endpoints to be exposed in different network than internal ones.
-    sudo sed -i "s/^#kolla_external_vip_interface: .*/kolla_external_vip_interface: \"${kolla_external_vip_interface}\"/g" /etc/kolla/globals.yml
-    # This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
-    sudo sed -i "s/^#tunnel_interface: .*/tunnel_interface: \"${mgmt_nic}\"/g" /etc/kolla/globals.yml
-    # This interface is used for the external bridge in Neutron. Neutron will put br-ex on it. It will be used for flat networking as well as tagged vlan networks. Has to be set separately.
-    sudo sed -i "s/^#neutron_external_interface: .*/neutron_external_interface: \"${public_nic}\"/g" /etc/kolla/globals.yml
+if [ "${OS_ENABLE_LOCAL_REGISTRY:-false}" == "true" ]; then
+    export DOCKER_REGISTRY_IP=${mgmt_ip}
+    export DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT}
+    ./registry.sh
 fi
 
-DOCKER_REGISTRY_IP=${mgmt_ip} DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT} OS_INVENTORY_FILE="./samples/${OS_FLAVOR}/hosts.ini" ./undercloud.sh
+################################
+# OpenStack Deployment process #
+################################
+
+./undercloud.sh
 
 # Post-Install actions
 
