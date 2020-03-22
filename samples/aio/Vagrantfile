@@ -121,10 +121,10 @@ EONG
   config.vm.provider 'virtualbox' do |v, override|
     v.gui = false
     unless File.exist?($volume_file)
-      v.customize ['createmedium', 'disk', '--filename', $volume_file, '--size', 50]
+      v.customize ['createmedium', 'disk', '--filename', $volume_file, '--size', (50 * 1024) ]
     end
     unless File.exist?($cinder_file)
-      v.customize ['createmedium', 'disk', '--filename', $cinder_file, '--size', 100]
+      v.customize ['createmedium', 'disk', '--filename', $cinder_file, '--size', (100 * 1024)]
     end
     v.customize ['storageattach', :id, '--storagectl', $box["vb_controller"], '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $volume_file]
     v.customize ['storageattach', :id, '--storagectl', $box["vb_controller"], '--port', 1, '--device', 1, '--type', 'hdd', '--medium', $cinder_file]
