@@ -1,5 +1,6 @@
 # OpenStack Multi-Node Deployment
 [![Build Status](https://travis-ci.org/electrocucaracha/openstack-multinode.png)](https://travis-ci.org/electrocucaracha/openstack-multinode)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Package based management has been replaced by container based
 management systems which help to solve the availability, management
@@ -60,16 +61,6 @@ specialized scripts to setup additional roles, like the
 [internal image registry](registry.sh). The [undecloud](undercloud.sh)
 Virtual Machine is used to provision other servers.
 
-## Initial Setup
-
-This project uses [Vagrant tool][2] for provisioning Virtual Machines
-automatically. It's highly recommended to use the  *setup.sh* script
-of the [bootstrap-vagrant project][3] for installing Vagrant
-dependencies and plugins required for its project. The script
-supports two Virtualization providers (Libvirt and VirtualBox).
-
-    $ curl -fsSL http://bit.ly/initVagrant | PROVIDER=libvirt bash
-
 ## Deploy All-in-One configuration
 
 The [install bash script](install.sh) provides instructions to 
@@ -78,10 +69,4 @@ this script remotely:
 
     $ curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/install.sh | bash
 
-## License
-
-Apache-2.0
-
 [1]: https://docs.openstack.org/kolla/latest/
-[2]: https://www.vagrantup.com/
-[3]: https://github.com/electrocucaracha/bootstrap-vagrant

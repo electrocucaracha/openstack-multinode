@@ -45,15 +45,3 @@ Finally, the provisioning server will be required for the installation
 and configuration tasks on target cluster nodes.
 
     $ vagrant up undercloud
-
-## Dashboards
-
-| Service | URL                    |
-|---------|------------------------|
-| Horizon | http://10.10.13.3      |
-| Skydive | http://10.10.13.3:8085 |
-
-
-## License
-
-Apache-2.0
