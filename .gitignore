@@ -5,3 +5,4 @@ sources.list
 *.tar.gz
 output.json
 *.img
+*.vdi
