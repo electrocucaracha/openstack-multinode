@@ -67,6 +67,6 @@ The [install bash script](install.sh) provides instructions to
 deploy an All-in-One OpenStack configuration. It's possible to run
 this script remotely:
 
-    $ curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/install.sh | bash
+    $ curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/install.sh | OS_KOLLA_NETWORK_INTERFACE=eno1 bash
 
 [1]: https://docs.openstack.org/kolla/latest/
