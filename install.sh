@@ -57,9 +57,6 @@ export OS_KOLLA_NETWORK_INTERFACE=$mgmt_nic
 if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE:-}" ]; then
     export OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE=$public_nic
 fi
-for os_var in $(printenv | grep OS_); do
-    echo "export $os_var" | sudo tee --append /etc/environment
-done
 
 ######################
 # Validation process #
@@ -108,6 +105,10 @@ cd "${OS_FOLDER}" || exit
 sudo mkdir -p /etc/kolla/config
 sudo cp -R etc/kolla/* /etc/kolla/
 sudo chown "$USER" /etc/kolla/passwords.yml
+
+for os_var in $(printenv | grep OS_); do
+    echo "export $os_var" | sudo tee --append /etc/environment
+done
 
 ###############################
 # OpenStack Registry creation #
