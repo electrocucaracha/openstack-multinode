@@ -43,10 +43,9 @@ This repository offers instructions to deploy OpenStack services
 through the use of [Kolla][1] installer in the following
 configurations:
 
-* [All-in-One](samples/aio/): Kolla Docker Registry, OpenStack
-Controller and Compute roles installed on a single CentOS 7 server.
-This configuration is limited so it's recommended only for
-Development purposes.
+* [All-in-One](samples/aio/): OpenStack Controller and Compute roles
+installed on a single Ubuntu Bionic server. This configuration is
+limited so it's recommended only for Development purposes.
 * [No High Availability](samples/noha/): Kolla Docker Registry and
 OpenStack Controller role installed on a single CentOS 7 server. Two
 additional servers are provisioned with OpenStack Compute role. This

@@ -20,7 +20,7 @@ $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
 end
 $no_proxy += ",10.0.2.15,10.10.13.7"
 $socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
-$box=vagrant_boxes["centos"][7]
+$box=vagrant_boxes["ubuntu"]["bionic"]
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
@@ -51,6 +51,17 @@ Vagrant.configure("2") do |config|
     chown "$USER" ~/.ssh/id_rsa
     chmod 400 ~/.ssh/id_rsa
   SHELL
+  # Install requirements
+  config.vm.provision 'shell', privileged: false, inline: <<-SHELL
+      source /etc/os-release || source /usr/lib/os-release
+      case ${ID,,} in
+          ubuntu|debian)
+              sudo apt-get update
+              sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
+          ;;
+      esac
+      curl -fsSL http://bit.ly/install_pkg | PKG="bridge-utils" bash
+  SHELL
   # Configure single NIC limitation
   config.vm.provision 'shell', privileged: false, inline: <<-SHELL
     set -o xtrace
@@ -59,15 +70,6 @@ Vagrant.configure("2") do |config|
     sudo ip addr add 10.10.13.7/24 dev veth0
     sudo ip link set veth0 up
 
-    source /etc/os-release || source /usr/lib/os-release
-    case ${ID,,} in
-        rhel|centos|fedora)
-            PKG_MANAGER=$(command -v dnf || command -v yum)
-            if ! command -v brctl; then
-                sudo -H -E "$PKG_MANAGER" -q -y install bridge-utils
-            fi
-        ;;
-    esac
     sudo brctl addbr uplinkbridge
     sudo brctl addif uplinkbridge veth0
     sudo ip link set dev uplinkbridge up
@@ -87,14 +89,6 @@ Vagrant.configure("2") do |config|
     }
     sh.inline = <<-SHELL
       set -o errexit
-
-      source /etc/os-release || source /usr/lib/os-release
-      case ${ID,,} in
-          ubuntu|debian)
-              sudo apt-get update
-              sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl 
-          ;;
-      esac
 
       cd /vagrant
       ./node.sh -v sdb=/var/lib/docker/ -c /dev/sdc | tee ~/node_aio.log
@@ -116,8 +110,8 @@ EONG
     end
   end
 
-  $volume_file = "aio-sda.vdi"
-  $cinder_file = "aio-sdb.vdi"
+  $volume_file = "aio-sdb.vdi"
+  $cinder_file = "aio-sdc.vdi"
   config.vm.provider 'virtualbox' do |v, override|
     v.gui = false
     unless File.exist?($volume_file)
@@ -131,13 +125,14 @@ EONG
   end
 
   config.vm.provider :libvirt do |v, override|
+    v.disk_bus = "sata"
     v.cputopology :sockets => 1, :cores => 6, :threads => 2 # Intel Core i7-10710U Processor
     v.cpu_mode = 'host-passthrough'
     v.random_hostname = true
     v.nested = true
     v.management_network_address = "192.168.121.0/24"
-    v.storage :file, :bus => 'sata', :device => 'sda', :size => 50 # ~30 GB Kolla Docker images
-    v.storage :file, :bus => 'sata', :device => 'sdb', :size => 100 # Cinder volume
+    v.storage :file, :bus => 'sata', :size => 50 # ~30 GB Kolla Docker images
+    v.storage :file, :bus => 'sata', :size => 100 # Cinder volume
   end
 
   if ENV['http_proxy'] != nil and ENV['https_proxy'] != nil
