@@ -18,7 +18,7 @@ for pkg in docker jq git; do
         pkgs+=" $pkg"
     fi
 done
-curl -fsSL http://bit.ly/install_pkg | PKG_UDPATE=true PKG=$pkgs bash
+curl -fsSL http://bit.ly/install_pkg | PKG_UPDATE=true PKG=$pkgs bash
 
 if ! command -v kolla-build; then
     kolla_version="${OS_KOLLA_VERSION:-9.0.1}"
