@@ -32,4 +32,4 @@ cluster on a single Virtual Machine.
 | Skydive | http://aio:8085 |
 
 [1]: https://www.intel.com/content/www/us/en/products/docs/boards-kits/nuc/nuc-family-overview.html
-[2]: https://github.com/openstack/kolla-ansible/blob/9.0.1/tools/init-runonce
+[2]: https://github.com/openstack/kolla-ansible/blob/10.0.0/tools/init-runonce
