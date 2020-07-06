@@ -20,7 +20,7 @@ pkgs="python-devel pip sshpass"
 if ! command -v gcc; then
     pkgs+=" gcc"
 fi
-curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs PKG_PYTHON_MAJOR_VERSION=2 bash
+curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs PKG_UPDATE=true bash
 
 if [ ! -d ${kolla_folder} ]; then
     pushd "$(mktemp -d)"
@@ -55,6 +55,7 @@ if [ -n "${NO_PROXY:-}" ]; then
     echo "[Service]" | sudo tee /etc/systemd/system/docker.service.d/no-proxy.conf
     echo "Environment=\"NO_PROXY=$NO_PROXY\"" | sudo tee --append /etc/systemd/system/docker.service.d/no-proxy.conf
 fi
+sudo sed -i "s/^enable_cinder: .*/enable_cinder: \"${OS_KOLLA_ENABLE_CINDER:-yes}\"/g" /etc/kolla/globals.yml
 sudo sed -i "s/^#enable_haproxy: .*/enable_haproxy: \"${OS_KOLLA_ENABLE_HAPROXY:-no}\"/g" /etc/kolla/globals.yml
 sudo sed -i "s/^#enable_skydive: .*/enable_skydive: \"${OS_KOLLA_ENABLE_SKYDIVE:-no}\"/g" /etc/kolla/globals.yml
 # Kolla offers two options for assigning endpoints to network
