@@ -40,7 +40,7 @@ sudo mkdir -p /etc/kolla
 sudo cp ./etc/kolla/kolla-build.ini /etc/kolla/kolla-build.ini
 sudo sed -i "s/^tag = .*$/tag = ${OPENSTACK_TAG:-ussuri}/g" /etc/kolla/kolla-build.ini
 sudo sed -i "s/^registry = .*$/registry = ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/kolla-build.ini
-sudo sed -i "s/^#openstack_release = .*$/openstack_release = \"${OPENSTACK_RELEASE:-ussuri}\"/g"  /etc/kolla/kolla-build.ini
+sudo sed -i "s/^#openstack_release = .*$/openstack_release = \"${OPENSTACK_RELEASE:-victoria}\"/g"  /etc/kolla/kolla-build.ini
 
 bifrost_header=""
 bifrost_footer=""
