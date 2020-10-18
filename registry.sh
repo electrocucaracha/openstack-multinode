@@ -11,6 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o errexit
+set -o xtrace
 
 pkgs="pip"
 for pkg in docker jq git; do
@@ -21,7 +22,7 @@ done
 curl -fsSL http://bit.ly/install_pkg | PKG_UPDATE=true PKG=$pkgs bash
 
 if ! command -v kolla-build; then
-    kolla_version="${OS_KOLLA_VERSION:-10.0.0}"
+    kolla_version="${OS_KOLLA_VERSION:-10.1.0}"
     if [ "$kolla_version" == "master" ]; then
         pip install kolla
     else
@@ -38,9 +39,10 @@ fi
 # Configure custom values
 sudo mkdir -p /etc/kolla
 sudo cp ./etc/kolla/kolla-build.ini /etc/kolla/kolla-build.ini
-sudo sed -i "s/^tag = .*$/tag = ${OPENSTACK_TAG:-ussuri}/g" /etc/kolla/kolla-build.ini
+sudo sed -i "s/^tag = .*$/tag = ${OPENSTACK_TAG:-victoria}/g" /etc/kolla/kolla-build.ini
 sudo sed -i "s/^registry = .*$/registry = ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/kolla-build.ini
 sudo sed -i "s/^#openstack_release = .*$/openstack_release = \"${OPENSTACK_RELEASE:-victoria}\"/g"  /etc/kolla/kolla-build.ini
+sudo sed -i "s/^base = .*$/base = \"${OS_KOLLA_BASE:-centos}\"/g"  /etc/kolla/kolla-build.ini
 
 bifrost_header=""
 bifrost_footer=""
