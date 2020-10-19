@@ -9,10 +9,6 @@
 ##############################################################################
 
 centos:
-  7:
-    name: generic/centos7
-    version: 3.0.32
-    vb_controller: IDE Controller
   8:
     name: generic/centos8
     version: 3.0.32
@@ -22,12 +18,13 @@ ubuntu:
     name: generic/ubuntu1804
     vb_controller: IDE Controller
     version: 3.0.32
-  focal:
-    name: generic/ubuntu2004
+debian:
+  buster:
+    name: generic/debian10
     vb_controller: IDE Controller
     version: 3.0.32
-opensuse:
-  42:
-    name: generic/opensuse42
-    version: 3.0.32
+rhel:
+  8:
+    name: generic/rhel8
     vb_controller: IDE Controller
+    version: 3.0.32
