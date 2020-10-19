@@ -72,7 +72,3 @@ if [[ -n "${OPENSTACK_NODE_ROLES+x}" ]]; then
         fi
     done
 fi
-# Install Cockpit services
-curl -fsSL http://bit.ly/install_pkg | PKG="cockpit" PKG_UPDATE="true" bash
-sudo systemctl enable cockpit
-sudo systemctl start cockpit
