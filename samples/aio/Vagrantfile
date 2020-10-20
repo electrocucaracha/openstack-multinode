@@ -20,7 +20,7 @@ $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
 end
 $no_proxy += ",10.0.2.15,10.10.13.7"
 $socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
-$box=vagrant_boxes["ubuntu"]["bionic"]
+$box=vagrant_boxes["centos"][8]
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
@@ -29,6 +29,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder '../../', '/vagrant'
   config.vm.box =  $box["name"]
   config.vm.box_version = $box["version"]
+  config.vm.box_check_update = false
   config.ssh.insert_key = false
   config.vm.hostname = "aio"
 
@@ -45,28 +46,16 @@ Vagrant.configure("2") do |config|
     < ~/.ssh/id_rsa.pub tee --append  ~/.ssh/authorized_keys | sudo tee --append /root/.ssh/authorized_keys
     chmod og-wx ~/.ssh/authorized_keys
   SHELL
-  # Install requirements
-  config.vm.provision 'shell', privileged: false, inline: <<-SHELL
-      source /etc/os-release || source /usr/lib/os-release
-      case ${ID,,} in
-          ubuntu|debian)
-              sudo apt-get update
-              sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
-          ;;
-      esac
-      curl -fsSL http://bit.ly/install_pkg | PKG="bridge-utils" bash
-  SHELL
   # Configure single NIC limitation
   config.vm.provision 'shell', privileged: false, inline: <<-SHELL
     set -o xtrace
 
     sudo ip link add veth0 type veth peer name veth1
+    sudo nmcli c add type bridge ifname uplinkbridge
+    sudo nmcli c add type ethernet slave-type bridge con-name uplinkbridge ifname veth0 master uplinkbridge
+    sudo nmcli c add type ethernet ifname veth0 con-name uplinkbridge ip4 10.10.13.7/24
+    sudo nmcli c up uplinkbridge
     sudo ip addr add 10.10.13.7/24 dev veth0
-    sudo ip link set veth0 up
-
-    sudo brctl addbr uplinkbridge
-    sudo brctl addif uplinkbridge veth0
-    sudo ip link set dev uplinkbridge up
   SHELL
   # Ensure Permissive SELinux policy
   config.vm.provision 'shell', privileged: false, inline: <<-SHELL
@@ -78,13 +67,14 @@ Vagrant.configure("2") do |config|
   config.vm.provision 'shell', privileged: false do |sh|
     sh.env = {
       'SOCKS_PROXY': "#{$socks_proxy}",
-      'OS_KOLLA_ENABLE_SKYDIVE': "yes",
-      'OS_FOLDER': "/vagrant/"
+      'OS_FOLDER': "/vagrant/",
     }
     sh.inline = <<-SHELL
       set -o errexit
 
       cd /vagrant
+      echo "127.0.0.1 localhost" | sudo tee /etc/hosts
+
       ./node.sh -v sdb=/var/lib/docker/ -c /dev/sdc | tee ~/node_aio.log
       ./install.sh | tee ~/install_aio.log
 
@@ -99,8 +89,8 @@ EONG
   # Intel's NUC BXNUC10I7FNHAA1
   [:virtualbox, :libvirt].each do |provider|
   config.vm.provider provider do |p|
-      p.cpus = 12 # sockets * cores * threads
-      p.memory = 16384 # 2 x 8GB DDR4-2666
+      p.cpus = ENV["CPUS"] || 12  # sockets * cores * threads
+      p.memory = ENV["MEMORY"] || 16384  # 2 x 8GB DDR4-2666
     end
   end
 
@@ -108,6 +98,7 @@ EONG
   $cinder_file = "aio-sdc.vdi"
   config.vm.provider 'virtualbox' do |v, override|
     v.gui = false
+    v.customize ["modifyvm", :id, "--nested-hw-virt","on"]
     unless File.exist?($volume_file)
       v.customize ['createmedium', 'disk', '--filename', $volume_file, '--size', (50 * 1024) ]
     end

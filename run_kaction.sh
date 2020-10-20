@@ -11,12 +11,11 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-
-# PEP 370 -- Per user site-packages directory
-[[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
+set -o xtrace
 
 SNAP=$HOME/.local/ kolla-ansible -vvv \
     -e "ansible_user=root" \
+    -e "ansible_python_interpreter=$(command -v python)" \
     -e 'ansible_become=true' -e 'ansible_become_method=sudo' "$1" \
     -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" \
     --yes-i-really-really-mean-it
