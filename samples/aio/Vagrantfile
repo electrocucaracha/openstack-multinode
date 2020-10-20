@@ -73,6 +73,7 @@ Vagrant.configure("2") do |config|
       'OS_KOLLA_DEPLOY_PROFILE': "minimal",
       'ENABLE_WEAVE_SCOPE': "#{$enable_weave_scope}",
       'OS_KOLLA_RUN_INIT': "#{$run_init}",
+      'OS_KOLLA_NEUTRON_PLUGIN_AGENT': "linuxbridge",
     }
     sh.inline = <<-SHELL
       set -o errexit

@@ -63,6 +63,7 @@ if [ -n "${NO_PROXY:-}" ]; then
     echo "Environment=\"NO_PROXY=$NO_PROXY\"" | sudo tee --append /etc/systemd/system/docker.service.d/no-proxy.conf
 fi
 sudo sed -i "s/^enable_cinder: .*/enable_cinder: \"${OS_KOLLA_ENABLE_CINDER:-yes}\"/g" /etc/kolla/globals.yml
+sudo sed -i "s/^neutron_plugin_agent: .*/neutron_plugin_agent: \"${OS_KOLLA_NEUTRON_PLUGIN_AGENT:-openvswitch}\"/g" /etc/kolla/globals.yml
 sudo sed -i "s/^#enable_magnum: .*/enable_magnum: \"${OS_KOLLA_ENABLE_MAGNUM:-no}\"/g" /etc/kolla/globals.yml
 sudo sed -i "s/^#enable_haproxy: .*/enable_haproxy: \"${OS_KOLLA_ENABLE_HAPROXY:-no}\"/g" /etc/kolla/globals.yml
 sudo sed -i "s/^#enable_skydive: .*/enable_skydive: \"${OS_KOLLA_ENABLE_SKYDIVE:-no}\"/g" /etc/kolla/globals.yml
