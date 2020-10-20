@@ -40,6 +40,7 @@ fi
 sudo mkdir -p /etc/kolla
 sudo cp ./etc/kolla/kolla-build.ini /etc/kolla/kolla-build.ini
 sudo sed -i "s/^tag = .*$/tag = ${OPENSTACK_TAG:-victoria}/g" /etc/kolla/kolla-build.ini
+sudo sed -i "s/^profile = .*$/profile = ${OS_KOLLA_PROFILE:-custom}/g" /etc/kolla/kolla-build.ini
 sudo sed -i "s/^registry = .*$/registry = ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/kolla-build.ini
 sudo sed -i "s/^#openstack_release = .*$/openstack_release = \"${OPENSTACK_RELEASE:-victoria}\"/g"  /etc/kolla/kolla-build.ini
 sudo sed -i "s/^base = .*$/base = \"${OS_KOLLA_BASE:-centos}\"/g"  /etc/kolla/kolla-build.ini
@@ -73,7 +74,7 @@ EOL
 #sudo kolla-build --type source --template-override $HOME/template-overrides.j2 bifrost-deploy
 
 # Kolla Docker images creation
-kolla_cmd="kolla-build --config-file /etc/kolla/kolla-build.ini"
+kolla_cmd="kolla-build ${OS_KOLLA_BUILD_ARGS:-"--config-file /etc/kolla/kolla-build.ini"}"
 newgrp docker <<EONG
 # PEP 370 -- Per user site-packages directory
 [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin

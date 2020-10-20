@@ -95,7 +95,11 @@ EOL
 
 kolla-genpwd
 sudo rm -f /etc/docker/daemon.json
-for action in bootstrap-servers prechecks pull deploy check post-deploy; do
+kolla_actions=(bootstrap-servers prechecks pull deploy check post-deploy)
+if [ "${OS_KOLLA_DEPLOY_PROFILE:-complete}" == "minimal" ]; then
+    kolla_actions=(bootstrap-servers deploy post-deploy)
+fi
+for action in "${kolla_actions[@]}"; do
     ./run_kaction.sh "$action" | tee "$HOME/$action.log"
 done
 

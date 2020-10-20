@@ -126,11 +126,11 @@ fi
 ./undercloud.sh
 
 # Post-Install actions
+if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
+    # PEP 370 -- Per user site-packages directory
+    [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 
-# PEP 370 -- Per user site-packages directory
-[[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
-
-# shellcheck disable=SC1091
-source /etc/kolla/admin-openrc.sh
-/opt/kolla-ansible/tools/init-runonce
-openstack flavor set m1.large --property pci_passthrough:alias=C62x:1
+    # shellcheck disable=SC1091
+    source /etc/kolla/admin-openrc.sh
+    /opt/kolla-ansible/tools/init-runonce
+fi
