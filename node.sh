@@ -63,6 +63,10 @@ if [ -n "${cinder_volumes:-}" ]; then
     fi
     sudo pvcreate "$cinder_volumes"
     sudo vgcreate cinder-volumes "$cinder_volumes"
+    sudo modprobe dm_thin_pool
+    echo "dm_thin_pool" | sudo tee /etc/modules-load.d/dm_thin_pool.conf
+    sudo modprobe target_core_mod
+    echo "target_core_mod" | sudo tee /etc/modules-load.d/target_core_mod.conf
 fi
 
 if [[ -n "${OPENSTACK_NODE_ROLES+x}" ]]; then
