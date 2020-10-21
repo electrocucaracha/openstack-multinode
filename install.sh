@@ -133,4 +133,8 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
     # shellcheck disable=SC1091
     source /etc/kolla/admin-openrc.sh
     /opt/kolla-ansible/tools/init-runonce
+
+    if [ "${OS_KOLLA_ENABLE_MAGNUM:-no}" == "yes" ]; then
+        ./k8s.sh
+    fi
 fi

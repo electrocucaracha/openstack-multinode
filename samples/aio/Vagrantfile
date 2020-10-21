@@ -23,6 +23,7 @@ $socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
 $box = vagrant_boxes["centos"][8]
 $enable_weave_scope = ENV["ENABLE_WEAVE_SCOPE"]
 $run_init = ENV["OS_KOLLA_RUN_INIT"]
+$enable_magnum = ENV["OS_KOLLA_ENABLE_MAGNUM"] || "no"
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
@@ -83,6 +84,7 @@ EOF
       'OS_KOLLA_NEUTRON_PLUGIN_AGENT': "linuxbridge",
       'OS_KOLLA_BASE_DISTRO': "centos",
       'OPENSTACK_NODE_ROLES': "compute",
+      'OS_KOLLA_ENABLE_MAGNUM': "#{$enable_magnum}",
     }
     sh.inline = <<-SHELL
       set -o errexit
