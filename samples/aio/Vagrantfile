@@ -58,6 +58,13 @@ Vagrant.configure("2") do |config|
     sudo nmcli c add type ethernet ifname veth0 con-name uplinkbridge ip4 10.10.13.7/24
     sudo nmcli c up uplinkbridge
     sudo ip addr add 10.10.13.7/24 dev veth0
+    sudo mkdir -p /etc/rc.d/
+    sudo tee /etc/rc.d/rc.local << EOF
+#!/bin/bash
+sudo ip link add veth0 type veth peer name veth1
+sudo ip addr add 10.10.13.7/24 dev veth0
+EOF
+    sudo chmod +x /etc/rc.d/rc.local
   SHELL
   # Ensure Permissive SELinux policy
   config.vm.provision 'shell', privileged: false, inline: <<-SHELL
@@ -139,4 +146,5 @@ EONG
     end
   end
   config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 6080, host: 6080
 end
