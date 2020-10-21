@@ -82,6 +82,7 @@ EOF
       'OS_KOLLA_RUN_INIT': "#{$run_init}",
       'OS_KOLLA_NEUTRON_PLUGIN_AGENT': "linuxbridge",
       'OS_KOLLA_BASE_DISTRO': "centos",
+      'OPENSTACK_NODE_ROLES': "compute",
     }
     sh.inline = <<-SHELL
       set -o errexit
