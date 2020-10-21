@@ -28,6 +28,7 @@ if ! command -v kolla-build; then
     else
         pip install kolla=="$kolla_version"
     fi
+    pip install docker-squash
 fi
 
 # Start local registry
