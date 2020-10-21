@@ -46,7 +46,7 @@ if [ "${OS_ENABLE_LOCAL_REGISTRY:-false}" == "true" ]; then
     sudo sed -i "s/^#docker_registry: .*$/docker_registry: ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/globals.yml
 fi
 sudo sed -i "s/^#openstack_release: .*$/openstack_release: \"${OPENSTACK_RELEASE:-ussuri}\"/g"  /etc/kolla/globals.yml
-sudo sed -i "s/^#kolla_base_distro: .*$/kolla_base_distro: \"${OS_KOLLA_BASE:-ubuntu}\"/g"  /etc/kolla/globals.yml
+sudo sed -i "s/^#kolla_base_distro: .*$/kolla_base_distro: \"${OS_KOLLA_BASE_DISTRO:-ubuntu}\"/g"  /etc/kolla/globals.yml
 if [ -n "${HTTP_PROXY:-}" ]; then
     sed -i "s|^container_http_proxy: .*$|container_http_proxy: \"${HTTP_PROXY}\"|g" ~/.local/share/kolla-ansible/ansible/group_vars/all.yml
     echo "[Service]" | sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf
