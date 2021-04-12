@@ -9,19 +9,22 @@
 ##############################################################################
 
 name: Lint Code Base
+# yamllint disable-line rule:truthy
 on:
   push:
     branches:
       - 'master'
 
 jobs:
-  build:
-    name: Lint Code Base
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Lint Code Base
-        uses: docker://github/super-linter:v2.0.0
+      - uses: actions/checkout@v2
+      - uses: github/super-linter@v3
         env:
-          VALIDATE_BASH: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LINTER_RULES_PATH: /
+      - name: Install tox
+        run: pip install tox
+      - name: Run tox lint validation
+        run: tox -e lint

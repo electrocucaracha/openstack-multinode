@@ -27,7 +27,9 @@ setup using its [pdf.yml](pdf.yml).
 Once Vagrant is installed, it's possible to deploy an OpenStack
 cluster on Virtual Machines.
 
-    $ cd samples/distributed
+```bash
+cd samples/distributed
+```
 
 First of all, it's necessary to start the cluster nodes which are
 going to host the OpenStack services. Their roles are defined on the
@@ -35,7 +37,9 @@ going to host the OpenStack services. Their roles are defined on the
 server. All these nodes can be initialized in parallel using the
 following commmand:
 
-    $ vagrant up
+```bash
+vagrant up
+```
 
 This instruction also starts the registry node, it is an internal
 Docker Hub that contains OpenStack Kolla images that will be consumed
@@ -44,4 +48,6 @@ during the provisioning process.
 Finally, the provisioning server will be required for the installation
 and configuration tasks on target cluster nodes.
 
-    $ vagrant up undercloud
+```bash
+vagrant up undercloud
+```

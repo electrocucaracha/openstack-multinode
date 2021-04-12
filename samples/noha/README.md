@@ -17,14 +17,16 @@ containers created by this configuration.
 Once Vagrant is installed, it's possible to deploy an OpenStack
 cluster on Virtual Machines.
 
-    $ cd samples/noha
-    $ vagrant up
-    $ vagrant up controller01
+```bash
+cd samples/noha
+vagrant up
+vagrant up controller01
+```
 
 ## Dashboards
 
-| Service | URL                 |
-|---------|---------------------|
-| Horizon | http://controller01 |
+| Service | URL                   |
+|---------|-----------------------|
+| Horizon | <http://controller01> |
 
 [1]: https://www.intel.com/content/www/us/en/products/docs/boards-kits/nuc/nuc-family-overview.html

@@ -1,6 +1,9 @@
 # OpenStack Multi-Node Deployment
 [![Build Status](https://travis-ci.org/electrocucaracha/openstack-multinode.png)](https://travis-ci.org/electrocucaracha/openstack-multinode)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![GitHub Super-Linter](https://github.com/electrocucaracha/openstack-multinode/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=electrocucaracha.openstack-multinode)
 
 Package based management has been replaced by container based
 management systems which help to solve the availability, management
@@ -62,10 +65,12 @@ Virtual Machine is used to provision other servers.
 
 ## Deploy All-in-One configuration
 
-The [install bash script](install.sh) provides instructions to 
+The [install bash script](install.sh) provides instructions to
 deploy an All-in-One OpenStack configuration. It's possible to run
 this script remotely:
 
-    $ curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/install.sh | OS_KOLLA_NETWORK_INTERFACE=eno1 bash
+```bash
+curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/install.sh | OS_KOLLA_NETWORK_INTERFACE=eno1 bash
+```
 
 [1]: https://docs.openstack.org/kolla/latest/

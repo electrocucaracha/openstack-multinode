@@ -13,10 +13,10 @@ require 'yaml'
 
 vagrant_boxes = YAML.load_file(File.dirname(__FILE__) + '/../../distros_supported.yml')
 
-# Intel's NUC BXNUC10I7FNHAA1 + 2 x 32GB DDR4-2666
+# Raspberry Pi 4 - 4 GB
 compute_nodes = [
-  { :hostname => "compute01", :memory => 65536, :ip => "10.10.13.9" },
-  { :hostname => "compute02", :memory => 65536, :ip => "10.10.13.10" }
+  { :hostname => "compute01", :ip => "10.10.13.9" },
+  { :hostname => "compute02", :ip => "10.10.13.10" }
 ]
 
 $no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
@@ -35,15 +35,19 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox
 
   config.vm.synced_folder '../../', '/vagrant'
-  config.vm.box =  vagrant_boxes["centos"][7]["name"]
-  config.vm.box_version = vagrant_boxes["centos"][7]["version"]
+  config.vm.box =  vagrant_boxes["ubuntu"]["bionic"]["name"]
+  config.vm.box_version = vagrant_boxes["ubuntu"]["bionic"]["version"]
   config.ssh.insert_key = false
 
   config.vm.provider :libvirt do |v, override|
     v.cpu_mode = 'host-passthrough'
     v.random_hostname = true
-    v.management_network_address = "192.168.121.0/24"
-    v.cputopology :sockets => 1, :cores => 6, :threads => 2 # Intel Core i7-10710U Processor
+    v.management_network_address = "192.168.121.0/24" # Provides Internet access for all nodes and is used for administration to install software packages
+    v.management_network_mode = "nat" # NATed forwarding typically to reach networks outside of hypervisor
+    v.cpu_mode = 'host-passthrough'
+    v.disk_device = 'sda'
+    v.disk_bus = 'sata'
+  end
   end
   config.vm.provision 'shell', inline: <<-SHELL
     mkdir -p /root/.ssh
@@ -51,39 +55,34 @@ Vagrant.configure("2") do |config|
     chmod 700 ~/.ssh
     chmod 600 ~/.ssh/authorized_keys
     sed -i '/^PermitRootLogin no/d' /etc/ssh/sshd_config
-    if command -v sestatus; then
-        sudo setenforce Permissive
-        sudo sed -i "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
-    fi
   SHELL
-  config.vm.provision :reload
 
   compute_nodes.each do |compute_node|
     config.vm.define "#{compute_node[:hostname]}" do |nodeconfig|
       nodeconfig.vm.hostname = compute_node[:hostname]
-      $cinder_file = "#{compute_node[:hostname]}-sda.vdi"
-      config.vm.provider 'virtualbox' do |v, override|
-        unless File.exist?($cinder_file)
-          v.customize ['createmedium', 'disk', '--filename', $cinder_file, '--size', 100]
-        end
-        v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $cinder_file]
-      end
-      nodeconfig.vm.provider :libvirt do |v, override|
-        v.nested = true
-        v.storage :file, :bus => 'sata', :device => 'sda', :size => 100 # Cinder volume
-      end
       nodeconfig.vm.network :private_network, :ip => compute_node[:ip], :type => :static,
         libvirt__network_name: "tunnel-net"
+
       [:virtualbox, :libvirt].each do |provider|
         config.vm.provider provider do |p, override|
-          p.cpus = 12 # sockets * cores * threads
-          p.memory = compute_node[:memory]
+          p.cpus = 4
+          p.memory = 4096
         end
+      end
+
+      config.vm.provider 'virtualbox' do |v, override|
+        v.customize ["modifyvm", :id, "--nested-hw-virt","on"]
+      end
+      nodeconfig.vm.disk :disk, name: "cinder", size: "50GB"
+
+      nodeconfig.vm.provider :libvirt do |v, override|
+        v.nested = true
+        v.storage :file, :bus => 'sata', :device => 'sdb', :size => 50 # Cinder volume
       end
       nodeconfig.vm.provision 'shell', privileged: false do |sh|
         sh.inline = <<-SHELL
           cd /vagrant
-          ./node.sh -c /dev/sda | tee ~/node_$(hostname).log
+          ./node.sh -c /dev/sdb | tee ~/node_$(hostname).log
         SHELL
       end
     end

@@ -1,8 +1,8 @@
 # OpenStack All-in-One Configuration
 
 This configuration was designed to host the OpenStack services in an
-[Intel's NUC NUC10i7FNHAA1][1]. The [provisioning process](../../install.sh)
-pulls the official Kolla images and deploys them in a CentOS 7 using the 
+[Intel's NUC 10 Perfomance kit][1]. The [provisioning process](../../install.sh)
+pulls the official Kolla images and deploys them in a CentOS 7 using the
 [undercloud script](../../undercloud.sh).
 
 The following diagram displays the Networking configuration created
@@ -12,7 +12,7 @@ by [init-runonce script][2].
 
 ## Hardware Details
 
-* 10th Generation Intel® Core™ i7-10710U Processor
+* 10th Generation Intel® Core™ i5-10210U Processor
 * 256 GB NVMe SSD, 1 TB SATA3 HDD
 * 16 GB Dual-Channel, LPDDR4-2666
 
@@ -21,15 +21,17 @@ by [init-runonce script][2].
 Once Vagrant is installed, it's possible to deploy an OpenStack
 cluster on a single Virtual Machine.
 
-    $ cd samples/aio
-    $ vagrant up
+```bash
+cd samples/aio
+vagrant up
+```
 
 ## Dashboards
 
-| Service | URL             |
-|---------|-----------------|
-| Horizon | http://aio      |
-| Skydive | http://aio:8085 |
+| Service | URL               |
+|---------|-------------------|
+| Horizon | <http://aio>      |
+| Skydive | <http://aio:8085> |
 
-[1]: https://www.intel.com/content/www/us/en/products/docs/boards-kits/nuc/nuc-family-overview.html
+[1]: https://ark.intel.com/content/www/us/en/ark/products/189239/intel-nuc-10-performance-kit-nuc10i5fnh.html
 [2]: https://github.com/openstack/kolla-ansible/blob/10.0.0/tools/init-runonce

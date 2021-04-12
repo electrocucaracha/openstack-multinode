@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 # SPDX-license-identifier: Apache-2.0
@@ -9,35 +11,33 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-require 'yaml'
+require "yaml"
 
-vagrant_boxes = YAML.load_file(File.dirname(__FILE__) + '/../../distros_supported.yml')
+vagrant_boxes = YAML.load_file("#{File.dirname(__FILE__)}/../../distros_supported.yml")
 
-$no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
-# NOTE: This range is based on vagrant-libvirt network definition CIDR 192.168.121.0/24
+no_proxy = ENV["NO_PROXY"] || ENV["no_proxy"] || "127.0.0.1,localhost"
 (1..254).each do |i|
-  $no_proxy += ",192.168.121.#{i}"
+  no_proxy += ",10.0.2.#{i}"
 end
-$no_proxy += ",10.0.2.15,10.10.13.7"
-$socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
-$box = vagrant_boxes["centos"][8]
-$enable_weave_scope = ENV["ENABLE_WEAVE_SCOPE"]
-$run_init = ENV["OS_KOLLA_RUN_INIT"]
-$enable_magnum = ENV["OS_KOLLA_ENABLE_MAGNUM"] || "no"
+socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
+box = vagrant_boxes["centos"][8]
+enable_weave_scope = ENV["ENABLE_WEAVE_SCOPE"]
+run_init = ENV["OS_KOLLA_RUN_INIT"]
+enable_magnum = ENV["OS_KOLLA_ENABLE_MAGNUM"] || "no"
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
 
-  config.vm.synced_folder '../../', '/vagrant'
-  config.vm.box =  $box["name"]
-  config.vm.box_version = $box["version"]
+  config.vm.synced_folder "../../", "/vagrant"
+  config.vm.box = box["name"]
+  config.vm.box_version = box["version"]
   config.vm.box_check_update = false
   config.ssh.insert_key = false
   config.vm.hostname = "aio"
 
   # SSH Keys configuration
-  config.vm.provision 'shell', privileged: false, inline: <<-SHELL
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo sed -i '/^PermitRootLogin no/d' /etc/ssh/sshd_config
     rm -f ~/.ssh/id_rsa*
     sudo mkdir -p /root/.ssh/
@@ -49,8 +49,9 @@ Vagrant.configure("2") do |config|
     < ~/.ssh/id_rsa.pub tee --append  ~/.ssh/authorized_keys | sudo tee --append /root/.ssh/authorized_keys
     chmod og-wx ~/.ssh/authorized_keys
   SHELL
+
   # Configure single NIC limitation
-  config.vm.provision 'shell', privileged: false, inline: <<-SHELL
+  config.vm.provision "shell", privileged: false, inline: <<~SHELL
     set -o xtrace
 
     sudo ip link add veth0 type veth peer name veth1
@@ -61,34 +62,40 @@ Vagrant.configure("2") do |config|
     sudo ip addr add 10.10.13.7/24 dev veth0
     sudo mkdir -p /etc/rc.d/
     sudo tee /etc/rc.d/rc.local << EOF
-#!/bin/bash
-sudo ip link add veth0 type veth peer name veth1
-sudo ip addr add 10.10.13.7/24 dev veth0
-EOF
+    #!/bin/bash
+    sudo ip link add veth0 type veth peer name veth1
+    sudo ip addr add 10.10.13.7/24 dev veth0
+    EOF
     sudo chmod +x /etc/rc.d/rc.local
   SHELL
+
   # Ensure Permissive SELinux policy
-  config.vm.provision 'shell', privileged: false, inline: <<-SHELL
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
     if command -v sestatus; then
         sudo setenforce Permissive
         sudo sed -i "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
     fi
   SHELL
-  config.vm.provision 'shell', privileged: false do |sh|
+
+  config.vm.provision "shell", privileged: false do |sh|
     sh.env = {
-      'SOCKS_PROXY': "#{$socks_proxy}",
-      'OS_FOLDER': "/vagrant/",
-      'OS_KOLLA_DEPLOY_PROFILE': "minimal",
-      'ENABLE_WEAVE_SCOPE': "#{$enable_weave_scope}",
-      'OS_KOLLA_RUN_INIT': "#{$run_init}",
-      'OS_KOLLA_NEUTRON_PLUGIN_AGENT': "linuxbridge",
-      'OS_KOLLA_BASE_DISTRO': "centos",
-      'OPENSTACK_NODE_ROLES': "compute",
-      'OS_KOLLA_ENABLE_MAGNUM': "#{$enable_magnum}",
+      SOCKS_PROXY: socks_proxy.to_s,
+      OS_FOLDER: "/vagrant/",
+      OS_KOLLA_DEPLOY_PROFILE: "minimal",
+      ENABLE_WEAVE_SCOPE: enable_weave_scope.to_s,
+      OS_KOLLA_RUN_INIT: run_init.to_s,
+      OS_KOLLA_NEUTRON_PLUGIN_AGENT: "linuxbridge",
+      OS_KOLLA_BASE_DISTRO: "centos",
+      OPENSTACK_NODE_ROLES: "compute",
+      OS_KOLLA_ENABLE_MAGNUM: enable_magnum.to_s,
+      EXT_NET_RANGE: "start=10.0.2.20,end=10.0.2.100",
+      EXT_NET_CIDR: "10.0.2.0/24"
     }
-    sh.inline = <<-SHELL
+    sh.inline = <<~SHELL
       set -o errexit
       set -o xtrace
+
+      export EXT_NET_GATEWAY=$(ip r | grep "^default" | awk 'NR==1{print $3}')
 
       cd /vagrant
       echo "127.0.0.1 localhost" | sudo tee /etc/hosts
@@ -101,52 +108,47 @@ EOF
           sudo chmod a+x /usr/local/bin/scope
           newgrp docker <<EONG
       scope launch
-EONG
+      EONG
       fi
     SHELL
   end
 
-  # Intel's NUC BXNUC10I7FNHAA1
-  [:virtualbox, :libvirt].each do |provider|
-  config.vm.provider provider do |p|
-      p.cpus = ENV["CPUS"] || 12  # sockets * cores * threads
-      p.memory = ENV["MEMORY"] || 16384  # 2 x 8GB DDR4-2666
+  # Intel's NUC BXNUC10i5FNH1
+  %i[virtualbox libvirt].each do |provider|
+    config.vm.provider provider do |p|
+      p.cpus = ENV["CPUS"] || 8 # sockets * cores * threads
+      p.memory = ENV["MEMORY"] || (8 * 2 * 1024) # 2 x 8GB DDR4-2666
     end
   end
 
-  $volume_file = "aio-sdb.vdi"
-  $cinder_file = "aio-sdc.vdi"
-  config.vm.provider 'virtualbox' do |v, override|
+  volume_file = "aio-sdb.vdi"
+  cinder_file = "aio-sdc.vdi"
+  config.vm.provider "virtualbox" do |v, _override|
     v.gui = false
-    v.customize ["modifyvm", :id, "--nested-hw-virt","on"]
-    unless File.exist?($volume_file)
-      v.customize ['createmedium', 'disk', '--filename', $volume_file, '--size', (50 * 1024) ]
-    end
-    unless File.exist?($cinder_file)
-      v.customize ['createmedium', 'disk', '--filename', $cinder_file, '--size', (100 * 1024)]
-    end
-    v.customize ['storageattach', :id, '--storagectl', $box["vb_controller"], '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $volume_file]
-    v.customize ['storageattach', :id, '--storagectl', $box["vb_controller"], '--port', 1, '--device', 1, '--type', 'hdd', '--medium', $cinder_file]
+    v.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
+    v.customize ["createmedium", "disk", "--filename", volume_file, "--size", (50 * 1024)] unless File.exist?(volume_file)
+    v.customize ["createmedium", "disk", "--filename", cinder_file, "--size", (100 * 1024)] unless File.exist?(cinder_file)
+    v.customize ["storageattach", :id, "--storagectl", box["vb_controller"], "--port", 1, "--device", 0, "--type", "hdd", "--medium", volume_file]
+    v.customize ["storageattach", :id, "--storagectl", box["vb_controller"], "--port", 1, "--device", 1, "--type", "hdd", "--medium", cinder_file]
   end
 
-  config.vm.provider :libvirt do |v, override|
+  config.vm.provider :libvirt do |v, _override|
     v.disk_bus = "sata"
-    v.cputopology :sockets => ENV["SOCKETS"] || 1, :cores => ENV["CORES"] || 6, :threads => ENV["THREADS"] || 2 # Intel Core i7-10710U Processor
-    v.cpu_mode = 'host-passthrough'
+    v.cputopology sockets: ENV["SOCKETS"] || 1, cores: ENV["CORES"] || 4, threads: ENV["THREADS"] || 2 # Intel Core i5-10210U Processor
+    v.cpu_mode = "host-passthrough"
     v.random_hostname = true
     v.nested = true
-    v.management_network_address = "192.168.121.0/24"
-    v.storage :file, :bus => 'sata', :size => 50 # ~30 GB Kolla Docker images
-    v.storage :file, :bus => 'sata', :size => 100 # Cinder volume
+    v.management_network_address = "10.0.2.0/24"
+    v.management_network_name = "administration" # Administration - Provides Internet access for all nodes and is used for administration to install software packages
+    v.storage :file, bus: "sata", size: 50 # ~30 GB Kolla Docker images
+    v.storage :file, bus: "sata", size: 100 # Cinder volume
   end
 
-  if ENV['http_proxy'] != nil and ENV['https_proxy'] != nil
-    if Vagrant.has_plugin?('vagrant-proxyconf')
-      config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""
-      config.proxy.https    = ENV['https_proxy'] || ENV['HTTPS_PROXY'] || ""
-      config.proxy.no_proxy = $no_proxy
-      config.proxy.enabled = { docker: false }
-    end
+  if !ENV["http_proxy"].nil? && !ENV["https_proxy"].nil? && Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http = ENV["http_proxy"] || ENV["HTTP_PROXY"] || ""
+    config.proxy.https    = ENV["https_proxy"] || ENV["HTTPS_PROXY"] || ""
+    config.proxy.no_proxy = no_proxy
+    config.proxy.enabled = { docker: false }
   end
   config.vm.network :forwarded_port, guest: 80, host: 8080
   config.vm.network :forwarded_port, guest: 6080, host: 6080

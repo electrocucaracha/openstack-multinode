@@ -6,7 +6,9 @@ or Libvirt. It's highly recommended to use the  *setup.sh* script
 of the [bootstrap-vagrant project][2] for installing Vagrant
 dependencies and plugins required for its project.
 
-    $ curl -fsSL http://bit.ly/initVagrant | PROVIDER=libvirt bash
+```bash
+curl -fsSL http://bit.ly/initVagrant | PROVIDER=libvirt bash
+```
 
 The **setup.sh** script supports VirtualBox and Libvirt providers.
 

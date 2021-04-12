@@ -15,13 +15,6 @@ git:
 dist: bionic
 jobs:
   include:
-    - name: Lint validation
-      language: python
-      install:
-        - pip install tox
-      script:
-        - tox -e bashate
-        - bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
     - name: All-in-One Ubuntu 18.04 LTS Bare Metal validation
       install:
         - sudo apt-get update

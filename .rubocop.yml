@@ -1,0 +1,18 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2021
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+AllCops:
+  NewCops: enable
+Metrics/BlockLength:
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes  # https://github.com/rubocop/rubocop/issues/5306
