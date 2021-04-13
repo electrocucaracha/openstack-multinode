@@ -20,7 +20,8 @@ no_proxy = ENV["NO_PROXY"] || ENV["no_proxy"] || "127.0.0.1,localhost"
   no_proxy += ",10.0.2.#{i}"
 end
 socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
-box = vagrant_boxes["centos"][8]
+os_distro = ENV["OS_DISTRO"] || "centos"
+box = vagrant_boxes[os_distro][vagrant_boxes[os_distro].keys.first]
 enable_weave_scope = ENV["ENABLE_WEAVE_SCOPE"]
 run_init = ENV["OS_KOLLA_RUN_INIT"]
 enable_magnum = ENV["OS_KOLLA_ENABLE_MAGNUM"] || "no"
@@ -85,7 +86,7 @@ Vagrant.configure("2") do |config|
       ENABLE_WEAVE_SCOPE: enable_weave_scope.to_s,
       OS_KOLLA_RUN_INIT: run_init.to_s,
       OS_KOLLA_NEUTRON_PLUGIN_AGENT: "linuxbridge",
-      OS_KOLLA_BASE_DISTRO: "centos",
+      OS_KOLLA_BASE_DISTRO: os_distro.to_s,
       OPENSTACK_NODE_ROLES: "compute",
       OS_KOLLA_ENABLE_MAGNUM: enable_magnum.to_s,
       EXT_NET_RANGE: "start=10.0.2.20,end=10.0.2.100",
