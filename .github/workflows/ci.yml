@@ -40,8 +40,6 @@ jobs:
           ./node.sh
           sed -i "s|localhost|$(hostname)|g" samples/aio/hosts.ini
           OS_FOLDER=$(git rev-parse --show-toplevel) ./install.sh
-      - name: Deploy services
-        run: openstack hypervisor list
   build-images:
     runs-on: ubuntu-18.04
     env:

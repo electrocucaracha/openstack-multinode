@@ -13,37 +13,10 @@ os: linux
 git:
   depth: 1
 dist: bionic
-jobs:
-  include:
-    - name: All-in-One Ubuntu 18.04 LTS Bare Metal validation
-      install:
-        - sudo apt-get update
-        - sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 bridge-utils
-      before_script:
-        - sudo ip link add veth0 type veth peer name veth1
-        - sudo ip addr add 10.10.13.7/24 dev veth0
-        - sudo ip link set veth0 up
-        - sudo brctl addbr uplinkbridge
-        - sudo brctl addif uplinkbridge veth0
-        - sudo ip link set dev uplinkbridge up
-        - echo "127.0.0.1 localhost" | sudo tee /etc/hosts
-      script:
-        - ./node.sh
-        - sed -i "s|localhost|$(hostname)|g" samples/aio/hosts.ini
-        - OS_FOLDER=$(git rev-parse --show-toplevel) ./install.sh
-      after_success:
-        - openstack hypervisor list
-      env:
-        - OS_KOLLA_ENABLE_CINDER=no
-    - name: All-in-One CentOS 8 Vagrant validation
-      install:
-        - sudo apt update; sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends curl qemu
-        - curl -fsSL http://bit.ly/initVagrant | PROVIDER=libvirt bash
-      script:
-        - cd samples/aio/; sudo -E vagrant up
-      env:
-        - MEMORY=7168
-        - CPUS=2
-        - CORES=2
-        - THREADS=1
-        - OS_KOLLA_RUN_INIT=false
+install:
+  - sudo apt update; sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends curl qemu
+  - curl -fsSL http://bit.ly/initVagrant | PROVIDER=libvirt bash
+script:
+  - cd samples/aio/; sudo -E vagrant up
+env:
+  - MEMORY=7168 CPUS=2 CORES=2 THREADS=1 OS_KOLLA_RUN_INIT=false
