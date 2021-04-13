@@ -13,6 +13,9 @@ os: linux
 git:
   depth: 1
 dist: bionic
+cache:
+  directories:
+    - /home/travis/.vagrant.d/boxes
 install:
   - sudo apt update; sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends curl qemu
   - curl -fsSL http://bit.ly/initVagrant | PROVIDER=libvirt bash
