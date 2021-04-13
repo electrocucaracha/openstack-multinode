@@ -15,7 +15,7 @@ set -o xtrace
 
 # Variables
 kolla_folder=/opt/kolla-ansible
-kolla_version=${OS_KOLLA_ANSIBLE_VERSION:-10.1.0}
+kolla_version=${OS_KOLLA_ANSIBLE_VERSION:-10.2.0}
 
 pkgs="python-devel pip sshpass"
 if ! command -v gcc; then
@@ -105,6 +105,7 @@ for action in "${kolla_actions[@]}"; do
     ./run_kaction.sh "$action" | tee "$HOME/$action.log"
 done
 
+sudo chown "$USER" /etc/kolla/admin-openrc.sh
 # shellcheck disable=SC2002
 cat /etc/kolla/admin-openrc.sh | sudo tee --append /etc/environment
 
