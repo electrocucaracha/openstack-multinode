@@ -11,20 +11,20 @@
 centos:
   8:
     name: generic/centos8
-    version: 3.2.10
+    version: 3.2.18
     vb_controller: IDE Controller
 ubuntu:
   bionic:
     name: generic/ubuntu1804
     vb_controller: IDE Controller
-    version: 3.2.10
+    version: 3.2.18
 debian:
   buster:
     name: generic/debian10
     vb_controller: IDE Controller
-    version: 3.2.10
+    version: 3.2.18
 rhel:
   8:
     name: generic/rhel8
     vb_controller: IDE Controller
-    version: 3.2.10
+    version: 3.2.18
