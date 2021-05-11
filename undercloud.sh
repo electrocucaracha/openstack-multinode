@@ -73,7 +73,9 @@ sudo sed -i "s/^#enable_skydive: .*/enable_skydive: \"${OS_KOLLA_ENABLE_SKYDIVE:
 # - Separate: Where the external URL is assigned to an IP address that
 #             is different than the IP address shared by the internal
 #             and admin URLs
-sudo sed -i "s/^kolla_internal_vip_address: .*/kolla_internal_vip_address: ${OS_KOLLA_INTERNAL_VIP_ADDRESS}/g" /etc/kolla/globals.yml
+if [ -n "${OS_KOLLA_INTERNAL_VIP_ADDRESS:-}" ]; then
+    sudo sed -i "s/^kolla_internal_vip_address: .*/kolla_internal_vip_address: ${OS_KOLLA_INTERNAL_VIP_ADDRESS}/g" /etc/kolla/globals.yml
+fi
 if [ -n "${OS_KOLLA_EXTERNAL_VIP_ADDRESS:-}" ]; then
     sudo sed -i "s/^#kolla_external_vip_address: .*/kolla_external_vip_address: ${OS_KOLLA_EXTERNAL_VIP_ADDRESS}/g" /etc/kolla/globals.yml
 fi

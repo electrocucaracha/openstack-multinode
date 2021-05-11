@@ -23,10 +23,4 @@ vagrant up
 vagrant up controller01
 ```
 
-## Dashboards
-
-| Service | URL                   |
-|---------|-----------------------|
-| Horizon | <http://controller01> |
-
 [1]: https://www.intel.com/content/www/us/en/products/docs/boards-kits/nuc/nuc-family-overview.html

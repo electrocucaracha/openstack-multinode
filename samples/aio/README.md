@@ -26,12 +26,5 @@ cd samples/aio
 vagrant up
 ```
 
-## Dashboards
-
-| Service | URL               |
-|---------|-------------------|
-| Horizon | <http://aio>      |
-| Skydive | <http://aio:8085> |
-
 [1]: https://ark.intel.com/content/www/us/en/ark/products/189239/intel-nuc-10-performance-kit-nuc10i5fnh.html
 [2]: https://github.com/openstack/kolla-ansible/blob/10.0.0/tools/init-runonce
