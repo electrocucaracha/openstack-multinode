@@ -8,7 +8,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-name: Check Bare-Metal installations
+name: Build Kolla Images
 # yamllint disable-line rule:truthy
 on:
   push:
@@ -16,30 +16,6 @@ on:
       - 'master'
 
 jobs:
-  check-ubuntu-bionic:
-    runs-on: ubuntu-18.04
-    env:
-      OS_KOLLA_ENABLE_CINDER: no
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install requirements
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 bridge-utils
-      - name: Setup network external interface
-        run: |
-          sudo ip link add veth0 type veth peer name veth1
-          sudo ip addr add 10.10.13.7/24 dev veth0
-          sudo ip link set veth0 up
-          sudo brctl addbr uplinkbridge
-          sudo brctl addif uplinkbridge veth0
-          sudo ip link set dev uplinkbridge up
-          echo "127.0.0.1 localhost" | sudo tee /etc/hosts
-      - name: Deploy services
-        run: |
-          ./node.sh
-          sed -i "s|localhost|$(hostname)|g" samples/aio/hosts.ini
-          OS_FOLDER=$(git rev-parse --show-toplevel) ./install.sh
   build-images:
     runs-on: ubuntu-18.04
     env:
