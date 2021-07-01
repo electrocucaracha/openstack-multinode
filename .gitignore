@@ -6,3 +6,5 @@ sources.list
 output.json
 *.img
 *.vdi
+samples/noha/hosts.ini
+samples/noha/header.ini

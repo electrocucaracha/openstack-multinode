@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 # SPDX-license-identifier: Apache-2.0
@@ -9,77 +11,114 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-require 'yaml'
+require "yaml"
 
-vagrant_boxes = YAML.load_file(File.dirname(__FILE__) + '/../../distros_supported.yml')
+vagrant_boxes = YAML.load_file("#{File.dirname(__FILE__)}/../../distros_supported.yml")
 
-# Raspberry Pi 4 - 4 GB
-compute_nodes = [
-  { :hostname => "compute01", :ip => "10.10.13.9" },
-  { :hostname => "compute02", :ip => "10.10.13.10" }
-]
-
-$no_proxy = ENV['NO_PROXY'] || ENV['no_proxy'] || "127.0.0.1,localhost"
-# NOTE: This range is based on vagrant-libvirt network definition CIDR 192.168.121.0/24
+subnet = "10.10.13"
+controller_ip = "#{subnet}.8"
+num_compute_nodes = ENV["OS_NUM_COMPUTE_NODES"] || "2"
+no_proxy = ENV["NO_PROXY"] || ENV["no_proxy"] || "127.0.0.1,localhost"
 (1..254).each do |i|
-  $no_proxy += ",192.168.121.#{i}"
+  no_proxy += ",10.0.2.#{i}"
 end
-compute_nodes.each do |i|
-  $no_proxy += ",#{i[:ip]}"
+File.open("#{File.dirname(__FILE__)}/header.ini", "w") do |inventory_file|
+  inventory_file.puts("[control]\ncontroller\n\n[network]")
+  (1..num_compute_nodes.to_i).each do |i|
+    inventory_file.puts("compute#{i.to_s.rjust(2, '0')}")
+  end
+  inventory_file.puts("\n[compute]")
+  (1..num_compute_nodes.to_i).each do |i|
+    inventory_file.puts("compute#{i.to_s.rjust(2, '0')}")
+  end
 end
-$no_proxy += ",10.10.13.8"
-$socks_proxy = ENV['socks_proxy'] || ENV['SOCKS_PROXY'] || ""
+hosts = "#{controller_ip}  controller\n"
+(1..num_compute_nodes.to_i).each do |i|
+  no_proxy += ",#{subnet}.#{i + 8}"
+  hosts += "#{subnet}.#{i + 8}  compute#{i.to_s.rjust(2, '0')}\n"
+end
+no_proxy += ",#{controller_ip}"
+socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
+local_registry_enabled = ENV["OS_ENABLE_LOCAL_REGISTRY"] || "true"
+public_nic = `ip r get 1.1.1.1 | awk 'NR==1{print $5}'`.strip! || "eth0"
+cloud_public_cidr = `ip r | grep "dev $(ip r get 1.1.1.1 | awk 'NR==1{print $5}') .* scope link" | awk '{print $1}'`.strip! || "192.168.0.0/24"
+cloud_public_gw = `ip r | grep "^default" | awk 'NR==1{print $3}'`.strip! || "192.168.0.1"
+
+def which(cmd)
+  exts = ENV["PATHEXT"] ? ENV["PATHEXT"].split(";") : [""]
+  ENV["PATH"].split(File::PATH_SEPARATOR).each do |path|
+    exts.each do |ext|
+      exe = File.join(path, "#{cmd}#{ext}")
+      return exe if File.executable?(exe) && !File.directory?(exe)
+    end
+  end
+  nil
+end
+
+vb_public_nic = `VBoxManage list bridgedifs | grep "^Name:.*#{public_nic}" | awk -F "Name:[ ]*" '{ print $2}'`.strip! if which "VBoxManage"
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
 
-  config.vm.synced_folder '../../', '/vagrant'
-  config.vm.box =  vagrant_boxes["ubuntu"]["bionic"]["name"]
-  config.vm.box_version = vagrant_boxes["ubuntu"]["bionic"]["version"]
+  config.vm.synced_folder "../../", "/vagrant"
+  config.vm.box = vagrant_boxes["ubuntu"]["focal"]["name"]
+  config.vm.box_version = vagrant_boxes["ubuntu"]["focal"]["version"]
   config.ssh.insert_key = false
 
   config.vm.provider :libvirt do |v, override|
-    v.cpu_mode = 'host-passthrough'
+    override.vm.synced_folder "../../", "/vagrant", type: "nfs"
+    v.cpu_mode = "host-passthrough"
     v.random_hostname = true
-    v.management_network_address = "192.168.121.0/24" # Provides Internet access for all nodes and is used for administration to install software packages
+    v.management_network_address = "10.0.2.0/24"
+    v.management_network_name = "administration" # Administration - Provides Internet access for all nodes and is used for administration to install software packages
     v.management_network_mode = "nat" # NATed forwarding typically to reach networks outside of hypervisor
-    v.cpu_mode = 'host-passthrough'
-    v.disk_device = 'sda'
-    v.disk_bus = 'sata'
+    v.cpu_mode = "host-passthrough"
+    v.disk_device = "sda"
+    v.disk_bus = "sata"
   end
-  end
-  config.vm.provision 'shell', inline: <<-SHELL
+  config.vm.provision "shell", inline: <<~SHELL
     mkdir -p /root/.ssh
     cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
     chmod 700 ~/.ssh
     chmod 600 ~/.ssh/authorized_keys
     sed -i '/^PermitRootLogin no/d' /etc/ssh/sshd_config
+    # Prefer IPv4 over IPv6 in dual-stack environment
+    sudo sed -i "s|^#precedence ::ffff:0:0/96  100$|precedence ::ffff:0:0/96  100|g" /etc/gai.conf
+    sudo systemd-resolve --interface eth0 --set-dns 1.1.1.1 --flush-caches
+    cat << EOF > /etc/hosts
+    127.0.0.1   localhost
+    #{hosts}
+    EOF
   SHELL
 
-  compute_nodes.each do |compute_node|
-    config.vm.define "#{compute_node[:hostname]}" do |nodeconfig|
-      nodeconfig.vm.hostname = compute_node[:hostname]
-      nodeconfig.vm.network :private_network, :ip => compute_node[:ip], :type => :static,
-        libvirt__network_name: "tunnel-net"
+  (1..num_compute_nodes.to_i).each do |i|
+    config.vm.define "compute#{i.to_s.rjust(2, '0')}" do |nodeconfig|
+      nodeconfig.vm.hostname = "compute#{i.to_s.rjust(2, '0')}"
+      nodeconfig.vm.network :private_network, ip: "#{subnet}.#{i + 8}", type: :static,
+                                              libvirt__network_name: "tunnel-net"
+      nodeconfig.vm.network :public_network, dev: public_nic, bridge: vb_public_nic, auto_config: false
 
-      [:virtualbox, :libvirt].each do |provider|
-        config.vm.provider provider do |p, override|
-          p.cpus = 4
-          p.memory = 4096
+      %i[virtualbox libvirt].each do |provider|
+        config.vm.provider provider do |p, _override|
+          p.cpus = ENV["CPUS"] || 4
+          p.memory = ENV["MEMORY"] || (4 * 1024)
         end
       end
 
-      config.vm.provider 'virtualbox' do |v, override|
-        v.customize ["modifyvm", :id, "--nested-hw-virt","on"]
+      config.vm.provider "virtualbox" do |v, _override|
+        v.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
       end
       nodeconfig.vm.disk :disk, name: "cinder", size: "50GB"
 
-      nodeconfig.vm.provider :libvirt do |v, override|
+      nodeconfig.vm.provider :libvirt do |v, _override|
         v.nested = true
-        v.storage :file, :bus => 'sata', :device => 'sdb', :size => 50 # Cinder volume
+        v.storage :file, bus: "sata", device: "sdb", size: 50 # Cinder volume
       end
-      nodeconfig.vm.provision 'shell', privileged: false do |sh|
+      nodeconfig.vm.provision "shell", privileged: false do |sh|
+        sh.env = {
+          OPENSTACK_NODE_ROLES: "compute"
+        }
         sh.inline = <<-SHELL
           cd /vagrant
           ./node.sh -c /dev/sdb | tee ~/node_$(hostname).log
@@ -88,9 +127,12 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "controller01", primary: true, autostart: false do |controller01|
-    controller01.vm.hostname = "controller01"
-    config.vm.provision 'shell', privileged: false, inline: <<-SHELL
+  config.vm.define "controller", primary: true, autostart: false do |controller|
+    controller.vm.hostname = "controller"
+    controller.vm.network :private_network, ip: controller_ip.to_s, type: :static,
+                                            libvirt__network_name: "tunnel-net"
+    controller.vm.network :public_network, dev: public_nic, bridge: vb_public_nic, auto_config: false
+    config.vm.provision "shell", privileged: false, inline: <<-SHELL
       cd /vagrant
       sudo mkdir -p /root/.ssh/
       sudo cp insecure_keys/key /root/.ssh/id_rsa
@@ -108,53 +150,57 @@ Vagrant.configure("2") do |config|
           ;;
       esac
     SHELL
-    controller01.vm.provision 'shell', privileged: false do |sh|
+    controller.vm.provision "shell", privileged: false do |sh|
       sh.env = {
-        'SOCKS_PROXY': "#{$socks_proxy}",
-        'OS_ENABLE_LOCAL_REGISTRY': "true",
-        'OS_INVENTORY_FILE': "./samples/noha/hosts.ini",
-        'OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE': "eth1",
-        'OS_FOLDER': "/vagrant/"
+        SOCKS_PROXY: socks_proxy.to_s,
+        OS_FOLDER: "/vagrant/",
+        OS_ENABLE_LOCAL_REGISTRY: local_registry_enabled.to_s,
+        OS_INVENTORY_FILE: "./samples/noha/hosts.ini",
+        OS_KOLLA_API_INTERFACE: "eth1",
+        OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE: "eth2",
+        OS_KOLLA_INTERNAL_VIP_ADDRESS: controller_ip.to_s,
+        EXT_NET_RANGE: "start=#{cloud_public_cidr.sub('0/24', '50')},end=#{cloud_public_cidr.sub('0/24', '100')}",
+        EXT_NET_CIDR: cloud_public_cidr.to_s,
+        EXT_NET_GATEWAY: cloud_public_gw.to_s
       }
       sh.inline = <<-SHELL
         cd /vagrant
-        ./node.sh -v sda=/var/lib/docker/ -c /dev/sdb | tee ~/node_controller01.log
-        ./install.sh | tee ~/install_controller01.log
+
+        # Create ansible inventory file
+        pushd samples/noha/
+        cp header.ini $(basename $OS_INVENTORY_FILE)
+        cat tail.ini >> $(basename $OS_INVENTORY_FILE)
+        popd
+
+        ./node.sh -v sdb=/var/lib/docker/ -c /dev/sdc | tee ~/node_controller.log
+        ./install.sh | tee ~/install_controller.log
       SHELL
     end
-    # Intel's NUC BXNUC10I7FNHAA1
-    [:virtualbox, :libvirt].each do |provider|
-      config.vm.provider provider do |p, override|
-        p.cpus = 12 # sockets * cores * threads
-        p.memory = 16384 # 2 x 8GB DDR4-2666
+    %i[virtualbox libvirt].each do |provider|
+      config.vm.provider provider do |p, _override|
+        p.cpus = ENV["CPUS"] || 4
+        p.memory = ENV["MEMORY"] || (8 * 1024)
       end
     end
 
-    $volume_file = "controller01-sda.vdi"
-    $cinder_file = "controller01-sdb.vdi"
-    controller01.vm.provider 'virtualbox' do |v, override|
-      unless File.exist?($volume_file)
-        v.customize ['createmedium', 'disk', '--filename', $volume_file, '--size', (50 * 1024)]
-      end
-      unless File.exist?($cinder_file)
-        v.customize ['createmedium', 'disk', '--filename', $cinder_file, '--size', (100 * 1024)]
-      end
-      v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $volume_file]
-      v.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', $cinder_file]
+    volume_file = "controller-sdb.vdi"
+    cinder_file = "controller-sdc.vdi"
+    controller.vm.provider "virtualbox" do |v, _override|
+      v.customize ["createmedium", "disk", "--filename", volume_file, "--size", (50 * 1024)] unless File.exist?(volume_file)
+      v.customize ["createmedium", "disk", "--filename", cinder_file, "--size", (100 * 1024)] unless File.exist?(cinder_file)
+      v.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", volume_file]
+      v.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", cinder_file]
     end
-    controller01.vm.provider :libvirt do |v, override|
-      v.storage :file, :bus => 'sata', :device => 'sda', :size => 50
-      v.storage :file, :bus => 'sata', :device => 'sdb', :size => 100
-      v.cputopology :sockets => 1, :cores => 6, :threads => 2 # Intel Core i7-10710U Processor
+    controller.vm.provider :libvirt do |v, _override|
+      v.storage :file, bus: "sata", device: "sdb", size: 50
+      v.storage :file, bus: "sata", device: "sdc", size: 100
     end
   end
 
-  if ENV['http_proxy'] != nil and ENV['https_proxy'] != nil
-    if Vagrant.has_plugin?('vagrant-proxyconf')
-      config.proxy.http     = ENV['http_proxy'] || ENV['HTTP_PROXY'] || ""
-      config.proxy.https    = ENV['https_proxy'] || ENV['HTTPS_PROXY'] || ""
-      config.proxy.no_proxy = $no_proxy
-      config.proxy.enabled = { docker: false }
-    end
+  if !ENV["http_proxy"].nil? && !ENV["https_proxy"].nil? && Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http = ENV["http_proxy"] || ENV["HTTP_PROXY"] || ""
+    config.proxy.https    = ENV["https_proxy"] || ENV["HTTPS_PROXY"] || ""
+    config.proxy.no_proxy = no_proxy
+    config.proxy.enabled = { docker: false }
   end
 end
