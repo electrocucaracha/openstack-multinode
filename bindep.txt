@@ -1,0 +1,2 @@
+libvirt-client [compute platform:rpm]
+python3-docker [compute platform:deb]
