@@ -15,30 +15,34 @@ set -o xtrace
 
 # Variables
 kolla_folder=/opt/kolla-ansible
-kolla_version=${OS_KOLLA_ANSIBLE_VERSION:-11.0.0}
+kolla_version=${OS_KOLLA_ANSIBLE_VERSION:-stable/wallaby}
 
-pkgs="python-devel pip sshpass"
-if ! command -v gcc; then
-    pkgs+=" gcc"
+# Install dependencies
+pkgs="sshpass"
+for pkg in pip gcc git; do
+    if ! command -v "$pkg"; then
+        pkgs+=" $pkg"
+    fi
+done
+if [ -n "$pkgs" ]; then
+    # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
+    curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs bash
 fi
-curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs PKG_UPDATE=true bash
 
 if [ ! -d ${kolla_folder} ]; then
-    pushd "$(mktemp -d)"
-    curl -o kolla-ansible.tar.gz "https://tarballs.opendev.org/openstack/kolla-ansible/kolla-ansible-${kolla_version}.tar.gz"
-    tar -xzf kolla-ansible.tar.gz
-    rm kolla-ansible.tar.gz
-    sudo mv kolla-ansible-* "$kolla_folder"
-    sed -i "s|pip3|$(command -v pip3)|g" "$kolla_folder/ansible/roles/baremetal/tasks/install.yml"
+    sudo git clone --depth 1 -b "${kolla_version}" https://opendev.org/openstack/kolla-ansible ${kolla_folder}
     # https://review.opendev.org/#/c/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2@6
-    sed -i '/export ERL_EPMD_ADDRESS/d' "$kolla_folder/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2"
-    popd
+    sudo sed -i '/export ERL_EPMD_ADDRESS/d' "$kolla_folder/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2"
+fi
+
+if ! sudo command -v pip3 && command -v pip3; then
+    sudo ln -s "$(command -v pip3)" /usr/bin/pip3
 fi
 
 sudo touch /etc/timezone
 
 pip install 'ansible<2.10'
-pip install $kolla_folder
+pip install "$kolla_folder"
 pip install python-openstackclient
 
 sudo mkdir -p /etc/{kolla,ansible,systemd/system/docker.service.d}
