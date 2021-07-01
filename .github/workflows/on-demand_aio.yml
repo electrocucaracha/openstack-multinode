@@ -8,16 +8,37 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-name: Deploy OpenStack services in Ubuntu
+name: Check All - All-in-One setup
 # yamllint disable-line rule:truthy
-on:
-  push:
-    branches:
-      - 'master'
+on: [push, pull_request]
 
 jobs:
-  check-ubuntu-bionic:
-    runs-on: ubuntu-18.04
+  check-centos:
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Vagrant boxes
+        uses: actions/cache@v2
+        with:
+          path: ~/.vagrant.d/boxes
+          key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+          restore-keys: |
+            ${{ runner.os }}-vagrant-
+      - name: Replace shorten links
+        run: |
+          find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_pkg|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh|g' {} \;
+          find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_bin|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/bindep_install.sh|g' {} \;
+      - name: Deploy All-in-One instance
+        env:
+          VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+          CPUS: 2
+          CORES: 2
+          THREADS: 1
+          MEMORY: 12288
+          OS_KOLLA_RUN_INIT: false
+        run: cd samples/aio/; vagrant up
+  check-ubuntu:
+    runs-on: ubuntu-20.04
     env:
       OS_KOLLA_ENABLE_CINDER: no
     steps:

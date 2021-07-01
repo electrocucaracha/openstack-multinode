@@ -10,16 +10,14 @@
 
 name: Check All
 # yamllint disable-line rule:truthy
-on:
-  push:
-    branches:
-      - 'master'
+on: [push, pull_request]
 
 jobs:
-  check:
+  check-ubuntu:
     runs-on: macos-10.15
-    strategy:
-      fail-fast: false
+    env:
+      VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+      OS_NUM_COMPUTE_NODES: 1
     steps:
       - uses: actions/checkout@v2
       - name: Cache Vagrant boxes
@@ -30,13 +28,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vagrant-
       - name: Replace shorten links
-        run: find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_pkg|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh|g' {} \;
-      - name: Deploy instance
+        run: |
+          find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_pkg|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh|g' {} \;
+          find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_bin|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/bindep_install.sh|g' {} \;
+      - name: Deploy Compute nodes
+        run: cd samples/noha/; vagrant up
         env:
-          VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+          MEMORY: 4096
+          CPUS: 1
+      - name: Deploy Controller node
+        env:
+          OS_ENABLE_LOCAL_REGISTRY: false
+          MEMORY: 8192
           CPUS: 2
-          CORES: 2
-          THREADS: 1
-          MEMORY: 12288
-          OS_KOLLA_RUN_INIT: false
-        run: cd samples/aio/; vagrant up
+        run: cd samples/noha/; vagrant up controller
