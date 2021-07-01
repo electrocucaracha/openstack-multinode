@@ -76,3 +76,4 @@ if [[ -n "${OPENSTACK_NODE_ROLES+x}" ]]; then
         fi
     done
 fi
+curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=node bash
