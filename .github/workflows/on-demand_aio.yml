@@ -31,9 +31,8 @@ jobs:
       - name: Deploy All-in-One instance
         env:
           VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+          VAGRANT_EXPERIMENTAL: disks
           CPUS: 2
-          CORES: 2
-          THREADS: 1
           MEMORY: 12288
           OS_KOLLA_RUN_INIT: false
         run: cd samples/aio/; vagrant up
