@@ -35,9 +35,7 @@ if [ ! -d ${kolla_folder} ]; then
     sudo sed -i '/export ERL_EPMD_ADDRESS/d' "$kolla_folder/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2"
 fi
 
-if ! sudo command -v pip3 && command -v pip3; then
-    sudo ln -s "$(command -v pip3)" /usr/bin/pip3
-fi
+sudo ln -s "$(command -v pip3)" /usr/bin/pip3 ||:
 
 sudo touch /etc/timezone
 
