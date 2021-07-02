@@ -8,7 +8,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-name: Check All
+name: Check All - No High Availability setup
 # yamllint disable-line rule:truthy
 on: [push, pull_request]
 
@@ -31,11 +31,14 @@ jobs:
         run: |
           find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_pkg|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh|g' {} \;
           find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_bin|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/bindep_install.sh|g' {} \;
+      - name: Install GNU tools
+        run: brew install iproute2mac
       - name: Deploy Compute nodes
-        run: cd samples/noha/; vagrant up
         env:
           MEMORY: 4096
           CPUS: 1
+          VAGRANT_EXPERIMENTAL: disks
+        run: cd samples/noha/; vagrant up
       - name: Deploy Controller node
         env:
           OS_ENABLE_LOCAL_REGISTRY: false
