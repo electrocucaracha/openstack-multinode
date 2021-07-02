@@ -18,6 +18,7 @@ jobs:
     env:
       VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
       OS_NUM_COMPUTE_NODES: 1
+      CPUS: 1
     steps:
       - uses: actions/checkout@v2
       - name: Cache Vagrant boxes
@@ -36,12 +37,9 @@ jobs:
       - name: Deploy Compute nodes
         env:
           MEMORY: 4096
-          CPUS: 1
           VAGRANT_EXPERIMENTAL: disks
         run: cd samples/noha/; vagrant up
       - name: Deploy Controller node
         env:
-          OS_ENABLE_LOCAL_REGISTRY: false
           MEMORY: 8192
-          CPUS: 2
         run: cd samples/noha/; vagrant up controller

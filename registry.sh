@@ -48,7 +48,8 @@ sudo sed -i "s/^#openstack_release = .*$/openstack_release = \"${OPENSTACK_RELEA
 source /etc/os-release || source /usr/lib/os-release
 sudo sed -i "s/^base = .*$/base = \"${OS_KOLLA_BASE:-${ID,,}}\"/g"  /etc/kolla/kolla-build.ini
 num_cpus=$(lscpu | grep "^CPU(s):" | awk '{ print $2 }')
-sudo sed -i "s/^threads = .*$/threads = \"$(( num_cpus * 4 ))\"/g"  /etc/kolla/kolla-build.ini
+sudo sed -i "s/^threads = .*$/threads = \"$(( num_cpus * 2 ))\"/g"  /etc/kolla/kolla-build.ini
+sudo sed -i "s/^push_threads = .*$/push_threads = \"$(( num_cpus * 4 ))\"/g"  /etc/kolla/kolla-build.ini
 
 bifrost_header=""
 bifrost_footer=""
