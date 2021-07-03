@@ -31,6 +31,10 @@ File.open("#{File.dirname(__FILE__)}/header.ini", "w") do |inventory_file|
   (1..num_compute_nodes.to_i).each do |i|
     inventory_file.puts("compute#{i.to_s.rjust(2, '0')}")
   end
+  inventory_file.puts("\n[storage]")
+  (1..num_compute_nodes.to_i).each do |i|
+    inventory_file.puts("compute#{i.to_s.rjust(2, '0')}")
+  end
 end
 hosts = "#{controller_ip}  controller\n"
 (1..num_compute_nodes.to_i).each do |i|
@@ -177,9 +181,10 @@ Vagrant.configure("2") do |config|
         cat tail.ini | tee --append  $(basename $OS_INVENTORY_FILE)
         popd
 
-        ./node.sh -v sdb=/var/lib/docker/ -c /dev/sdc | tee ~/node_controller.log
+        ./node.sh -v sdb=/var/lib/docker/ | tee ~/node_controller.log
         ./install.sh | tee ~/install_controller.log
       SHELL
+
     end
     %i[virtualbox libvirt].each do |provider|
       config.vm.provider provider do |p, _override|
@@ -188,17 +193,10 @@ Vagrant.configure("2") do |config|
       end
     end
 
-    volume_file = "controller-sdb.vdi"
-    cinder_file = "controller-sdc.vdi"
-    controller.vm.provider "virtualbox" do |v, _override|
-      v.customize ["createmedium", "disk", "--filename", volume_file, "--size", (50 * 1024)] unless File.exist?(volume_file)
-      v.customize ["createmedium", "disk", "--filename", cinder_file, "--size", (100 * 1024)] unless File.exist?(cinder_file)
-      v.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", volume_file]
-      v.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", cinder_file]
-    end
+    # Volumes
+    controller.vm.disk :disk, name: "docker", size: "50GB"
     controller.vm.provider :libvirt do |v, _override|
       v.storage :file, bus: "sata", device: "sdb", size: 50
-      v.storage :file, bus: "sata", device: "sdc", size: 100
     end
   end
 
