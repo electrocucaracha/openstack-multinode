@@ -15,9 +15,6 @@ on: [push, pull_request]
 jobs:
   check-ubuntu:
     runs-on: macos-10.15
-    env:
-      VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
-      OS_NUM_COMPUTE_NODES: 1
     steps:
       - uses: actions/checkout@v2
       - name: Cache Vagrant boxes
@@ -33,14 +30,11 @@ jobs:
           find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_bin|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/bindep_install.sh|g' {} \;
       - name: Install GNU tools
         run: brew install iproute2mac
-      - name: Deploy Compute nodes
+      - name: Deploy OpenStack nodes
         env:
-          MEMORY: 4096
-          CPUS: 1
-          VAGRANT_EXPERIMENTAL: disks
-        run: cd samples/noha/; vagrant up
-      - name: Deploy Controller node
-        env:
-          MEMORY: 8192
-          CPUS: 2
-        run: cd samples/noha/; vagrant up controller
+          VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+          OS_NUM_COMPUTE_NODES: 1
+        run: |
+          cd samples/noha/
+          MEMORY=4096 CPUS=1 VAGRANT_EXPERIMENTAL=disks vagrant up
+          MEMORY=8192 CPUS=2 vagrant up controller
