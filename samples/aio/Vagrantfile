@@ -122,8 +122,6 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  volume_file = "aio-sdb.vdi"
-  cinder_file = "aio-sdc.vdi"
   config.vm.provider "virtualbox" do |v, _override|
     v.gui = false
     v.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
