@@ -29,19 +29,19 @@ end
 end
 # NOTE: This is the kolla_internal_vip_address value
 no_proxy += ",10.10.13.3"
-$socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
+socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
 
-$distro = ENV["OS_DISTRO"] || "ubuntu"
-$distro_release = ENV["OS_DISTRO_RELEASE"] || "bionic"
-puts "[INFO] Linux Distro: #{$distro} - #{$distro_release}"
+distro = ENV["OS_DISTRO"] || "ubuntu"
+distro_release = ENV["OS_DISTRO_RELEASE"] || "focal"
+puts "[INFO] Linux Distro: #{distro} - #{distro_release}"
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
 
   config.vm.synced_folder "../../", "/vagrant"
-  config.vm.box = vagrant_boxes[$distro][$distro_release]["name"]
-  config.vm.box_version = vagrant_boxes[$distro][$distro_release]["version"]
+  config.vm.box = vagrant_boxes[distro][distro_release]["name"]
+  config.vm.box_version = vagrant_boxes[distro][distro_release]["version"]
   config.ssh.insert_key = false
   config.vm.provider :libvirt do |v|
     v.management_network_address = "10.0.2.0/24"
@@ -95,9 +95,9 @@ Vagrant.configure("2") do |config|
       nodeconfig.vm.provider "virtualbox" do |v, _override|
         if node.key? "volumes"
           node["volumes"].each do |volume|
-            $volume_file = "#{node['name']}-#{volume['name']}.vdi"
-            v.customize ["createmedium", "disk", "--filename", $volume_file, "--size", (volume["size"] * 1024)] unless File.exist?($volume_file)
-            v.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", $volume_file]
+            volume_file = "#{node['name']}-#{volume['name']}.vdi"
+            v.customize ["createmedium", "disk", "--filename", volume_file, "--size", (volume["size"] * 1024)] unless File.exist?(volume_file)
+            v.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", volume_file]
           end
         end
       end
@@ -110,27 +110,27 @@ Vagrant.configure("2") do |config|
         v.nested = true if node["roles"].include?("compute")
       end
 
-      $volume_mounts_dict = ""
-      $cinder_volume = ""
+      volume_mounts_dict = ""
+      cinder_volume = ""
       if node.key? "volumes"
         node["volumes"].each do |volume|
           if volume.key? "mount"
-            $volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"
+            volume_mounts_dict += "#{volume['name']}=#{volume['mount']},"
           else
-            $cinder_volume += "/dev/#{volume['name']},"
+            cinder_volume += "/dev/#{volume['name']},"
           end
         end
       end
       nodeconfig.vm.provision "shell", privileged: false do |sh|
         sh.env = {
-          SOCKS_PROXY: $socks_proxy.to_s,
+          SOCKS_PROXY: socks_proxy.to_s,
           OPENSTACK_NODE_ROLES: node["roles"].join(" ").to_s,
           OPENSTACK_SCRIPTS_DIR: "/vagrant",
           DOCKER_REGISTRY_IP: "10.10.13.2"
         }
         sh.inline = <<-SHELL
           cd /vagrant/
-          ./node.sh -v "#{$volume_mounts_dict[0...-1]}" -c "#{$cinder_volume[0...-1]}" | tee ~/node.log
+          ./node.sh -v "#{volume_mounts_dict[0...-1]}" -c "#{cinder_volume[0...-1]}" | tee ~/node.log
         SHELL
       end
     end
