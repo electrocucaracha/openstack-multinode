@@ -10,7 +10,22 @@
 
 name: Check All - No High Availability setup
 # yamllint disable-line rule:truthy
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - '*.sh'
+      - '*.yml'
+      - 'samples/noha/*'
+      - 'etc/**'
+  pull_request:
+    paths:
+      - '*.sh'
+      - '*.yml'
+      - 'samples/noha/*'
+      - 'etc/**'
+  pull_request_review:
+    types:
+      - submitted
 
 jobs:
   check-ubuntu:
@@ -28,6 +43,7 @@ jobs:
         run: |
           find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_pkg|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh|g' {} \;
           find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_bin|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/bindep_install.sh|g' {} \;
+          find . -type f -name "*.bak" -delete
       - name: Install GNU tools
         run: brew install iproute2mac
       - name: Deploy OpenStack nodes
