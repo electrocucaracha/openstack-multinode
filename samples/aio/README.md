@@ -1,7 +1,7 @@
 # OpenStack All-in-One Configuration
 
 This configuration was designed to host the OpenStack services in an [Intel's
-NUC 10 Perfomance kit][1]. The [provisioning process](../../install.sh) pulls
+NUC 10 Performance kit][1]. The [provisioning process](../../install.sh) pulls
 the official Kolla images and deploys them in a CentOS 7 using the [undercloud
 script](../../undercloud.sh).
 

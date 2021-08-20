@@ -59,7 +59,7 @@ of a production environment.
 The deployment process uses [node bash script](node.sh) to mount and
 format additional volumes in the target Virtual Machines and other
 specialized scripts to setup additional roles, like the
-[internal image registry](registry.sh). The [undecloud](undercloud.sh)
+[internal image registry](registry.sh). The [undercloud](undercloud.sh)
 Virtual Machine is used to provision other servers.
 
 ## Deploy All-in-One configuration

@@ -35,7 +35,7 @@ First of all, it's necessary to start the cluster nodes which are
 going to host the OpenStack services. Their roles are defined on the
 [Ansible inventory file](hosts.ini) and used by the provisioning
 server. All these nodes can be initialized in parallel using the
-following commmand:
+following command:
 
 ```bash
 vagrant up
