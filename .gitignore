@@ -8,3 +8,4 @@ output.json
 *.vdi
 samples/noha/hosts.ini
 samples/noha/header.ini
+dictionary.dic
