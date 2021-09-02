@@ -12,7 +12,7 @@ centos:
   8:
     name: generic/centos8
     vb_controller: IDE Controller
-    version: "3.3.6"
+    version: "3.4.2"
 ubuntu:
   focal:
     name: generic/ubuntu2004
@@ -22,9 +22,9 @@ debian:
   buster:
     name: generic/debian10
     vb_controller: IDE Controller
-    version: "3.3.6"
+    version: "3.4.2"
 rhel:
   8:
     name: generic/rhel8
     vb_controller: IDE Controller
-    version: "3.3.6"
+    version: "3.4.2"
