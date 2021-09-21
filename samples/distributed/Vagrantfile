@@ -31,17 +31,17 @@ end
 no_proxy += ",10.10.13.3"
 socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
 
-distro = ENV["OS_DISTRO"] || "ubuntu"
-distro_release = ENV["OS_DISTRO_RELEASE"] || "focal"
-puts "[INFO] Linux Distro: #{distro} - #{distro_release}"
+os_distro = ENV["OS_DISTRO"] || "ubuntu"
+box = vagrant_boxes[os_distro][vagrant_boxes[os_distro].keys.first]
+build_args = ENV["OS_KOLLA_BUILD_ARGS"]
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
 
   config.vm.synced_folder "../../", "/vagrant"
-  config.vm.box = vagrant_boxes[distro][distro_release]["name"]
-  config.vm.box_version = vagrant_boxes[distro][distro_release]["version"]
+  config.vm.box = box["name"]
+  config.vm.box_version = box["version"]
   config.ssh.insert_key = false
   config.vm.provider :libvirt do |v|
     v.management_network_address = "10.0.2.0/24"
@@ -126,6 +126,7 @@ Vagrant.configure("2") do |config|
           SOCKS_PROXY: socks_proxy.to_s,
           OPENSTACK_NODE_ROLES: node["roles"].join(" ").to_s,
           OPENSTACK_SCRIPTS_DIR: "/vagrant",
+          OS_KOLLA_BUILD_ARGS: build_args.to_s,
           DOCKER_REGISTRY_IP: "10.10.13.2"
         }
         sh.inline = <<-SHELL
