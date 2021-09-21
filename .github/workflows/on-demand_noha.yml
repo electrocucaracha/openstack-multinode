@@ -8,7 +8,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-name: Check All - No High Availability setup
+name: Check No High Availability setup
 # yamllint disable-line rule:truthy
 on:
   push:
@@ -17,19 +17,27 @@ on:
       - '*.yml'
       - 'samples/noha/*'
       - 'etc/**'
-  pull_request:
+      - '!.github/**'
+  pull_request_review:
+    types:
+      - submitted
     paths:
       - '*.sh'
       - '*.yml'
       - 'samples/noha/*'
       - 'etc/**'
-  pull_request_review:
-    types:
-      - submitted
+      - '!.github/**'
 
 jobs:
-  check-ubuntu:
+  check-noha-ubuntu:
+    name: Check No High Availability deployment on Ubuntu Focal Virtual Machines
     runs-on: macos-10.15
+    if: >-
+      (
+        github.event_name == 'pull_request_review' &&
+        github.event.review.state == 'approved'
+      ) ||
+      github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@v2
       - name: Cache Vagrant boxes

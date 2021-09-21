@@ -8,7 +8,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-name: Check All - All-in-One setup
+name: Check All-in-One setup
 # yamllint disable-line rule:truthy
 on:
   push:
@@ -17,19 +17,27 @@ on:
       - '*.yml'
       - 'samples/aio/*'
       - 'etc/**'
-  pull_request:
+      - '!.github/**'
+  pull_request_review:
+    types:
+      - submitted
     paths:
       - '*.sh'
       - '*.yml'
       - 'samples/aio/*'
       - 'etc/**'
-  pull_request_review:
-    types:
-      - submitted
+      - '!.github/**'
 
 jobs:
-  check-centos:
+  check-aio-centos:
+    name: Check All-in-One deployment on CentOS 8 Virtual Machine
     runs-on: macos-10.15
+    if: >-
+      (
+        github.event_name == 'pull_request_review' &&
+        github.event.review.state == 'approved'
+      ) ||
+      github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@v2
       - name: Cache Vagrant boxes
@@ -52,8 +60,15 @@ jobs:
           MEMORY: 12288
           OS_KOLLA_RUN_INIT: false
         run: cd samples/aio/; vagrant up
-  check-ubuntu:
+  check-aio-ubuntu:
     runs-on: ubuntu-20.04
+    name: Check All-in-One deployment on Ubuntu Focal Virtual Environment
+    if: >-
+      (
+        github.event_name == 'pull_request_review' &&
+        github.event.review.state == 'approved'
+      ) ||
+      github.event_name != 'pull_request_review'
     env:
       OS_KOLLA_ENABLE_CINDER: no
     steps:

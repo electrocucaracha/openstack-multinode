@@ -12,11 +12,21 @@ name: Build Kolla Images
 # yamllint disable-line rule:truthy
 on:
   push:
-    branches:
-      - 'master'
+    paths:
+      - registry.sh
+      - etc/kolla/kolla-build.ini
+  pull_request_review:
+    types:
+      - submitted
+    paths:
+      - registry.sh
+      - etc/kolla/kolla-build.ini
+  schedule:
+    - cron: '0 0 * * 5'
 
 jobs:
   build-images:
+    name: Check building and publishing Kolla Docker images in a local Docker registry
     runs-on: ubuntu-18.04
     env:
       OS_KOLLA_BUILD_ARGS: 'keystone --registry 127.0.0.1:5000 --push --threads 4 --quiet --retries 5 --cache --push-threads 2 --squash'
