@@ -82,7 +82,7 @@ if [ -n "${OS_KOLLA_EXTERNAL_VIP_ADDRESS:-}" ]; then
     sudo sed -i "s/^#kolla_external_vip_address: .*/kolla_external_vip_address: ${OS_KOLLA_EXTERNAL_VIP_ADDRESS}/g" /etc/kolla/globals.yml
 fi
 if [ -n "${OS_KOLLA_API_INTERFACE:-}" ]; then
-    sudo sed -i "s/^#api_interface: .*/api_interface: ${OS_KOLLA_API_INTERFACE}/g" /etc/kolla/globals.yml
+    sudo sed -i "s/^#api_interface: .*/api_interface: \"${OS_KOLLA_API_INTERFACE}\"/g" /etc/kolla/globals.yml
 fi
 
 sudo sed -i "s/^#network_interface: .*/network_interface: \"${OS_KOLLA_NETWORK_INTERFACE}\"/g" /etc/kolla/globals.yml
