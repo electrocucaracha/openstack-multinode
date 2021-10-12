@@ -22,7 +22,7 @@ done
 curl -fsSL http://bit.ly/install_pkg | PKG_UPDATE=true PKG=$pkgs bash
 
 if ! command -v kolla-build; then
-    kolla_version="${OS_KOLLA_VERSION:-12.0.0}"
+    kolla_version="${OS_KOLLA_VERSION:-12.0.1}"
     if [ "$kolla_version" == "master" ]; then
         pip install kolla
     else
