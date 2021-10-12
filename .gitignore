@@ -9,3 +9,4 @@ output.json
 samples/noha/hosts.ini
 samples/noha/header.ini
 dictionary.dic
+insecure_keys/key*

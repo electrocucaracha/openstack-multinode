@@ -35,6 +35,8 @@ os_distro = ENV["OS_DISTRO"] || "ubuntu"
 box = vagrant_boxes[os_distro][vagrant_boxes[os_distro].keys.first]
 build_args = ENV["OS_KOLLA_BUILD_ARGS"]
 
+system("echo -e \"\n\n\n\" | ssh-keygen -f #{File.dirname(__FILE__)}/../../insecure_keys/key -t rsa -N ''") unless File.exist?("#{File.dirname(__FILE__)}/../../insecure_keys/key")
+
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox

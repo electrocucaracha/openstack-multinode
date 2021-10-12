@@ -60,6 +60,7 @@ def which(cmd)
 end
 
 vb_public_nic = `VBoxManage list bridgedifs | grep "^Name:.*#{public_nic}" | awk -F "Name:[ ]*" '{ print $2}'`.strip! if which "VBoxManage"
+system("echo -e \"\n\n\n\" | ssh-keygen -f #{File.dirname(__FILE__)}/../../insecure_keys/key -t rsa -N ''") unless File.exist?("#{File.dirname(__FILE__)}/../../insecure_keys/key")
 
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
