@@ -130,6 +130,7 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
     # PEP 370 -- Per user site-packages directory
     [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 
+    sudo chown "$USER:" /etc/kolla/admin-openrc.sh
     # shellcheck disable=SC1091
     source /etc/kolla/admin-openrc.sh
     /opt/kolla-ansible/tools/init-runonce

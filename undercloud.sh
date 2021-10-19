@@ -39,9 +39,9 @@ sudo ln -s "$(command -v pip3)" /usr/bin/pip3 ||:
 
 sudo touch /etc/timezone
 
-pip install 'ansible<2.10'
-pip install "$kolla_folder"
-pip install python-openstackclient
+for module in 'ansible<2.10' "$kolla_folder" python-openstackclient; do
+    sudo -H -E "$(command -v pip)" install --ignore-installed --no-warn-script-location "$module"
+done
 
 sudo mkdir -p /etc/{kolla,ansible,systemd/system/docker.service.d}
 if [ "${OS_ENABLE_LOCAL_REGISTRY:-false}" == "true" ]; then
