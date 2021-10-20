@@ -45,11 +45,14 @@ Vagrant.configure("2") do |config|
   config.vm.box = box["name"]
   config.vm.box_version = box["version"]
   config.ssh.insert_key = false
-  config.vm.provider :libvirt do |v|
+  config.vm.provider :libvirt do |v, override|
+    override.vm.synced_folder "../../", "/vagrant", type: "nfs"
     v.management_network_address = "10.0.2.0/24"
     v.management_network_name = "administration" # Administration - Provides Internet access for all nodes and is used for administration to install software packages
     v.random_hostname = true
     v.cpu_mode = "host-passthrough"
+    v.disk_device = "sda"
+    v.disk_bus = "sata"
   end
 
   if Vagrant.has_plugin?("vagrant-proxyconf") && (!ENV["http_proxy"].nil? || !ENV["HTTP_PROXY"].nil? || !ENV["https_proxy"].nil? || !ENV["HTTPS_PROXY"].nil?)
