@@ -56,11 +56,31 @@ Vagrant.configure("2") do |config|
     set -o xtrace
 
     sudo ip link add veth0 type veth peer name veth1
-    sudo nmcli c add type bridge ifname uplinkbridge
-    sudo nmcli c add type ethernet slave-type bridge con-name uplinkbridge ifname veth0 master uplinkbridge
-    sudo nmcli c add type ethernet ifname veth0 con-name uplinkbridge ip4 10.10.13.7/24
-    sudo nmcli c up uplinkbridge
+    source /etc/os-release || source /usr/lib/os-release
+    case ${ID,,} in
+        ubuntu|debian)
+            sudo ip link set dev veth0 up
+            if ! command -v brctl; then
+                sudo apt-get update ||:
+                sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --reinstall --no-install-recommends bridge-utils
+            fi
+            sudo brctl addbr uplinkbridge
+            sudo brctl addif uplinkbridge veth0
+            sudo ip link set uplinkbridge up
+        ;;
+        rhel|centos|fedora)
+            if command -v nmcli; then
+                sudo nmcli c add type bridge ifname uplinkbridge
+                sudo nmcli c add type ethernet slave-type bridge con-name uplinkbridge ifname veth0 master uplinkbridge
+                sudo nmcli c add type ethernet ifname veth0 con-name uplinkbridge ip4 10.10.13.7/24
+                sudo nmcli c show
+                sudo nmcli c up uplinkbridge
+            fi
+        ;;
+    esac
     sudo ip addr add 10.10.13.7/24 dev veth0
+    sudo ip route show
+
     sudo mkdir -p /etc/rc.d/
     sudo tee /etc/rc.d/rc.local << EOF
     #!/bin/bash

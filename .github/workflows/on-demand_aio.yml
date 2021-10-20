@@ -30,7 +30,11 @@ on:
 
 jobs:
   check-aio-centos:
-    name: Check All-in-One deployment on CentOS 8 Virtual Machine
+    name: Check All-in-One deployment on Virtual Machines
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [ubuntu, centos]
     runs-on: macos-10.15
     if: >-
       (
@@ -59,6 +63,7 @@ jobs:
           CPUS: 2
           MEMORY: 12288
           OS_KOLLA_RUN_INIT: false
+          OS_DISTRO: ${{ matrix.distro }}
         run: cd samples/aio/; vagrant up
   check-aio-ubuntu:
     runs-on: ubuntu-20.04
@@ -80,11 +85,13 @@ jobs:
       - name: Setup network external interface
         run: |
           sudo ip link add veth0 type veth peer name veth1
-          sudo ip addr add 10.10.13.7/24 dev veth0
           sudo ip link set veth0 up
           sudo brctl addbr uplinkbridge
           sudo brctl addif uplinkbridge veth0
           sudo ip link set dev uplinkbridge up
+          sudo ip addr add 10.10.13.7/24 dev veth0
+          sudo ip route show
+
           echo "127.0.0.1 localhost" | sudo tee /etc/hosts
       - name: Deploy services
         run: |
