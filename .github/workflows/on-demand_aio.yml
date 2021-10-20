@@ -76,7 +76,7 @@ jobs:
       - name: Install requirements
         run: |
           sudo apt-get update
-          sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 bridge-utils
+          sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends bridge-utils python3-testresources
       - name: Setup network external interface
         run: |
           sudo ip link add veth0 type veth peer name veth1
