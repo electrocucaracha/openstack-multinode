@@ -42,10 +42,14 @@ mgmt_ip=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $7 }')
 # the external network that uses IP allocation ranges to use only less
 # than the full range of IP addresses in an IP block. This network is
 # considered the Public Security Domain.
-if ! ip route | grep "^10.10"; then
-    public_nic=${mgmt_nic}
-else
+if ip route | grep -q "^10.10"; then
     public_nic=$(ip route | grep "^10.10" | awk '{ print $3 }')
+else
+    if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE:-}" ]; then
+        echo "ERROR: Using the management network interface as Neutron External can result in losing external connectivity"
+        exit 1
+    fi
+    public_nic=${mgmt_nic}
 fi
 public_ip=$(ip addr | awk "/${public_nic}\$/ { sub(/\/[0-9]*/, \"\","' $2); print $2}')
 
