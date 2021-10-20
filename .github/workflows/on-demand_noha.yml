@@ -38,6 +38,10 @@ jobs:
         github.event.review.state == 'approved'
       ) ||
       github.event_name != 'pull_request_review'
+    env:
+      VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+      VAGRANT_EXPERIMENTAL: disks
+      OS_NUM_COMPUTE_NODES: 1
     steps:
       - uses: actions/checkout@v2
       - name: Cache Vagrant boxes
@@ -54,12 +58,17 @@ jobs:
           find . -type f -name "*.bak" -delete
       - name: Install GNU tools
         run: brew install iproute2mac
-      - name: Deploy OpenStack nodes
+      - name: Deploy OpenStack Compute nodes
         env:
-          VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
-          VAGRANT_EXPERIMENTAL: disks
-          OS_NUM_COMPUTE_NODES: 1
+          MEMORY: 4096
+          CPUS: 1
         run: |
           cd samples/noha/
-          MEMORY=4096 CPUS=1 vagrant up
-          MEMORY=8192 CPUS=2 vagrant up controller
+          vagrant up
+      - name: Deploy OpenStack Control nodes
+        env:
+          MEMORY: 8192
+          CPUS: 2
+        run: |
+          cd samples/noha/
+          vagrant up controller
