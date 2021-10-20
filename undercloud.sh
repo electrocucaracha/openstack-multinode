@@ -99,7 +99,8 @@ EOL
 # Remove docker source list to avoid update conflicts
 [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 ansible control -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" -m file \
--a 'path=/etc/apt/sources.list.d/docker.list state=absent' -b
+-a 'path=/etc/apt/sources.list.d/docker.list state=absent' -b \
+-e "ansible_user=root"
 
 # PEP 370 -- Per user site-packages directory
 [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
