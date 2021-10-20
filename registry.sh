@@ -22,7 +22,7 @@ done
 curl -fsSL http://bit.ly/install_pkg | PKG_UPDATE=true PKG=$pkgs bash
 
 if ! command -v kolla-build; then
-    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/wallaby}"
+    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/xena}"
     pip install docker-squash
 fi
 
@@ -35,10 +35,10 @@ fi
 # Configure custom values
 sudo mkdir -p /etc/kolla
 sudo cp ./etc/kolla/kolla-build.ini /etc/kolla/kolla-build.ini
-sudo sed -i "s/^tag = .*$/tag = ${OPENSTACK_TAG:-wallaby}/g" /etc/kolla/kolla-build.ini
+sudo sed -i "s/^tag = .*$/tag = ${OPENSTACK_TAG:-xena}/g" /etc/kolla/kolla-build.ini
 sudo sed -i "s/^profile = .*$/profile = ${OS_KOLLA_PROFILE:-custom}/g" /etc/kolla/kolla-build.ini
 sudo sed -i "s/^registry = .*$/registry = ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/kolla-build.ini
-sudo sed -i "s/^#openstack_release = .*$/openstack_release = \"${OPENSTACK_RELEASE:-wallaby}\"/g"  /etc/kolla/kolla-build.ini
+sudo sed -i "s/^#openstack_release = .*$/openstack_release = \"${OPENSTACK_RELEASE:-xena}\"/g"  /etc/kolla/kolla-build.ini
 # shellcheck disable=SC1091
 source /etc/os-release || source /usr/lib/os-release
 sudo sed -i "s/^base = .*$/base = \"${OS_KOLLA_BASE:-${ID,,}}\"/g"  /etc/kolla/kolla-build.ini

@@ -1,9 +1,28 @@
 ---
+# TODO Remove this workaround once https://bugs.launchpad.net/kolla-ansible/+bug/1947534 is fixed
+enable_mariadb_clustercheck: yes
+
 # You can use this file to override _any_ variable throughout Kolla.
 # Additional options can be found in the
 # 'kolla-ansible/ansible/group_vars/all.yml' file. Default value of all the
 # commented parameters are shown here, To override the default value uncomment
 # the parameter and change its value.
+
+###################
+# Ansible options
+###################
+
+# This variable is used as the "filter" argument for the setup module.  For
+# instance, if one wants to remove/ignore all Neutron interface facts:
+# kolla_ansible_setup_filter: "ansible_[!qt]*"
+# By default, we do not provide a filter.
+#kolla_ansible_setup_filter: "{{ omit }}"
+
+# This variable is used as the "gather_subset" argument for the setup module.
+# For instance, if one wants to avoid collecting facts via facter:
+# kolla_ansible_setup_gather_subset: "all,!facter"
+# By default, we do not provide a gather subset.
+#kolla_ansible_setup_gather_subset: "{{ omit }}"
 
 ###############
 # Kolla options
@@ -15,10 +34,10 @@
 #kolla_base_distro: "centos"
 
 # Valid options are [ binary, source ]
-#kolla_install_type: "binary"
+#kolla_install_type: "source"
 
 # Do not override this unless you know what you are doing.
-#openstack_release: "wallaby"
+#openstack_release: "master"
 
 # Docker image tag used by default.
 #openstack_tag: "{{ openstack_release ~ openstack_tag_suffix }}"
@@ -61,7 +80,8 @@ kolla_internal_vip_address: "10.10.13.3"
 
 # Custom docker registry settings:
 #docker_registry:
-#docker_registry_insecure: "{{ 'yes' if docker_registry else 'no' }}"
+# Please read the docs carefully before applying docker_registry_insecure.
+#docker_registry_insecure: "no"
 #docker_registry_username:
 # docker_registry_password is set in the passwords.yml file.
 
@@ -116,11 +136,8 @@ kolla_internal_vip_address: "10.10.13.3"
 # NOTE: This interface is used for the management network. The management network is the network OpenStack services uses to communicate to each other and the databases.
 #api_interface: "{{ network_interface }}"
 #storage_interface: "{{ network_interface }}"
-#cluster_interface: "{{ network_interface }}"
 #swift_storage_interface: "{{ storage_interface }}"
 #swift_replication_interface: "{{ swift_storage_interface }}"
-
-# NOTE: This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
 #tunnel_interface: "{{ network_interface }}"
 #dns_interface: "{{ network_interface }}"
 #octavia_network_interface: "{{ api_interface }}"
@@ -133,6 +150,8 @@ kolla_internal_vip_address: "10.10.13.3"
 #swift_storage_address_family: "{{ storage_address_family }}"
 #swift_replication_address_family: "{{ swift_storage_address_family }}"
 #migration_address_family: "{{ api_address_family }}"
+
+# NOTE: This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
 #tunnel_address_family: "{{ network_address_family }}"
 #octavia_network_address_family: "{{ api_address_family }}"
 #bifrost_network_address_family: "{{ network_address_family }}"
@@ -143,11 +162,11 @@ kolla_internal_vip_address: "10.10.13.3"
 # configurations. It is recommended this interface not be configured with any IP
 # addresses for that reason.
 # NOTE: This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
-#neutron_external_interface: "{{ network_interface }}"
+#neutron_external_interface: "eth1"
 
 # Valid options are [ openvswitch, ovn, linuxbridge, vmware_nsxv, vmware_nsxv3, vmware_dvs ]
 # if vmware_nsxv3 is selected, enable_openvswitch MUST be set to "no" (default is yes)
-neutron_plugin_agent: "openvswitch"
+#neutron_plugin_agent: "openvswitch"
 
 # Valid options are [ internal, infoblox ]
 #neutron_ipam_driver: "internal"
@@ -159,6 +178,10 @@ neutron_plugin_agent: "openvswitch"
 # Neutron rolling upgrade were enable by default
 #neutron_enable_rolling_upgrade: "yes"
 
+# Configure neutron logging framework to log ingress/egress connections to instances
+# for security groups rules. More information can be found here:
+# https://docs.openstack.org/neutron/latest/admin/config-logging.html
+#enable_neutron_packet_logging: "no"
 
 ####################
 # keepalived options
@@ -218,9 +241,28 @@ neutron_plugin_agent: "openvswitch"
 #kolla_copy_ca_into_containers: "no"
 #haproxy_backend_cacert: "{{ 'ca-certificates.crt' if kolla_base_distro in ['debian', 'ubuntu'] else 'ca-bundle.trust.crt' }}"
 #haproxy_backend_cacert_dir: "/etc/ssl/certs"
+
+##################
+# Backend options
+##################
+#kolla_httpd_keep_alive: "60"
+#kolla_httpd_timeout: "60"
+
+#####################
+# Backend TLS options
+#####################
 #kolla_enable_tls_backend: "no"
+#kolla_verify_tls_backend: "yes"
 #kolla_tls_backend_cert: "{{ kolla_certificates_dir }}/backend-cert.pem"
 #kolla_tls_backend_key: "{{ kolla_certificates_dir }}/backend-key.pem"
+
+#####################
+# ACME client options
+#####################
+# A list of haproxy backend server directives pointing to addresses used by the
+# ACME client to complete http-01 challenge.
+# Please read the docs for more details.
+#acme_client_servers: []
 
 ################
 # Region options
@@ -246,6 +288,7 @@ neutron_plugin_agent: "openvswitch"
 # These roles are required for Kolla to be operation, however a savvy deployer
 # could disable some of these required roles and run their own services.
 #enable_glance: "{{ enable_openstack_core | bool }}"
+#enable_hacluster: "no"
 #enable_haproxy: "yes"
 #enable_keepalived: "{{ enable_haproxy | bool }}"
 #enable_keystone: "{{ enable_openstack_core | bool }}"
@@ -264,40 +307,36 @@ neutron_plugin_agent: "openvswitch"
 #enable_ceilometer_ipmi: "no"
 #enable_cells: "no"
 #enable_central_logging: "no"
-enable_chrony: "yes"
+#enable_ceph_rgw: "no"
+#enable_ceph_rgw_loadbalancer: "{{ enable_ceph_rgw | bool }}"
 enable_cinder: "yes"
 #enable_cinder_backup: "yes"
 #enable_cinder_backend_hnas_nfs: "no"
-#enable_cinder_backend_iscsi: "{{ enable_cinder_backend_lvm | bool or enable_cinder_backend_zfssa_iscsi | bool }}"
+#enable_cinder_backend_iscsi: "{{ enable_cinder_backend_lvm | bool }}"
 enable_cinder_backend_lvm: "yes"
 #enable_cinder_backend_nfs: "no"
-#enable_cinder_backend_zfssa_iscsi: "no"
 #enable_cinder_backend_quobyte: "no"
 #enable_cloudkitty: "no"
 #enable_collectd: "no"
-#enable_congress: "no"
 #enable_cyborg: "no"
 #enable_designate: "no"
 #enable_destroy_images: "no"
-#enable_elasticsearch: "{{ 'yes' if enable_central_logging | bool or enable_osprofiler | bool or enable_skydive | bool or enable_monasca | bool else 'no' }}"
+#enable_elasticsearch: "{{ 'yes' if enable_central_logging | bool or enable_osprofiler | bool or enable_skydive | bool or enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'elasticsearch') else 'no' }}"
 #enable_elasticsearch_curator: "no"
 #enable_etcd: "no"
 #enable_fluentd: "yes"
 #enable_freezer: "no"
 #enable_gnocchi: "no"
 #enable_gnocchi_statsd: "no"
-#enable_grafana: "no"
+#enable_grafana: "{{ enable_monasca | bool }}"
 #enable_heat: "{{ enable_openstack_core | bool }}"
 #enable_horizon: "{{ enable_openstack_core | bool }}"
 #enable_horizon_blazar: "{{ enable_blazar | bool }}"
 #enable_horizon_cloudkitty: "{{ enable_cloudkitty | bool }}"
-#enable_horizon_congress: "{{ enable_congress | bool }}"
 #enable_horizon_designate: "{{ enable_designate | bool }}"
-#enable_horizon_fwaas: "{{ enable_neutron_fwaas | bool }}"
 #enable_horizon_freezer: "{{ enable_freezer | bool }}"
 #enable_horizon_heat: "{{ enable_heat | bool }}"
 #enable_horizon_ironic: "{{ enable_ironic | bool }}"
-#enable_horizon_karbor: "{{ enable_karbor | bool }}"
 #enable_horizon_magnum: "{{ enable_magnum | bool }}"
 #enable_horizon_manila: "{{ enable_manila | bool }}"
 #enable_horizon_masakari: "{{ enable_masakari | bool }}"
@@ -306,9 +345,7 @@ enable_cinder_backend_lvm: "yes"
 #enable_horizon_murano: "{{ enable_murano | bool }}"
 #enable_horizon_neutron_vpnaas: "{{ enable_neutron_vpnaas | bool }}"
 #enable_horizon_octavia: "{{ enable_octavia | bool }}"
-#enable_horizon_qinling: "{{ enable_qinling | bool }}"
 #enable_horizon_sahara: "{{ enable_sahara | bool }}"
-#enable_horizon_searchlight: "{{ enable_searchlight | bool }}"
 #enable_horizon_senlin: "{{ enable_senlin | bool }}"
 #enable_horizon_solum: "{{ enable_solum | bool }}"
 #enable_horizon_tacker: "{{ enable_tacker | bool }}"
@@ -316,14 +353,12 @@ enable_cinder_backend_lvm: "yes"
 #enable_horizon_vitrage: "{{ enable_vitrage | bool }}"
 #enable_horizon_watcher: "{{ enable_watcher | bool }}"
 #enable_horizon_zun: "{{ enable_zun | bool }}"
-#enable_hyperv: "no"
 #enable_influxdb: "{{ enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'influxdb') }}"
 #enable_ironic: "no"
 #enable_ironic_ipxe: "no"
 #enable_ironic_neutron_agent: "{{ enable_neutron | bool and enable_ironic | bool }}"
 #enable_ironic_pxe_uefi: "no"
 #enable_iscsid: "{{ (enable_cinder | bool and enable_cinder_backend_iscsi | bool) or enable_ironic | bool }}"
-#enable_karbor: "no"
 #enable_kafka: "{{ enable_monasca | bool }}"
 #enable_kibana: "{{ 'yes' if enable_central_logging | bool or enable_monasca | bool else 'no' }}"
 #enable_kuryr: "no"
@@ -333,42 +368,39 @@ enable_cinder_backend_lvm: "yes"
 #enable_manila_backend_hnas: "no"
 #enable_manila_backend_cephfs_native: "no"
 #enable_manila_backend_cephfs_nfs: "no"
+#enable_manila_backend_glusterfs_nfs: "no"
 #enable_mariabackup: "no"
 #enable_masakari: "no"
 #enable_mistral: "no"
 #enable_monasca: "no"
-#enable_mongodb: "no"
 #enable_multipathd: "no"
 #enable_murano: "no"
 #enable_neutron_vpnaas: "no"
 #enable_neutron_sriov: "no"
 #enable_neutron_dvr: "no"
-#enable_neutron_fwaas: "no"
 #enable_neutron_qos: "no"
 #enable_neutron_agent_ha: "no"
 #enable_neutron_bgp_dragent: "no"
 #enable_neutron_provider_networks: "no"
 #enable_neutron_segments: "no"
 #enable_neutron_sfc: "no"
+#enable_neutron_trunk: "no"
 #enable_neutron_metering: "no"
 #enable_neutron_infoblox_ipam_agent: "no"
 #enable_neutron_port_forwarding: "no"
 #enable_nova_serialconsole_proxy: "no"
 #enable_nova_ssh: "yes"
 #enable_octavia: "no"
+#enable_octavia_driver_agent: "{{ enable_octavia | bool and neutron_plugin_agent == 'ovn' }}"
 #enable_openvswitch: "{{ enable_neutron | bool and neutron_plugin_agent != 'linuxbridge' }}"
 #enable_ovn: "{{ enable_neutron | bool and neutron_plugin_agent == 'ovn' }}"
 #enable_ovs_dpdk: "no"
 #enable_osprofiler: "no"
-#enable_panko: "no"
 #enable_placement: "{{ enable_nova | bool or enable_zun | bool }}"
 #enable_prometheus: "no"
 #enable_qdrouterd: "{{ 'yes' if om_rpc_transport == 'amqp' else 'no' }}"
-#enable_qinling: "no"
-#enable_rally: "no"
 #enable_redis: "no"
 #enable_sahara: "no"
-#enable_searchlight: "no"
 #enable_senlin: "no"
 #enable_skydive: "no"
 #enable_solum: "no"
@@ -377,13 +409,12 @@ enable_cinder_backend_lvm: "yes"
 #enable_swift_s3api: "no"
 #enable_tacker: "no"
 #enable_telegraf: "no"
-#enable_tempest: "no"
 #enable_trove: "no"
 #enable_trove_singletenant: "no"
 #enable_vitrage: "no"
 #enable_vmtp: "no"
 #enable_watcher: "no"
-#enable_zookeeper: "{{ enable_kafka | bool }}"
+#enable_zookeeper: "{{ enable_kafka | bool or enable_storm | bool }}"
 #enable_zun: "no"
 
 ##################
@@ -394,7 +425,16 @@ enable_cinder_backend_lvm: "yes"
 # See Kolla Ansible docs RabbitMQ section for details.
 # These are appended to args already provided by Kolla Ansible
 # to configure IPv6 in RabbitMQ server.
-#rabbitmq_server_additional_erl_args: ""
+# More details can be found in the RabbitMQ docs:
+# https://www.rabbitmq.com/runtime.html#scheduling
+# https://www.rabbitmq.com/runtime.html#busy-waiting
+# The default tells RabbitMQ to always use two cores (+S 2:2),
+# and not to busy wait (+sbwt none +sbwtdcpu none +sbwtdio none):
+#rabbitmq_server_additional_erl_args: "+S 2:2 +sbwt none +sbwtdcpu none +sbwtdio none"
+# Whether to enable TLS encryption for RabbitMQ client-server communication.
+#rabbitmq_enable_tls: "no"
+# CA certificate bundle in RabbitMQ container.
+#rabbitmq_cacert: "/etc/ssl/certs/{{ 'ca-certificates.crt' if kolla_base_distro in ['debian', 'ubuntu'] else 'ca-bundle.trust.crt' }}"
 
 #################
 # MariaDB options
@@ -459,6 +499,8 @@ enable_cinder_backend_lvm: "yes"
 #glance_backend_swift: "no"
 #glance_backend_vmware: "no"
 #enable_glance_image_cache: "no"
+#glance_enable_property_protection: "no"
+#glance_enable_interoperable_image_import: "no"
 # Configure glance upgrade option.
 # Due to this feature being experimental in glance,
 # the default value is "no".
@@ -476,12 +518,6 @@ enable_cinder_backend_lvm: "yes"
 # Valid options are [ simple_crypto, p11_crypto ]
 #barbican_crypto_plugin: "simple_crypto"
 #barbican_library_path: "/usr/lib/libCryptoki2_64.so"
-
-################
-## Panko options
-################
-# Valid options are [ mongodb, mysql ]
-#panko_database_type: "mysql"
 
 #################
 # Gnocchi options
@@ -533,7 +569,7 @@ enable_cinder_backend_lvm: "yes"
 ########################
 #nova_backend_ceph: "no"
 
-# Valid options are [ qemu, kvm, vmware, xenapi ]
+# Valid options are [ qemu, kvm, vmware ]
 #nova_compute_virt_type: "kvm"
 
 # The number of fake driver per compute node
@@ -548,7 +584,7 @@ enable_cinder_backend_lvm: "yes"
 # new version. And opposite.
 #nova_safety_upgrade: "no"
 
-# Valid options are [ none, novnc, spice, rdp ]
+# Valid options are [ none, novnc, spice ]
 #nova_console: "novnc"
 
 ##############################
@@ -556,6 +592,9 @@ enable_cinder_backend_lvm: "yes"
 ##############################
 # Enable distributed floating ip for OVN deployments
 #neutron_ovn_distributed_fip: "no"
+
+# Enable DHCP agent(s) to use with OVN
+#neutron_ovn_dhcp_agent: "no"
 
 #############################
 # Horizon - Dashboard Options
@@ -567,8 +606,8 @@ enable_cinder_backend_lvm: "yes"
 #############################
 # dnsmasq bind interface for Ironic Inspector, by default is network_interface
 #ironic_dnsmasq_interface: "{{ network_interface }}"
-# The following value must be set when enabling ironic,
-# the value format is "192.168.0.10,192.168.0.100".
+# The following value must be set when enabling ironic, the value format is
+# "192.168.0.10,192.168.0.100,255.255.255.0" the last being an optional netmask.
 #ironic_dnsmasq_dhcp_range:
 # PXE bootloader file for Ironic Inspector, relative to /tftpboot.
 #ironic_dnsmasq_boot_file: "pxelinux.0"
@@ -593,6 +632,37 @@ enable_cinder_backend_lvm: "yes"
 #hnas_evs_id:
 #hnas_evs_ip:
 #hnas_file_system_name:
+
+# Gluster backend configuration
+# The option of glusterfs share layout can be directory or volume
+# The default option of share layout is 'volume'
+#manila_glusterfs_share_layout:
+# The default option of nfs server type is 'Gluster'
+#manila_glusterfs_nfs_server_type:
+
+# Volume layout Options (required)
+# If the glusterfs server requires remote ssh, then you need to fill
+# in 'manila_glusterfs_servers', ssh user 'manila_glusterfs_ssh_user', and ssh password
+# 'manila_glusterfs_ssh_password'.
+# 'manila_glusterfs_servers' value List of GlusterFS servers which provide volumes,
+# the format is for example:
+#   - 10.0.1.1
+#   - 10.0.1.2
+#manila_glusterfs_servers:
+#manila_glusterfs_ssh_user:
+#manila_glusterfs_ssh_password:
+# Used to filter GlusterFS volumes for share creation.
+# Examples: manila-share-volume-\\d+$, manila-share-volume-#{size}G-\\d+$;
+#manila_glusterfs_volume_pattern:
+
+# Directory layout Options
+# If the glusterfs server is on the local node of the manila share,
+# it’s of the format <glustervolserver>:/<glustervolid>
+# If the glusterfs server is on a remote node,
+# it’s of the format <username>@<glustervolserver>:/<glustervolid> ,
+# and define 'manila_glusterfs_ssh_password'
+#manila_glusterfs_target:
+#manila_glusterfs_mount_point_base:
 
 ################################
 # Swift - Object Storage Options
@@ -619,19 +689,6 @@ enable_cinder_backend_lvm: "yes"
 # Rolling upgrade were enable by default
 #swift_enable_rolling_upgrade: "yes"
 
-
-################################################
-# Tempest - The OpenStack Integration Test Suite
-################################################
-# The following values must be set when enabling tempest
-#tempest_image_id:
-#tempest_flavor_ref_id:
-#tempest_public_network_id:
-#tempest_floating_network_name:
-
-# tempest_image_alt_id: "{{ tempest_image_id }}"
-# tempest_flavor_ref_alt_id: "{{ tempest_flavor_ref_id }}"
-
 ###################################
 # VMware - OpenStack VMware support
 ###################################
@@ -650,6 +707,7 @@ enable_cinder_backend_lvm: "yes"
 #enable_prometheus_mysqld_exporter: "{{ enable_mariadb | bool }}"
 #enable_prometheus_node_exporter: "{{ enable_prometheus | bool }}"
 #enable_prometheus_cadvisor: "{{ enable_prometheus | bool }}"
+#enable_prometheus_fluentd_integration: "{{ enable_prometheus | bool and enable fluentd | bool }}"
 #enable_prometheus_memcached: "{{ enable_prometheus | bool }}"
 #enable_prometheus_alertmanager: "{{ enable_prometheus | bool }}"
 #enable_prometheus_ceph_mgr_exporter: "no"
@@ -659,6 +717,10 @@ enable_cinder_backend_lvm: "yes"
 
 # List of extra parameters passed to prometheus. You can add as many to the list.
 #prometheus_cmdline_extras:
+
+# List of extra parameters passed to cAdvisor. By default system cgroups
+# and container labels are not exposed to reduce time series cardinality.
+#prometheus_cadvisor_cmdline_extras: "--docker_only --store_container_labels=false --disable_metrics=percpu,referenced_memory,cpu_topology,resctrl,udp,advtcp,sched,hugetlb,memory_numa,tcp,process"
 
 # Example of setting endpoints for prometheus ceph mgr exporter.
 # You should add all ceph mgr's in your external ceph deployment.
@@ -685,7 +747,7 @@ enable_cinder_backend_lvm: "yes"
 ##########################################
 # Octavia - openstack loadbalancer Options
 ##########################################
-# Whether to run Kolla-Ansible's automatic configuration for Octavia.
+# Whether to run Kolla Ansible's automatic configuration for Octavia.
 # NOTE: if you upgrade from Ussuri, you must set `octavia_auto_configure` to `no`
 # and keep your other Octavia config like before.
 #octavia_auto_configure: yes
@@ -739,6 +801,9 @@ enable_cinder_backend_lvm: "yes"
 # - gateway_ip (optional)
 # - name
 # - no_gateway_ip (optional)
+# - ip_version (optional)
+# - ipv6_address_mode (optional)
+# - ipv6_ra_mode (optional)
 #octavia_amp_network:
 #  name: lb-mgmt-net
 #  shared: false
@@ -749,7 +814,7 @@ enable_cinder_backend_lvm: "yes"
 #    enable_dhcp: yes
 
 # Octavia management network subnet CIDR.
-#octavia_amp_network_cidr: 10.0.0.0/24
+#octavia_amp_network_cidr: 10.1.0.0/24
 
 #octavia_amp_image_tag: "amphora"
 
@@ -761,3 +826,10 @@ enable_cinder_backend_lvm: "yes"
 #octavia_amp_boot_network_list:
 #octavia_amp_secgroup_list:
 #octavia_amp_flavor_id:
+
+####################
+# Corosync options
+####################
+
+# this is UDP port
+#hacluster_corosync_port: 5405
