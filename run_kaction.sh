@@ -13,6 +13,10 @@ set -o nounset
 set -o pipefail
 set -o xtrace
 
+# NOTE: PYTHONPATH helps to pass the kolla_ansible module verification using Ansible's python
+PYTHONPATH="$(python -c 'import sys; print(":".join(sys.path))')"
+export PYTHONPATH
+
 kolla-ansible \
     -e "ansible_user=root" \
     -e "ansible_python_interpreter=$(command -v python)" \
