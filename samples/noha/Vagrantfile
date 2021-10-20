@@ -150,8 +150,14 @@ Vagrant.configure("2") do |config|
       source /etc/os-release || source /usr/lib/os-release
       case ${ID,,} in
           ubuntu|debian)
-              sudo apt-get update
-              sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
+              sudo apt-get update ||:
+              sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --reinstall --no-install-recommends ca-certificates
+              sudo update-ca-certificates
+
+              if ! command -v curl; then
+                  sudo apt-get update
+                  sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends curl
+              fi
           ;;
       esac
     SHELL
