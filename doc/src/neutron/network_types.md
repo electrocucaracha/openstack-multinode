@@ -24,7 +24,7 @@ Self-service networks primarily enable general (non-privileged) projects to
 manage networks without involving administrators.
 
 - These networks are entirely virtual and require virtual routers to interact
-with provider and external networks such as the Internet.
+with provider and external networks such as the internet.
 - Usually provide DHCP and metadata services to instances.
 - In most cases, self-service networks use overlay protocols such as VXLAN or
 GRE because they can support many more networks than layer-2 segmentation using
