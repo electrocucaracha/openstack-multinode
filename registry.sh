@@ -14,7 +14,7 @@ set -o errexit
 set -o xtrace
 
 pkgs="pip"
-for pkg in docker jq git; do
+for pkg in docker jq git skopeo; do
     if ! command -v "$pkg"; then
         pkgs+=" $pkg"
     fi
@@ -83,6 +83,18 @@ newgrp docker <<EONG
 SNAP=$HOME/.local/ $kolla_cmd | jq "." | tee "$HOME/output.json"
 EONG
 if [[ $(jq  '.failed | length ' "$HOME/output.json") != 0 ]]; then
-    jq  '.failed[].name' "$HOME/output.json"
-    exit 1
+    for image in $(jq  -r '.failed[].name' "$HOME/output.json"); do
+        image_name="${OS_KOLLA_BASE:-${ID,,}}-source-$image:${OPENSTACK_TAG:-xena}"
+        if [ "$(curl "http://localhost:5000/v2/kolla/${image_name%:*}/tags/list" -o /dev/null -w '%{http_code}\n' -s)" != "200" ] || [ "$(curl "http://localhost:5000/v2/kolla/${image_name%:*}/manifests/${image_name#*:}" -o /dev/null -w '%{http_code}\n' -s)" != "200" ]; then
+            local_img_name="${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/kolla/$image_name"
+            remote_img_name="quay.io/openstack.kolla/$image_name"
+            if command -v skopeo; then
+                skopeo copy --dest-tls-verify=false "docker://$remote_img_name" "docker://$local_img_name"
+            else
+                docker pull "quay.io/openstack.kolla/$image_name"
+                docker tag "quay.io/openstack.kolla/$image_name" "$local_img_name"
+                docker push "$local_img_name"
+            fi
+        fi
+    done
 fi
