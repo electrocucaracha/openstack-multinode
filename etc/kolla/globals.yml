@@ -2,6 +2,9 @@
 # TODO Remove this workaround once https://bugs.launchpad.net/kolla-ansible/+bug/1947534 is fixed
 enable_mariadb_clustercheck: yes
 
+# NOTE: Disable NTP running daemon validation
+prechecks_enable_host_ntp_checks: false
+
 # You can use this file to override _any_ variable throughout Kolla.
 # Additional options can be found in the
 # 'kolla-ansible/ansible/group_vars/all.yml' file. Default value of all the
