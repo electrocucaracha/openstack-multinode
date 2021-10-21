@@ -18,16 +18,7 @@ kolla_folder=/opt/kolla-ansible
 kolla_version=${OS_KOLLA_ANSIBLE_VERSION:-stable/xena}
 
 # Install dependencies
-pkgs="sshpass"
-for pkg in pip gcc git; do
-    if ! command -v "$pkg"; then
-        pkgs+=" $pkg"
-    fi
-done
-if [ -n "$pkgs" ]; then
-    # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
-    curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs bash
-fi
+curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud bash
 
 if [ ! -d ${kolla_folder} ]; then
     sudo git clone --depth 1 -b "${kolla_version}" https://opendev.org/openstack/kolla-ansible ${kolla_folder}

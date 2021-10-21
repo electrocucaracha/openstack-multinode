@@ -13,13 +13,16 @@ set -o pipefail
 set -o errexit
 set -o xtrace
 
-pkgs="pip"
-for pkg in docker jq git skopeo; do
-    if ! command -v "$pkg"; then
+pkgs=""
+for pkg in pip skopeo docker jq git; do
+    if ! command -v "$pkg" > /dev/null; then
         pkgs+=" $pkg"
     fi
 done
-curl -fsSL http://bit.ly/install_pkg | PKG_UPDATE=true PKG=$pkgs bash
+if [ -n "$pkgs" ]; then
+    # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
+    curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs bash
+fi
 
 if ! command -v kolla-build; then
     pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/xena}"

@@ -1,2 +1,6 @@
 libvirt-client [compute platform:rpm]
 python3-docker [compute platform:deb]
+sshpass [undercloud]
+pip [undercloud]
+gcc [undercloud]
+git [undercloud]
