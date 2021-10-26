@@ -8,10 +8,13 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-set -o errexit
 set -o nounset
 set -o pipefail
-set -o xtrace
+set -o errexit
+if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+    export PKG_DEBUG=true
+    set -o xtrace
+fi
 
 fedora_image_file="$HOME/Fedora-Cloud.qcow2"
 os_glance_image=fedora-atomic

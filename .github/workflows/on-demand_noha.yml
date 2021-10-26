@@ -67,6 +67,7 @@ jobs:
           vagrant up
       - name: Deploy OpenStack Control nodes
         env:
+          OS_DEBUG: true
           OS_ENABLE_LOCAL_REGISTRY: false
           MEMORY: 8192
           CPUS: 2

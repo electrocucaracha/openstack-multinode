@@ -8,9 +8,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-set -o errexit
 set -o nounset
 set -o pipefail
+set -o errexit
+if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+    set -o xtrace
+fi
 set -o xtrace
 
 # NOTE: PYTHONPATH helps to pass the kolla_ansible module verification using Ansible's python

@@ -11,7 +11,10 @@
 set -o nounset
 set -o pipefail
 set -o errexit
-set -o xtrace
+if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+    export PKG_DEBUG=true
+    set -o xtrace
+fi
 
 if ! command -v curl; then
     # shellcheck disable=SC1091

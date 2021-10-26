@@ -94,6 +94,8 @@ jobs:
 
           echo "127.0.0.1 localhost" | sudo tee /etc/hosts
       - name: Deploy services
+        env:
+          OS_DEBUG: true
         run: |
           ./node.sh
           sed -i "s|localhost|$(hostname)|g" samples/aio/hosts.ini
