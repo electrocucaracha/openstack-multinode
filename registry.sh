@@ -16,16 +16,8 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
     set -o xtrace
 fi
 
-pkgs=""
-for pkg in pip skopeo docker jq git; do
-    if ! command -v "$pkg" > /dev/null; then
-        pkgs+=" $pkg"
-    fi
-done
-if [ -n "$pkgs" ]; then
-    # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
-    curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs bash
-fi
+# NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
+curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git" bash
 
 if ! command -v kolla-build; then
     pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/xena}"
