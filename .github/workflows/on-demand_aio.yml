@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [ubuntu, centos]
+        distro: [ubuntu, centos, debian]
     runs-on: macos-10.15
     if: >-
       (

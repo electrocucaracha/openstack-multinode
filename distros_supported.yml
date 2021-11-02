@@ -23,8 +23,3 @@ debian:
     name: generic/debian10
     vb_controller: IDE Controller
     version: "3.5.0"
-rhel:
-  8:
-    name: generic/rhel8
-    vb_controller: IDE Controller
-    version: "3.5.0"

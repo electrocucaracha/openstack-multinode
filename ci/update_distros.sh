@@ -90,8 +90,6 @@ echo "ubuntu:" >> .distros_supported.yml
 _vagrant_pull "focal" "generic/ubuntu2004"
 echo "debian:" >> .distros_supported.yml
 _vagrant_pull "buster" "generic/debian10"
-echo "rhel:" >> .distros_supported.yml
-_vagrant_pull "8" "generic/rhel8"
 
 if [ "$msg" ]; then
     echo -e "$msg"
