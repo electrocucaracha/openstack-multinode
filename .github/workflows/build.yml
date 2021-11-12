@@ -25,7 +25,7 @@ on:
     - cron: '0 0 * * 5'
 
 jobs:
-  build-keystone-ubuntu-images:
+  build-baremetal:
     name: Check building and publishing Kolla Docker images in a local Docker registry on an Ubuntu Focal Virtual Environment
     runs-on: ubuntu-20.04
     steps:
@@ -38,8 +38,18 @@ jobs:
         run: |
           sudo docker images
           curl -s -X GET http://localhost:5000/v2/_catalog | jq -r '.repositories'
-  build-keystone-centos-images:
-    name: Check building and publishing Kolla Docker images in a local Docker registry on an CentOS 8 Virtual Machine
+  build-virtual_machines:
+    name: Check building and publishing Kolla Docker images in a local Docker registry Virtual Machines
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - distro: ubuntu
+            image: nova
+          - distro: centos
+            image: glance
+          - distro: debian
+            image: neutron
     runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v2
@@ -58,6 +68,6 @@ jobs:
       - name: Deploy All-in-One instance
         env:
           VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
-          OS_DISTRO: centos
-          OS_KOLLA_BUILD_ARGS: 'glance --registry 127.0.0.1:5000 --push --threads 2 --quiet --retries 5 --cache --push-threads 2 --base centos'
+          OS_DISTRO: ${{ matrix.distro }}
+          OS_KOLLA_BUILD_ARGS: ${{ matrix.image }} --registry 127.0.0.1:5000 --push --threads 2 --quiet --retries 5 --cache --push-threads 2 --base ${{ matrix.distro }}
         run: cd samples/distributed/; vagrant up registry
