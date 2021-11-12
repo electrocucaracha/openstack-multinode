@@ -101,8 +101,7 @@ Vagrant.configure("2") do |config|
   (1..num_compute_nodes.to_i).each do |i|
     config.vm.define "compute#{i.to_s.rjust(2, '0')}" do |nodeconfig|
       nodeconfig.vm.hostname = "compute#{i.to_s.rjust(2, '0')}"
-      nodeconfig.vm.network :private_network, ip: "#{subnet}.#{i + 8}", type: :static,
-                                              libvirt__network_name: "tunnel-net"
+      nodeconfig.vm.network :private_network, ip: "#{subnet}.#{i + 8}", type: :static, libvirt__network_name: "tunnel-net", nic_type: "virtio", virtualbox__intnet: true
       nodeconfig.vm.network :public_network, dev: public_nic, bridge: vb_public_nic, auto_config: false
 
       %i[virtualbox libvirt].each do |provider|
@@ -136,8 +135,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "controller", primary: true, autostart: false do |controller|
     controller.vm.hostname = "controller"
-    controller.vm.network :private_network, ip: controller_ip.to_s, type: :static,
-                                            libvirt__network_name: "tunnel-net"
+    controller.vm.network :private_network, ip: controller_ip.to_s, type: :static, libvirt__network_name: "tunnel-net", nic_type: "virtio", virtualbox__intnet: true
     controller.vm.network :public_network, dev: public_nic, bridge: vb_public_nic, auto_config: false
     config.vm.provision "shell", privileged: false, inline: <<-SHELL
       cd /vagrant
@@ -194,7 +192,6 @@ Vagrant.configure("2") do |config|
         ./node.sh -v sdb=/var/lib/docker/ | tee ~/node_controller.log
         ./install.sh | tee ~/install_controller.log
       SHELL
-
     end
     %i[virtualbox libvirt].each do |provider|
       config.vm.provider provider do |p, _override|

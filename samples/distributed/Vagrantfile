@@ -33,7 +33,6 @@ socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
 
 os_distro = ENV["OS_DISTRO"] || "ubuntu"
 box = vagrant_boxes[os_distro][vagrant_boxes[os_distro].keys.first]
-build_args = ENV["OS_KOLLA_BUILD_ARGS"]
 
 system("echo -e \"\n\n\n\" | ssh-keygen -f #{File.dirname(__FILE__)}/../../insecure_keys/key -t rsa -N ''") unless File.exist?("#{File.dirname(__FILE__)}/../../insecure_keys/key")
 
@@ -88,14 +87,10 @@ Vagrant.configure("2") do |config|
       # Networks
       if node.key? "networks"
         node["networks"].each do |network|
-          nodeconfig.vm.network :private_network, ip: network["ip"], type: :static,
-                                                  libvirt__network_name: network["name"]
+          nodeconfig.vm.network :private_network, ip: network["ip"], type: :static, libvirt__network_name: network["name"], nic_type: "virtio", virtualbox__intnet: true
         end
       end
-      if node["roles"].include?("network")
-        nodeconfig.vm.network :private_network, ip: "0.0.0.0", auto_network: true,
-                                                libvirt__network_name: "external-net"
-      end
+      nodeconfig.vm.network :private_network, ip: "0.0.0.0", auto_network: true, libvirt__network_name: "external-net", nic_type: "virtio", virtualbox__intnet: true if node["roles"].include?("network")
 
       nodeconfig.vm.provider "virtualbox" do |v, _override|
         if node.key? "volumes"
@@ -131,7 +126,8 @@ Vagrant.configure("2") do |config|
           SOCKS_PROXY: socks_proxy.to_s,
           OPENSTACK_NODE_ROLES: node["roles"].join(" ").to_s,
           OPENSTACK_SCRIPTS_DIR: "/vagrant",
-          OS_KOLLA_BUILD_ARGS: build_args.to_s,
+          OS_KOLLA_BUILD_ARGS: ENV["OS_KOLLA_BUILD_ARGS"],
+          OS_DEBUG: ENV["OS_DEBUG"],
           DOCKER_REGISTRY_IP: "10.10.13.2"
         }
         sh.inline = <<-SHELL
