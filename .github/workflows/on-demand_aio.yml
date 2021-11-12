@@ -29,7 +29,7 @@ on:
       - '!.github/**'
 
 jobs:
-  check-aio-centos:
+  check-aio-vms:
     name: Check All-in-One deployment on Virtual Machines
     strategy:
       fail-fast: false
@@ -51,6 +51,11 @@ jobs:
           key: ${{ runner.os }}-vagrant-${{ hashFiles('distros_supported.yml') }}
           restore-keys: |
             ${{ runner.os }}-vagrant-
+      # TODO: Remove this once https://www.virtualbox.org/ticket/20636 is released
+      - name: Apply workaround for VBoxHeadless in macOS
+        run: |
+          find . -type f -iname "Vagrantfile" -exec sed -i '.bak' 's|v.gui = .*|v.gui = true|g' {} \;
+          find . -type f -name "*.bak" -delete
       - name: Replace shorten links
         run: |
           find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_pkg|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh|g' {} \;
@@ -65,7 +70,7 @@ jobs:
           OS_KOLLA_RUN_INIT: false
           OS_DISTRO: ${{ matrix.distro }}
         run: cd samples/aio/; vagrant up
-  check-aio-ubuntu:
+  check-aio-baremetal:
     runs-on: ubuntu-20.04
     name: Check All-in-One deployment on Ubuntu Focal Virtual Environment
     if: >-
