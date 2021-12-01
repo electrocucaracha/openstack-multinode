@@ -12,14 +12,14 @@ centos:
   8:
     name: generic/centos8
     vb_controller: IDE Controller
-    version: "3.5.0"
+    version: "3.5.4"
 ubuntu:
   focal:
     name: generic/ubuntu2004
     vb_controller: IDE Controller
-    version: "3.5.0"
+    version: "3.5.4"
 debian:
   buster:
     name: generic/debian10
     vb_controller: IDE Controller
-    version: "3.5.0"
+    version: "3.5.4"
