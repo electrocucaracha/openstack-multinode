@@ -147,6 +147,9 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
     /tmp/init-runonce
 
     if [ "${OS_KOLLA_ENABLE_MAGNUM:-no}" == "yes" ]; then
-        ./k8s.sh
+        ./scripts/magnum.sh
+    fi
+    if [ "${OS_KOLLA_ENABLE_NEUTRON_TRUNK:-yes}" == "yes" ]; then
+        ./scripts/neutron_trunk.sh
     fi
 fi
