@@ -22,8 +22,6 @@ end
 socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
 os_distro = ENV["OS_DISTRO"] || "centos"
 box = vagrant_boxes[os_distro][vagrant_boxes[os_distro].keys.first]
-enable_weave_scope = ENV["ENABLE_WEAVE_SCOPE"]
-run_init = ENV["OS_KOLLA_RUN_INIT"]
 enable_magnum = ENV["OS_KOLLA_ENABLE_MAGNUM"] || "no"
 
 Vagrant.configure("2") do |config|
@@ -103,8 +101,8 @@ Vagrant.configure("2") do |config|
       SOCKS_PROXY: socks_proxy.to_s,
       OS_FOLDER: "/vagrant/",
       OS_KOLLA_DEPLOY_PROFILE: "minimal",
-      ENABLE_WEAVE_SCOPE: enable_weave_scope.to_s,
-      OS_KOLLA_RUN_INIT: run_init.to_s,
+      ENABLE_WEAVE_SCOPE: ENV["ENABLE_WEAVE_SCOPE"],
+      OS_KOLLA_RUN_INIT: ENV["OS_KOLLA_RUN_INIT"],
       OS_KOLLA_NEUTRON_PLUGIN_AGENT: "linuxbridge",
       OS_KOLLA_BASE_DISTRO: os_distro.to_s,
       OPENSTACK_NODE_ROLES: "compute",
