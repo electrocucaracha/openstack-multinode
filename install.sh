@@ -140,7 +140,11 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
     sudo chown "$USER:" /etc/kolla/admin-openrc.sh
     # shellcheck disable=SC1091
     source /etc/kolla/admin-openrc.sh
-    /opt/kolla-ansible/tools/init-runonce
+    if [ ! -f /tmp/init-runonce ]; then
+        curl -sL -o /tmp/init-runonce https://raw.githubusercontent.com/openstack/kolla-ansible/master/tools/init-runonce
+        chmod +x /tmp/init-runonce
+    fi
+    /tmp/init-runonce
 
     if [ "${OS_KOLLA_ENABLE_MAGNUM:-no}" == "yes" ]; then
         ./k8s.sh

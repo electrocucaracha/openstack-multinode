@@ -1,0 +1,3 @@
+ansible<5.0 # GPLv3
+python-openstackclient # Apache-2.0
+kolla-ansible # Apache-2.0

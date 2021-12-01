@@ -16,26 +16,15 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
     set -o xtrace
 fi
 
-# Variables
-kolla_folder=/opt/kolla-ansible
-kolla_version=${OS_KOLLA_ANSIBLE_VERSION:-stable/xena}
+sudo touch /etc/timezone
 
 # Install dependencies
 curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud bash
 
-if [ ! -d ${kolla_folder} ]; then
-    sudo git clone --depth 1 -b "${kolla_version}" https://opendev.org/openstack/kolla-ansible ${kolla_folder}
-    # https://review.opendev.org/#/c/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2@6
-    sudo sed -i '/export ERL_EPMD_ADDRESS/d' "$kolla_folder/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2"
-fi
-
 sudo ln -s "$(command -v pip3)" /usr/bin/pip3 ||:
-
-sudo touch /etc/timezone
-
-for module in ansible "$kolla_folder" python-openstackclient; do
-    sudo -H -E "$(command -v pip)" install --ignore-installed --no-warn-script-location "$module"
-done
+sudo -H -E "$(command -v pip)" install --ignore-installed --no-warn-script-location --requirement requirements.txt
+# https://review.opendev.org/#/c/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2@6
+sudo find / -name rabbitmq-env.conf.j2 -exec sed -i '/export ERL_EPMD_ADDRESS/d' {} \;
 
 sudo mkdir -p /etc/{kolla,ansible,systemd/system/docker.service.d}
 if [ "${OS_ENABLE_LOCAL_REGISTRY:-false}" == "true" ]; then
