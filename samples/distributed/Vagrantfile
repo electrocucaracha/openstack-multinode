@@ -53,6 +53,19 @@ Vagrant.configure("2") do |config|
     v.disk_device = "sda"
     v.disk_bus = "sata"
   end
+  config.vm.provider "virtualbox" do |v|
+    v.gui = false
+    v.customize ["modifyvm", :id, "--nictype1", "virtio", "--cableconnected1", "on"]
+    # https://bugs.launchpad.net/cloud-images/+bug/1829625/comments/2
+    v.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
+    v.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
+    # Enable nested paging for memory management in hardware
+    v.customize ["modifyvm", :id, "--nestedpaging", "on"]
+    # Use large pages to reduce Translation Lookaside Buffers usage
+    v.customize ["modifyvm", :id, "--largepages", "on"]
+    # Use virtual processor identifiers  to accelerate context switching
+    v.customize ["modifyvm", :id, "--vtxvpid", "on"]
+  end
 
   if Vagrant.has_plugin?("vagrant-proxyconf") && (!ENV["http_proxy"].nil? || !ENV["HTTP_PROXY"].nil? || !ENV["https_proxy"].nil? || !ENV["HTTPS_PROXY"].nil?)
     config.proxy.http = ENV["http_proxy"] || ENV["HTTP_PROXY"] || ""
@@ -78,7 +91,7 @@ Vagrant.configure("2") do |config|
       nodeconfig.vm.hostname = node["name"]
 
       %i[virtualbox libvirt].each do |provider|
-        nodeconfig.vm.provider provider do |p, _override|
+        nodeconfig.vm.provider provider do |p|
           p.cpus = node["cpus"]
           p.memory = node["memory"]
         end
@@ -92,7 +105,7 @@ Vagrant.configure("2") do |config|
       end
       nodeconfig.vm.network :private_network, ip: "0.0.0.0", auto_network: true, libvirt__network_name: "external-net", nic_type: "virtio", virtualbox__intnet: true if node["roles"].include?("network")
 
-      nodeconfig.vm.provider "virtualbox" do |v, _override|
+      nodeconfig.vm.provider "virtualbox" do |v|
         if node.key? "volumes"
           node["volumes"].each do |volume|
             volume_file = "#{node['name']}-#{volume['name']}.vdi"
@@ -101,7 +114,7 @@ Vagrant.configure("2") do |config|
           end
         end
       end
-      nodeconfig.vm.provider :libvirt do |v, _override|
+      nodeconfig.vm.provider :libvirt do |v|
         if node.key? "volumes"
           node["volumes"].each do |volume|
             v.storage :file, bus: "sata", device: volume["name"], size: volume["size"]
