@@ -118,8 +118,7 @@ Vagrant.configure("2") do |config|
       nodeconfig.vm.network :public_network, dev: public_nic, bridge: vb_public_nic, auto_config: false
 
       %i[virtualbox libvirt].each do |provider|
-        config.vm.provider provider do |p|
-          p.cpus = ENV["CPUS"] || 4
+        nodeconfig.vm.provider provider do |p|
           p.memory = ENV["MEMORY"] || (4 * 1024)
         end
       end
