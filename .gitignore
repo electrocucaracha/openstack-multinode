@@ -8,5 +8,5 @@ output.json
 *.vdi
 samples/noha/hosts.ini
 samples/noha/header.ini
-dictionary.dic
+*.dic
 insecure_keys/key*

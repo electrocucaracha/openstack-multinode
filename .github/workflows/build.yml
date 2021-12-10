@@ -8,7 +8,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-name: Build Kolla Images
+name: Scheduled Kolla Images Build verification
 # yamllint disable-line rule:truthy
 on:
   push:
@@ -23,6 +23,7 @@ on:
       - etc/kolla/kolla-build.ini
   schedule:
     - cron: '0 0 * * 5'
+  workflow_dispatch:
 
 jobs:
   build-baremetal:
