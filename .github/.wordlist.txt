@@ -4,9 +4,9 @@ BCM
 brightgreen
 Broadcom
 CentOS
-CPUs
+CPUS
 DHCP
-distro
+DISTRO
 electrocucaracha
 eno
 fnh
@@ -29,13 +29,13 @@ ly
 multinode
 noha
 NUC
-num
+NUM
 NVMe
 opensource
 OpenStack
 oss
 png
-RaspberryPi
+raspberrypi
 RBAC
 rubocop
 runonce
