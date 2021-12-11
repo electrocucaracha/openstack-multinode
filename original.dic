@@ -4,6 +4,9 @@ BCM
 brightgreen
 Broadcom
 CentOS
+CPUs
+DHCP
+distro
 electrocucaracha
 eno
 fnh
@@ -18,6 +21,7 @@ init
 initVagrant
 IPs
 Kolla
+Kubernetes
 libvirt
 linter
 LPDDR
@@ -25,10 +29,14 @@ ly
 multinode
 noha
 NUC
+num
+NVMe
 opensource
 OpenStack
 oss
 png
+RaspberryPi
+RBAC
 rubocop
 runonce
 SATA
@@ -44,4 +52,6 @@ vagrantup
 vCPUs
 VirtualBox
 VLAN
+VMs
+VXLAN
 yml
