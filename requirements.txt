@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements.txt requirements.in
 #
-ansible==4.9.0
+ansible==4.10.0
     # via -r requirements.in
 ansible-core==2.11.7
     # via ansible
@@ -26,7 +26,7 @@ cliff==3.10.0
     #   python-openstackclient
 cmd2==2.3.3
     # via cliff
-cryptography==36.0.0
+cryptography==36.0.1
     # via
     #   ansible-core
     #   kolla-ansible
