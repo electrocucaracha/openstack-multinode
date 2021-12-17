@@ -72,6 +72,11 @@ jobs:
         run: |
           cd samples/noha/
           vagrant up
+      - name: Check HW resources
+        run: |
+          vm_stat
+          top -l 1 -n 0
+          VBoxManage list runningvms --long
       - name: Deploy OpenStack Control nodes
         env:
           OS_DEBUG: true
@@ -81,3 +86,8 @@ jobs:
         run: |
           cd samples/noha/
           vagrant up controller
+      - name: Check HW resources
+        run: |
+          vm_stat
+          top -l 1 -n 0
+          VBoxManage list runningvms --long
