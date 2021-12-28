@@ -17,7 +17,7 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
 fi
 
 # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
-curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git" bash
+curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git,crudini" bash
 
 if ! command -v kolla-build; then
     pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/xena}"
@@ -33,16 +33,19 @@ fi
 # Configure custom values
 sudo mkdir -p /etc/kolla
 sudo cp ./etc/kolla/kolla-build.ini /etc/kolla/kolla-build.ini
-sudo sed -i "s/^tag = .*$/tag = ${OPENSTACK_TAG:-xena}/g" /etc/kolla/kolla-build.ini
-sudo sed -i "s/^profile = .*$/profile = ${OS_KOLLA_PROFILE:-custom}/g" /etc/kolla/kolla-build.ini
-sudo sed -i "s/^registry = .*$/registry = ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/kolla-build.ini
-sudo sed -i "s/^#openstack_release = .*$/openstack_release = \"${OPENSTACK_RELEASE:-xena}\"/g"  /etc/kolla/kolla-build.ini
 # shellcheck disable=SC1091
 source /etc/os-release || source /usr/lib/os-release
-sudo sed -i "s/^base = .*$/base = \"${OS_KOLLA_BASE:-${ID,,}}\"/g"  /etc/kolla/kolla-build.ini
 num_cpus=$(lscpu | grep "^CPU(s):" | awk '{ print $2 }')
-sudo sed -i "s/^threads = .*$/threads = \"$(( num_cpus * 2 ))\"/g"  /etc/kolla/kolla-build.ini
-sudo sed -i "s/^push_threads = .*$/push_threads = \"$(( num_cpus * 4 ))\"/g"  /etc/kolla/kolla-build.ini
+
+for kv in "tag=${OPENSTACK_TAG:-xena}" \
+    "profile=${OS_KOLLA_PROFILE:-custom}" \
+    "registry=${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}" \
+    "openstack_release=${OPENSTACK_RELEASE:-xena}" \
+    "base=${OS_KOLLA_BASE:-${ID,,}}" \
+    "threads=$(( num_cpus * 2 ))" \
+    "push_threads=$(( num_cpus * 4 ))"; do
+    sudo crudini --set /etc/kolla/kolla-build.ini DEFAULT "${kv%=*}" "${kv#*=}"
+done
 
 bifrost_header=""
 bifrost_footer=""
