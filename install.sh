@@ -99,9 +99,8 @@ fi
 
 # Ensuring project's source code
 if [ ! -d "${OS_FOLDER}" ]; then
-    if ! command -v git; then
-        curl -fsSL http://bit.ly/install_pkg | PKG=git bash
-    fi
+    # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
+    curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="git" bash
 
     echo "Cloning and configuring openstack-multinode project..."
     sudo -E git clone --depth 1 https://github.com/electrocucaracha/openstack-multinode "${OS_FOLDER:-/opt/openstack-multinode}"

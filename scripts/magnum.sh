@@ -24,11 +24,11 @@ os_magnum_cluster=${1:-kubernetes-cluster}
 # PEP 370 -- Per user site-packages directory
 [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 
+# NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
+curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,kubectl" bash
+
 if ! command -v magnum; then
     pip install python-magnumclient
-fi
-if ! command -v kubectl; then
-    curl -fsSL http://bit.ly/install_pkg | PKG=kubectl bash
 fi
 
 if [ ! -f "$fedora_image_file" ]; then

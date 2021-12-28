@@ -27,16 +27,9 @@ if ! command -v curl; then
     esac
 fi
 # Install dependencies
-pkgs=""
-for pkg in docker pip bindep; do
-    if ! command -v "$pkg" > /dev/null; then
-        pkgs+=" $pkg"
-    fi
-done
-if [ -n "$pkgs" ]; then
-    # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
-    curl -fsSL http://bit.ly/install_pkg | PKG=$pkgs bash
-fi
+
+# NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
+curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="docker,pip,bindep" bash
 if [ -n "$(bindep compute -b)" ]; then
     curl -fsSL http://bit.ly/install_pkg | PKG="$(bindep compute -b)" bash
 fi
