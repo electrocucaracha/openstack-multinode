@@ -10,7 +10,7 @@ ansible-core==2.11.7
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
-attrs==21.2.0
+attrs==21.3.0
     # via cmd2
 autopage==0.4.0
     # via cliff
