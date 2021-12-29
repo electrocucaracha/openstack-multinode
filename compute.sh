@@ -33,4 +33,4 @@ curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="docker,pip,bindep" bas
 if [ -n "$(bindep compute -b)" ]; then
     curl -fsSL http://bit.ly/install_pkg | PKG="$(bindep compute -b)" bash
 fi
-sudo pip install docker
+sudo -E "$(command -v pip)" install docker
