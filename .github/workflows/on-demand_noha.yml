@@ -65,28 +65,34 @@ jobs:
           find . -type f -name "*.bak" -delete
       - name: Install GNU tools
         run: brew install iproute2mac
+      - name: Install Vagrant Reload plugin
+        run: vagrant plugin install vagrant-reload
       - name: Deploy OpenStack Compute nodes
         env:
-          MEMORY: 4096
+          MEMORY: 12288
+          CPUS: 3
+        run: |
+          cd samples/noha/
+          vagrant up compute01
+      - name: Reload OpenStack Compute nodes
+        env:
+          MEMORY: 2048
           CPUS: 1
         run: |
           cd samples/noha/
-          vagrant up
-      - name: Check HW resources
-        run: |
-          vm_stat
-          top -l 1 -n 0
-          VBoxManage list runningvms --long
+          vagrant reload compute01
+# NOTE: macOS provides 3 vCPUS and 14 GB of RAM (https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
       - name: Deploy OpenStack Control nodes
         env:
           OS_DEBUG: true
           OS_ENABLE_LOCAL_REGISTRY: false
-          MEMORY: 8192
+          MEMORY: 10240
           CPUS: 2
         run: |
           cd samples/noha/
           vagrant up controller
       - name: Check HW resources
+        if: always()
         run: |
           vm_stat
           top -l 1 -n 0
