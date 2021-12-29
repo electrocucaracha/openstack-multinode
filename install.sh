@@ -58,7 +58,7 @@ public_ip=$(ip addr | awk "/${public_nic}\$/ { sub(/\/[0-9]*/, \"\","' $2); prin
 
 export DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT:-6000}
 OS_FOLDER=${OS_FOLDER:-/opt/openstack-multinode}
-export OS_KOLLA_INTERNAL_VIP_ADDRESS=${OS_KOLLA_INTERNAL_VIP_ADDRESS:-$mgmt_ip}
+export OS_KOLLA_KOLLA_INTERNAL_VIP_ADDRESS=${OS_KOLLA_KOLLA_INTERNAL_VIP_ADDRESS:-$mgmt_ip}
 export OS_KOLLA_NETWORK_INTERFACE=$mgmt_nic
 if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE:-}" ]; then
     export OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE=$public_nic

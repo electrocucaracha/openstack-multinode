@@ -175,7 +175,7 @@ Vagrant.configure("2") do |config|
     undercloud.vm.provision "shell", privileged: false do |sh|
       sh.env = {
         DOCKER_REGISTRY_IP: "10.10.13.2",
-        OS_KOLLA_INTERNAL_VIP_ADDRESS: "10.10.13.3",
+        OS_KOLLA_KOLLA_INTERNAL_VIP_ADDRESS: "10.10.13.3",
         OS_ENABLE_LOCAL_REGISTRY: "true",
         OS_KOLLA_NETWORK_INTERFACE: "eth0",
         OS_KOLLA_API_INTERFACE: "eth1",

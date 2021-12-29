@@ -16,10 +16,20 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
     set -o xtrace
 fi
 
+source defaults.env
+
+function _set_values {
+    for env_var in $(printenv | grep "OS_KOLLA_"); do
+        sudo --preserve-env="${env_var%=*}" "$(command -v yq)" e -i \
+        ".$(echo "${env_var%=*}" |  tr '[:upper:]' '[:lower:]' | sed 's/os_kolla_//g') = strenv(${env_var%=*})" \
+        /etc/kolla/globals.yml
+    done
+}
+
 sudo touch /etc/timezone
 
 # Install dependencies
-curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud bash
+curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud PKG_COMMANDS_LIST="yq" bash
 
 # shellcheck disable=SC1091
 source /etc/os-release || source /usr/lib/os-release
@@ -36,10 +46,8 @@ sudo find / -name rabbitmq-env.conf.j2 -exec sed -i '/export ERL_EPMD_ADDRESS/d'
 
 sudo mkdir -p /etc/{kolla,ansible,systemd/system/docker.service.d}
 if [ "${OS_ENABLE_LOCAL_REGISTRY:-false}" == "true" ]; then
-    sudo sed -i "s/^#docker_registry: .*$/docker_registry: ${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/g" /etc/kolla/globals.yml
+    export OS_KOLLA_DOCKER_REGISTRY="${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}"
 fi
-sudo sed -i "s/^#openstack_release: .*$/openstack_release: \"${OPENSTACK_RELEASE:-xena}\"/g"  /etc/kolla/globals.yml
-sudo sed -i "s/^#kolla_base_distro: .*$/kolla_base_distro: \"${OS_KOLLA_BASE_DISTRO:-ubuntu}\"/g"  /etc/kolla/globals.yml
 if [ -n "${HTTP_PROXY:-}" ]; then
     sed -i "s|^container_http_proxy: .*$|container_http_proxy: \"${HTTP_PROXY}\"|g" ~/.local/share/kolla-ansible/ansible/group_vars/all.yml
     echo "[Service]" | sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf
@@ -55,32 +63,7 @@ if [ -n "${NO_PROXY:-}" ]; then
     echo "[Service]" | sudo tee /etc/systemd/system/docker.service.d/no-proxy.conf
     echo "Environment=\"NO_PROXY=$NO_PROXY\"" | sudo tee --append /etc/systemd/system/docker.service.d/no-proxy.conf
 fi
-sudo sed -i "s/^enable_cinder: .*/enable_cinder: \"${OS_KOLLA_ENABLE_CINDER:-yes}\"/g" /etc/kolla/globals.yml
-# Neutron configuration
-sudo sed -i "s/^neutron_plugin_agent: .*/neutron_plugin_agent: \"${OS_KOLLA_NEUTRON_PLUGIN_AGENT:-openvswitch}\"/g" /etc/kolla/globals.yml
-sudo sed -i "s/^#enable_neutron_trunk: .*/enable_neutron_trunk: \"${OS_KOLLA_ENABLE_NEUTRON_TRUNK:-yes}\"/g" /etc/kolla/globals.yml
-
-sudo sed -i "s/^#enable_magnum: .*/enable_magnum: \"${OS_KOLLA_ENABLE_MAGNUM:-no}\"/g" /etc/kolla/globals.yml
-sudo sed -i "s/^#enable_haproxy: .*/enable_haproxy: \"${OS_KOLLA_ENABLE_HAPROXY:-no}\"/g" /etc/kolla/globals.yml
-sudo sed -i "s/^#enable_skydive: .*/enable_skydive: \"${OS_KOLLA_ENABLE_SKYDIVE:-no}\"/g" /etc/kolla/globals.yml
-# Kolla offers two options for assigning endpoints to network
-# addresses
-# - Combined: Where all three endpoints share the same IP address
-# - Separate: Where the external URL is assigned to an IP address that
-#             is different than the IP address shared by the internal
-#             and admin URLs
-if [ -n "${OS_KOLLA_INTERNAL_VIP_ADDRESS:-}" ]; then
-    sudo sed -i "s/^kolla_internal_vip_address: .*/kolla_internal_vip_address: ${OS_KOLLA_INTERNAL_VIP_ADDRESS}/g" /etc/kolla/globals.yml
-fi
-if [ -n "${OS_KOLLA_EXTERNAL_VIP_ADDRESS:-}" ]; then
-    sudo sed -i "s/^#kolla_external_vip_address: .*/kolla_external_vip_address: ${OS_KOLLA_EXTERNAL_VIP_ADDRESS}/g" /etc/kolla/globals.yml
-fi
-if [ -n "${OS_KOLLA_API_INTERFACE:-}" ]; then
-    sudo sed -i "s/^#api_interface: .*/api_interface: \"${OS_KOLLA_API_INTERFACE}\"/g" /etc/kolla/globals.yml
-fi
-
-sudo sed -i "s/^#network_interface: .*/network_interface: \"${OS_KOLLA_NETWORK_INTERFACE}\"/g" /etc/kolla/globals.yml
-sudo sed -i "s/^#neutron_external_interface: .*/neutron_external_interface: \"${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE}\"/g" /etc/kolla/globals.yml
+_set_values
 
 sudo tee /etc/ansible/ansible.cfg << EOL
 [defaults]
