@@ -10,7 +10,7 @@ ansible-core==2.11.7
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
-attrs==21.2.0
+attrs==21.4.0
     # via cmd2
 autopage==0.4.0
     # via cliff
@@ -145,7 +145,7 @@ pbr==5.8.0
     #   python-novaclient
     #   python-openstackclient
     #   stevedore
-prettytable==2.4.0
+prettytable==2.5.0
     # via
     #   cliff
     #   python-cinderclient
