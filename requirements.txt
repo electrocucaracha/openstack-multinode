@@ -72,7 +72,7 @@ keystoneauth1==4.4.0
     #   python-cinderclient
     #   python-keystoneclient
     #   python-novaclient
-kolla-ansible==13.0.0
+kolla-ansible==13.0.1
     # via -r requirements.in
 markupsafe==2.0.1
     # via jinja2
@@ -178,7 +178,7 @@ pyyaml==6.0
     #   kolla-ansible
     #   openstacksdk
     #   oslo.config
-requests==2.26.0
+requests==2.27.0
     # via
     #   hvac
     #   keystoneauth1
