@@ -18,7 +18,7 @@ certifi==2021.10.8
     # via requests
 cffi==1.15.0
     # via cryptography
-charset-normalizer==2.0.9
+charset-normalizer==2.0.10
     # via requests
 cliff==3.10.0
     # via
