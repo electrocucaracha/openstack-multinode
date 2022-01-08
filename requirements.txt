@@ -36,7 +36,7 @@ debtcollector==2.3.0
     #   oslo.config
     #   oslo.utils
     #   python-keystoneclient
-decorator==5.1.0
+decorator==5.1.1
     # via
     #   dogpile.cache
     #   openstacksdk
@@ -161,7 +161,7 @@ pyperclip==1.8.2
     # via cmd2
 python-cinderclient==8.2.0
     # via python-openstackclient
-python-keystoneclient==4.3.0
+python-keystoneclient==4.4.0
     # via python-openstackclient
 python-novaclient==17.6.0
     # via python-openstackclient
@@ -213,7 +213,7 @@ stevedore==3.5.0
     #   python-keystoneclient
     #   python-novaclient
     #   python-openstackclient
-urllib3==1.26.7
+urllib3==1.26.8
     # via requests
 wcwidth==0.2.5
     # via
