@@ -189,7 +189,7 @@ requestsexceptions==1.4.0
     # via openstacksdk
 resolvelib==0.5.4
     # via ansible-core
-rfc3986==1.5.0
+rfc3986==2.0.0
     # via oslo.config
 simplejson==3.17.6
     # via
