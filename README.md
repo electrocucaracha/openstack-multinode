@@ -72,4 +72,15 @@ this script remotely:
 curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/install.sh | OS_KOLLA_NETWORK_INTERFACE=eno1 bash
 ```
 
+## Contribution
+
+This project welcomes your PR and issues.
+For example, refactoring, adding features, correcting English, etc.
+
+Thanks to all the people who already contributed!
+
+<a href="https://github.com/electrocucaracha/openstack-multinode/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=electrocucaracha/openstack-multinode" />
+</a>
+
 [1]: https://docs.openstack.org/kolla/latest/
