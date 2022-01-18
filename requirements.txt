@@ -31,7 +31,7 @@ cryptography==36.0.1
     #   ansible-core
     #   kolla-ansible
     #   openstacksdk
-debtcollector==2.3.0
+debtcollector==2.4.0
     # via
     #   oslo.config
     #   oslo.utils
@@ -197,7 +197,6 @@ simplejson==3.17.6
     #   python-cinderclient
 six==1.16.0
     # via
-    #   debtcollector
     #   hvac
     #   keystoneauth1
     #   munch
