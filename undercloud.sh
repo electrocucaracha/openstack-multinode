@@ -35,12 +35,12 @@ curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud PKG_COMMAND
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
     ubuntu|debian)
-        sudo apt remove -y python3-cryptography
+        sudo apt remove -y python3-cryptography python-cryptography
     ;;
 esac
 
 sudo ln -s "$(command -v pip3)" /usr/bin/pip3 ||:
-sudo -H -E "$(command -v pip)" install --ignore-installed --no-warn-script-location --requirement requirements.txt
+sudo -H -E "$(command -v pip)" install --ignore-installed --no-warn-script-location --requirement "requirements/${ID,,}.txt"
 # https://review.opendev.org/#/c/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2@6
 sudo find / -name rabbitmq-env.conf.j2 -exec sed -i '/export ERL_EPMD_ADDRESS/d' {} \;
 

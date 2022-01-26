@@ -22,11 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: install dependencies
+        run: pip install tox
       - uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            pip install pip-tools
-            pip-compile requirements.in --output-file requirements.txt --upgrade
+            tox -e update
           COMMIT_MESSAGE: 'Upgrade OpenStack Kolla dependencies'
           COMMIT_NAME: 'electrocucaracha bot'
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
