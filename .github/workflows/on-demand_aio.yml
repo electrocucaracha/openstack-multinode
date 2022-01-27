@@ -72,6 +72,11 @@ jobs:
           OS_KOLLA_RUN_INIT: false
           OS_DISTRO: ${{ matrix.distro }}
         run: cd samples/aio/; vagrant up
+      - name: Check HW resources
+        run: |
+          vm_stat
+          top -l 1 -n 0
+          VBoxManage list runningvms --long
   check-aio-baremetal:
     runs-on: ubuntu-20.04
     name: Check All-in-One deployment on Ubuntu Focal Virtual Environment

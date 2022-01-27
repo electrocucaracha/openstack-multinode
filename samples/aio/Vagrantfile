@@ -122,6 +122,11 @@ Vagrant.configure("2") do |config|
       ./node.sh -v sdb=/var/lib/docker/ -c /dev/sdc | tee ~/node_aio.log
       ./install.sh | tee ~/install_aio.log
 
+       printf "CPU usage: "
+       grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage " %"}'
+       printf "Memory free(Kb):"
+       awk -v low="$(grep low /proc/zoneinfo | awk '{k+=$2}END{print k}')" '{a[$1]=$2}  END{ print a["MemFree:"]+a["Active(file):"]+a["Inactive(file):"]+a["SReclaimable:"]-(12*low);}' /proc/meminfo
+
       if [ "${ENABLE_WEAVE_SCOPE:-false}" == "true" ]; then
           sudo curl -L git.io/scope -o /usr/local/bin/scope
           sudo chmod a+x /usr/local/bin/scope
