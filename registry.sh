@@ -44,7 +44,7 @@ for kv in "tag=${OPENSTACK_TAG:-xena}" \
     "base=${OS_KOLLA_BASE:-${ID,,}}" \
     "threads=$(( num_cpus * 2 ))" \
     "push_threads=$(( num_cpus * 4 ))"; do
-    sudo crudini --set /etc/kolla/kolla-build.ini DEFAULT "${kv%=*}" "${kv#*=}"
+    sudo -E "$(command -v crudini)" --set /etc/kolla/kolla-build.ini DEFAULT "${kv%=*}" "${kv#*=}"
 done
 
 bifrost_header=""

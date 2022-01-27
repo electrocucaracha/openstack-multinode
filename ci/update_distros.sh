@@ -85,7 +85,7 @@ cat << EOT > .distros_supported.yml
 EOT
 
 echo "centos:" >> .distros_supported.yml
-_vagrant_pull "8" "generic/centos8"
+_vagrant_pull "8" "centos/stream8"
 echo "ubuntu:" >> .distros_supported.yml
 _vagrant_pull "focal" "generic/ubuntu2004"
 echo "debian:" >> .distros_supported.yml
