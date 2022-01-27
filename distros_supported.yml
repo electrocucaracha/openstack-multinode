@@ -10,9 +10,9 @@
 
 centos:
   8:
-    name: generic/centos8
+    name: centos/stream8
     vb_controller: IDE Controller
-    version: "3.6.4"
+    version: "20210210.0"
 ubuntu:
   focal:
     name: generic/ubuntu2004
