@@ -82,7 +82,7 @@ jobs:
       ) ||
       github.event_name != 'pull_request_review'
     env:
-      OS_KOLLA_ENABLE_CINDER: no
+      OS_KOLLA_ENABLE_CINDER: "no"
     steps:
       - uses: actions/checkout@v2
       - name: Install requirements
