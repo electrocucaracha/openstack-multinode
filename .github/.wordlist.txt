@@ -37,8 +37,8 @@ OpenStack
 oss
 png
 raspberrypi
-repo
 RBAC
+repo
 rubocop
 runonce
 SATA
