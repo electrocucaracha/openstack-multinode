@@ -17,9 +17,9 @@ ubuntu:
   focal:
     name: generic/ubuntu2004
     vb_controller: IDE Controller
-    version: "3.6.4"
+    version: "3.6.6"
 debian:
   buster:
     name: generic/debian10
     vb_controller: IDE Controller
-    version: "3.6.4"
+    version: "3.6.6"
