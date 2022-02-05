@@ -40,7 +40,7 @@ decorator==5.1.1
     # via
     #   dogpile.cache
     #   openstacksdk
-dogpile.cache==1.1.5
+dogpile-cache==1.1.5
     # via openstacksdk
 hvac==0.11.2
     # via kolla-ansible
@@ -98,11 +98,11 @@ os-service-types==1.7.0
     #   openstacksdk
 osc-lib==2.4.2
     # via python-openstackclient
-oslo.config==8.7.1
+oslo-config==8.7.1
     # via
     #   kolla-ansible
     #   python-keystoneclient
-oslo.i18n==5.1.0
+oslo-i18n==5.1.0
     # via
     #   osc-lib
     #   oslo.config
@@ -111,11 +111,11 @@ oslo.i18n==5.1.0
     #   python-keystoneclient
     #   python-novaclient
     #   python-openstackclient
-oslo.serialization==4.2.0
+oslo-serialization==4.2.0
     # via
     #   python-keystoneclient
     #   python-novaclient
-oslo.utils==4.12.1
+oslo-utils==4.12.1
     # via
     #   kolla-ansible
     #   osc-lib
