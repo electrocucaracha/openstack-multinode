@@ -128,7 +128,7 @@ packaging==21.3
     # via
     #   ansible-core
     #   oslo.utils
-pbr==5.8.0
+pbr==5.8.1
     # via
     #   cliff
     #   debtcollector
