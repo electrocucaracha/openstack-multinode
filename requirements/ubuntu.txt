@@ -20,7 +20,7 @@ cffi==1.15.0
     # via cryptography
 charset-normalizer==2.0.12
     # via requests
-cliff==3.10.0
+cliff==3.10.1
     # via
     #   osc-lib
     #   python-openstackclient
@@ -74,7 +74,7 @@ keystoneauth1==4.4.0
     #   python-novaclient
 kolla-ansible==13.0.1
     # via -r /home/runner/work/openstack-multinode/openstack-multinode/requirements/ubuntu.in
-markupsafe==2.0.1
+markupsafe==2.1.0
     # via jinja2
 msgpack==1.0.3
     # via oslo-serialization
@@ -96,7 +96,7 @@ os-service-types==1.7.0
     # via
     #   keystoneauth1
     #   openstacksdk
-osc-lib==2.4.2
+osc-lib==2.5.0
     # via python-openstackclient
 oslo-config==8.8.0
     # via
