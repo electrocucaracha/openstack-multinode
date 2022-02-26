@@ -159,11 +159,11 @@ pyparsing==3.0.7
     #   packaging
 pyperclip==1.8.2
     # via cmd2
-python-cinderclient==8.2.0
+python-cinderclient==8.3.0
     # via python-openstackclient
 python-keystoneclient==4.4.0
     # via python-openstackclient
-python-novaclient==17.6.0
+python-novaclient==17.7.0
     # via python-openstackclient
 python-openstackclient==5.7.0
     # via -r /home/runner/work/openstack-multinode/openstack-multinode/requirements/debian.in
