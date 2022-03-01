@@ -6,7 +6,7 @@
 #
 ansible==4.10.0
     # via -r /home/runner/work/openstack-multinode/openstack-multinode/requirements/ubuntu.in
-ansible-core==2.11.8
+ansible-core==2.11.9
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
@@ -20,11 +20,11 @@ cffi==1.15.0
     # via cryptography
 charset-normalizer==2.0.12
     # via requests
-cliff==3.10.0
+cliff==3.10.1
     # via
     #   osc-lib
     #   python-openstackclient
-cmd2==2.3.3
+cmd2==2.4.0
     # via cliff
 cryptography==36.0.1
     # via
@@ -74,7 +74,7 @@ keystoneauth1==4.4.0
     #   python-novaclient
 kolla-ansible==13.0.1
     # via -r /home/runner/work/openstack-multinode/openstack-multinode/requirements/ubuntu.in
-markupsafe==2.0.1
+markupsafe==2.1.0
     # via jinja2
 msgpack==1.0.3
     # via oslo-serialization
@@ -96,7 +96,7 @@ os-service-types==1.7.0
     # via
     #   keystoneauth1
     #   openstacksdk
-osc-lib==2.4.2
+osc-lib==2.5.0
     # via python-openstackclient
 oslo-config==8.8.0
     # via
@@ -111,11 +111,11 @@ oslo-i18n==5.1.0
     #   python-keystoneclient
     #   python-novaclient
     #   python-openstackclient
-oslo-serialization==4.2.0
+oslo-serialization==4.3.0
     # via
     #   python-keystoneclient
     #   python-novaclient
-oslo-utils==4.12.1
+oslo-utils==4.12.2
     # via
     #   kolla-ansible
     #   osc-lib
@@ -145,7 +145,7 @@ pbr==5.8.1
     #   python-novaclient
     #   python-openstackclient
     #   stevedore
-prettytable==3.1.0
+prettytable==3.1.1
     # via
     #   cliff
     #   python-cinderclient
@@ -159,11 +159,11 @@ pyparsing==3.0.7
     #   packaging
 pyperclip==1.8.2
     # via cmd2
-python-cinderclient==8.2.0
+python-cinderclient==8.3.0
     # via python-openstackclient
 python-keystoneclient==4.4.0
     # via python-openstackclient
-python-novaclient==17.6.0
+python-novaclient==17.7.0
     # via python-openstackclient
 python-openstackclient==5.7.0
     # via -r /home/runner/work/openstack-multinode/openstack-multinode/requirements/ubuntu.in
