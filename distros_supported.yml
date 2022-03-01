@@ -11,15 +11,15 @@
 centos:
   8:
     name: centos/stream8
-    vb_controller: IDE
+    vb_controller: IDE Controller
     version: "20210210.0"
 ubuntu:
   focal:
     name: generic/ubuntu2004
     vb_controller: IDE Controller
-    version: "3.6.6"
+    version: "3.6.8"
 debian:
   buster:
     name: generic/debian10
     vb_controller: IDE Controller
-    version: "3.6.6"
+    version: "3.6.8"
