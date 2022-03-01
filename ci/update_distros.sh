@@ -46,6 +46,7 @@ function _get_box_current_version {
 function _vagrant_pull {
     local alias="$1"
     local name="$2"
+    local vb_controller="${3:-IDE Controller}"
 
     version=$(_get_box_current_version "$name")
 
@@ -61,7 +62,7 @@ function _vagrant_pull {
     cat << EOT >> .distros_supported.yml
   $alias:
     name: $name
-    vb_controller: IDE Controller
+    vb_controller: $vb_controller
     version: "$version"
 EOT
 }
@@ -85,7 +86,7 @@ cat << EOT > .distros_supported.yml
 EOT
 
 echo "centos:" >> .distros_supported.yml
-_vagrant_pull "8" "centos/stream8"
+_vagrant_pull "8" "centos/stream8" "IDE"
 echo "ubuntu:" >> .distros_supported.yml
 _vagrant_pull "focal" "generic/ubuntu2004"
 echo "debian:" >> .distros_supported.yml
