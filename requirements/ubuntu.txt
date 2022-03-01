@@ -6,7 +6,7 @@
 #
 ansible==4.10.0
     # via -r /home/runner/work/openstack-multinode/openstack-multinode/requirements/ubuntu.in
-ansible-core==2.11.8
+ansible-core==2.11.9
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
