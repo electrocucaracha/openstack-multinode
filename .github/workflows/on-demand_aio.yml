@@ -43,7 +43,7 @@ jobs:
       ) ||
       github.event_name != 'pull_request_review'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Cache Vagrant boxes
         uses: actions/cache@v2
         with:
@@ -89,7 +89,7 @@ jobs:
     env:
       OS_KOLLA_ENABLE_CINDER: "no"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install requirements
         run: |
           sudo apt-get update

@@ -43,7 +43,7 @@ jobs:
       VAGRANT_EXPERIMENTAL: disks
       OS_NUM_COMPUTE_NODES: 1
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Cache Vagrant boxes
         uses: actions/cache@v2
         with:
