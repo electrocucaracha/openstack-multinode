@@ -35,7 +35,7 @@ curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud PKG_COMMAND
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
     ubuntu|debian)
-        sudo apt remove -y python3-cryptography python-cryptography
+        sudo apt remove -y python-cryptography
     ;;
 esac
 
@@ -92,6 +92,12 @@ fi
 for action in "${kolla_actions[@]}"; do
     ./run_kaction.sh "$action" | tee "$HOME/$action.log"
 done
+case ${ID,,} in
+    ubuntu|debian)
+        sudo apt remove -y python3-cryptography
+        sudo apt-get autoremove -y
+    ;;
+esac
 
 sudo chown "$USER" /etc/kolla/admin-openrc.sh
 # shellcheck disable=SC2002
