@@ -41,6 +41,7 @@ esac
 
 sudo ln -s "$(command -v pip3)" /usr/bin/pip3 ||:
 sudo -H -E "$(command -v pip)" install --ignore-installed --no-warn-script-location --requirement "requirements/${ID,,}.txt"
+openstack complete | sudo tee /etc/bash_completion.d/osc.bash_completion > /dev/null
 # https://review.opendev.org/#/c/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2@6
 sudo find / -name rabbitmq-env.conf.j2 -exec sed -i '/export ERL_EPMD_ADDRESS/d' {} \;
 
