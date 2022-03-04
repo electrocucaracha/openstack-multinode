@@ -107,6 +107,7 @@ Vagrant.configure("2") do |config|
       OS_KOLLA_KOLLA_BASE_DISTRO: os_distro.to_s,
       OPENSTACK_NODE_ROLES: "compute",
       OS_KOLLA_ENABLE_MAGNUM: enable_magnum.to_s,
+      OS_KOLLA_ENABLE_NEUTRON_PROVIDER_NETWORKS: "yes",
       EXT_NET_RANGE: "start=10.0.2.20,end=10.0.2.100",
       EXT_NET_CIDR: "10.0.2.0/24"
     }
