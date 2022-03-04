@@ -57,6 +57,6 @@ openstack network trunk show trunk1
 
 if ! openstack server list -c Name | grep -q "demo1"; then
     openstack server create --image cirros --flavor m1.tiny \
-    --key-name mykey --port trunk-parent \
+    --key-name mykey --port trunk-parent --use-config-drive \
     demo1
 fi
