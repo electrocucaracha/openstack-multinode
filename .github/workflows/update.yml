@@ -19,18 +19,34 @@ on:
 
 jobs:
   check-versions:
+    strategy:
+      max-parallel: 1
+      matrix:
+        image: ["quay.io/centos/centos:stream8", "docker.io/library/debian:10", "docker.io/library/ubuntu:20.04"]
+    container:
+      image: ${{ matrix.image }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
       - name: install dependencies
-        run: pip install tox
+        shell: bash
+        run: |
+          source /etc/os-release || source /usr/lib/os-release
+          case ${ID,,} in
+              ubuntu|debian)
+                  apt update
+                  INSTALLER_CMD="apt-get -y --no-install-recommends -q=3 install"
+              ;;
+              rhel|centos|fedora)
+                  INSTALLER_CMD="$(command -v dnf || command -v yum) -y --quiet --errorlevel=0 install"
+              ;;
+          esac
+          $INSTALLER_CMD python3-pip git
+          pip3 install pip-tools
       - uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            tox -e update
+            bash -c 'source /etc/os-release; pip-compile --output-file="requirements/${ID,,}.txt" "requirements/${ID,,}.in" --upgrade'
           COMMIT_MESSAGE: 'Upgrade OpenStack Kolla dependencies'
           COMMIT_NAME: 'electrocucaracha bot'
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
