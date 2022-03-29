@@ -6,7 +6,7 @@
 #
 ansible==4.10.0
     # via -r requirements/ubuntu.in
-ansible-core==2.11.9
+ansible-core==2.11.10
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
