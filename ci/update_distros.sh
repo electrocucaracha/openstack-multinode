@@ -68,8 +68,8 @@ EOT
 }
 
 if ! command -v vagrant > /dev/null; then
-    # NOTE: Shorten link -> https://github.com/electrocucaracha/bootstrap-vagrant
-    curl -fsSL http://bit.ly/initVagrant | bash
+    # NOTE: Shorten link -> https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh
+    curl -fsSL http://bit.ly/install_pkg | PKG=vagrant bash
 fi
 
 cat << EOT > .distros_supported.yml
