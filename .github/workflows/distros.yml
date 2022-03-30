@@ -30,8 +30,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vagrant-
       - uses: technote-space/create-pr-action@v2
-        env:
-          PROVIDER: virtualbox
         with:
           EXECUTE_COMMANDS: |
             ./ci/update_distros.sh
