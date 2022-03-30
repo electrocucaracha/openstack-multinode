@@ -46,10 +46,10 @@ through the use of [Kolla][1] installer in the following
 configurations:
 
 * [All-in-One](samples/aio/): OpenStack Controller and Compute roles
-installed on a single Ubuntu Bionic server. This configuration is
+installed on a single CentOS Stream 8 server. This configuration is
 limited so it's recommended only for Development purposes.
 * [No High Availability](samples/noha/): Kolla Docker Registry and
-OpenStack Controller role installed on a single CentOS 7 server. Two
+OpenStack Controller role installed on a single Ubuntu Focal server. Two
 additional servers are provisioned with OpenStack Compute role. This
 configuration is useful to test distributed applications.
 * [Distributed](samples/distributed/): Every role is distributed among
