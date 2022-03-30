@@ -22,7 +22,6 @@ export PYTHONPATH
 
 kolla-ansible \
     -e "ansible_user=root" \
-    -e "ansible_python_interpreter=$(command -v python)" \
     -e 'ansible_become=true' \
     -e 'ansible_become_method=sudo' \
     "$1" \
