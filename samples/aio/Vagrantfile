@@ -103,7 +103,6 @@ Vagrant.configure("2") do |config|
       OS_KOLLA_DEPLOY_PROFILE: "minimal",
       ENABLE_WEAVE_SCOPE: ENV["ENABLE_WEAVE_SCOPE"],
       OS_KOLLA_RUN_INIT: ENV["OS_KOLLA_RUN_INIT"],
-      OS_KOLLA_NEUTRON_PLUGIN_AGENT: "linuxbridge",
       OS_KOLLA_KOLLA_BASE_DISTRO: os_distro.to_s,
       OPENSTACK_NODE_ROLES: "compute",
       OS_KOLLA_ENABLE_MAGNUM: enable_magnum.to_s,

@@ -180,6 +180,7 @@ Vagrant.configure("2") do |config|
         OS_DEBUG: debug.to_s,
         OS_ENABLE_LOCAL_REGISTRY: local_registry_enabled.to_s,
         OS_INVENTORY_FILE: "./samples/noha/hosts.ini",
+        OS_KOLLA_NEUTRON_PLUGIN_AGENT: "linuxbridge",
         OS_KOLLA_API_INTERFACE: "eth1",
         OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE: "eth2",
         OS_KOLLA_KOLLA_INTERNAL_VIP_ADDRESS: controller_ip.to_s,
