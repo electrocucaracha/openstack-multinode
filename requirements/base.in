@@ -1,3 +1,5 @@
 ansible<5.0 # GPLv3
 python-openstackclient # Apache-2.0
 kolla-ansible # Apache-2.0
+# TODO: Remove this constraint once this is resolve (https://bugs.launchpad.net/kolla-ansible/+bug/1966606)
+jinja2<3.1.0 # BSD-3-Clause

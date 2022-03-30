@@ -53,8 +53,9 @@ iso8601==1.0.2
     #   oslo-utils
     #   python-novaclient
     #   python-openstackclient
-jinja2==3.1.1
+jinja2==3.0.3
     # via
+    #   -r requirements/ubuntu.in
     #   ansible-core
     #   kolla-ansible
 jmespath==1.0.0
