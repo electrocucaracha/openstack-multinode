@@ -6,7 +6,7 @@
 #
 ansible==4.10.0
     # via -r requirements/ubuntu.in
-ansible-core==2.11.9
+ansible-core==2.11.10
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
@@ -53,8 +53,9 @@ iso8601==1.0.2
     #   oslo-utils
     #   python-novaclient
     #   python-openstackclient
-jinja2==3.1.0
+jinja2==3.0.3
     # via
+    #   -r requirements/ubuntu.in
     #   ansible-core
     #   kolla-ansible
 jmespath==1.0.0
