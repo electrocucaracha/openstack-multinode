@@ -76,7 +76,7 @@ jobs:
           vagrant up compute01
       - name: Reload OpenStack Compute nodes
         env:
-          MEMORY: 2048
+          MEMORY: 4096
           CPUS: 1
         run: |
           cd samples/noha/
@@ -86,7 +86,7 @@ jobs:
         env:
           OS_DEBUG: true
           OS_ENABLE_LOCAL_REGISTRY: false
-          MEMORY: 10240
+          MEMORY: 8192
           CPUS: 2
         run: |
           cd samples/noha/
