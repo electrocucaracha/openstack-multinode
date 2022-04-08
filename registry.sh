@@ -20,7 +20,7 @@ fi
 curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git,crudini" bash
 
 if ! command -v kolla-build; then
-    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/xena}"
+    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/yoga}"
     pip install docker-squash
 fi
 
