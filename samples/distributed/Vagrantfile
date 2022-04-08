@@ -74,6 +74,9 @@ Vagrant.configure("2") do |config|
     config.proxy.enabled = { docker: false }
   end
 
+  # Basic requirements installation
+  config.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
+
   config.vm.provision "shell", inline: <<-SHELL
     mkdir -p /root/.ssh
     cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
@@ -153,6 +156,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :undercloud, primary: true, autostart: false do |undercloud|
     undercloud.vm.hostname = "undercloud"
+
+    # SSH Keys configuration
     undercloud.vm.provision "shell", privileged: false, inline: <<-SHELL
       cd /vagrant
       sudo mkdir -p /root/.ssh/
@@ -162,14 +167,6 @@ Vagrant.configure("2") do |config|
       sudo chmod 400 /root/.ssh/id_rsa
       chown "$USER" ~/.ssh/id_rsa
       chmod 400 ~/.ssh/id_rsa
-
-      source /etc/os-release || source /usr/lib/os-release
-      case ${ID,,} in
-          ubuntu|debian)
-              sudo apt-get update
-              sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
-          ;;
-      esac
     SHELL
 
     undercloud.vm.provision "shell", privileged: false do |sh|
