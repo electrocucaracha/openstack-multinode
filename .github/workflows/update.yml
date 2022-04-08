@@ -22,7 +22,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        image: ["quay.io/centos/centos:stream8", "docker.io/library/debian:10", "docker.io/library/ubuntu:20.04"]
+        image: ["quay.io/centos/centos:stream8", "docker.io/library/debian:11", "docker.io/library/ubuntu:20.04"]
     container:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest
