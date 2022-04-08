@@ -35,6 +35,9 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
   config.vm.hostname = "aio"
 
+  # Basic requirements installation
+  config.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
+
   # SSH Keys configuration
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo sed -i '/^PermitRootLogin no/d' /etc/ssh/sshd_config
