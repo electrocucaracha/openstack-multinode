@@ -35,7 +35,13 @@ curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud PKG_COMMAND
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
     ubuntu|debian)
-        sudo apt remove -y python-cryptography python3-distro-info python3-debian
+        sanity_pkgs=""
+        for pkg in python-cryptography python3-distro-info python3-debian; do
+            if sudo dpkg -l "$pkg" > /dev/null; then
+                sanity_pkgs+="$pkg "
+            fi
+        done
+        eval "sudo apt remove -y $sanity_pkgs"
     ;;
 esac
 
@@ -96,7 +102,9 @@ for action in "${kolla_actions[@]}"; do
 done
 case ${ID,,} in
     ubuntu|debian)
-        sudo apt remove -y python3-cryptography
+        if sudo dpkg -l python3-cryptography > /dev/null; then
+            sudo apt remove -y python3-cryptography
+        fi
         sudo apt-get autoremove -y
     ;;
 esac
