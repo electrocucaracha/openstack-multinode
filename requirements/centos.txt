@@ -6,7 +6,7 @@
 #
 ansible==4.10.0
     # via -r requirements/centos.in
-ansible-core==2.11.9
+ansible-core==2.11.10
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
@@ -52,6 +52,7 @@ importlib-metadata==4.8.3
     #   debtcollector
     #   openstacksdk
     #   oslo.config
+    #   prettytable
     #   stevedore
 importlib-resources==5.4.0
     # via netaddr
@@ -153,9 +154,8 @@ pbr==5.8.1
     #   python-novaclient
     #   python-openstackclient
     #   stevedore
-prettytable==1.0.1
+prettytable==2.5.0
     # via
-    #   -r requirements/centos.in
     #   cliff
     #   python-cinderclient
     #   python-novaclient
@@ -199,9 +199,7 @@ requestsexceptions==1.4.0
 resolvelib==0.5.4
     # via ansible-core
 rfc3986==1.5.0
-    # via
-    #   -r requirements/centos.in
-    #   oslo.config
+    # via oslo.config
 simplejson==3.17.6
     # via
     #   osc-lib
@@ -239,6 +237,3 @@ zipp==3.6.0
     # via
     #   importlib-metadata
     #   importlib-resources
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
