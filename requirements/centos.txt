@@ -26,7 +26,7 @@ cliff==3.10.1
     #   python-openstackclient
 cmd2==2.4.1
     # via cliff
-cryptography==37.0.0
+cryptography==37.0.1
     # via
     #   ansible-core
     #   kolla-ansible
@@ -125,7 +125,7 @@ oslo.serialization==4.3.0
     # via
     #   python-keystoneclient
     #   python-novaclient
-oslo.utils==4.12.2
+oslo.utils==4.13.0
     # via
     #   kolla-ansible
     #   osc-lib
