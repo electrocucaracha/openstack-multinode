@@ -17,9 +17,9 @@ ubuntu:
   focal:
     name: generic/ubuntu2004
     vb_controller: IDE Controller
-    version: "3.6.8"
+    version: "3.6.14"
 debian:
-  bullseye:
+  buster:
     name: debian/bullseye64
-    vb_controller: SATA Controller
+    vb_controller: IDE Controller
     version: "11.20220328.1"
