@@ -218,5 +218,5 @@ wcwidth==0.2.5
     # via
     #   cmd2
     #   prettytable
-wrapt==1.14.0
+wrapt==1.14.1
     # via debtcollector
