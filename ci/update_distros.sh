@@ -90,7 +90,7 @@ _vagrant_pull "8" "centos/stream8" "IDE"
 echo "ubuntu:" >> .distros_supported.yml
 _vagrant_pull "focal" "generic/ubuntu2004"
 echo "debian:" >> .distros_supported.yml
-_vagrant_pull "buster" "debian/bullseye64"
+_vagrant_pull "bullseye" "debian/bullseye64" "SATA Controller"
 
 if [ "$msg" ]; then
     echo -e "$msg"
