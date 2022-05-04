@@ -1,0 +1,35 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2022
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+name: Install and configure tools required for the CI vagrant composite task
+
+runs:
+  using: "composite"
+  steps:
+    - name: Cache Vagrant boxes
+      uses: actions/cache@v3
+      with:
+        path: ~/.vagrant.d/boxes
+        key: ${{ runner.os }}-vagrant-${{ hashFiles('distros_supported.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-vagrant-
+    - name: Apply workaround for VBoxHeadless issue on macOS (https://www.virtualbox.org/ticket/20636)
+      shell: bash
+      run: |
+        if [[ "$(VBoxManage --version)" == "6.1.28r147628" ]]; then
+            find . -type f -iname "Vagrantfile" -exec sed -i '.bak' 's|v.gui = .*|v.gui = true|g' {} \;
+            find . -type f -name "*.bak" -delete
+        fi
+    - name: Replace shorten links
+      shell: bash
+      run: |
+        find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_pkg|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh|g' {} \;
+        find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_bin|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/bindep_install.sh|g' {} \;
+        find . -type f -name "*.bak" -delete

@@ -74,6 +74,9 @@ Vagrant.configure("2") do |config|
     config.proxy.enabled = { docker: false }
   end
 
+  # Basic requirements installation
+  config.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
+
   config.vm.provision "shell", inline: <<-SHELL
     mkdir -p /root/.ssh
     cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
@@ -153,8 +156,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :undercloud, primary: true, autostart: false do |undercloud|
     undercloud.vm.hostname = "undercloud"
-    # Basic requirements installation
-    undercloud.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
 
     # SSH Keys configuration
     undercloud.vm.provision "shell", privileged: false, inline: <<-SHELL
