@@ -15,6 +15,8 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
+_start=$(date +%s)
+trap 'printf "Node setup process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
 
 # usage() - Prints the usage of the program
 function usage {

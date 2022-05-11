@@ -16,6 +16,9 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
     set -o xtrace
 fi
 
+_start=$(date +%s)
+trap 'printf "Compute installation process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
+
 if ! command -v curl; then
     # shellcheck disable=SC1091
     source /etc/os-release || source /usr/lib/os-release

@@ -28,6 +28,9 @@ function _set_values {
 
 sudo touch /etc/timezone
 
+_start=$(date +%s)
+trap 'printf "Provisioning process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
+
 # Install dependencies
 curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud PKG_COMMANDS_LIST="yq" bash
 
@@ -80,6 +83,7 @@ host_key_checking=False
 pipelinig=True
 forks=100
 remote_tmp=/tmp/
+callbacks_enabled = timer, profile_tasks
 EOL
 
 # Remove docker source list to avoid update conflicts
@@ -99,6 +103,8 @@ if [ "${OS_KOLLA_DEPLOY_PROFILE:-complete}" == "minimal" ]; then
 fi
 for action in "${kolla_actions[@]}"; do
     ./run_kaction.sh "$action" | tee "$HOME/$action.log"
+    echo "Kolla Action statistics:"
+    grep ': .* -* .*s$' "$HOME/$action.log"
 done
 case ${ID,,} in
     ubuntu|debian)

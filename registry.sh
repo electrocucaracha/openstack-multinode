@@ -15,6 +15,8 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
+_start=$(date +%s)
+trap 'printf "Registry creation process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
 
 # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
 curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git,crudini" bash
