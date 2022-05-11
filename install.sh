@@ -15,6 +15,8 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
+_start=$(date +%s)
+trap 'printf "Installation process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
 
 #####################
 # Discovery process #
