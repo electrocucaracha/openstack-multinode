@@ -6,7 +6,7 @@
 #
 ansible==4.10.0
     # via -r requirements/debian.in
-ansible-core==2.11.10
+ansible-core==2.11.11
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
@@ -24,9 +24,9 @@ cliff==3.10.1
     # via
     #   osc-lib
     #   python-openstackclient
-cmd2==2.4.0
+cmd2==2.4.1
     # via cliff
-cryptography==36.0.2
+cryptography==37.0.2
     # via
     #   ansible-core
     #   kolla-ansible
@@ -64,7 +64,7 @@ jmespath==1.0.0
     #   openstacksdk
 jsonpatch==1.32
     # via openstacksdk
-jsonpointer==2.2
+jsonpointer==2.3
     # via jsonpatch
 keystoneauth1==4.5.0
     # via
@@ -116,7 +116,7 @@ oslo-serialization==4.3.0
     # via
     #   python-keystoneclient
     #   python-novaclient
-oslo-utils==4.12.2
+oslo-utils==4.13.0
     # via
     #   kolla-ansible
     #   osc-lib
@@ -129,7 +129,7 @@ packaging==21.3
     # via
     #   ansible-core
     #   oslo-utils
-pbr==5.8.1
+pbr==5.9.0
     # via
     #   cliff
     #   keystoneauth1
@@ -145,14 +145,14 @@ pbr==5.8.1
     #   python-novaclient
     #   python-openstackclient
     #   stevedore
-prettytable==3.2.0
+prettytable==3.3.0
     # via
     #   cliff
     #   python-cinderclient
     #   python-novaclient
 pycparser==2.21
     # via cffi
-pyparsing==3.0.7
+pyparsing==3.0.9
     # via
     #   cliff
     #   oslo-utils
@@ -218,5 +218,5 @@ wcwidth==0.2.5
     # via
     #   cmd2
     #   prettytable
-wrapt==1.14.0
+wrapt==1.14.1
     # via debtcollector
