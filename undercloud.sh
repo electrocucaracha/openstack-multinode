@@ -80,10 +80,12 @@ _set_values
 sudo tee /etc/ansible/ansible.cfg << EOL
 [defaults]
 host_key_checking=False
-pipelinig=True
-forks=100
 remote_tmp=/tmp/
 callbacks_enabled = timer, profile_tasks
+
+[ssh_connection]
+pipelinig=True
+ssh_args = -o ControlMaster=auto -o ControlPersist=30m -o ConnectionAttempts=100 -o UserKnownHostsFile=/dev/null
 EOL
 
 # Remove docker source list to avoid update conflicts
