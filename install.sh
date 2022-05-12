@@ -15,8 +15,6 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
-_start=$(date +%s)
-trap 'printf "Installation process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
 
 #####################
 # Discovery process #
@@ -154,3 +152,9 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
         ./scripts/neutron_trunk.sh
     fi
 fi
+
+echo "Statistics:"
+printf "CPU usage: "
+grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage " %"}'
+printf "Memory free(Kb):"
+awk -v low="$(grep low /proc/zoneinfo | awk '{k+=$2}END{print k}')" '{a[$1]=$2}  END{ print a["MemFree:"]+a["Active(file):"]+a["Inactive(file):"]+a["SReclaimable:"]-(12*low);}' /proc/meminfo
