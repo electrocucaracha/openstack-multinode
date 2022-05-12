@@ -53,6 +53,7 @@ jobs:
           MEMORY: 12288
           OS_KOLLA_RUN_INIT: false
           OS_DISTRO: ${{ matrix.distro }}
+          OS_KOLLA_ENABLE_HORIZON: "no"
         run: cd samples/aio/; vagrant up
       - name: Check HW resources
         run: |
