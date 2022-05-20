@@ -14,7 +14,7 @@ attrs==21.4.0
     # via cmd2
 autopage==0.5.0
     # via cliff
-certifi==2022.5.18
+certifi==2022.5.18.1
     # via requests
 cffi==1.15.0
     # via cryptography
