@@ -26,6 +26,44 @@ function _set_values {
     done
 }
 
+function _vercmp {
+    local v1=$1
+    local op=$2
+    local v2=$3
+    local result
+
+    # sort the two numbers with sort's "-V" argument.  Based on if v2
+    # swapped places with v1, we can determine ordering.
+    result=$(echo -e "$v1\n$v2" | sort -V | head -1)
+
+    case $op in
+        "==")
+            [ "$v1" = "$v2" ]
+            return
+            ;;
+        ">")
+            [ "$v1" != "$v2" ] && [ "$result" = "$v2" ]
+            return
+            ;;
+        "<")
+            [ "$v1" != "$v2" ] && [ "$result" = "$v1" ]
+            return
+            ;;
+        ">=")
+            [ "$result" = "$v2" ]
+            return
+            ;;
+        "<=")
+            [ "$result" = "$v1" ]
+            return
+            ;;
+        *)
+            echo "unrecognised op: $op"
+            exit 1
+            ;;
+    esac
+}
+
 sudo touch /etc/timezone
 
 _start=$(date +%s)
@@ -102,6 +140,10 @@ sudo rm -f /etc/docker/daemon.json
 kolla_actions=(bootstrap-servers prechecks pull deploy check post-deploy)
 if [ "${OS_KOLLA_DEPLOY_PROFILE:-complete}" == "minimal" ]; then
     kolla_actions=(bootstrap-servers deploy post-deploy)
+fi
+# Install Ansible Galaxy dependencies (Yoga release onwards)
+if _vercmp "$(pip freeze | grep kolla-ansible | sed 's/^.*=//')" '>=' '14'; then
+    kolla_actions=(install-deps "${kolla_actions[@]}")
 fi
 for action in "${kolla_actions[@]}"; do
     ./run_kaction.sh "$action" | tee "$HOME/$action.log"
