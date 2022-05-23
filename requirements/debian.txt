@@ -4,9 +4,9 @@
 #
 #    pip-compile --output-file=requirements/debian.txt requirements/debian.in
 #
-ansible==4.10.0
+ansible==5.8.0
     # via -r requirements/debian.in
-ansible-core==2.11.11
+ansible-core==2.12.6
     # via ansible
 appdirs==1.4.4
     # via openstacksdk
@@ -14,7 +14,7 @@ attrs==21.4.0
     # via cmd2
 autopage==0.5.0
     # via cliff
-certifi==2021.10.8
+certifi==2022.5.18.1
     # via requests
 cffi==1.15.0
     # via cryptography
@@ -53,9 +53,8 @@ iso8601==1.0.2
     #   oslo-utils
     #   python-novaclient
     #   python-openstackclient
-jinja2==3.0.3
+jinja2==3.1.2
     # via
-    #   -r requirements/debian.in
     #   ansible-core
     #   kolla-ansible
 jmespath==1.0.0
@@ -66,14 +65,14 @@ jsonpatch==1.32
     # via openstacksdk
 jsonpointer==2.3
     # via jsonpatch
-keystoneauth1==4.5.0
+keystoneauth1==4.6.0
     # via
     #   openstacksdk
     #   osc-lib
     #   python-cinderclient
     #   python-keystoneclient
     #   python-novaclient
-kolla-ansible==13.0.1
+kolla-ansible==14.0.0
     # via -r requirements/debian.in
 markupsafe==2.1.1
     # via jinja2
@@ -89,7 +88,7 @@ netifaces==0.11.0
     # via
     #   openstacksdk
     #   oslo-utils
-openstacksdk==0.61.0
+openstacksdk==0.99.0
     # via
     #   osc-lib
     #   python-openstackclient
@@ -97,7 +96,7 @@ os-service-types==1.7.0
     # via
     #   keystoneauth1
     #   openstacksdk
-osc-lib==2.5.0
+osc-lib==2.6.0
     # via python-openstackclient
 oslo-config==8.8.0
     # via
@@ -129,6 +128,7 @@ packaging==21.3
     # via
     #   ansible-core
     #   oslo-utils
+    #   python-keystoneclient
 pbr==5.9.0
     # via
     #   cliff
@@ -161,9 +161,9 @@ pyperclip==1.8.2
     # via cmd2
 python-cinderclient==8.3.0
     # via python-openstackclient
-python-keystoneclient==4.4.0
+python-keystoneclient==4.5.0
     # via python-openstackclient
-python-novaclient==17.7.0
+python-novaclient==18.0.0
     # via python-openstackclient
 python-openstackclient==5.8.0
     # via -r requirements/debian.in
