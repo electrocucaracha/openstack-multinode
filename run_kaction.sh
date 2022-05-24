@@ -21,7 +21,7 @@ PYTHONPATH="$(python -c 'import sys; print(":".join(sys.path))')"
 export PYTHONPATH
 
 kolla-ansible \
-    -e "ansible_user=root" \
+    -e "ansible_user=$USER" \
     -e 'ansible_become=true' \
     -e 'ansible_become_method=sudo' \
     "$1" \

@@ -120,17 +120,22 @@ sudo tee /etc/ansible/ansible.cfg << EOL
 host_key_checking=False
 remote_tmp=/tmp/
 callbacks_enabled = timer, profile_tasks
+strategy = mitogen_linear
+strategy_plugins = $(dirname "$(sudo find / -name mitogen_linear.py | head -n 1)")
 
 [ssh_connection]
 pipelinig=True
 ssh_args = -o ControlMaster=auto -o ControlPersist=30m -o ConnectionAttempts=100 -o UserKnownHostsFile=/dev/null
 EOL
 
+# Print out Ansible configuration
+ansible-config dump --only-changed
+
 # Remove docker source list to avoid update conflicts
 [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 ansible control -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" -m file \
 -a 'path=/etc/apt/sources.list.d/docker.list state=absent' -b \
--e "ansible_user=root"
+-e "ansible_user=$USER"
 
 # PEP 370 -- Per user site-packages directory
 [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
