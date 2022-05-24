@@ -87,6 +87,8 @@ kolla-ansible==14.0.0
     # via -r requirements/centos.in
 markupsafe==2.0.1
     # via jinja2
+mitogen==0.3.2
+    # via -r requirements/centos.in
 msgpack==1.0.3
     # via oslo.serialization
 munch==2.5.0

@@ -1,3 +1,4 @@
 ansible>=4,<6 # GPLv3
 python-openstackclient # Apache-2.0
 kolla-ansible # Apache-2.0
+mitogen # BSD
