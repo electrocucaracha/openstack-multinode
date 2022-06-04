@@ -89,7 +89,7 @@ markupsafe==2.0.1
     # via jinja2
 mitogen==0.3.2
     # via -r requirements/centos.in
-msgpack==1.0.3
+msgpack==1.0.4
     # via oslo.serialization
 munch==2.5.0
     # via openstacksdk
