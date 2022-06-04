@@ -78,7 +78,7 @@ markupsafe==2.1.1
     # via jinja2
 mitogen==0.3.2
     # via -r requirements/ubuntu.in
-msgpack==1.0.3
+msgpack==1.0.4
     # via oslo-serialization
 munch==2.5.0
     # via openstacksdk
