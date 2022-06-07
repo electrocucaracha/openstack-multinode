@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/debian.txt requirements/debian.in
 #
-ansible==5.8.0
+ansible==5.9.0
     # via -r requirements/debian.in
 ansible-core==2.12.6
     # via ansible
@@ -72,7 +72,7 @@ keystoneauth1==4.6.0
     #   python-cinderclient
     #   python-keystoneclient
     #   python-novaclient
-kolla-ansible==14.0.0
+kolla-ansible==14.1.0
     # via -r requirements/debian.in
 markupsafe==2.1.1
     # via jinja2
