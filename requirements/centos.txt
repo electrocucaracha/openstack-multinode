@@ -83,7 +83,7 @@ keystoneauth1==4.6.0
     #   python-cinderclient
     #   python-keystoneclient
     #   python-novaclient
-kolla-ansible==14.0.0
+kolla-ansible==14.1.0
     # via -r requirements/centos.in
 markupsafe==2.0.1
     # via jinja2
