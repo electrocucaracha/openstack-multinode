@@ -95,11 +95,6 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--vtxvpid", "on"]
   end
   config.vm.provision "shell", inline: <<~SHELL
-    mkdir -p /root/.ssh
-    cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
-    chmod 700 ~/.ssh
-    chmod 600 ~/.ssh/authorized_keys
-    sed -i '/^PermitRootLogin no/d' /etc/ssh/sshd_config
     # Prefer IPv4 over IPv6 in dual-stack environment
     sudo sed -i "s|^#precedence ::ffff:0:0/96  100$|precedence ::ffff:0:0/96  100|g" /etc/gai.conf
     sudo systemd-resolve --interface eth0 --set-dns 1.1.1.1 --flush-caches
@@ -140,6 +135,10 @@ Vagrant.configure("2") do |config|
           ./node.sh -c /dev/sdb | tee ~/node_$(hostname).log
         SHELL
       end
+      nodeconfig.trigger.after :up do |trigger|
+        trigger.info = "Configure Authorized Keys"
+        trigger.run_remote = { inline: "cat /vagrant/insecure_keys/key.pub >> /home/vagrant/.ssh/authorized_keys" }
+      end
     end
   end
 
@@ -152,13 +151,10 @@ Vagrant.configure("2") do |config|
     controller.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
 
     # SSH Keys configuration
-    config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    controller.vm.provision "shell", privileged: false, inline: <<-SHELL
       cd /vagrant
-      sudo mkdir -p /root/.ssh/
-      sudo cp insecure_keys/key /root/.ssh/id_rsa
       cp insecure_keys/key ~/.ssh/id_rsa
       cp insecure_keys/key.pub ~/.ssh/id_rsa.pub
-      sudo chmod 400 /root/.ssh/id_rsa
       chown "$USER" ~/.ssh/id_rsa
       chmod 400 ~/.ssh/id_rsa
     SHELL
@@ -172,6 +168,7 @@ Vagrant.configure("2") do |config|
         OS_KOLLA_NEUTRON_PLUGIN_AGENT: "linuxbridge",
         OS_KOLLA_API_INTERFACE: "eth1",
         OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE: "eth2",
+        OS_KOLLA_ENABLE_NEUTRON_PROVIDER_NETWORKS: "yes",
         OS_KOLLA_KOLLA_INTERNAL_VIP_ADDRESS: controller_ip.to_s,
         OS_KOLLA_ENABLE_HEAT: ENV["OS_KOLLA_ENABLE_HEAT"] || "false",
         EXT_NET_RANGE: "start=#{cloud_public_cidr.sub('0/24', '50')},end=#{cloud_public_cidr.sub('0/24', '100')}",
@@ -181,9 +178,10 @@ Vagrant.configure("2") do |config|
       sh.inline = <<-SHELL
         set -o errexit
 
-        for krd_var in $(printenv | grep "OS_\|EXT_NET_" ); do echo "export $env_var" | sudo tee --append /etc/environment ; done
+        for os_var in $(printenv | grep "OS_\|EXT_NET_" ); do echo "export $os_var" | sudo tee --append /etc/environment ; done
 
         cd /vagrant
+        cat ./insecure_keys/key.pub >> ~/.ssh/authorized_keys
 
         # Create ansible inventory file
         pushd samples/noha/
@@ -207,6 +205,10 @@ Vagrant.configure("2") do |config|
     controller.vm.disk :disk, name: "docker", size: "50GB"
     controller.vm.provider :libvirt do |v|
       v.storage :file, bus: "sata", device: "sdb", size: 50
+    end
+    controller.trigger.after :up do |trigger|
+      trigger.info = "OpenStack environment variables"
+      trigger.run_remote = { inline: "printenv | grep OS_" }
     end
   end
 
