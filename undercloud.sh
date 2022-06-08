@@ -90,13 +90,14 @@ sudo ln -s "$(command -v pip3)" /usr/bin/pip3 ||:
 pip install --ignore-installed --no-warn-script-location --requirement "requirements/${ID,,}.txt"
 # PEP 370 -- Per user site-packages directory
 [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
-openstack complete | sudo tee /etc/bash_completion.d/osc.bash_completion > /dev/null
 # https://review.opendev.org/#/c/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2@6
 sudo find / -name rabbitmq-env.conf.j2 -exec sed -i '/export ERL_EPMD_ADDRESS/d' {} \;
 
 sudo mkdir -p /etc/{kolla,ansible,systemd/system/docker.service.d}
 if [ "${OS_ENABLE_LOCAL_REGISTRY:-false}" == "true" ]; then
     export OS_KOLLA_DOCKER_REGISTRY="${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}"
+    export OS_KOLLA_DOCKER_REGISTRY_INSECURE="yes"
+    export OS_KOLLA_DOCKER_NAMESPACE="kolla"
 fi
 if [ -n "${HTTP_PROXY:-}" ]; then
     sed -i "s|^container_http_proxy: .*$|container_http_proxy: \"${HTTP_PROXY}\"|g" ~/.local/share/kolla-ansible/ansible/group_vars/all.yml
