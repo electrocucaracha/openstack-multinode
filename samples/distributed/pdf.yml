@@ -17,7 +17,7 @@
 
 - name: "registry"
   memory: 8192
-  cpus: 4
+  cpus: 1
   volumes:
     - name: sdb
       size: 50
@@ -29,31 +29,34 @@
     - registry
 - name: "control01"
   memory: 8192
-  cpus: 4
+  cpus: 1
   networks:
     - name: tunnel-net
       ip: "10.10.13.4"
   roles:
     - controller
+    - network
 - name: "control02"
   memory: 8192
-  cpus: 4
+  cpus: 1
   networks:
     - name: tunnel-net
       ip: "10.10.13.5"
   roles:
     - controller
+    - network
 - name: "control03"
   memory: 8192
-  cpus: 4
+  cpus: 1
   networks:
     - name: tunnel-net
       ip: "10.10.13.6"
   roles:
     - controller
+    - network
 - name: "compute01"
-  memory: 65536
-  cpus: 12
+  memory: 8192
+  cpus: 1
   networks:
     - name: tunnel-net
       ip: "10.10.13.33"
@@ -61,33 +64,9 @@
       ip: "10.10.14.33"
   roles:
     - compute
-- name: "network01"
-  memory: 4096
-  cpus: 4
-  networks:
-    - name: tunnel-net
-      ip: "10.10.13.65"
-  roles:
-    - network
-- name: "network02"
-  memory: 4096
-  cpus: 4
-  networks:
-    - name: tunnel-net
-      ip: "10.10.13.66"
-  roles:
-    - network
-- name: "network03"
-  memory: 4096
-  cpus: 4
-  networks:
-    - name: tunnel-net
-      ip: "10.10.13.67"
-  roles:
-    - network
 - name: "storage01"
-  memory: 4096
-  cpus: 4
+  memory: 8192
+  cpus: 1
   networks:
     - name: tunnel-net
       ip: "10.10.13.97"
@@ -99,8 +78,8 @@
     - name: sdb
       size: 100
 - name: "monitoring01"
-  memory: 4096
-  cpus: 12
+  memory: 8192
+  cpus: 1
   networks:
     - name: tunnel-net
       ip: "10.10.13.129"

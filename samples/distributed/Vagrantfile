@@ -13,15 +13,31 @@
 
 require "yaml"
 
+def which(cmd)
+  exts = ENV["PATHEXT"] ? ENV["PATHEXT"].split(";") : [""]
+  ENV["PATH"].split(File::PATH_SEPARATOR).each do |path|
+    exts.each do |ext|
+      exe = File.join(path, "#{cmd}#{ext}")
+      return exe if File.executable?(exe) && !File.directory?(exe)
+    end
+  end
+  nil
+end
+
 nodes = YAML.load_file("#{File.dirname(__FILE__)}/pdf.yml")
 vagrant_boxes = YAML.load_file("#{File.dirname(__FILE__)}/../../distros_supported.yml")
 
 no_proxy = ENV["NO_PROXY"] || ENV["no_proxy"] || "127.0.0.1,localhost"
+hosts = "127.0.0.1   localhost\n"
+if which "virsh"
+  hosts += `virsh net-dhcp-leases administration | grep 10.0.2 | grep -v undercloud | awk '{ sub("/24", "", $5); print($5,$6)}'`
+end
 nodes.each do |node|
   next unless node.key? "networks"
 
   node["networks"].each do |network|
     no_proxy += ",#{network['ip']}"
+    hosts += "#{network['ip']} #{node['name']}\n"
   end
 end
 (1..254).each do |i|
@@ -77,17 +93,16 @@ Vagrant.configure("2") do |config|
   # Basic requirements installation
   config.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
 
-  config.vm.provision "shell", inline: <<-SHELL
-    mkdir -p /root/.ssh
-    cat /vagrant/insecure_keys/key.pub | tee /root/.ssh/authorized_keys
-    chmod 700 ~/.ssh
-    chmod 600 ~/.ssh/authorized_keys
-    sed -i '/^PermitRootLogin no/d' /etc/ssh/sshd_config
+  config.vm.provision "shell", inline: <<~SHELL
     if command -v sestatus; then
         sudo setenforce Permissive
         sudo sed -i "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
     fi
   SHELL
+  config.trigger.after :up do |trigger|
+    trigger.info = "Configure Authorized Keys"
+    trigger.run_remote = { inline: "cat /vagrant/insecure_keys/key.pub >> /home/vagrant/.ssh/authorized_keys" }
+  end
 
   nodes.each do |node|
     config.vm.define node["name"] do |nodeconfig|
@@ -160,16 +175,17 @@ Vagrant.configure("2") do |config|
     # SSH Keys configuration
     undercloud.vm.provision "shell", privileged: false, inline: <<-SHELL
       cd /vagrant
-      sudo mkdir -p /root/.ssh/
-      sudo cp insecure_keys/key /root/.ssh/id_rsa
       cp insecure_keys/key ~/.ssh/id_rsa
       cp insecure_keys/key.pub ~/.ssh/id_rsa.pub
-      sudo chmod 400 /root/.ssh/id_rsa
       chown "$USER" ~/.ssh/id_rsa
       chmod 400 ~/.ssh/id_rsa
     SHELL
 
     undercloud.vm.provision "shell", privileged: false do |sh|
+      undercloud.trigger.after :up do |trigger|
+        trigger.info = "OpenStack environment variables"
+        trigger.run_remote = { inline: "printenv | grep OS_" }
+      end
       sh.env = {
         DOCKER_REGISTRY_IP: "10.10.13.2",
         OS_KOLLA_KOLLA_INTERNAL_VIP_ADDRESS: "10.10.13.3",
@@ -181,7 +197,10 @@ Vagrant.configure("2") do |config|
         OS_INVENTORY_FILE: "/vagrant/samples/distributed/hosts.ini"
       }
       sh.inline = <<-SHELL
+        echo "#{hosts}" | sudo tee /etc/hosts
+
         for os_var in $(printenv | grep OS_); do echo "export $os_var" | sudo tee --append /etc/environment ; done
+
         cd /vagrant/
         sudo mkdir -p /etc/kolla/config
         sudo cp -R etc/kolla/* /etc/kolla/

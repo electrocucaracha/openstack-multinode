@@ -12,15 +12,14 @@ setup using its [pdf.yml](pdf.yml).
 
 ### Current configuration
 
-| Amount | Element           | Memory(GB) | vCPUs | Disk(GB) |
-|--------|-------------------|------------|-------|----------|
-| 1      | Registry Node     | 8          | 4     | 50       |
-| 3      | Controller Node   | 8          | 4     |          |
-| 1      | Compute Node      | 64         | 12    |          |
-| 3      | Network Node      | 4          | 4     |          |
-| 1      | Storage Node      | 4          | 4     |          |
-| 1      | Monitoring Node   | 4          | 12    |          |
-|        | Total             | 116        | 56    | 50       |
+| Amount | Node               | Memory(GB) | vCPUs | Disk(GB) |
+|--------|--------------------|------------|-------|----------|
+| 1      | Registry           | 8          | 1     | 50       |
+| 3      | Controller/Network | 8          | 1     |          |
+| 1      | Compute            | 8          | 1     |          |
+| 1      | Storage            | 8          | 1     | 100      |
+| 1      | Monitoring         | 8          | 1     |          |
+|        | Total              | 64         | 8     | 150      |
 
 ## Setup
 
