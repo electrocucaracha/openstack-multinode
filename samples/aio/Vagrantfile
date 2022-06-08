@@ -187,4 +187,8 @@ Vagrant.configure("2") do |config|
   end
   config.vm.network :forwarded_port, guest: 80, host: 8080
   config.vm.network :forwarded_port, guest: 6080, host: 6080
+  config.trigger.after :up do |trigger|
+    trigger.info = "OpenStack environment variables"
+    trigger.run_remote = { inline: "printenv | grep OS_" }
+  end
 end
