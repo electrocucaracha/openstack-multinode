@@ -169,6 +169,6 @@ sudo chown "$USER" /etc/kolla/admin-openrc.sh
 # shellcheck disable=SC2002
 cat /etc/kolla/admin-openrc.sh | sudo tee --append /etc/environment
 
-if ! getent group docker | grep -q "$USER"; then
+if groups | grep -q docker && (! getent group docker | grep -q "$USER" ); then
     sudo usermod -aG docker "$USER"
 fi
