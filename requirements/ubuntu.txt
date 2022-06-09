@@ -4,221 +4,92 @@
 #
 #    pip-compile --output-file=requirements/ubuntu.txt requirements/ubuntu.in
 #
-ansible==5.8.0
+ansible==5.9.0
     # via -r requirements/ubuntu.in
 ansible-core==2.12.6
     # via ansible
-appdirs==1.4.4
-    # via openstacksdk
-attrs==21.4.0
-    # via cmd2
-autopage==0.5.1
-    # via cliff
 certifi==2022.5.18.1
     # via requests
 cffi==1.15.0
     # via cryptography
 charset-normalizer==2.0.12
     # via requests
-cliff==3.10.1
-    # via
-    #   osc-lib
-    #   python-openstackclient
-cmd2==2.4.1
-    # via cliff
 cryptography==37.0.2
     # via
     #   ansible-core
     #   kolla-ansible
-    #   openstacksdk
 debtcollector==2.5.0
     # via
     #   oslo-config
     #   oslo-utils
-    #   python-keystoneclient
-decorator==5.1.1
-    # via
-    #   dogpile-cache
-    #   openstacksdk
-dogpile-cache==1.1.5
-    # via openstacksdk
 hvac==0.11.2
     # via kolla-ansible
 idna==3.3
     # via requests
 iso8601==1.0.2
-    # via
-    #   keystoneauth1
-    #   openstacksdk
-    #   oslo-utils
-    #   python-novaclient
-    #   python-openstackclient
+    # via oslo-utils
 jinja2==3.1.2
     # via
     #   ansible-core
     #   kolla-ansible
 jmespath==1.0.0
-    # via
-    #   kolla-ansible
-    #   openstacksdk
-jsonpatch==1.32
-    # via openstacksdk
-jsonpointer==2.3
-    # via jsonpatch
-keystoneauth1==4.6.0
-    # via
-    #   openstacksdk
-    #   osc-lib
-    #   python-cinderclient
-    #   python-keystoneclient
-    #   python-novaclient
-kolla-ansible==14.0.0
+    # via kolla-ansible
+kolla-ansible==14.1.0
     # via -r requirements/ubuntu.in
 markupsafe==2.1.1
     # via jinja2
 mitogen==0.3.2
     # via -r requirements/ubuntu.in
-msgpack==1.0.3
-    # via oslo-serialization
-munch==2.5.0
-    # via openstacksdk
 netaddr==0.8.0
     # via
     #   oslo-config
     #   oslo-utils
 netifaces==0.11.0
-    # via
-    #   openstacksdk
-    #   oslo-utils
-openstacksdk==0.99.0
-    # via
-    #   osc-lib
-    #   python-openstackclient
-os-service-types==1.7.0
-    # via
-    #   keystoneauth1
-    #   openstacksdk
-osc-lib==2.6.0
-    # via python-openstackclient
+    # via oslo-utils
 oslo-config==8.8.0
-    # via
-    #   kolla-ansible
-    #   python-keystoneclient
+    # via kolla-ansible
 oslo-i18n==5.1.0
     # via
-    #   osc-lib
     #   oslo-config
     #   oslo-utils
-    #   python-cinderclient
-    #   python-keystoneclient
-    #   python-novaclient
-    #   python-openstackclient
-oslo-serialization==4.3.0
-    # via
-    #   python-keystoneclient
-    #   python-novaclient
 oslo-utils==4.13.0
-    # via
-    #   kolla-ansible
-    #   osc-lib
-    #   oslo-serialization
-    #   python-cinderclient
-    #   python-keystoneclient
-    #   python-novaclient
-    #   python-openstackclient
+    # via kolla-ansible
 packaging==21.3
     # via
     #   ansible-core
     #   oslo-utils
-    #   python-keystoneclient
 pbr==5.9.0
     # via
-    #   cliff
-    #   keystoneauth1
     #   kolla-ansible
-    #   openstacksdk
-    #   os-service-types
-    #   osc-lib
     #   oslo-i18n
-    #   oslo-serialization
     #   oslo-utils
-    #   python-cinderclient
-    #   python-keystoneclient
-    #   python-novaclient
-    #   python-openstackclient
     #   stevedore
-prettytable==3.3.0
-    # via
-    #   cliff
-    #   python-cinderclient
-    #   python-novaclient
 pycparser==2.21
     # via cffi
 pyparsing==3.0.9
     # via
-    #   cliff
     #   oslo-utils
     #   packaging
-pyperclip==1.8.2
-    # via cmd2
-python-cinderclient==8.3.0
-    # via python-openstackclient
-python-keystoneclient==4.5.0
-    # via python-openstackclient
-python-novaclient==18.0.0
-    # via python-openstackclient
-python-openstackclient==5.8.0
-    # via -r requirements/ubuntu.in
 pytz==2022.1
-    # via
-    #   oslo-serialization
-    #   oslo-utils
+    # via oslo-utils
 pyyaml==6.0
     # via
     #   ansible-core
-    #   cliff
     #   kolla-ansible
-    #   openstacksdk
     #   oslo-config
 requests==2.27.1
     # via
     #   hvac
-    #   keystoneauth1
     #   oslo-config
-    #   python-cinderclient
-    #   python-keystoneclient
-requestsexceptions==1.4.0
-    # via openstacksdk
 resolvelib==0.5.4
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-simplejson==3.17.6
-    # via
-    #   osc-lib
-    #   python-cinderclient
 six==1.16.0
-    # via
-    #   hvac
-    #   keystoneauth1
-    #   munch
-    #   python-keystoneclient
+    # via hvac
 stevedore==3.5.0
-    # via
-    #   cliff
-    #   dogpile-cache
-    #   keystoneauth1
-    #   osc-lib
-    #   oslo-config
-    #   python-cinderclient
-    #   python-keystoneclient
-    #   python-novaclient
-    #   python-openstackclient
+    # via oslo-config
 urllib3==1.26.9
     # via requests
-wcwidth==0.2.5
-    # via
-    #   cmd2
-    #   prettytable
 wrapt==1.14.1
     # via debtcollector

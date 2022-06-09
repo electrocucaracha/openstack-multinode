@@ -133,8 +133,11 @@ fi
 
 # Post-Install actions
 if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
+    pip install --ignore-installed --no-warn-script-location python-openstackclient
+
     # PEP 370 -- Per user site-packages directory
     [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
+    openstack complete | sudo tee /etc/bash_completion.d/osc.bash_completion > /dev/null
 
     sudo chown "$USER:" /etc/kolla/admin-openrc.sh
     # shellcheck disable=SC1091
