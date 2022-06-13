@@ -45,7 +45,7 @@ kolla-ansible==14.1.0
     # via -r requirements/centos.in
 markupsafe==2.0.1
     # via jinja2
-mitogen==0.3.2
+mitogen==0.3.3
     # via -r requirements/centos.in
 netaddr==0.8.0
     # via
