@@ -8,7 +8,7 @@ ansible==4.10.0
     # via -r requirements/centos.in
 ansible-core==2.11.12
     # via ansible
-certifi==2022.5.18.1
+certifi==2022.6.15
     # via requests
 cffi==1.15.0
     # via cryptography
