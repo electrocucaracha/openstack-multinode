@@ -52,7 +52,7 @@ oslo-i18n==5.1.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==5.0.0
+oslo-utils==6.0.0
     # via kolla-ansible
 packaging==21.3
     # via
@@ -62,7 +62,6 @@ pbr==5.9.0
     # via
     #   kolla-ansible
     #   oslo-i18n
-    #   oslo-utils
     #   stevedore
 pycparser==2.21
     # via cffi
