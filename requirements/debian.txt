@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/debian.txt requirements/debian.in
 #
-ansible==5.9.0
+ansible==5.10.0
     # via -r requirements/debian.in
 ansible-core==2.12.7
     # via ansible
