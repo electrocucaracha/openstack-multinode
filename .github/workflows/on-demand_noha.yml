@@ -31,7 +31,7 @@ on:
 jobs:
   check-noha-ubuntu:
     name: Check No High Availability deployment on Ubuntu Focal Virtual Machines
-    runs-on: macos-10.15
+    runs-on: macos-12
     if: >-
       (
         github.event_name == 'pull_request_review' &&
