@@ -16,7 +16,7 @@ set -o pipefail
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
     ubuntu|debian)
-        if command -v systemd-resolve  && ( ! systemd-resolve --status | grep -q 1.1.1.1 ); then
+        if [ "${ID,,}" == "ubuntu" ] && command -v systemd-resolve  && ( ! systemd-resolve --status | grep -q 1.1.1.1 ); then
             sudo systemd-resolve --interface "$(ip route get 1.1.1.1 | grep "^1." | awk '{ print $5 }')" --set-dns 1.1.1.1
         fi
         if ! command -v curl; then
