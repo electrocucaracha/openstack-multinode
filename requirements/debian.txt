@@ -10,7 +10,7 @@ ansible-core==2.12.7
     # via ansible
 certifi==2022.6.15
     # via requests
-cffi==1.15.0
+cffi==1.15.1
     # via cryptography
 charset-normalizer==2.1.0
     # via requests
