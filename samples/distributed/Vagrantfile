@@ -184,7 +184,7 @@ Vagrant.configure("2") do |config|
     undercloud.vm.provision "shell", privileged: false do |sh|
       undercloud.trigger.after :up do |trigger|
         trigger.info = "OpenStack environment variables"
-        trigger.run_remote = { inline: "printenv | grep OS_" }
+        trigger.run_remote = { inline: "printenv | grep OS_ ||:" }
       end
       sh.env = {
         DOCKER_REGISTRY_IP: "10.10.13.2",
