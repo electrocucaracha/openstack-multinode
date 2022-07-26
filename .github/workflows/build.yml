@@ -18,9 +18,6 @@ on:
   pull_request_review:
     types:
       - submitted
-    paths:
-      - registry.sh
-      - etc/kolla/kolla-build.ini
   schedule:
     - cron: '0 0 * * 5'
   workflow_dispatch:
