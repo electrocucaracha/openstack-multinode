@@ -22,4 +22,4 @@ debian:
   bullseye:
     name: debian/bullseye64
     vb_controller: SATA Controller
-    version: "11.20220328.1"
+    version: "11.20220718.1"
