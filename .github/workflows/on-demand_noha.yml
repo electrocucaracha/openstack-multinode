@@ -21,12 +21,6 @@ on:
   pull_request_review:
     types:
       - submitted
-    paths:
-      - '*.sh'
-      - '*.yml'
-      - 'samples/noha/*'
-      - 'etc/**'
-      - '!.github/**'
 
 jobs:
   check-noha-ubuntu:
