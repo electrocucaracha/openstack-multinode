@@ -23,12 +23,34 @@ on:
       - submitted
 
 jobs:
+  generate-json-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get matrix values
+        id: set-matrix
+        run: |
+          if ! command -v shyaml; then
+              if ! command -v pip; then
+                  apt-get update
+                  apt-get install -y --no-install-recommends python3-pip
+              fi
+              pip install shyaml
+          fi
+          if ! command -v jq; then
+              apt-get update
+              apt-get install -y --no-install-recommends jq
+          fi
+          echo "::set-output name=matrix::$(shyaml keys < distros_supported.yml|jq -cnR '[inputs | select(length>0)]')"
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
   check-aio-vms:
     name: Check All-in-One deployment on Virtual Machines
+    needs: generate-json-matrix
     strategy:
       fail-fast: false
       matrix:
-        distro: [ubuntu, centos, debian]
+        distro: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     runs-on: macos-12
     if: >-
       (
