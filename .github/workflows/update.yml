@@ -46,7 +46,10 @@ jobs:
       - uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            bash -c 'source /etc/os-release; pip-compile --output-file="requirements/${ID,,}.txt" "requirements/${ID,,}.in" --upgrade'
+            bash -c 'source /etc/os-release;
+            for requirements in $(find requirements/ -name ${ID,,}.in); do
+                pip-compile --output-file="$(dirname $requirements)/${ID,,}.txt" "$requirements" --upgrade;
+            done'
           COMMIT_MESSAGE: 'Upgrade OpenStack Kolla dependencies'
           COMMIT_NAME: 'electrocucaracha bot'
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
