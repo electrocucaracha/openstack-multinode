@@ -61,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/vagrant-setup
-      - name: Deploy All-in-One instance
+      - name: Deploy previous release in All-in-One instance
         env:
           VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
           VAGRANT_EXPERIMENTAL: disks
@@ -70,12 +70,18 @@ jobs:
           OS_KOLLA_RUN_INIT: false
           OS_DISTRO: ${{ matrix.distro }}
           OS_KOLLA_ENABLE_HORIZON: "no"
-        run: cd samples/aio/; vagrant up
+        run: |
+          cd samples/aio
+          OPENSTACK_RELEASE="$(sed -n '2p' ../../releases.txt)" vagrant up
       - name: Check HW resources
         run: |
           vm_stat
           top -l 1 -n 0
           VBoxManage list runningvms --long
+      - name: Upgrade All-in-One instance to latest release
+        run: |
+          cd samples/aio
+          vagrant ssh -- 'cd /vagrant; OS_DEBUG=true ./upgrade.sh'
   check-aio-baremetal:
     runs-on: ubuntu-20.04
     name: Check All-in-One deployment on Ubuntu Focal Virtual Environment
