@@ -17,52 +17,7 @@ if [[ "${OS_DEBUG:-false}" == "true" ]]; then
 fi
 
 source defaults.env
-
-function _set_values {
-    for env_var in $(printenv | grep "OS_KOLLA_"); do
-        sudo --preserve-env="${env_var%=*}" "$(command -v yq)" e -i \
-        ".$(echo "${env_var%=*}" |  tr '[:upper:]' '[:lower:]' | sed 's/os_kolla_//g') = strenv(${env_var%=*})" \
-        /etc/kolla/globals.yml
-    done
-}
-
-function _vercmp {
-    local v1=$1
-    local op=$2
-    local v2=$3
-    local result
-
-    # sort the two numbers with sort's "-V" argument.  Based on if v2
-    # swapped places with v1, we can determine ordering.
-    result=$(echo -e "$v1\n$v2" | sort -V | head -1)
-
-    case $op in
-        "==")
-            [ "$v1" = "$v2" ]
-            return
-            ;;
-        ">")
-            [ "$v1" != "$v2" ] && [ "$result" = "$v2" ]
-            return
-            ;;
-        "<")
-            [ "$v1" != "$v2" ] && [ "$result" = "$v1" ]
-            return
-            ;;
-        ">=")
-            [ "$result" = "$v2" ]
-            return
-            ;;
-        "<=")
-            [ "$result" = "$v1" ]
-            return
-            ;;
-        *)
-            echo "unrecognised op: $op"
-            exit 1
-            ;;
-    esac
-}
+source commons.sh
 
 sudo touch /etc/timezone
 
@@ -114,7 +69,7 @@ if [ -n "${NO_PROXY:-}" ]; then
     echo "[Service]" | sudo tee /etc/systemd/system/docker.service.d/no-proxy.conf
     echo "Environment=\"NO_PROXY=$NO_PROXY\"" | sudo tee --append /etc/systemd/system/docker.service.d/no-proxy.conf
 fi
-_set_values
+set_values
 
 sudo tee /etc/ansible/ansible.cfg << EOL
 [defaults]
@@ -148,7 +103,7 @@ if [ "${OS_KOLLA_DEPLOY_PROFILE:-complete}" == "minimal" ]; then
     kolla_actions=(bootstrap-servers deploy post-deploy)
 fi
 # Install Ansible Galaxy dependencies (Yoga release onwards)
-if _vercmp "$(pip freeze | grep kolla-ansible | sed 's/^.*=//')" '>=' '14'; then
+if vercmp "$(pip freeze | grep kolla-ansible | sed 's/^.*=//')" '>=' '14'; then
     kolla_actions=(install-deps "${kolla_actions[@]}")
 fi
 for action in "${kolla_actions[@]}"; do
