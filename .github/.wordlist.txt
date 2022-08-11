@@ -4,6 +4,7 @@ BCM
 brightgreen
 Broadcom
 CentOS
+codebase
 contrib
 CPUS
 DHCP
