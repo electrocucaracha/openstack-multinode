@@ -19,8 +19,12 @@ on:
 
 jobs:
   check-versions:
+    name: Update python requirements files
+    permissions:
+      contents: write
+      pull-requests: write
     strategy:
-      max-parallel: 1
+      fail-fast: false
       matrix:
         image: ["quay.io/centos/centos:stream8", "docker.io/library/debian:11", "docker.io/library/ubuntu:20.04"]
     container:
