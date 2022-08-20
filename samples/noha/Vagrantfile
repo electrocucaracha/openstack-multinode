@@ -71,7 +71,8 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
 
   config.vm.provider :libvirt do |v, override|
-    override.vm.synced_folder "../../", "/vagrant", type: "nfs"
+    override.vm.synced_folder "../../", "/vagrant", type: "virtiofs"
+    v.memorybacking :access, :mode => "shared"
     v.cpu_mode = "host-passthrough"
     v.random_hostname = true
     v.management_network_address = "10.0.2.0/24"
@@ -97,7 +98,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<~SHELL
     # Prefer IPv4 over IPv6 in dual-stack environment
     sudo sed -i "s|^#precedence ::ffff:0:0/96  100$|precedence ::ffff:0:0/96  100|g" /etc/gai.conf
-    sudo systemd-resolve --interface eth0 --set-dns 1.1.1.1 --flush-caches
     cat << EOF > /etc/hosts
     127.0.0.1   localhost
     #{hosts}
