@@ -11,7 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o errexit
-if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+if [[ ${OS_DEBUG:-false} == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
@@ -23,9 +23,9 @@ if ! command -v curl; then
     # shellcheck disable=SC1091
     source /etc/os-release || source /usr/lib/os-release
     case ${ID,,} in
-        ubuntu|debian)
-            sudo apt-get update
-            sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends curl
+    ubuntu | debian)
+        sudo apt-get update
+        sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends curl
         ;;
     esac
 fi

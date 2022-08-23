@@ -11,7 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o errexit
-if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+if [[ ${OS_DEBUG:-false} == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
@@ -29,7 +29,7 @@ fi
 # Start local registry
 if [[ -z $(sudo docker ps -aqf "name=registry") ]]; then
     sudo -E docker run -d --name registry --restart=always \
-    -p "${DOCKER_REGISTRY_PORT:-5000}":5000 -v registry:/var/lib/registry registry:2
+        -p "${DOCKER_REGISTRY_PORT:-5000}":5000 -v registry:/var/lib/registry registry:2
 fi
 
 # Configure custom values
@@ -44,27 +44,27 @@ for kv in "tag=${OPENSTACK_TAG:-yoga}" \
     "registry=${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}" \
     "openstack_release=${OPENSTACK_RELEASE:-yoga}" \
     "base=${OS_KOLLA_BASE:-${ID,,}}" \
-    "threads=$(( num_cpus * 2 ))" \
-    "push_threads=$(( num_cpus * 4 ))"; do
+    "threads=$((num_cpus * 2))" \
+    "push_threads=$((num_cpus * 4))"; do
     sudo -E "$(command -v crudini)" --set /etc/kolla/kolla-build.ini DEFAULT "${kv%=*}" "${kv#*=}"
 done
 
 bifrost_header=""
 bifrost_footer=""
-if [ -n "${HTTP_PROXY:-}" ]; then
+if [ -n "${HTTP_PROXY-}" ]; then
     bifrost_header+="ENV http_proxy=$HTTP_PROXY\n"
     bifrost_footer+="ENV http_proxy=\"\"\n"
 fi
-if [ -n "${HTTPS_PROXY:-}" ]; then
+if [ -n "${HTTPS_PROXY-}" ]; then
     bifrost_header+="ENV https_proxy=$HTTPS_PROXY\n"
     bifrost_footer+="ENV https_proxy=\"\"\n"
 fi
-if [ -n "${NO_PROXY:-}" ]; then
+if [ -n "${NO_PROXY-}" ]; then
     bifrost_header+="ENV no_proxy=$NO_PROXY\n"
     bifrost_footer+="ENV no_proxy=\"\"\n"
 fi
 
-cat <<EOL > "$HOME/template-overrides.j2"
+cat <<EOL >"$HOME/template-overrides.j2"
 {% extends parent_template %}
 
 {% block bifrost_base_header %}
@@ -85,8 +85,8 @@ newgrp docker <<EONG
 
 SNAP=$HOME/.local/ $kolla_cmd | jq "." | tee "$HOME/output.json"
 EONG
-if [[ $(jq  '.failed | length ' "$HOME/output.json") != 0 ]]; then
-    for image in $(jq  -r '.failed[].name' "$HOME/output.json"); do
+if [[ $(jq '.failed | length ' "$HOME/output.json") != 0 ]]; then
+    for image in $(jq -r '.failed[].name' "$HOME/output.json"); do
         image_name="${OS_KOLLA_BASE:-${ID,,}}-source-$image:${OPENSTACK_TAG:-yoga}"
         if [ "$(curl "http://localhost:5000/v2/kolla/${image_name%:*}/tags/list" -o /dev/null -w '%{http_code}\n' -s)" != "200" ] || [ "$(curl "http://localhost:5000/v2/kolla/${image_name%:*}/manifests/${image_name#*:}" -o /dev/null -w '%{http_code}\n' -s)" != "200" ]; then
             local_img_name="${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/kolla/$image_name"

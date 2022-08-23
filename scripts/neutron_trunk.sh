@@ -11,7 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o errexit
-if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+if [[ ${OS_DEBUG:-false} == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
@@ -21,9 +21,9 @@ subnet_prefix=demo-subnet
 port_prefix=demo-port
 
 # PEP 370 -- Per user site-packages directory
-[[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
+[[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 
-if ! command -v neutron > /dev/null; then
+if ! command -v neutron >/dev/null; then
     pip install python-neutronclient
 fi
 
@@ -50,13 +50,13 @@ if ! openstack network trunk list -c Name | grep -q "trunk1"; then
 fi
 for i in $(seq 1 5); do
     openstack network trunk set \
-    --subport port="$port_prefix$i,segmentation-type=vlan,segmentation-id=$i" \
-    trunk1
+        --subport port="$port_prefix$i,segmentation-type=vlan,segmentation-id=$i" \
+        trunk1
 done
 openstack network trunk show trunk1
 
 if ! openstack server list -c Name | grep -q "demo1"; then
     openstack server create --image cirros --flavor m1.tiny \
-    --key-name mykey --port trunk-parent --use-config-drive \
-    demo1
+        --key-name mykey --port trunk-parent --use-config-drive \
+        demo1
 fi

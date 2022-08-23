@@ -11,7 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o errexit
-if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+if [[ ${OS_DEBUG:-false} == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
@@ -48,7 +48,7 @@ mgmt_ip=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $7 }')
 if ip route | grep -q "^10.10"; then
     public_nic=$(ip route | grep "^10.10" | awk '{ print $3 }')
 else
-    if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE:-}" ]; then
+    if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE-}" ]; then
         echo "ERROR: Using the management network interface as Neutron External can result in losing external connectivity"
         exit 1
     fi
@@ -60,7 +60,7 @@ export DOCKER_REGISTRY_PORT=${DOCKER_REGISTRY_PORT:-6000}
 OS_FOLDER=${OS_FOLDER:-/opt/openstack-multinode}
 export OS_KOLLA_KOLLA_INTERNAL_VIP_ADDRESS=${OS_KOLLA_KOLLA_INTERNAL_VIP_ADDRESS:-$mgmt_ip}
 export OS_KOLLA_NETWORK_INTERFACE=$mgmt_nic
-if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE:-}" ]; then
+if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE-}" ]; then
     export OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE=$public_nic
 fi
 
@@ -80,9 +80,9 @@ if ! sudo -n "true"; then
 fi
 
 # Validating local IP addresses in no_proxy environment variable
-if [ -n "${NO_PROXY:-}" ]; then
+if [ -n "${NO_PROXY-}" ]; then
     for ip in $(hostname --ip-address || hostname -i) ${mgmt_ip} ${public_ip}; do
-        if [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$  &&  $NO_PROXY != *"$ip"* ]]; then
+        if [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ && $NO_PROXY != *"$ip"* ]]; then
             echo "The $ip IP address is not defined in NO_PROXY env"
             exit 1
         fi
@@ -136,8 +136,8 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
     pip install --ignore-installed --no-warn-script-location python-openstackclient
 
     # PEP 370 -- Per user site-packages directory
-    [[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
-    openstack complete | sudo tee /etc/bash_completion.d/osc.bash_completion > /dev/null
+    [[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
+    openstack complete | sudo tee /etc/bash_completion.d/osc.bash_completion >/dev/null
 
     sudo chown "$USER:" /etc/kolla/admin-openrc.sh
     # shellcheck disable=SC1091

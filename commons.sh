@@ -11,7 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o errexit
-if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+if [[ ${OS_DEBUG:-false} == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
@@ -19,8 +19,8 @@ fi
 function set_values {
     for env_var in $(printenv | grep "OS_KOLLA_"); do
         sudo --preserve-env="${env_var%=*}" "$(command -v yq)" e -i \
-        ".$(echo "${env_var%=*}" |  tr '[:upper:]' '[:lower:]' | sed 's/os_kolla_//g') = strenv(${env_var%=*})" \
-        /etc/kolla/globals.yml
+            ".$(echo "${env_var%=*}" | tr '[:upper:]' '[:lower:]' | sed 's/os_kolla_//g') = strenv(${env_var%=*})" \
+            /etc/kolla/globals.yml
     done
 }
 
@@ -35,29 +35,29 @@ function vercmp {
     result=$(echo -e "$v1\n$v2" | sort -V | head -1)
 
     case $op in
-        "==")
-            [ "$v1" = "$v2" ]
-            return
-            ;;
-        ">")
-            [ "$v1" != "$v2" ] && [ "$result" = "$v2" ]
-            return
-            ;;
-        "<")
-            [ "$v1" != "$v2" ] && [ "$result" = "$v1" ]
-            return
-            ;;
-        ">=")
-            [ "$result" = "$v2" ]
-            return
-            ;;
-        "<=")
-            [ "$result" = "$v1" ]
-            return
-            ;;
-        *)
-            echo "unrecognised op: $op"
-            exit 1
-            ;;
+    "==")
+        [ "$v1" = "$v2" ]
+        return
+        ;;
+    ">")
+        [ "$v1" != "$v2" ] && [ "$result" = "$v2" ]
+        return
+        ;;
+    "<")
+        [ "$v1" != "$v2" ] && [ "$result" = "$v1" ]
+        return
+        ;;
+    ">=")
+        [ "$result" = "$v2" ]
+        return
+        ;;
+    "<=")
+        [ "$result" = "$v1" ]
+        return
+        ;;
+    *)
+        echo "unrecognised op: $op"
+        exit 1
+        ;;
     esac
 }

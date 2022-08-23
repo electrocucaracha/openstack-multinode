@@ -1,0 +1,39 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2022
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+name: Check Bash scripts
+# yamllint disable-line rule:truthy
+on:
+  push:
+    paths:
+      - '*.sh'
+  pull_request_review:
+    types:
+      - submitted
+
+jobs:
+  check-format:
+    name: Check scripts format
+    if: >-
+      (
+        github.event_name == 'pull_request_review' &&
+        github.event.review.state == 'approved'
+      ) ||
+      github.event_name != 'pull_request_review'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run the sh-checker
+        uses: luizm/action-sh-checker@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHFMT_OPTS: -i 4 -s
+        with:
+          sh_checker_shellcheck_disable: true

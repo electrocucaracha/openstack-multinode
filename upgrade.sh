@@ -11,7 +11,7 @@
 set -o nounset
 set -o pipefail
 set -o errexit
-if [[ "${OS_DEBUG:-false}" == "true" ]]; then
+if [[ ${OS_DEBUG:-false} == "true" ]]; then
     set -o xtrace
 fi
 set -o xtrace
@@ -22,7 +22,7 @@ source commons.sh
 source /etc/os-release || source /usr/lib/os-release
 
 # PEP 370 -- Per user site-packages directory
-[[ "$PATH" != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
+[[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 
 function print_state {
     if command -v openstack; then
@@ -59,5 +59,5 @@ set_values
 for action in pull upgrade; do
     ./run_kaction.sh "$action" | tee "$HOME/upgrade-$action.log"
     echo "Kolla Action statistics:"
-    grep ': .* -* .*s$' "$HOME/upgrade-$action.log" ||:
+    grep ': .* -* .*s$' "$HOME/upgrade-$action.log" || :
 done
