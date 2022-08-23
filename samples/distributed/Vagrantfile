@@ -206,9 +206,6 @@ Vagrant.configure("2") do |config|
         sudo chown "$USER" /etc/kolla/passwords.yml
 
         ./undercloud.sh | tee ~/undercloud.log
-
-        source /etc/kolla/admin-openrc.sh
-        /opt/kolla-ansible/tools/init-runonce
       SHELL
     end
   end
