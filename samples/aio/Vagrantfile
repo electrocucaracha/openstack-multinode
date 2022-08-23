@@ -102,15 +102,15 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", privileged: false do |sh|
     sh.env = {
       SOCKS_PROXY: socks_proxy.to_s,
-      OPENSTACK_RELEASE: ENV["OPENSTACK_RELEASE"],
+      OPENSTACK_RELEASE: ENV.fetch("OPENSTACK_RELEASE", nil),
       OS_FOLDER: "/vagrant/",
       OS_KOLLA_DEPLOY_PROFILE: "minimal",
-      ENABLE_WEAVE_SCOPE: ENV["ENABLE_WEAVE_SCOPE"],
-      OS_KOLLA_RUN_INIT: ENV["OS_KOLLA_RUN_INIT"],
+      ENABLE_WEAVE_SCOPE: ENV.fetch("ENABLE_WEAVE_SCOPE", nil),
+      OS_KOLLA_RUN_INIT: ENV.fetch("OS_KOLLA_RUN_INIT", nil),
       OS_KOLLA_KOLLA_BASE_DISTRO: os_distro.to_s,
       OPENSTACK_NODE_ROLES: "compute",
       OS_KOLLA_ENABLE_HEAT: "no",
-      OS_KOLLA_ENABLE_HORIZON: ENV["OS_KOLLA_ENABLE_HORIZON"],
+      OS_KOLLA_ENABLE_HORIZON: ENV.fetch("OS_KOLLA_ENABLE_HORIZON", nil),
       OS_KOLLA_ENABLE_MAGNUM: enable_magnum.to_s,
       OS_KOLLA_ENABLE_NEUTRON_PROVIDER_NETWORKS: "yes",
       EXT_NET_RANGE: "start=10.0.2.20,end=10.0.2.100",
@@ -149,7 +149,7 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.provider "virtualbox" do |v, _override|
+  config.vm.provider "virtualbox" do |v|
     v.gui = false
     v.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
     v.customize ["modifyvm", :id, "--nictype1", "virtio", "--cableconnected1", "on", "--nicpromisc1", "allow-all"]
@@ -168,7 +168,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :libvirt do |v, override|
     override.vm.synced_folder "../../", "/vagrant", type: "virtiofs"
-    v.memorybacking :access, :mode => "shared"
+    v.memorybacking :access, mode: "shared"
     v.disk_bus = "sata"
     v.cputopology sockets: ENV["SOCKETS"] || 1, cores: ENV["CORES"] || 4, threads: ENV["THREADS"] || 2 # Intel Core i5-10210U Processor
     v.cpu_mode = "host-passthrough"
