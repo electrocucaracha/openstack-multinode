@@ -10,8 +10,8 @@ management systems which help to solve the availability, management
 and scalability aspects of deployment. These are some of the benefits
 of using a containerized deployment:
 
-* **OS agnostic:** Ability to run on any platform, regardless of the
-physical host OS.
+~~* **OS agnostic:** Ability to run on any platform, regardless of the
+physical host OS.~~
 * **Easy to scale up/down:** The operation to add/remove OpenStack
 compute nodes is performed through starting/stopping containers.
 * **Fast deployment:** Containers already have binaries and
