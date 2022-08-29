@@ -12,6 +12,11 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+if [ -f /etc/netplan/01-netcfg.yaml ]; then
+    sudo sed -i "s/addresses: .*/addresses: [1.1.1.1, 8.8.8.8, 8.8.4.4]/g" /etc/netplan/01-netcfg.yaml
+    sudo netplan apply
+fi
+
 # shellcheck disable=SC1091
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
