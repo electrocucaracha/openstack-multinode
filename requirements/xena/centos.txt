@@ -41,7 +41,7 @@ jinja2==3.0.3
     #   kolla-ansible
 jmespath==0.10.0
     # via kolla-ansible
-kolla-ansible==13.3.0
+kolla-ansible==13.4.0
     # via -r requirements/xena/centos.in
 markupsafe==2.0.1
     # via jinja2
