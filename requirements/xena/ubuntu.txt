@@ -12,7 +12,7 @@ certifi==2022.6.15
     # via requests
 cffi==1.15.1
     # via cryptography
-charset-normalizer==2.1.0
+charset-normalizer==2.1.1
     # via requests
 cryptography==37.0.4
     # via
@@ -34,7 +34,7 @@ jinja2==3.1.2
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==13.2.0
+kolla-ansible==13.4.0
     # via -r requirements/xena/ubuntu.in
 markupsafe==2.1.1
     # via jinja2
@@ -52,13 +52,13 @@ oslo-i18n==5.1.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==6.0.0
+oslo-utils==6.0.1
     # via kolla-ansible
 packaging==21.3
     # via
     #   ansible-core
     #   oslo-utils
-pbr==5.9.0
+pbr==5.10.0
     # via
     #   kolla-ansible
     #   oslo-i18n
@@ -69,7 +69,7 @@ pyparsing==3.0.9
     # via
     #   oslo-utils
     #   packaging
-pytz==2022.1
+pytz==2022.2.1
     # via oslo-utils
 pyyaml==6.0
     # via
@@ -88,7 +88,7 @@ six==1.16.0
     # via hvac
 stevedore==4.0.0
     # via oslo-config
-urllib3==1.26.11
+urllib3==1.26.12
     # via requests
 wrapt==1.14.1
     # via debtcollector
