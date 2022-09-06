@@ -14,16 +14,26 @@ set -o errexit
 if [[ ${OS_DEBUG:-false} == "true" ]]; then
     set -o xtrace
 fi
-set -o xtrace
 
 # NOTE: PYTHONPATH helps to pass the kolla_ansible module verification using Ansible's python
 PYTHONPATH="$(python -c 'import sys; print(":".join(sys.path))')"
 export PYTHONPATH
 
-kolla-ansible \
-    -e "ansible_user=$USER" \
-    -e 'ansible_become=true' \
-    -e 'ansible_become_method=sudo' \
-    "$1" \
-    -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" \
-    --yes-i-really-really-mean-it
+if [[ ${OS_DEBUG:-false} == "true" ]]; then
+    kolla-ansible \
+        -e "ansible_user=$USER" \
+        -e 'ansible_become=true' \
+        -e 'ansible_become_method=sudo' \
+        --verbose \
+        "$1" \
+        -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" \
+        --yes-i-really-really-mean-it
+else
+    kolla-ansible \
+        -e "ansible_user=$USER" \
+        -e 'ansible_become=true' \
+        -e 'ansible_become_method=sudo' \
+        "$1" \
+        -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" \
+        --yes-i-really-really-mean-it
+fi
