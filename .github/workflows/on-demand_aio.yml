@@ -70,6 +70,7 @@ jobs:
           OS_KOLLA_RUN_INIT: false
           OS_DISTRO: ${{ matrix.distro }}
           OS_KOLLA_ENABLE_HORIZON: "no"
+          OS_KOLLA_KOLLA_INSTALL_TYPE: "source"
         run: |
           cd samples/aio
           OPENSTACK_RELEASE="$(sed -n '2p' ../../releases.txt)" vagrant up
