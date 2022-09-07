@@ -33,7 +33,7 @@ prechecks_enable_host_ntp_checks: false
 kolla_base_distro: "centos"
 
 # Valid options are [ binary, source ]
-#kolla_install_type: "source"
+kolla_install_type: "binary"
 
 # Do not override this unless you know what you are doing.
 openstack_release: "master"
