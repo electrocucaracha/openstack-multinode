@@ -70,6 +70,9 @@ Vagrant.configure("2") do |config|
   config.vm.box_version = vagrant_boxes["ubuntu"]["focal"]["version"]
   config.ssh.insert_key = false
 
+  # Basic requirements installation
+  config.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
+
   config.vm.provider :libvirt do |v, override|
     override.vm.synced_folder "../../", "/vagrant", type: "virtiofs"
     v.memorybacking :access, mode: "shared"
@@ -146,9 +149,6 @@ Vagrant.configure("2") do |config|
     controller.vm.hostname = "controller"
     controller.vm.network :private_network, ip: controller_ip.to_s, type: :static, libvirt__network_name: "tunnel-net", nic_type: "virtio", virtualbox__intnet: true
     controller.vm.network :public_network, dev: public_nic, bridge: vb_public_nic, auto_config: false
-
-    # Basic requirements installation
-    controller.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
 
     # SSH Keys configuration
     controller.vm.provision "shell", privileged: false, inline: <<-SHELL
