@@ -32,8 +32,5 @@ fi
 # Install dependencies
 
 # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
-curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,bindep" bash
-if [ -n "$(bindep compute -b)" ]; then
-    curl -fsSL http://bit.ly/install_pkg | PKG="$(bindep compute -b)" bash
-fi
+curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=compute bash
 sudo -E "$(command -v pip)" install docker
