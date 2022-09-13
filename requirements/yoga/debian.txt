@@ -6,7 +6,7 @@
 #
 ansible==5.10.0
     # via -r requirements/yoga/debian.in
-ansible-core==2.12.8
+ansible-core==2.12.9
     # via ansible
 certifi==2022.6.15.1
     # via requests
