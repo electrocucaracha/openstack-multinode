@@ -32,7 +32,7 @@ source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
 ubuntu | debian)
     sanity_pkgs=""
-    for pkg in python-cryptography python3-distro-info python3-debian; do
+    for pkg in python-cryptography python3-distro-info python3-debian python3-openssl; do
         if sudo dpkg -l "$pkg" >/dev/null; then
             sanity_pkgs+="$pkg "
         fi
