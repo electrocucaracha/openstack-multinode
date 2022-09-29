@@ -33,7 +33,7 @@ importlib-metadata==4.8.3
     #   stevedore
 importlib-resources==5.4.0
     # via netaddr
-iso8601==1.0.2
+iso8601==1.1.0
     # via oslo.utils
 jinja2==3.0.3
     # via
