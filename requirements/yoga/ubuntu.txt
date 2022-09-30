@@ -6,15 +6,15 @@
 #
 ansible==5.10.0
     # via -r requirements/yoga/ubuntu.in
-ansible-core==2.12.8
+ansible-core==2.12.9
     # via ansible
-certifi==2022.6.15
+certifi==2022.9.24
     # via requests
 cffi==1.15.1
     # via cryptography
 charset-normalizer==2.1.1
     # via requests
-cryptography==37.0.4
+cryptography==38.0.1
     # via
     #   ansible-core
     #   kolla-ansible
@@ -22,11 +22,11 @@ debtcollector==2.5.0
     # via
     #   oslo-config
     #   oslo-utils
-hvac==0.11.2
+hvac==1.0.2
     # via kolla-ansible
-idna==3.3
+idna==3.4
     # via requests
-iso8601==1.0.2
+iso8601==1.1.0
     # via oslo-utils
 jinja2==3.1.2
     # via
@@ -65,6 +65,8 @@ pbr==5.10.0
     #   stevedore
 pycparser==2.21
     # via cffi
+pyhcl==0.4.4
+    # via hvac
 pyparsing==3.0.9
     # via
     #   oslo-utils
@@ -84,8 +86,6 @@ resolvelib==0.5.4
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-six==1.16.0
-    # via hvac
 stevedore==4.0.0
     # via oslo-config
 urllib3==1.26.12

@@ -8,13 +8,13 @@ ansible==4.10.0
     # via -r requirements/yoga/centos.in
 ansible-core==2.11.12
     # via ansible
-certifi==2022.6.15
+certifi==2022.9.24
     # via requests
 cffi==1.15.1
     # via cryptography
 charset-normalizer==2.0.12
     # via requests
-cryptography==37.0.4
+cryptography==38.0.1
     # via
     #   ansible-core
     #   kolla-ansible
@@ -22,9 +22,9 @@ debtcollector==2.5.0
     # via
     #   oslo.config
     #   oslo.utils
-hvac==0.11.2
+hvac==1.0.2
     # via kolla-ansible
-idna==3.3
+idna==3.4
     # via requests
 importlib-metadata==4.8.3
     # via
@@ -33,7 +33,7 @@ importlib-metadata==4.8.3
     #   stevedore
 importlib-resources==5.4.0
     # via netaddr
-iso8601==1.0.2
+iso8601==1.1.0
     # via oslo.utils
 jinja2==3.0.3
     # via
@@ -73,6 +73,8 @@ pbr==5.10.0
     #   stevedore
 pycparser==2.21
     # via cffi
+pyhcl==0.4.4
+    # via hvac
 pyparsing==3.0.9
     # via
     #   oslo.utils
@@ -92,8 +94,6 @@ resolvelib==0.5.4
     # via ansible-core
 rfc3986==1.5.0
     # via oslo.config
-six==1.16.0
-    # via hvac
 stevedore==3.5.0
     # via oslo.config
 typing-extensions==4.1.1
