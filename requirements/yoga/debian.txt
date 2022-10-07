@@ -34,7 +34,7 @@ jinja2==3.1.2
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==14.4.0
+kolla-ansible==14.5.0
     # via -r requirements/yoga/debian.in
 markupsafe==2.1.1
     # via jinja2
