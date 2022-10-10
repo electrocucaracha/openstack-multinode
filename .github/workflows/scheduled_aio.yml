@@ -1,0 +1,60 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2022
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+name: Scheduled OpenStack All-in-One verification
+# yamllint disable-line rule:truthy
+on:
+  schedule:
+    - cron: '0 0 * * 5'
+  workflow_dispatch:
+
+jobs:
+  generate-json-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.1.0
+      - name: Get matrix values
+        id: set-matrix
+        run: |
+          if ! command -v shyaml; then
+              if ! command -v pip; then
+                  apt-get update
+                  apt-get install -y --no-install-recommends python3-pip
+              fi
+              pip install shyaml
+          fi
+          if ! command -v jq; then
+              apt-get update
+              apt-get install -y --no-install-recommends jq
+          fi
+          echo "::set-output name=matrix::$(shyaml keys < distros_supported.yml|jq -cnR '[inputs | select(length>0)]')"
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+  check-aio-vms:
+    name: Check All-in-One deployment on Virtual Machines
+    needs: generate-json-matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3.1.0
+      - uses: ./.github/actions/vagrant-setup
+      - name: Deploy previous release in All-in-One instance
+        env:
+          VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+          VAGRANT_EXPERIMENTAL: disks
+          CPUS: 2
+          MEMORY: 12288
+          OS_DISTRO: ${{ matrix.distro }}
+        run: |
+          cd samples/aio
+          vagrant up
