@@ -21,7 +21,7 @@ jobs:
       contents: write  # for technote-space/create-pr-action to push code
       pull-requests: write  # for technote-space/create-pr-action to create a PR
     name: Check for latest Vagrant box versions
-    runs-on: ubuntu-latest
+    runs-on: macos-12
     steps:
       - uses: actions/checkout@v3.1.0
       - uses: actions/cache@v3.0.10

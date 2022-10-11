@@ -25,6 +25,12 @@ on:
 jobs:
   generate-json-matrix:
     runs-on: ubuntu-latest
+    if: >-
+      (
+        github.event_name == 'pull_request_review' &&
+        github.event.review.state == 'approved'
+      ) ||
+      github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@v3.1.0
       - name: Get matrix values
@@ -52,15 +58,11 @@ jobs:
       matrix:
         distro: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     runs-on: macos-12
-    if: >-
-      (
-        github.event_name == 'pull_request_review' &&
-        github.event.review.state == 'approved'
-      ) ||
-      github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@v3.1.0
       - uses: ./.github/actions/vagrant-setup
+        with:
+          distro: ${{ matrix.distro }}
       - name: Deploy previous release in All-in-One instance
         env:
           VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
