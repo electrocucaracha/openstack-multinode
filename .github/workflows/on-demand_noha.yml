@@ -47,16 +47,14 @@ jobs:
         env:
           MEMORY: 12288
           CPUS: 3
-        run: |
-          cd samples/noha/
-          vagrant up compute01
+        working-directory: ./samples/noha
+        run: vagrant up compute01
       - name: Reload OpenStack Compute nodes
         env:
           MEMORY: 4096
           CPUS: 1
-        run: |
-          cd samples/noha/
-          vagrant reload compute01
+        working-directory: ./samples/noha
+        run: vagrant reload compute01
 # NOTE: macOS provides 3 vCPUS and 14 GB of RAM (https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
       - name: Deploy OpenStack Control nodes
         env:
@@ -64,9 +62,8 @@ jobs:
           OS_ENABLE_LOCAL_REGISTRY: false
           MEMORY: 8192
           CPUS: 2
-        run: |
-          cd samples/noha/
-          vagrant up controller
+        working-directory: ./samples/noha
+        run: vagrant up controller
       - name: Check HW resources
         if: always()
         run: |
