@@ -6,7 +6,7 @@
 #
 ansible==5.10.0
     # via -r requirements/yoga/ubuntu.in
-ansible-core==2.12.9
+ansible-core==2.12.10
     # via ansible
 certifi==2022.9.24
     # via requests
@@ -14,7 +14,7 @@ cffi==1.15.1
     # via cryptography
 charset-normalizer==2.1.1
     # via requests
-cryptography==38.0.1
+cryptography==38.0.2
     # via
     #   ansible-core
     #   kolla-ansible
