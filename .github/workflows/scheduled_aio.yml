@@ -55,6 +55,5 @@ jobs:
           CPUS: 2
           MEMORY: 12288
           OS_DISTRO: ${{ matrix.distro }}
-        run: |
-          cd samples/aio
-          vagrant up
+        working-directory: ./samples/aio
+        run: vagrant up

@@ -71,4 +71,5 @@ jobs:
           VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
           OS_DISTRO: ${{ matrix.distro }}
           OS_KOLLA_BUILD_ARGS: ${{ matrix.image }} --registry 127.0.0.1:5000 --push --threads 2 --quiet --retries 5 --cache --push-threads 2 --base ${{ matrix.distro }}
-        run: cd samples/distributed/; vagrant up registry
+        working-directory: ./samples/distributed
+        run: vagrant up registry
