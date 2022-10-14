@@ -94,7 +94,7 @@ resolvelib==0.5.4
     # via ansible-core
 rfc3986==1.5.0
     # via oslo.config
-stevedore==3.5.0
+stevedore==3.5.1
     # via oslo.config
 typing-extensions==4.1.1
     # via importlib-metadata
