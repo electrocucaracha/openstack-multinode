@@ -86,7 +86,7 @@ resolvelib==0.5.4
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-stevedore==4.0.0
+stevedore==4.0.1
     # via oslo-config
 urllib3==1.26.12
     # via requests
