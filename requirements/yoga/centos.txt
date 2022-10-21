@@ -65,7 +65,7 @@ packaging==21.3
     # via
     #   ansible-core
     #   oslo.utils
-pbr==5.10.0
+pbr==5.11.0
     # via
     #   kolla-ansible
     #   oslo.i18n
@@ -94,7 +94,7 @@ resolvelib==0.5.4
     # via ansible-core
 rfc3986==1.5.0
     # via oslo.config
-stevedore==3.5.1
+stevedore==3.5.2
     # via oslo.config
 typing-extensions==4.1.1
     # via importlib-metadata
