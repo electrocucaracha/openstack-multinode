@@ -98,7 +98,7 @@ stevedore==3.5.2
     # via oslo.config
 typing-extensions==4.1.1
     # via importlib-metadata
-urllib3==1.26.12
+urllib3==1.26.13
     # via requests
 wrapt==1.14.1
     # via debtcollector
