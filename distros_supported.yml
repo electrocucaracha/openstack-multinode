@@ -17,7 +17,7 @@ ubuntu:
   focal:
     name: generic/ubuntu2004
     vb_controller: IDE Controller
-    version: "4.1.18"
+    version: "4.2.4"
 debian:
   bullseye:
     name: debian/bullseye64
