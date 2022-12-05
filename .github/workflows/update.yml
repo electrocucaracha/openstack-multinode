@@ -46,7 +46,7 @@ jobs:
           esac
           $INSTALLER_CMD python3-pip git
           pip3 install pip-tools
-      - uses: technote-space/create-pr-action@v2.1.3
+      - uses: technote-space/create-pr-action@v2.1.4
         with:
           EXECUTE_COMMANDS: |
             bash -c 'source /etc/os-release; for requirements in $(find requirements/ -name ${ID,,}.in); do pip-compile --output-file="$(dirname $requirements)/${ID,,}.txt" "$requirements" --upgrade; done'
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
-      - uses: technote-space/create-pr-action@v2.1.3
+      - uses: technote-space/create-pr-action@v2.1.4
         with:
           EXECUTE_COMMANDS: |
             sudo apt-get update
