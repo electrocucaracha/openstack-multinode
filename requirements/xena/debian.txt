@@ -5,10 +5,10 @@
 #    pip-compile --output-file=requirements/xena/debian.txt requirements/xena/debian.in
 #
 ansible==4.10.0
-    # via -r requirements/xena/debian.in
+    # via -r debian.in
 ansible-core==2.11.12
     # via ansible
-certifi==2022.9.24
+certifi==2022.12.7
     # via requests
 cffi==1.15.1
     # via cryptography
@@ -35,11 +35,11 @@ jinja2==3.1.2
 jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==13.6.0
-    # via -r requirements/xena/debian.in
+    # via -r debian.in
 markupsafe==2.1.1
     # via jinja2
 mitogen==0.3.3
-    # via -r requirements/xena/debian.in
+    # via -r debian.in
 netaddr==0.8.0
     # via
     #   oslo-config
