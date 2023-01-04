@@ -8,13 +8,13 @@ ansible==4.10.0
     # via -r requirements/xena/centos.in
 ansible-core==2.11.12
     # via ansible
-certifi==2022.9.24
+certifi==2022.12.7
     # via requests
 cffi==1.15.1
     # via cryptography
 charset-normalizer==2.0.12
     # via requests
-cryptography==38.0.4
+cryptography==39.0.0
     # via
     #   ansible-core
     #   kolla-ansible
@@ -41,7 +41,7 @@ jinja2==3.0.3
     #   kolla-ansible
 jmespath==0.10.0
     # via kolla-ansible
-kolla-ansible==13.6.0
+kolla-ansible==13.7.0
     # via -r requirements/xena/centos.in
 markupsafe==2.0.1
     # via jinja2
@@ -79,7 +79,7 @@ pyparsing==3.0.9
     # via
     #   oslo.utils
     #   packaging
-pytz==2022.6
+pytz==2022.7
     # via oslo.utils
 pyyaml==6.0
     # via
