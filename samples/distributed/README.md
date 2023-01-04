@@ -8,7 +8,7 @@ The system that will host VMs for the solution must be big enough to
 support the +10 Virtual Machines displayed at above diagram.
 
 Some configuration details can be configured for the *Distributed*
-setup using its [pdf.yml](pdf.yml).
+setup using its [PDF](pdf.yml).
 
 ### Current configuration
 

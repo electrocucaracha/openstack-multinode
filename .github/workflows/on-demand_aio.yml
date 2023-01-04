@@ -47,7 +47,7 @@ jobs:
               apt-get update
               apt-get install -y --no-install-recommends jq
           fi
-          echo "::set-output name=matrix::$(shyaml keys < distros_supported.yml|jq -cnR '[inputs | select(length>0)]')"
+          echo "matrix=$(shyaml keys < distros_supported.yml|jq -cnR '[inputs | select(length>0)]')"
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
   check-aio-vms:
