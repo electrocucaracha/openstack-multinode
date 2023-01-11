@@ -25,7 +25,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        image: ["quay.io/centos/centos:stream8", "docker.io/library/debian:11", "docker.io/library/ubuntu:20.04"]
+        image: ["quay.io/centos/centos:stream8", "docker.io/library/debian:11", "docker.io/library/ubuntu:20.04", "docker.io/library/rockylinux:9"]
     container:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
                   apt update
                   INSTALLER_CMD="apt-get -y --no-install-recommends -q=3 install"
               ;;
-              rhel|centos|fedora)
+              rhel|centos|fedora|rocky)
                   INSTALLER_CMD="$(command -v dnf || command -v yum) -y --quiet --errorlevel=0 install"
               ;;
           esac

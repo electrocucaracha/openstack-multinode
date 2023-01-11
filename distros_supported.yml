@@ -8,6 +8,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+rocky:
+  9:
+    name: rockylinux/9
+    vb_controller: IDE Controller
+    version: "1.0.0"
 centos:
   8:
     name: centos/stream8
