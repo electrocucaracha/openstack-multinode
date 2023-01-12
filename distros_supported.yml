@@ -13,11 +13,6 @@ rocky:
     name: rockylinux/9
     vb_controller: IDE Controller
     version: "1.0.0"
-centos:
-  8:
-    name: centos/stream8
-    vb_controller: IDE
-    version: "20210210.0"
 ubuntu:
   focal:
     name: generic/ubuntu2004
