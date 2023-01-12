@@ -20,7 +20,7 @@ no_proxy = ENV["NO_PROXY"] || ENV["no_proxy"] || "127.0.0.1,localhost"
   no_proxy += ",10.0.2.#{i}"
 end
 socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
-os_distro = ENV["OS_DISTRO"] || "centos"
+os_distro = ENV["OS_DISTRO"] || "debian"
 box = vagrant_boxes[os_distro][vagrant_boxes[os_distro].keys.first]
 enable_magnum = ENV["OS_KOLLA_ENABLE_MAGNUM"] || "no"
 
