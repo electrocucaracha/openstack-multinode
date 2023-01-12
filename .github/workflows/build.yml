@@ -50,7 +50,7 @@ jobs:
         include:
           - distro: ubuntu
             image: nova
-          - distro: centos
+          - distro: rocky
             image: glance
           - distro: debian
             image: neutron
