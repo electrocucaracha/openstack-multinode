@@ -140,16 +140,14 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
     openstack complete | sudo tee /etc/bash_completion.d/osc.bash_completion >/dev/null
 
     sudo chown "$USER:" /etc/kolla/admin-openrc.sh
+    # https://docs.openstack.org/openstacksdk/latest/user/guides/connect_from_config.html
+    sudo chown "$USER:" /etc/kolla/clouds.yaml || :
     # shellcheck disable=SC1091
     source /etc/kolla/admin-openrc.sh
-    curl -fsSL "https://raw.githubusercontent.com/openstack/kolla-ansible/${OS_KOLLA_VERSION:-stable/yoga}/tools/init-runonce" | bash
+    curl -fsSL "https://raw.githubusercontent.com/openstack/kolla-ansible/${OS_KOLLA_VERSION:-stable/zed}/tools/init-runonce" | bash
 
-    if [ "${OS_KOLLA_ENABLE_MAGNUM:-no}" == "yes" ]; then
-        ./scripts/magnum.sh
-    fi
-    if [ "${OS_KOLLA_ENABLE_NEUTRON_TRUNK:-yes}" == "yes" ]; then
-        ./scripts/neutron_trunk.sh
-    fi
+    [ "${OS_KOLLA_ENABLE_MAGNUM:-no}" == "yes" ] && ./scripts/magnum.sh
+    [ "${OS_KOLLA_ENABLE_NEUTRON_TRUNK:-yes}" == "yes" ] && ./scripts/neutron_trunk.sh
 fi
 
 echo "Statistics:"

@@ -36,6 +36,7 @@ File.open("#{File.dirname(__FILE__)}/header.ini", "w") do |inventory_file|
   (1..num_compute_nodes.to_i).each do |i|
     inventory_file.puts("compute#{i.to_s.rjust(2, '0')}")
   end
+  inventory_file.puts("\n[monitoring]\ncontroller\n")
 end
 hosts = "#{controller_ip}  controller\n"
 (1..num_compute_nodes.to_i).each do |i|
