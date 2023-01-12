@@ -21,8 +21,9 @@ fi
 source /etc/os-release || source /usr/lib/os-release
 case ${ID,,} in
 ubuntu | debian)
-    if [ "${ID,,}" == "ubuntu" ] && command -v systemd-resolve && (! systemd-resolve --status | grep -q 1.1.1.1); then
-        sudo systemd-resolve --interface "$(ip route get 1.1.1.1 | grep "^1." | awk '{ print $5 }')" --set-dns 1.1.1.1
+    nic="$(ip route get 1.1.1.1 | grep "^1." | awk '{ print $5 }' || :)"
+    if [ "${ID,,}" == "ubuntu" ] && [ -n "$nic" ] && command -v systemd-resolve && (! systemd-resolve --status | grep -q 1.1.1.1); then
+        sudo systemd-resolve --interface "$nic" --set-dns 1.1.1.1
     fi
     if ! command -v curl; then
         sudo apt-get update -qq >/dev/null
