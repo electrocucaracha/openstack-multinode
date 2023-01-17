@@ -37,3 +37,14 @@ jobs:
           SHFMT_OPTS: -i 4 -s
         with:
           sh_checker_shellcheck_disable: true
+          sh_checker_exclude: "spec/"
+  check-bash-shellspec:
+    name: Run BDD shell specs for Bash demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - name: Install ShellSpec
+        run: curl -fsSL https://github.com/shellspec/shellspec/releases/latest/download/shellspec-dist.tar.gz | tar -xz -C ..
+      - name: Run Shellspec
+        shell: 'script -q -e -c "bash {0}"'
+        run: ../shellspec/shellspec --profile --xtrace
