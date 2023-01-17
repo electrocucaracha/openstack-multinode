@@ -40,10 +40,10 @@ place to another with ease.
 Almost all the technology giants have been shift their focus to
 container based architecture.
 
-[Kolla][1] is an OpenStack project which aims to provide
-production-ready containers for OpenStack deployment and management.
-This repository offers instructions to deploy OpenStack services
-through the use of [Kolla][1] installer in the following
+[Kolla][1](from [Greek][2] "κολλα" which means "glue") is an OpenStack
+project which aims to provide production-ready containers for OpenStack
+deployment and management. This repository offers instructions to deploy
+OpenStack services through the use of [Kolla][1] installer in the following
 configurations:
 
 * [All-in-One](samples/aio/): OpenStack Controller and Compute roles
@@ -87,3 +87,4 @@ Thanks to all the people who already contributed!
 ![Visualization of the codebase](./codebase-structure.svg)
 
 [1]: https://docs.openstack.org/kolla/latest/
+[2]: https://lists.openstack.org/pipermail/openstack-dev/2014-September/046911.html
