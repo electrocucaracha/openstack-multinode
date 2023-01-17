@@ -17,23 +17,14 @@ fi
 
 # NOTE: PYTHONPATH helps to pass the kolla_ansible module verification using Ansible's python
 PYTHONPATH="$(python -c 'import sys; print(":".join(sys.path))')"
-export PYTHONPATH
+EXTRA_OPTS="--extra ansible_user=$USER --extra ansible_become=true --extra ansible_become_method=sudo"
+export PYTHONPATH EXTRA_OPTS
 
+ansible_cmd="kolla-ansible $1 --inventory ${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}"
 if [[ ${OS_DEBUG:-false} == "true" ]]; then
-    kolla-ansible \
-        -e "ansible_user=$USER" \
-        -e 'ansible_become=true' \
-        -e 'ansible_become_method=sudo' \
-        --verbose \
-        "$1" \
-        -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" \
-        --yes-i-really-really-mean-it
-else
-    kolla-ansible \
-        -e "ansible_user=$USER" \
-        -e 'ansible_become=true' \
-        -e 'ansible_become_method=sudo' \
-        "$1" \
-        -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" \
-        --yes-i-really-really-mean-it
+    ansible_cmd+=" --verbose"
 fi
+if [[ $1 == "destroy" ]]; then
+    ansible_cmd+=" --yes-i-really-really-mean-it"
+fi
+$ansible_cmd
