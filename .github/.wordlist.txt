@@ -7,6 +7,7 @@ CentOS
 codebase
 contrib
 CPUS
+dev
 DHCP
 DISTRO
 electrocucaracha
@@ -36,6 +37,7 @@ NVMe
 opensource
 OpenStack
 oss
+pipermail
 png
 raspberrypi
 RBAC
