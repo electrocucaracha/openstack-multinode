@@ -105,15 +105,8 @@ ansible control -i "${OS_INVENTORY_FILE:-./samples/aio/hosts.ini}" -m file \
 
 kolla-genpwd
 sudo rm -f /etc/docker/daemon.json
-kolla_actions=(bootstrap-servers prechecks pull deploy check post-deploy)
-if [ "${OS_KOLLA_DEPLOY_PROFILE:-complete}" == "minimal" ]; then
-    kolla_actions=(bootstrap-servers deploy post-deploy)
-fi
-# Install Ansible Galaxy dependencies (Yoga release onwards)
-if vercmp "$(pip freeze | grep kolla-ansible | sed 's/^.*=//')" '>=' '14'; then
-    kolla_actions=(install-deps "${kolla_actions[@]}")
-fi
-for action in "${kolla_actions[@]}"; do
+kolla_ansible_version="$(pip freeze | grep kolla-ansible | sed 's/^.*=//')"
+for action in $(get_kolla_actions "$kolla_ansible_version"); do
     ./run_kaction.sh "$action" | tee "$HOME/$action.log"
     echo "Kolla Action statistics:"
     grep ': .* -* .*s$' "$HOME/$action.log" || :
