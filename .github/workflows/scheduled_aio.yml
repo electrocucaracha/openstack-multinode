@@ -34,7 +34,7 @@ jobs:
               apt-get update
               apt-get install -y --no-install-recommends jq
           fi
-          echo "matrix=$(shyaml keys < distros_supported.yml|jq -cnR '[inputs | select(length>0)]')"
+          echo "matrix=$(shyaml keys < distros_supported.yml|jq -cnR '[inputs | select(length>0)]')" >>"$GITHUB_OUTPUT"
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
   check-aio-vms:
@@ -48,12 +48,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3.3.0
       - uses: ./.github/actions/vagrant-setup
-      - name: Deploy previous release in All-in-One instance
+      - name: Deploy latest release in All-in-One instance
         env:
-          VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
-          VAGRANT_EXPERIMENTAL: disks
+          CI_INITIAL_RELEASE_POINTER: 1
           CPUS: 2
           MEMORY: 12288
           OS_DISTRO: ${{ matrix.distro }}
-        working-directory: ./samples/aio
-        run: vagrant up
+        run: ./ci/check_aio.sh
