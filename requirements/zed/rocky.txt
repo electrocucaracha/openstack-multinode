@@ -36,7 +36,7 @@ jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==15.0.0
     # via -r requirements/zed/rocky.in
-markupsafe==2.1.1
+markupsafe==2.1.2
     # via jinja2
 mitogen==0.3.3
     # via -r requirements/zed/rocky.in
