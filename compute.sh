@@ -19,6 +19,7 @@ fi
 _start=$(date +%s)
 trap 'printf "Compute installation process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
 
+# Install dependencies
 if ! command -v curl; then
     # shellcheck disable=SC1091
     source /etc/os-release || source /usr/lib/os-release
@@ -29,7 +30,6 @@ if ! command -v curl; then
         ;;
     esac
 fi
-# Install dependencies
 
 # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
 curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=compute bash

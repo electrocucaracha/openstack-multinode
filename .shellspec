@@ -1,1 +1,2 @@
 --shell bash
+--env __name__=__test__

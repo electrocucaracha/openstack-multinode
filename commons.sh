@@ -62,24 +62,10 @@ function vercmp {
     esac
 }
 
-function get_kolla_actions {
-    local kolla_ansible_version="$1"
-    local kolla_deploy_profile="${2:-$OS_KOLLA_DEPLOY_PROFILE}"
-
-    kolla_actions=(bootstrap-servers)
-    # Install Ansible Galaxy dependencies (Yoga release onwards)
-    if vercmp "$kolla_ansible_version" '>=' '14'; then
-        kolla_actions=(install-deps "${kolla_actions[@]}")
-    fi
-    if [ "${kolla_deploy_profile}" == "complete" ]; then
-        kolla_actions=("${kolla_actions[@]}" prechecks pull)
-    fi
-    kolla_actions=("${kolla_actions[@]}" deploy)
-    if [ "${kolla_deploy_profile}" == "complete" ] && vercmp "$kolla_ansible_version" '<' '15'; then
-        # NOTE: Smoke tests have been removed in Zed release (https://github.com/openstack/kolla-ansible/commit/591f366ed736977664e899bd834e363191a9472d#diff-707286526f137598948e03470854d542446836f5dd83cbfcb30caab67bb6c7bb)
-        kolla_actions=("${kolla_actions[@]}" check)
-    fi
-    kolla_actions=("${kolla_actions[@]}" post-deploy)
-
-    echo "${kolla_actions[@]}"
+function run_kolla_actions {
+    for action in "$@"; do
+        ./run_kaction.sh "$action" | tee "$HOME/$action.log"
+        echo "Kolla Action statistics:"
+        grep ': .* -* .*s$' "$HOME/$action.log" || :
+    done
 }

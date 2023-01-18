@@ -21,10 +21,9 @@ source commons.sh
 # shellcheck disable=SC1091
 source /etc/os-release || source /usr/lib/os-release
 
-# PEP 370 -- Per user site-packages directory
-[[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
-
-function print_state {
+function _print_state {
+    # PEP 370 -- Per user site-packages directory
+    [[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
     if command -v openstack; then
         echo "OpenStack client version"
         openstack --version
@@ -42,22 +41,24 @@ function print_state {
     fi
 }
 
-if ! command -v pip; then
-    # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
-    curl -fsSL http://bit.ly/install_pkg | PKG=pip bash
+function _install_deps {
+    if ! command -v pip; then
+        # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
+        curl -fsSL http://bit.ly/install_pkg | PKG=pip bash
+    fi
+    echo "Upgrade OpenStack services to ${OPENSTACK_RELEASE} release"
+    pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}.txt"
+}
+
+function main {
+    _print_state
+    trap _print_state EXIT
+
+    _install_deps
+    set_values
+    run_kolla_actions pull upgrade
+}
+
+if [[ ${__name__:-"__main__"} == "__main__" ]]; then
+    main
 fi
-
-print_state
-trap print_state EXIT
-
-echo "Upgrade OpenStack services to ${OPENSTACK_RELEASE} release"
-pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}.txt"
-
-echo "Configure values of globals.yml file"
-set_values
-
-for action in pull upgrade; do
-    ./run_kaction.sh "$action" | tee "$HOME/upgrade-$action.log"
-    echo "Kolla Action statistics:"
-    grep ': .* -* .*s$' "$HOME/upgrade-$action.log" || :
-done
