@@ -65,7 +65,7 @@ packaging==21.3
     # via
     #   ansible-core
     #   oslo.utils
-pbr==5.11.0
+pbr==5.11.1
     # via
     #   kolla-ansible
     #   oslo.i18n
@@ -79,7 +79,7 @@ pyparsing==3.0.9
     # via
     #   oslo.utils
     #   packaging
-pytz==2022.7
+pytz==2022.7.1
     # via oslo.utils
 pyyaml==6.0
     # via
@@ -98,7 +98,7 @@ stevedore==3.5.2
     # via oslo.config
 typing-extensions==4.1.1
     # via importlib-metadata
-urllib3==1.26.13
+urllib3==1.26.14
     # via requests
 wrapt==1.14.1
     # via debtcollector
