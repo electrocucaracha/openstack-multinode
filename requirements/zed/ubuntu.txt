@@ -5,7 +5,7 @@
 #    pip-compile --output-file=requirements/zed/ubuntu.txt requirements/zed/ubuntu.in
 #
 ansible==5.10.0
-    # via -r requirements/zed/ubuntu.in
+    # via -r ubuntu.in
 ansible-core==2.12.10
     # via ansible
 certifi==2022.12.7
@@ -35,11 +35,11 @@ jinja2==3.1.2
 jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==15.1.0
-    # via -r requirements/zed/ubuntu.in
+    # via -r ubuntu.in
 markupsafe==2.1.2
     # via jinja2
 mitogen==0.3.3
-    # via -r requirements/zed/ubuntu.in
+    # via -r ubuntu.in
 netaddr==0.8.0
     # via
     #   oslo-config
@@ -76,7 +76,7 @@ pyyaml==6.0
     #   ansible-core
     #   kolla-ansible
     #   oslo-config
-requests==2.28.2
+requests==2.31.0
     # via
     #   hvac
     #   oslo-config
