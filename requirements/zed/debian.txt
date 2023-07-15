@@ -5,7 +5,7 @@
 #    pip-compile --output-file=requirements/zed/debian.txt requirements/zed/debian.in
 #
 ansible==5.10.0
-    # via -r requirements/zed/debian.in
+    # via -r debian.in
 ansible-core==2.12.10
     # via ansible
 certifi==2022.12.7
@@ -14,7 +14,7 @@ cffi==1.15.1
     # via cryptography
 charset-normalizer==3.0.1
     # via requests
-cryptography==39.0.2
+cryptography==41.0.2
     # via
     #   ansible-core
     #   kolla-ansible
@@ -35,11 +35,11 @@ jinja2==3.1.2
 jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==15.1.0
-    # via -r requirements/zed/debian.in
+    # via -r debian.in
 markupsafe==2.1.2
     # via jinja2
 mitogen==0.3.3
-    # via -r requirements/zed/debian.in
+    # via -r debian.in
 netaddr==0.8.0
     # via
     #   oslo-config
