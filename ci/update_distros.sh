@@ -88,7 +88,7 @@ EOT
 echo "rocky:" >>.distros_supported.yml
 _vagrant_pull "9" "rockylinux/9"
 echo "centos:" >>.distros_supported.yml
-_vagrant_pull "8" "centos/stream8" "IDE"
+_vagrant_pull "8" "generic/centos8s"
 echo "ubuntu:" >>.distros_supported.yml
 _vagrant_pull "focal" "generic/ubuntu2004"
 echo "debian:" >>.distros_supported.yml
