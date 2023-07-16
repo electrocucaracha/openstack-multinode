@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![GitHub Super-Linter](https://github.com/electrocucaracha/openstack-multinode/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
+<!-- markdown-link-check-disable-next-line -->
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=electrocucaracha.openstack-multinode)
 
 Package based management has been replaced by container based
