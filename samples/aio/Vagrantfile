@@ -20,8 +20,8 @@ no_proxy = ENV["NO_PROXY"] || ENV["no_proxy"] || "127.0.0.1,localhost"
   no_proxy += ",10.0.2.#{i}"
 end
 socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
-os_distro = ENV["OS_DISTRO"] || "debian"
-box = vagrant_boxes[os_distro][vagrant_boxes[os_distro].keys.first]
+os_distro = ENV["OS_DISTRO"] || "debian_11"
+box = vagrant_boxes[os_distro]
 enable_magnum = ENV["OS_KOLLA_ENABLE_MAGNUM"] || "no"
 
 Vagrant.configure("2") do |config|
@@ -108,7 +108,6 @@ Vagrant.configure("2") do |config|
       OS_KOLLA_KOLLA_INSTALL_TYPE: ENV.fetch("OS_KOLLA_KOLLA_INSTALL_TYPE", "binary"),
       ENABLE_WEAVE_SCOPE: ENV.fetch("ENABLE_WEAVE_SCOPE", nil),
       OS_KOLLA_RUN_INIT: ENV.fetch("OS_KOLLA_RUN_INIT", nil),
-      OS_KOLLA_KOLLA_BASE_DISTRO: os_distro.to_s,
       OPENSTACK_NODE_ROLES: "compute",
       OS_KOLLA_ENABLE_HEAT: "no",
       OS_KOLLA_ENABLE_HORIZON: ENV.fetch("OS_KOLLA_ENABLE_HORIZON", nil),
@@ -121,6 +120,8 @@ Vagrant.configure("2") do |config|
       set -o errexit
 
       export EXT_NET_GATEWAY=$(ip r | grep "^default" | awk 'NR==1{print $3}')
+      source /etc/os-release || source /usr/lib/os-release
+      export OS_KOLLA_KOLLA_BASE_DISTRO=${ID,,}
 
       cd /vagrant
       echo "127.0.0.1 localhost" | sudo tee /etc/hosts

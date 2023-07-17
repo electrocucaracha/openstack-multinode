@@ -83,7 +83,7 @@ function _install_deps {
 
     # Install Kolla-Ansible dependencies
     sudo ln -s "$(command -v pip3)" /usr/bin/pip3 || :
-    pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}.txt"
+    pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}_${VERSION_ID}.txt"
     # PEP 370 -- Per user site-packages directory
     [[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
     # https://review.opendev.org/#/c/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2@6

@@ -47,7 +47,7 @@ function _install_deps {
         curl -fsSL http://bit.ly/install_pkg | PKG=pip bash
     fi
     echo "Upgrade OpenStack services to ${OPENSTACK_RELEASE} release"
-    pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}.txt"
+    pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}_${VERSION_ID}.txt"
 }
 
 function main {
