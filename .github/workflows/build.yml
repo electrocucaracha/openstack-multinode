@@ -48,11 +48,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - distro: ubuntu
+          - distro: ubuntu_22
             image: nova
-          - distro: rocky
+          - distro: rocky_9
             image: glance
-          - distro: debian
+          - distro: debian_11
             image: neutron
     runs-on: macos-12
     if: >-

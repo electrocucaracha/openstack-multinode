@@ -60,10 +60,10 @@ function _vagrant_pull {
         return
     fi
     cat <<EOT >>.distros_supported.yml
-  $alias:
-    name: $name
-    vb_controller: $vb_controller
-    version: "$version"
+$alias:
+  name: $name
+  vb_controller: $vb_controller
+  version: "$version"
 EOT
 }
 
@@ -85,14 +85,11 @@ cat <<EOT >.distros_supported.yml
 
 EOT
 
-echo "rocky:" >>.distros_supported.yml
-_vagrant_pull "9" "rockylinux/9"
-echo "centos:" >>.distros_supported.yml
-_vagrant_pull "8" "generic/centos8s"
-echo "ubuntu:" >>.distros_supported.yml
-_vagrant_pull "focal" "generic/ubuntu2004"
-echo "debian:" >>.distros_supported.yml
-_vagrant_pull "bullseye" "debian/bullseye64" "SATA Controller"
+_vagrant_pull "rocky_9" "generic/rocky9"
+_vagrant_pull "centos_8" "generic/centos8s"
+_vagrant_pull "ubuntu_20" "generic/ubuntu2004"
+_vagrant_pull "ubuntu_22" "generic/ubuntu2204"
+_vagrant_pull "debian_11" "generic/debian11"
 
 if [ "$msg" ]; then
     echo -e "$msg"
