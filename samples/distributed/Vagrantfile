@@ -45,8 +45,8 @@ end
 no_proxy += ",10.10.13.3"
 socks_proxy = ENV["socks_proxy"] || ENV["SOCKS_PROXY"] || ""
 
-os_distro = ENV["OS_DISTRO"] || "ubuntu"
-box = vagrant_boxes[os_distro][vagrant_boxes[os_distro].keys.first]
+os_distro = ENV["OS_DISTRO"] || "ubuntu_20"
+box = vagrant_boxes[os_distro]
 
 system("echo -e \"\n\n\n\" | ssh-keygen -f #{File.dirname(__FILE__)}/../../insecure_keys/key -t rsa -N ''") unless File.exist?("#{File.dirname(__FILE__)}/../../insecure_keys/key")
 

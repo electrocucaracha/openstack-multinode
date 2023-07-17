@@ -70,8 +70,8 @@ jobs:
           OS_DISTRO: ${{ matrix.distro }}
         run: ./ci/check_aio.sh
   check-aio-baremetal:
-    runs-on: ubuntu-20.04
-    name: Check All-in-One deployment on Ubuntu Focal Virtual Environment
+    runs-on: ubuntu-22.04
+    name: Check All-in-One deployment on Ubuntu Jammy Virtual Environment
     if: >-
       (
         github.event_name == 'pull_request_review' &&
