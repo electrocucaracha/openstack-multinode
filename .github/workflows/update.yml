@@ -25,15 +25,15 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        image: ["quay.io/centos/centos:stream8", "docker.io/library/debian:11", "docker.io/library/ubuntu:20.04"]
-        os_release: ["xena", "yoga"]
+        image: ["docker.io/library/debian:11", "docker.io/library/ubuntu:22.04", "docker.io/library/rockylinux:9"]
+        os_release: ["zed", "2023.1"]
         include:
+          - image: "quay.io/centos/centos:stream8"
+            os_release: "yoga"
           - image: "docker.io/library/debian:11"
-            os_release: "zed"
-          - image: "docker.io/library/ubuntu:22.04"
-            os_release: "zed"
-          - image: "docker.io/library/rockylinux:9"
-            os_release: "zed"
+            os_release: "yoga"
+          - image: "docker.io/library/ubuntu:20.04"
+            os_release: "yoga"
     container:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest
