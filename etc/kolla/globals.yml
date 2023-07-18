@@ -23,13 +23,24 @@ prechecks_enable_host_ntp_checks: false
 # By default, we do not provide a gather subset.
 #kolla_ansible_setup_gather_subset: "{{ omit }}"
 
+# Dummy variable to allow Ansible to accept this file.
+workaround_ansible_issue_8743: yes
+
+# This variable is used as "any_errors_fatal" setting for the setup (gather
+# facts) plays.
+# This is useful for weeding out failing hosts early to avoid late failures
+# due to missing facts (especially cross-host).
+# Do note this still supports host fact caching and it will not affect
+# scenarios with all facts cached (as there is no task to fail).
+#kolla_ansible_setup_any_errors_fatal: false
+
 ###############
 # Kolla options
 ###############
 # Valid options are [ COPY_ONCE, COPY_ALWAYS ]
 #config_strategy: "COPY_ALWAYS"
 
-# Valid options are ['centos', 'debian', 'rhel', 'ubuntu']
+# Valid options are ['centos', 'debian', 'rocky', 'ubuntu']
 kolla_base_distro: "centos"
 
 # Valid options are [ binary, source ]
@@ -74,6 +85,13 @@ kolla_external_vip_address: "{{ kolla_internal_vip_address }}"
 #kolla_sysctl_conf_path: /etc/sysctl.conf
 
 ################
+# Container engine
+################
+
+# Valid options are [ docker ]
+# kolla_container_engine: docker
+
+################
 # Docker options
 ################
 
@@ -97,15 +115,6 @@ docker_namespace: "openstack.kolla"
 ###################
 # Messaging options
 ###################
-# Below is an example of an separate backend that provides brokerless
-# messaging for oslo.messaging RPC communications
-
-#om_rpc_transport: "amqp"
-#om_rpc_user: "{{ qdrouterd_user }}"
-#om_rpc_password: "{{ qdrouterd_password }}"
-#om_rpc_port: "{{ qdrouterd_port }}"
-#om_rpc_group: "qdrouterd"
-
 # Whether to enable TLS for oslo.messaging communication with RabbitMQ.
 #om_enable_rabbitmq_tls: "{{ rabbitmq_enable_tls | bool }}"
 # CA certificate bundle in containers using oslo.messaging with RabbitMQ TLS.
@@ -163,8 +172,10 @@ api_interface: "{{ network_interface }}"
 # NOTE: This interface is used by Neutron for vm-to-vm traffic over tunneled networks (like VxLan).
 neutron_external_interface: "eth1"
 
-# Valid options are [ openvswitch, ovn, linuxbridge, vmware_nsxv, vmware_nsxv3, vmware_dvs ]
-# if vmware_nsxv3 is selected, enable_openvswitch MUST be set to "no" (default is yes)
+# Valid options are [ openvswitch, ovn, linuxbridge, vmware_nsxv, vmware_nsxv3, vmware_nsxp, vmware_dvs ]
+# if vmware_nsxv3 or vmware_nsxp is selected, enable_openvswitch MUST be set to "no" (default is yes)
+# Do note linuxbridge is *EXPERIMENTAL* in Neutron since Zed and it requires extra tweaks to config to be usable.
+# For details, see: https://docs.openstack.org/neutron/latest/admin/config-experimental-framework.html
 neutron_plugin_agent: "openvswitch"
 
 # Valid options are [ internal, infoblox ]
@@ -224,6 +235,15 @@ neutron_plugin_agent: "openvswitch"
 #default_container_healthcheck_retries: 3
 #default_container_healthcheck_start_period: 5
 
+##################
+# Firewall options
+##################
+# Configures firewalld on both ubuntu and centos systems
+# for enabled services.
+# firewalld should be installed beforehand.
+# disable_firewall: "true"
+# enable_external_api_firewalld: "false"
+# external_api_firewalld_zone: "public"
 
 #############
 # TLS options
@@ -315,13 +335,14 @@ enable_cinder: "yes"
 enable_cinder_backend_lvm: "yes"
 #enable_cinder_backend_nfs: "no"
 #enable_cinder_backend_quobyte: "no"
+#enable_cinder_backend_pure_iscsi: "no"
+#enable_cinder_backend_pure_fc: "no"
+#enable_cinder_backend_pure_roce: "no"
 #enable_cloudkitty: "no"
 #enable_collectd: "no"
 #enable_cyborg: "no"
 #enable_designate: "no"
 #enable_destroy_images: "no"
-#enable_elasticsearch: "{{ 'yes' if enable_central_logging | bool or enable_osprofiler | bool or enable_skydive | bool or enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'elasticsearch') else 'no' }}"
-#enable_elasticsearch_curator: "no"
 #enable_etcd: "no"
 #enable_fluentd: "yes"
 #enable_freezer: "no"
@@ -330,6 +351,7 @@ enable_cinder_backend_lvm: "yes"
 #enable_grafana: "{{ enable_monasca | bool }}"
 enable_heat: "{{ enable_openstack_core | bool }}"
 enable_horizon: "{{ enable_openstack_core | bool }}"
+#enable_horizon: "{{ enable_openstack_core | bool }}"
 #enable_horizon_blazar: "{{ enable_blazar | bool }}"
 #enable_horizon_cloudkitty: "{{ enable_cloudkitty | bool }}"
 #enable_horizon_designate: "{{ enable_designate | bool }}"
@@ -340,7 +362,6 @@ enable_horizon: "{{ enable_openstack_core | bool }}"
 #enable_horizon_manila: "{{ enable_manila | bool }}"
 #enable_horizon_masakari: "{{ enable_masakari | bool }}"
 #enable_horizon_mistral: "{{ enable_mistral | bool }}"
-#enable_horizon_monasca: "{{ enable_monasca | bool }}"
 #enable_horizon_murano: "{{ enable_murano | bool }}"
 #enable_horizon_neutron_vpnaas: "{{ enable_neutron_vpnaas | bool }}"
 #enable_horizon_octavia: "{{ enable_octavia | bool }}"
@@ -352,14 +373,10 @@ enable_horizon: "{{ enable_openstack_core | bool }}"
 #enable_horizon_vitrage: "{{ enable_vitrage | bool }}"
 #enable_horizon_watcher: "{{ enable_watcher | bool }}"
 #enable_horizon_zun: "{{ enable_zun | bool }}"
-#enable_influxdb: "{{ enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'influxdb') }}"
+#enable_influxdb: "{{ enable_cloudkitty | bool and cloudkitty_storage_backend == 'influxdb' }}"
 #enable_ironic: "no"
-#enable_ironic_ipxe: "yes"
 #enable_ironic_neutron_agent: "{{ enable_neutron | bool and enable_ironic | bool }}"
-#enable_ironic_pxe_uefi: "no"
 #enable_iscsid: "{{ enable_cinder | bool and enable_cinder_backend_iscsi | bool }}"
-#enable_kafka: "{{ enable_monasca | bool }}"
-#enable_kibana: "{{ 'yes' if enable_central_logging | bool or enable_monasca | bool else 'no' }}"
 #enable_kuryr: "no"
 enable_magnum: "no"
 #enable_manila: "no"
@@ -371,7 +388,6 @@ enable_magnum: "no"
 #enable_mariabackup: "no"
 #enable_masakari: "no"
 #enable_mistral: "no"
-#enable_monasca: "no"
 #enable_multipathd: "no"
 #enable_murano: "no"
 #enable_neutron_vpnaas: "no"
@@ -391,19 +407,21 @@ enable_neutron_trunk: "no"
 #enable_nova_ssh: "yes"
 #enable_octavia: "no"
 #enable_octavia_driver_agent: "{{ enable_octavia | bool and neutron_plugin_agent == 'ovn' }}"
+#enable_opensearch: "{{ enable_central_logging | bool or enable_osprofiler | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'elasticsearch') }}"
+#enable_opensearch_dashboards: "{{ enable_opensearch | bool }}"
+#enable_opensearch_dashboards_external: "{{ enable_opensearch_dashboards | bool }}"
 #enable_openvswitch: "{{ enable_neutron | bool and neutron_plugin_agent != 'linuxbridge' }}"
 #enable_ovn: "{{ enable_neutron | bool and neutron_plugin_agent == 'ovn' }}"
 #enable_ovs_dpdk: "no"
 #enable_osprofiler: "no"
 #enable_placement: "{{ enable_nova | bool or enable_zun | bool }}"
 #enable_prometheus: "no"
-#enable_qdrouterd: "{{ 'yes' if om_rpc_transport == 'amqp' else 'no' }}"
+#enable_proxysql: "no"
 #enable_redis: "no"
 #enable_sahara: "no"
 #enable_senlin: "no"
 enable_skydive: "no"
 #enable_solum: "no"
-#enable_storm: "{{ enable_monasca | bool }}"
 #enable_swift: "no"
 #enable_swift_s3api: "no"
 #enable_tacker: "no"
@@ -413,7 +431,6 @@ enable_skydive: "no"
 #enable_venus: "no"
 #enable_vitrage: "no"
 #enable_watcher: "no"
-#enable_zookeeper: "{{ enable_kafka | bool or enable_storm | bool }}"
 #enable_zun: "no"
 
 ##################
@@ -473,9 +490,6 @@ enable_skydive: "no"
 #############################
 # Keystone - Identity Options
 #############################
-
-# Valid options are [ fernet ]
-#keystone_token_provider: 'fernet'
 
 #keystone_admin_user: "admin"
 
@@ -607,10 +621,12 @@ enable_skydive: "no"
 #############################
 # dnsmasq bind interface for Ironic Inspector, by default is network_interface
 #ironic_dnsmasq_interface: "{{ network_interface }}"
-# The following value must be set when enabling ironic, the value format is
-# "192.168.0.10,192.168.0.100,255.255.255.0" the last being an optional netmask.
-#ironic_dnsmasq_dhcp_range:
-# PXE bootloader file for Ironic Inspector, relative to /tftpboot.
+# The following value must be set when enabling ironic, the value format is a
+# list of ranges - at least one must be configured, for example:
+# - range: 192.168.0.10,192.168.0.100
+# See Kolla Ansible docs on Ironic for details.
+#ironic_dnsmasq_dhcp_ranges:
+# PXE bootloader file for Ironic Inspector, relative to /var/lib/ironic/tftpboot.
 #ironic_dnsmasq_boot_file: "pxelinux.0"
 
 # Configure ironic upgrade option, due to currently kolla support
@@ -622,6 +638,9 @@ enable_skydive: "no"
 
 # List of extra kernel parameters passed to the kernel used during inspection
 #ironic_inspector_kernel_cmdline_extras: []
+
+# Valid options are [ '', redis, etcd ]
+#ironic_coordination_backend: "{{ 'redis' if enable_redis|bool else 'etcd' if enable_etcd|bool else '' }}"
 
 ######################################
 # Manila - Shared File Systems Options
@@ -716,12 +735,20 @@ enable_skydive: "no"
 #enable_prometheus_fluentd_integration: "{{ enable_prometheus | bool and enable fluentd | bool }}"
 #enable_prometheus_memcached: "{{ enable_prometheus | bool }}"
 #enable_prometheus_alertmanager: "{{ enable_prometheus | bool }}"
+#enable_prometheus_alertmanager_external: "{{ enable_prometheus_alertmanager | bool }}"
 #enable_prometheus_ceph_mgr_exporter: "no"
 #enable_prometheus_openstack_exporter: "{{ enable_prometheus | bool }}"
 #enable_prometheus_elasticsearch_exporter: "{{ enable_prometheus | bool and enable_elasticsearch | bool }}"
 #enable_prometheus_blackbox_exporter: "{{ enable_prometheus | bool }}"
 #enable_prometheus_libvirt_exporter: "{{ enable_prometheus | bool and enable_nova | bool and nova_compute_virt_type in ['kvm', 'qemu'] }}"
 #enable_prometheus_etcd_integration: "{{ enable_prometheus | bool and enable_etcd | bool }}"
+#enable_prometheus_msteams: "no"
+
+# The labels to add to any time series or alerts when communicating with external systems (federation, remote storage, Alertmanager).
+# prometheus_external_labels:
+#   <labelname>: <labelvalue>
+# By default, prometheus_external_labels is empty
+#prometheus_external_labels:
 
 # List of extra parameters passed to prometheus. You can add as many to the list.
 #prometheus_cmdline_extras:

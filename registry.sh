@@ -22,7 +22,7 @@ trap 'printf "Registry creation process: %s secs\n" "$(($(date +%s)-_start))"' E
 curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git,crudini" bash
 
 if ! command -v kolla-build; then
-    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/zed}"
+    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/2023.1}"
     pip install docker-squash
 fi
 
@@ -39,10 +39,10 @@ sudo cp ./etc/kolla/kolla-build.ini /etc/kolla/kolla-build.ini
 source /etc/os-release || source /usr/lib/os-release
 num_cpus=$(lscpu | grep "^CPU(s):" | awk '{ print $2 }')
 
-for kv in "tag=${OPENSTACK_TAG:-zed}" \
+for kv in "tag=${OPENSTACK_TAG:-"2023.1-${ID,,}-${VERSION_CODENAME}"}" \
     "profile=${OS_KOLLA_PROFILE:-custom}" \
     "registry=${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}" \
-    "openstack_release=${OPENSTACK_RELEASE:-zed}" \
+    "openstack_release=${OPENSTACK_RELEASE:-2023.1}" \
     "base=${OS_KOLLA_BASE:-${ID,,}}" \
     "threads=$((num_cpus * 2))" \
     "push_threads=$((num_cpus * 4))"; do
@@ -87,7 +87,7 @@ SNAP=$HOME/.local/ $kolla_cmd | jq "." | tee "$HOME/output.json"
 EONG
 if [[ $(jq '.failed | length ' "$HOME/output.json") != 0 ]]; then
     for image in $(jq -r '.failed[].name' "$HOME/output.json"); do
-        image_name="${OS_KOLLA_BASE:-${ID,,}}-source-$image:${OPENSTACK_TAG:-zed}"
+        image_name="$image:${OPENSTACK_TAG:-"2023.1-${ID,,}-${VERSION_CODENAME}"}"
         if [ "$(curl "http://localhost:5000/v2/kolla/${image_name%:*}/tags/list" -o /dev/null -w '%{http_code}\n' -s)" != "200" ] || [ "$(curl "http://localhost:5000/v2/kolla/${image_name%:*}/manifests/${image_name#*:}" -o /dev/null -w '%{http_code}\n' -s)" != "200" ]; then
             local_img_name="${DOCKER_REGISTRY_IP:-127.0.0.1}:${DOCKER_REGISTRY_PORT:-5000}/kolla/$image_name"
             remote_img_name="quay.io/openstack.kolla/$image_name"

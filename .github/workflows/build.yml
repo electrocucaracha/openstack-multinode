@@ -24,8 +24,8 @@ on:
 
 jobs:
   build-baremetal:
-    name: Check building and publishing Kolla Docker images in a local Docker registry on an Ubuntu Focal Virtual Environment
-    runs-on: ubuntu-20.04
+    name: Check building and publishing Kolla Docker images in a local Docker registry on an Ubuntu Jammy Virtual Environment
+    runs-on: ubuntu-22.04
     if: >-
       (
         github.event_name == 'pull_request_review' &&
