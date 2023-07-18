@@ -4,10 +4,12 @@
 #
 #    pip-compile --output-file=requirements/antelope/ubuntu_22.txt requirements/antelope/ubuntu_22.in
 #
-ansible==7.7.0
+ansible==6.0.0
     # via -r requirements/antelope/ubuntu_22.in
-ansible-core==2.14.7
-    # via ansible
+ansible-core==2.13.0
+    # via
+    #   -r requirements/antelope/ubuntu_22.in
+    #   ansible
 certifi==2023.5.7
     # via requests
 cffi==1.15.1
@@ -80,7 +82,7 @@ requests==2.31.0
     # via
     #   hvac
     #   oslo-config
-resolvelib==0.8.1
+resolvelib==0.5.4
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
