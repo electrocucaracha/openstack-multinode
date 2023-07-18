@@ -14,7 +14,7 @@ if [[ ${OS_DEBUG:-false} == "true" ]]; then
     set -o xtrace
 fi
 
-export OS_DISTRO="${OS_DISTRO:-ubuntu}"
+export OS_DISTRO="${OS_DISTRO:-ubuntu_22}"
 export VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
 export VAGRANT_EXPERIMENTAL=disks
 export OS_KOLLA_RUN_INIT=false

@@ -76,7 +76,7 @@ cat <<EOT >.distros_supported.yml
 ---
 # SPDX-license-identifier: Apache-2.0
 ##############################################################################
-# Copyright (c) 2019
+# Copyright (c) 2019 - $(date '+%Y')
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
 # which accompanies this distribution, and is available at
@@ -85,11 +85,11 @@ cat <<EOT >.distros_supported.yml
 
 EOT
 
-_vagrant_pull "rocky_9" "generic/rocky9"
-_vagrant_pull "centos_8" "generic/centos8s"
+_vagrant_pull "rocky_9" "rockylinux/9"
+_vagrant_pull "centos_8" "centos/stream8" "IDE"
 _vagrant_pull "ubuntu_20" "generic/ubuntu2004"
 _vagrant_pull "ubuntu_22" "generic/ubuntu2204"
-_vagrant_pull "debian_11" "generic/debian11"
+_vagrant_pull "debian_11" "debian/bullseye64" "SATA Controller"
 
 if [ "$msg" ]; then
     echo -e "$msg"
