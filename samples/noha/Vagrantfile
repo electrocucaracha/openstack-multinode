@@ -71,6 +71,8 @@ Vagrant.configure("2") do |config|
   config.vm.box_version = vagrant_boxes["ubuntu_20"]["version"]
   config.ssh.insert_key = false
 
+  config.vbguest.installer_hooks[:before_start] = ["yum update -y kernel && yum install -y kernel-devel libXt libXext libXmu ||:"]
+
   # Basic requirements installation
   config.vm.provision "shell", path: "#{File.dirname(__FILE__)}/../../requirements/base.sh"
 

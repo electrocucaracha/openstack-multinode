@@ -42,3 +42,6 @@ runs:
     - name: Install vagrant tool
       shell: bash
       run: brew install vagrant
+    - name: Install vagrant vbguest plugin
+      shell: bash
+      run: vagrant plugin install vagrant-vbguest

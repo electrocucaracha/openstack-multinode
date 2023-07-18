@@ -58,6 +58,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = box["name"]
   config.vm.box_version = box["version"]
   config.ssh.insert_key = false
+
+  config.vbguest.installer_hooks[:before_start] = ["yum update -y kernel && yum install -y kernel-devel libXt libXext libXmu ||:"]
+
   config.vm.provider :libvirt do |v, override|
     override.vm.synced_folder "../../", "/vagrant", type: "virtiofs"
     v.memorybacking :access, mode: "shared"
