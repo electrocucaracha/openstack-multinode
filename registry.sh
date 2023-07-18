@@ -22,7 +22,7 @@ trap 'printf "Registry creation process: %s secs\n" "$(($(date +%s)-_start))"' E
 curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git,crudini" bash
 
 if ! command -v kolla-build; then
-    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/zed}"
+    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/2023.1}"
     pip install docker-squash
 fi
 
