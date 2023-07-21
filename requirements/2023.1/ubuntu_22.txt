@@ -8,7 +8,7 @@ ansible==6.0.0
     # via -r requirements/2023.1/ubuntu_22.in
 ansible-core==2.13.0
     # via
-    #   -r requirements/2023.1/debian_11.in
+    #   -r requirements/2023.1/ubuntu_22.in
     #   ansible
 certifi==2023.5.7
     # via requests
@@ -90,7 +90,7 @@ stevedore==5.1.0
     # via oslo-config
 tzdata==2023.3
     # via oslo-utils
-urllib3==2.0.3
+urllib3==2.0.4
     # via requests
 wrapt==1.15.0
     # via debtcollector
