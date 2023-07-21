@@ -71,7 +71,7 @@ pyparsing==3.1.0
     # via oslo-utils
 pytz==2023.3
     # via oslo-utils
-pyyaml==6.0
+pyyaml==6.0.1
     # via
     #   ansible-core
     #   kolla-ansible
@@ -88,7 +88,7 @@ stevedore==5.1.0
     # via oslo-config
 tzdata==2023.3
     # via oslo-utils
-urllib3==2.0.3
+urllib3==2.0.4
     # via requests
 wrapt==1.15.0
     # via debtcollector
