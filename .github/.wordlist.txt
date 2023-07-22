@@ -25,6 +25,7 @@ initVagrant
 IPs
 KOLLA
 Kubernetes
+laobi
 Libvirt
 Linter
 LPDDR
