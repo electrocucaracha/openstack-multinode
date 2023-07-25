@@ -5,10 +5,10 @@
 #    pip-compile --output-file=requirements/zed/rocky_9.txt requirements/zed/rocky_9.in
 #
 ansible==5.10.0
-    # via -r requirements/zed/rocky_9.in
+    # via -r rocky_9.in
 ansible-core==2.12.10
     # via ansible
-certifi==2023.5.7
+certifi==2023.7.22
     # via requests
 cffi==1.15.1
     # via cryptography
@@ -35,11 +35,11 @@ jinja2==3.1.2
 jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==15.2.0
-    # via -r requirements/zed/rocky_9.in
+    # via -r rocky_9.in
 markupsafe==2.1.3
     # via jinja2
 mitogen==0.3.4
-    # via -r requirements/zed/rocky_9.in
+    # via -r rocky_9.in
 netaddr==0.8.0
     # via
     #   oslo-config
