@@ -10,7 +10,7 @@ ansible-core==2.13.0
     # via
     #   -r requirements/2023.1/debian_11.in
     #   ansible
-certifi==2023.5.7
+certifi==2023.7.22
     # via requests
 cffi==1.15.1
     # via cryptography
@@ -90,7 +90,7 @@ stevedore==5.1.0
     # via oslo-config
 tzdata==2023.3
     # via oslo-utils
-urllib3==2.0.3
+urllib3==2.0.4
     # via requests
 wrapt==1.15.0
     # via debtcollector
