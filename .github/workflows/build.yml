@@ -33,7 +33,7 @@ jobs:
       ) ||
       github.event_name != 'pull_request_review'
     steps:
-      - uses: actions/checkout@v3.5.3
+      - uses: actions/checkout@v3.6.0
       - name: Install requirements
         env:
           OS_KOLLA_BUILD_ARGS: 'keystone --registry 127.0.0.1:5000 --push --threads 4 --quiet --retries 5 --cache --push-threads 2 --squash --base ubuntu'
@@ -62,7 +62,7 @@ jobs:
       ) ||
       github.event_name != 'pull_request_review'
     steps:
-      - uses: actions/checkout@v3.5.3
+      - uses: actions/checkout@v3.6.0
       - uses: ./.github/actions/vagrant-setup
         with:
           distro: ${{ matrix.distro }}
