@@ -48,13 +48,13 @@ netaddr==0.8.0
     #   oslo-utils
 netifaces==0.11.0
     # via oslo-utils
-oslo-config==9.1.1
+oslo-config==9.2.0
     # via kolla-ansible
-oslo-i18n==6.0.0
+oslo-i18n==6.1.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==6.2.0
+oslo-utils==6.2.1
     # via kolla-ansible
 packaging==23.1
     # via
