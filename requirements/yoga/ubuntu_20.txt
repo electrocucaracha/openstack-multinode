@@ -65,7 +65,7 @@ pbr==5.11.1
     #   stevedore
 pycparser==2.21
     # via cffi
-pyhcl==0.4.4
+pyhcl==0.4.5
     # via hvac
 pyparsing==3.1.1
     # via oslo-utils
