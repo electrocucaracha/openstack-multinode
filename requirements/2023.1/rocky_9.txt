@@ -5,10 +5,10 @@
 #    pip-compile --output-file=requirements/2023.1/rocky_9.txt requirements/2023.1/rocky_9.in
 #
 ansible==6.0.0
-    # via -r requirements/2023.1/rocky_9.in
+    # via -r rocky_9.in
 ansible-core==2.13.0
     # via
-    #   -r requirements/2023.1/rocky_9.in
+    #   -r rocky_9.in
     #   ansible
 certifi==2023.7.22
     # via requests
@@ -16,7 +16,7 @@ cffi==1.15.1
     # via cryptography
 charset-normalizer==3.2.0
     # via requests
-cryptography==41.0.2
+cryptography==41.0.4
     # via
     #   ansible-core
     #   kolla-ansible
@@ -37,11 +37,11 @@ jinja2==3.1.2
 jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==16.1.0
-    # via -r requirements/2023.1/rocky_9.in
+    # via -r rocky_9.in
 markupsafe==2.1.3
     # via jinja2
 mitogen==0.3.4
-    # via -r requirements/2023.1/rocky_9.in
+    # via -r rocky_9.in
 netaddr==0.8.0
     # via
     #   oslo-config
