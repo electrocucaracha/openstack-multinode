@@ -28,7 +28,7 @@ hvac==1.2.1
     # via kolla-ansible
 idna==3.4
     # via requests
-iso8601==2.0.0
+iso8601==2.1.0
     # via oslo-utils
 jinja2==3.1.2
     # via
@@ -90,7 +90,7 @@ stevedore==5.1.0
     # via oslo-config
 tzdata==2023.3
     # via oslo-utils
-urllib3==2.0.5
+urllib3==2.0.6
     # via requests
 wrapt==1.15.0
     # via debtcollector
