@@ -49,10 +49,13 @@ jobs:
       matrix:
         include:
           - distro: ubuntu_22
+            base: ubuntu
             image: nova
           - distro: rocky_9
+            base: rocky
             image: glance
           - distro: debian_11
+            base: debian
             image: neutron
     runs-on: macos-12
     if: >-
@@ -70,6 +73,6 @@ jobs:
         env:
           VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
           OS_DISTRO: ${{ matrix.distro }}
-          OS_KOLLA_BUILD_ARGS: ${{ matrix.image }} --registry 127.0.0.1:5000 --push --threads 2 --quiet --retries 5 --cache --push-threads 2 --base ${{ matrix.distro }}
+          OS_KOLLA_BUILD_ARGS: ${{ matrix.image }} --registry 127.0.0.1:5000 --push --threads 2 --quiet --retries 5 --cache --push-threads 2 --base ${{ matrix.base }}
         working-directory: ./samples/distributed
         run: vagrant up registry
