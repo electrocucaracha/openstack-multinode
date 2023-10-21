@@ -23,7 +23,7 @@ jobs:
     name: Check for latest Vagrant box versions
     runs-on: macos-12
     steps:
-      - uses: actions/checkout@v4.1.0
+      - uses: actions/checkout@v4.1.1
       - uses: actions/cache@v3.3.2
         with:
           path: ~/.vagrant.d/boxes
