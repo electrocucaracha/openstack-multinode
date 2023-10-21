@@ -24,7 +24,7 @@ debtcollector==2.5.0
     # via
     #   oslo-config
     #   oslo-utils
-hvac==1.2.1
+hvac==2.0.0
     # via kolla-ansible
 idna==3.4
     # via requests
@@ -67,8 +67,6 @@ pbr==5.11.1
     #   stevedore
 pycparser==2.21
     # via cffi
-pyhcl==0.4.5
-    # via hvac
 pyparsing==3.1.1
     # via oslo-utils
 pytz==2023.3.post1
