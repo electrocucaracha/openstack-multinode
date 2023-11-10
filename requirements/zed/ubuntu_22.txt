@@ -52,7 +52,7 @@ oslo-i18n==6.1.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==6.2.1
+oslo-utils==6.3.0
     # via kolla-ansible
 packaging==23.2
     # via
@@ -74,6 +74,7 @@ pyyaml==6.0.1
     #   ansible-core
     #   kolla-ansible
     #   oslo-config
+    #   oslo-utils
 requests==2.31.0
     # via
     #   hvac
@@ -88,5 +89,5 @@ tzdata==2023.3
     # via oslo-utils
 urllib3==2.0.7
     # via requests
-wrapt==1.15.0
+wrapt==1.16.0
     # via debtcollector
