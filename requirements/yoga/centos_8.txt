@@ -8,7 +8,7 @@ ansible==4.10.0
     # via -r requirements/yoga/centos_8.in
 ansible-core==2.11.12
     # via ansible
-certifi==2023.7.22
+certifi==2023.11.17
     # via requests
 cffi==1.15.1
     # via cryptography
@@ -22,9 +22,9 @@ debtcollector==2.5.0
     # via
     #   oslo.config
     #   oslo.utils
-hvac==1.1.1
+hvac==1.2.1
     # via kolla-ansible
-idna==3.4
+idna==3.6
     # via requests
 importlib-metadata==4.8.3
     # via
@@ -41,13 +41,13 @@ jinja2==3.0.3
     #   kolla-ansible
 jmespath==0.10.0
     # via kolla-ansible
-kolla-ansible==14.9.0
+kolla-ansible==14.10.0
     # via -r requirements/yoga/centos_8.in
 markupsafe==2.0.1
     # via jinja2
 mitogen==0.3.4
     # via -r requirements/yoga/centos_8.in
-netaddr==0.8.0
+netaddr==0.9.0
     # via
     #   oslo.config
     #   oslo.utils
@@ -65,7 +65,7 @@ packaging==21.3
     # via
     #   ansible-core
     #   oslo.utils
-pbr==5.11.1
+pbr==6.0.0
     # via
     #   kolla-ansible
     #   oslo.i18n
@@ -73,13 +73,13 @@ pbr==5.11.1
     #   stevedore
 pycparser==2.21
     # via cffi
-pyhcl==0.4.4
+pyhcl==0.4.5
     # via hvac
-pyparsing==3.1.0
+pyparsing==3.1.1
     # via
     #   oslo.utils
     #   packaging
-pytz==2023.3
+pytz==2023.3.post1
     # via oslo.utils
 pyyaml==6.0.1
     # via
@@ -98,9 +98,9 @@ stevedore==3.5.2
     # via oslo.config
 typing-extensions==4.1.1
     # via importlib-metadata
-urllib3==1.26.16
+urllib3==1.26.18
     # via requests
-wrapt==1.15.0
+wrapt==1.16.0
     # via debtcollector
 zipp==3.6.0
     # via
