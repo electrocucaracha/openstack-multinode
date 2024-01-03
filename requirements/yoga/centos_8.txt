@@ -47,7 +47,7 @@ markupsafe==2.0.1
     # via jinja2
 mitogen==0.3.4
     # via -r requirements/yoga/centos_8.in
-netaddr==0.10.0
+netaddr==0.10.1
     # via
     #   oslo.config
     #   oslo.utils
