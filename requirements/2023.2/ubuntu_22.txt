@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/2023.2/ubuntu_22.txt requirements/2023.2/ubuntu_22.in
 #
-ansible==7.7.0
+ansible==8.5.0
     # via -r requirements/2023.2/ubuntu_22.in
 ansible-core==2.14.13
     # via
