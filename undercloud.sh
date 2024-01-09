@@ -90,33 +90,6 @@ function _install_deps {
     sudo find / -name rabbitmq-env.conf.j2 -exec sed -i '/export ERL_EPMD_ADDRESS/d' {} \;
 }
 
-function _setup_ansible {
-    # Setup Mitogen
-    mitogen_ansible_cfg=""
-    if pip freeze | grep -q mitogen; then
-        mitogen_ansible_cfg="
-strategy = mitogen_linear
-strategy_plugins = $(dirname "$(sudo find / -name mitogen_linear.py | head -n 1)")
-
-"
-    fi
-
-    sudo tee /etc/ansible/ansible.cfg <<EOL
-[defaults]
-host_key_checking=False
-remote_tmp=/tmp/
-callbacks_enabled = timer, profile_tasks
-$mitogen_ansible_cfg
-[ssh_connection]
-pipelinig=True
-ssh_args = -o ControlMaster=auto -o ControlPersist=30m -o ConnectionAttempts=100 -o UserKnownHostsFile=/dev/null
-EOL
-    if [[ ${OS_DEBUG:-false} == "true" ]]; then
-        # Print out Ansible configuration
-        ansible-config dump --only-changed
-    fi
-}
-
 function _cleanup_docker_services {
     # Remove docker source list to avoid update conflicts
     [[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
@@ -155,7 +128,7 @@ function main {
     fi
     set_values
     _setup_proxy
-    _setup_ansible
+    setup_ansible
 
     _cleanup_docker_services
 
