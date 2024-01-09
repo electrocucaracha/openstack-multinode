@@ -1,3 +1,2 @@
-ansible>=6,<8 # GPLv3
-ansible-core>2.14,<2.16 # GPLv3
+ansible-core>=2.14,<2.16 # GPLv3
 kolla-ansible<18.0 # Apache-2.0
