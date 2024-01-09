@@ -4,12 +4,8 @@
 #
 #    pip-compile --output-file=requirements/2023.2/debian_11.txt requirements/2023.2/debian_11.in
 #
-ansible==7.7.0
+ansible-core==2.15.8
     # via -r requirements/2023.2/debian_11.in
-ansible-core==2.14.13
-    # via
-    #   -r requirements/2023.2/debian_11.in
-    #   ansible
 bcrypt==4.1.2
     # via
     #   kolla-ansible
@@ -32,6 +28,8 @@ hvac==2.1.0
     # via kolla-ansible
 idna==3.6
     # via requests
+importlib-resources==5.0.7
+    # via ansible-core
 iso8601==2.1.0
     # via oslo-utils
 jinja2==3.1.2
@@ -87,7 +85,7 @@ requests==2.31.0
     # via
     #   hvac
     #   oslo-config
-resolvelib==0.8.1
+resolvelib==1.0.1
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
