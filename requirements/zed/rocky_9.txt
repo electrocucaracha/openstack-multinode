@@ -6,7 +6,7 @@
 #
 ansible==5.10.0
     # via -r requirements/zed/rocky_9.in
-ansible-core==2.12.10
+ansible-core==2.15.8
     # via ansible
 certifi==2023.11.17
     # via requests
