@@ -47,6 +47,8 @@ function _install_deps {
         curl -fsSL http://bit.ly/install_pkg | PKG=pip bash
     fi
     echo "Upgrade OpenStack services to ${OPENSTACK_RELEASE} release"
+    # NOTE: Uninstall mitogen given that it's only supported in some Ansible versions (2.13.x)
+    pip uninstall mitogen --yes
     pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}_${VERSION_ID%.*}.txt"
 }
 
