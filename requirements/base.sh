@@ -29,5 +29,8 @@ ubuntu | debian)
         sudo apt-get update -qq >/dev/null
         sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 curl
     fi
+    if ! command -v dpkg-reconfigure; then
+        sudo dpkg-reconfigure --frontend=noninteractive locales
+    fi
     ;;
 esac

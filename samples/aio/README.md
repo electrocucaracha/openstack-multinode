@@ -39,6 +39,7 @@ the cluster, hardware resources and workflow.
 | CPUS                     | 8       | Number of vCPUS assigned to the Virtual Machine                 |
 | MEMORY                   | 16 GB   | Memory assigned to the Virtual Machine                          |
 
+<!-- markdown-link-check-disable-next-line -->
 [1]: https://ark.intel.com/content/www/us/en/ark/products/189239/intel-nuc-10-performance-kit-nuc10i5fnh.html
 [2]: https://github.com/openstack/kolla-ansible/blob/10.0.0/tools/init-runonce
 [3]: https://www.weave.works/oss/scope/
