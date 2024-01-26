@@ -14,7 +14,7 @@ cffi==1.16.0
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
-cryptography==42.0.0
+cryptography==42.0.1
     # via
     #   ansible-core
     #   kolla-ansible
@@ -34,7 +34,7 @@ jinja2==3.1.3
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==15.3.0
+kolla-ansible==15.4.0
     # via -r requirements/zed/debian_11.in
 markupsafe==2.1.4
     # via jinja2
