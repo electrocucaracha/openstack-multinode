@@ -16,7 +16,7 @@ cffi==1.16.0
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
-cryptography==42.0.1
+cryptography==42.0.2
     # via
     #   ansible-core
     #   kolla-ansible
@@ -93,7 +93,7 @@ stevedore==5.1.0
     # via oslo-config
 tzdata==2023.4
     # via oslo-utils
-urllib3==2.1.0
+urllib3==2.2.0
     # via requests
 wrapt==1.16.0
     # via debtcollector
