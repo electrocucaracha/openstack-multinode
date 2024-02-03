@@ -10,7 +10,7 @@ bcrypt==4.1.2
     # via
     #   kolla-ansible
     #   passlib
-certifi==2023.11.17
+certifi==2024.2.2
     # via requests
 cffi==1.16.0
     # via cryptography
@@ -40,7 +40,7 @@ jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==17.1.0
     # via -r requirements/2023.2/rocky_9.in
-markupsafe==2.1.4
+markupsafe==2.1.5
     # via jinja2
 netaddr==0.10.1
     # via
@@ -73,7 +73,7 @@ pycparser==2.21
     # via cffi
 pyparsing==3.1.1
     # via oslo-utils
-pytz==2023.4
+pytz==2024.1
     # via oslo-utils
 pyyaml==6.0.1
     # via
