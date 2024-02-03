@@ -8,7 +8,7 @@ ansible==4.10.0
     # via -r requirements/yoga/centos_8.in
 ansible-core==2.11.12
     # via ansible
-certifi==2023.11.17
+certifi==2024.2.2
     # via requests
 cffi==1.15.1
     # via cryptography
@@ -41,13 +41,13 @@ jinja2==3.0.3
     #   kolla-ansible
 jmespath==0.10.0
     # via kolla-ansible
-kolla-ansible==14.10.0
+kolla-ansible==14.11.0
     # via -r requirements/yoga/centos_8.in
 markupsafe==2.0.1
     # via jinja2
 mitogen==0.3.4
     # via -r requirements/yoga/centos_8.in
-netaddr==0.9.0
+netaddr==0.10.1
     # via
     #   oslo.config
     #   oslo.utils
@@ -79,7 +79,7 @@ pyparsing==3.1.1
     # via
     #   oslo.utils
     #   packaging
-pytz==2023.3.post1
+pytz==2024.1
     # via oslo.utils
 pyyaml==6.0.1
     # via

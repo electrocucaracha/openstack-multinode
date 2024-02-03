@@ -4,19 +4,19 @@
 #
 #    pip-compile --output-file=requirements/2023.2/debian_11.txt requirements/2023.2/debian_11.in
 #
-ansible-core==2.15.8
+ansible-core==2.15.9
     # via -r requirements/2023.2/debian_11.in
 bcrypt==4.1.2
     # via
     #   kolla-ansible
     #   passlib
-certifi==2023.11.17
+certifi==2024.2.2
     # via requests
 cffi==1.16.0
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
-cryptography==41.0.7
+cryptography==42.0.2
     # via
     #   ansible-core
     #   kolla-ansible
@@ -32,15 +32,15 @@ importlib-resources==5.0.7
     # via ansible-core
 iso8601==2.1.0
     # via oslo-utils
-jinja2==3.1.2
+jinja2==3.1.3
     # via
     #   ansible-core
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==17.0.0
+kolla-ansible==17.1.0
     # via -r requirements/2023.2/debian_11.in
-markupsafe==2.1.3
+markupsafe==2.1.5
     # via jinja2
 netaddr==0.10.1
     # via
@@ -48,13 +48,13 @@ netaddr==0.10.1
     #   oslo-utils
 netifaces==0.11.0
     # via oslo-utils
-oslo-config==9.2.0
+oslo-config==9.3.0
     # via kolla-ansible
 oslo-i18n==6.2.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==6.3.0
+oslo-utils==7.0.0
     # via kolla-ansible
 packaging==23.2
     # via
@@ -73,7 +73,7 @@ pycparser==2.21
     # via cffi
 pyparsing==3.1.1
     # via oslo-utils
-pytz==2023.3.post1
+pytz==2024.1
     # via oslo-utils
 pyyaml==6.0.1
     # via
@@ -93,7 +93,7 @@ stevedore==5.1.0
     # via oslo-config
 tzdata==2023.4
     # via oslo-utils
-urllib3==2.1.0
+urllib3==2.2.0
     # via requests
 wrapt==1.16.0
     # via debtcollector
