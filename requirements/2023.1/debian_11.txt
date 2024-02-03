@@ -10,7 +10,7 @@ ansible-core==2.13.0
     # via
     #   -r requirements/2023.1/debian_11.in
     #   ansible
-certifi==2023.11.17
+certifi==2024.2.2
     # via requests
 cffi==1.16.0
     # via cryptography
@@ -38,7 +38,7 @@ jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==16.3.0
     # via -r requirements/2023.1/debian_11.in
-markupsafe==2.1.4
+markupsafe==2.1.5
     # via jinja2
 mitogen==0.3.4
     # via -r requirements/2023.1/debian_11.in
@@ -69,7 +69,7 @@ pycparser==2.21
     # via cffi
 pyparsing==3.1.1
     # via oslo-utils
-pytz==2023.4
+pytz==2024.1
     # via oslo-utils
 pyyaml==6.0.1
     # via
