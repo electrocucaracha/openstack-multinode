@@ -42,7 +42,7 @@ kolla-ansible==17.1.0
     # via -r requirements/2023.2/debian_11.in
 markupsafe==2.1.5
     # via jinja2
-netaddr==0.10.1
+netaddr==1.0.0
     # via
     #   oslo-config
     #   oslo-utils
