@@ -31,8 +31,6 @@ importlib-metadata==4.8.3
     #   debtcollector
     #   oslo.config
     #   stevedore
-importlib-resources==5.4.0
-    # via netaddr
 iso8601==1.1.0
     # via oslo.utils
 jinja2==3.0.3
@@ -47,7 +45,7 @@ markupsafe==2.0.1
     # via jinja2
 mitogen==0.3.4
     # via -r requirements/yoga/centos_8.in
-netaddr==0.10.1
+netaddr==1.0.0
     # via
     #   oslo.config
     #   oslo.utils
@@ -103,6 +101,4 @@ urllib3==1.26.18
 wrapt==1.16.0
     # via debtcollector
 zipp==3.6.0
-    # via
-    #   importlib-metadata
-    #   importlib-resources
+    # via importlib-metadata
