@@ -40,7 +40,7 @@ markupsafe==2.1.5
     # via jinja2
 mitogen==0.3.4
     # via -r requirements/zed/rocky_9.in
-netaddr==0.10.1
+netaddr==1.0.0
     # via
     #   oslo-config
     #   oslo-utils
