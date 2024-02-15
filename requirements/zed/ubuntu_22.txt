@@ -40,7 +40,7 @@ markupsafe==2.1.5
     # via jinja2
 mitogen==0.3.4
     # via -r requirements/zed/ubuntu_22.in
-netaddr==1.0.0
+netaddr==1.1.0
     # via
     #   oslo-config
     #   oslo-utils
