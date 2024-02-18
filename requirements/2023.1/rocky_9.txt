@@ -42,7 +42,7 @@ markupsafe==2.1.5
     # via jinja2
 mitogen==0.3.4
     # via -r requirements/2023.1/rocky_9.in
-netaddr==1.1.0
+netaddr==1.2.1
     # via
     #   oslo-config
     #   oslo-utils
