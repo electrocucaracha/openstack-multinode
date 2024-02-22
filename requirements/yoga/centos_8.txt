@@ -6,7 +6,7 @@
 #
 ansible==4.10.0
     # via -r requirements/yoga/centos_8.in
-ansible-core==2.11.12
+ansible-core==2.15.9
     # via ansible
 certifi==2024.2.2
     # via requests
