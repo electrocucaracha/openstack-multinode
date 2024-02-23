@@ -18,7 +18,7 @@ cryptography==42.0.4
     # via
     #   ansible-core
     #   kolla-ansible
-debtcollector==2.5.0
+debtcollector==3.0.0
     # via
     #   oslo-config
     #   oslo-utils
@@ -46,13 +46,13 @@ netaddr==1.2.1
     #   oslo-utils
 netifaces==0.11.0
     # via oslo-utils
-oslo-config==9.3.0
+oslo-config==9.4.0
     # via kolla-ansible
-oslo-i18n==6.2.0
+oslo-i18n==6.3.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==7.0.0
+oslo-utils==7.1.0
     # via kolla-ansible
 packaging==23.2
     # via
@@ -83,10 +83,8 @@ resolvelib==0.5.4
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-stevedore==5.1.0
+stevedore==5.2.0
     # via oslo-config
-tzdata==2024.1
-    # via oslo-utils
 urllib3==2.2.1
     # via requests
 wrapt==1.16.0
