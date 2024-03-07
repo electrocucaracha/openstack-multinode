@@ -34,7 +34,7 @@ jinja2==3.1.3
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==15.5.0
+kolla-ansible==15.6.0
     # via -r requirements/zed/ubuntu_22.in
 markupsafe==2.1.5
     # via jinja2
@@ -65,7 +65,7 @@ pbr==6.0.0
     #   stevedore
 pycparser==2.21
     # via cffi
-pyparsing==3.1.1
+pyparsing==3.1.2
     # via oslo-utils
 pyyaml==6.0.1
     # via
