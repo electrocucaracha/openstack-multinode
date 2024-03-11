@@ -54,7 +54,7 @@ oslo-i18n==6.3.0
     #   oslo-utils
 oslo-utils==7.1.0
     # via kolla-ansible
-packaging==23.2
+packaging==24.0
     # via
     #   ansible-core
     #   oslo-utils
