@@ -7,7 +7,6 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 name: Check All-in-One setup
 # yamllint disable-line rule:truthy
 on:
@@ -21,16 +20,15 @@ on:
   pull_request_review:
     types:
       - submitted
-
 jobs:
   generate-json-matrix:
     runs-on: ubuntu-latest
     if: >-
       (
+
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
-      ) ||
-      github.event_name != 'pull_request_review'
+      ) || github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@v4.1.2
       - name: Get matrix values
@@ -74,10 +72,10 @@ jobs:
     name: Check All-in-One deployment on Ubuntu Jammy Virtual Environment
     if: >-
       (
+
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
-      ) ||
-      github.event_name != 'pull_request_review'
+      ) || github.event_name != 'pull_request_review'
     env:
       OS_KOLLA_ENABLE_CINDER: "no"
     steps:

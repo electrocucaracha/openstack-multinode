@@ -7,13 +7,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 name: Automatic Rebase
 # yamllint disable-line rule:truthy
 on:
   issue_comment:
     types: [created]
-
 jobs:
   rebase:
     name: Rebase
@@ -24,7 +22,7 @@ jobs:
         uses: actions/checkout@v4.1.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+          fetch-depth: 0  # otherwise, you will fail to push refs to dest repo
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.8
         env:

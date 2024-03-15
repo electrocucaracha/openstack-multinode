@@ -7,7 +7,6 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 name: Check No High Availability setup
 # yamllint disable-line rule:truthy
 on:
@@ -21,17 +20,16 @@ on:
   pull_request_review:
     types:
       - submitted
-
 jobs:
   check-noha-ubuntu:
     name: Check No High Availability deployment on Ubuntu Focal Virtual Machines
     runs-on: macos-12
     if: >-
       (
+
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
-      ) ||
-      github.event_name != 'pull_request_review'
+      ) || github.event_name != 'pull_request_review'
     env:
       VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
       VAGRANT_EXPERIMENTAL: disks
@@ -55,7 +53,7 @@ jobs:
           CPUS: 1
         working-directory: ./samples/noha
         run: vagrant reload compute01
-# NOTE: macOS provides 3 vCPUS and 14 GB of RAM (https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
+        # NOTE: macOS provides 3 vCPUS and 14 GB of RAM (https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
       - name: Deploy OpenStack Control nodes
         env:
           OS_DEBUG: true

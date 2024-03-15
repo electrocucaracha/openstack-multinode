@@ -22,3 +22,5 @@ lint:
 fmt:
 	sudo -E $(DOCKER_CMD) run --rm -u "$$(id -u):$$(id -g)" \
 	-v "$$(pwd):/mnt" -v /mnt/spec -w /mnt mvdan/shfmt -l -w -i 4 -s .
+	command -v yamlfmt > /dev/null || curl -s "https://i.jpillora.com/google/yamlfmt!!" | bash
+	yamlfmt -dstar **/*.{yaml,yml}

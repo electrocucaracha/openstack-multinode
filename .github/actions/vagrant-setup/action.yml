@@ -7,14 +7,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 name: Install and configure tools required for the CI vagrant composite task
-
 inputs:
   distro:
     description: Linux distribution
     default: ubuntu
-
 runs:
   using: "composite"
   steps:

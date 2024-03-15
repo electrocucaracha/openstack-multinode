@@ -7,7 +7,6 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 name: Scheduled Kolla Images Build verification
 # yamllint disable-line rule:truthy
 on:
@@ -21,17 +20,16 @@ on:
   schedule:
     - cron: '0 0 * * 5'
   workflow_dispatch:
-
 jobs:
   build-baremetal:
     name: Check building and publishing Kolla Docker images in a local Docker registry on an Ubuntu Jammy Virtual Environment
     runs-on: ubuntu-22.04
     if: >-
       (
+
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
-      ) ||
-      github.event_name != 'pull_request_review'
+      ) || github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@v4.1.2
       - name: Install requirements
@@ -60,10 +58,10 @@ jobs:
     runs-on: macos-12
     if: >-
       (
+
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
-      ) ||
-      github.event_name != 'pull_request_review'
+      ) || github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@v4.1.2
       - uses: ./.github/actions/vagrant-setup
@@ -73,6 +71,7 @@ jobs:
         env:
           VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
           OS_DISTRO: ${{ matrix.distro }}
-          OS_KOLLA_BUILD_ARGS: ${{ matrix.image }} --registry 127.0.0.1:5000 --push --threads 2 --quiet --retries 5 --cache --push-threads 2 --base ${{ matrix.base }}
+          OS_KOLLA_BUILD_ARGS: ${{ matrix.image }} --registry 127.0.0.1:5000 --push --threads 2 --quiet --retries 5 --cache --push-threads 2 --base ${{ matrix.base
+            }}
         working-directory: ./samples/distributed
         run: vagrant up registry

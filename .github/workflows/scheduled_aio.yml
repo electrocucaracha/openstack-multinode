@@ -7,14 +7,12 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 name: Scheduled OpenStack All-in-One verification
 # yamllint disable-line rule:truthy
 on:
   schedule:
     - cron: '0 0 * * 5'
   workflow_dispatch:
-
 jobs:
   generate-json-matrix:
     runs-on: ubuntu-latest
