@@ -33,7 +33,7 @@ the cluster, hardware resources and workflow.
 | Name                     | Default | Description                                                     |
 |:-------------------------|:--------|:----------------------------------------------------------------|
 | OS_DISTRO                | centos  | Specifies the Linux distribution to be used for this deployment |
-| ENABLE_WEAVE_SCOPE       |         | Enable/Disable [Weave Scope][3]                                 |
+| ENABLE_WEAVE_SCOPE       |         | Enable/Disable Weave Scope                                      |
 | OS_KOLLA_RUN_INIT        |         | Executes the [initialization Kolla script][2]                   |
 | OS_KOLLA_ENABLE_MAGNUM   | no      | Enable/Disable [OpenStack Magnum service][4]                    |
 | CPUS                     | 8       | Number of vCPUS assigned to the Virtual Machine                 |
@@ -42,5 +42,4 @@ the cluster, hardware resources and workflow.
 <!-- markdown-link-check-disable-next-line -->
 [1]: https://ark.intel.com/content/www/us/en/ark/products/189239/intel-nuc-10-performance-kit-nuc10i5fnh.html
 [2]: https://github.com/openstack/kolla-ansible/blob/10.0.0/tools/init-runonce
-[3]: https://www.weave.works/oss/scope/
 [4]: https://docs.openstack.org/magnum/latest/

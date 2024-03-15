@@ -38,4 +38,4 @@ the cluster, hardware resources and workflow.
 | CPUS                     | 4       | Number of vCPUS assigned to the Virtual Machine                                                               |
 | MEMORY                   | 8 GB    | Memory assigned to the Virtual Machine (Compute nodes use 4 GB )                                              |
 
-[1]: https://www.raspberrypi.org/products/raspberry-pi-4-model-b/
+[1]: https://www.raspberrypi.com/products/raspberry-pi-4-model-b/
