@@ -14,7 +14,6 @@ set -o errexit
 if [[ ${OS_DEBUG:-false} == "true" ]]; then
     set -o xtrace
 fi
-set -o xtrace
 
 source defaults.env
 source commons.sh
