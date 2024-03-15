@@ -38,6 +38,8 @@ pipelinig=True
 ssh_args = -o ControlMaster=auto -o ControlPersist=30m -o ConnectionAttempts=100 -o UserKnownHostsFile=/dev/null
 EOL
     if [[ ${OS_DEBUG:-false} == "true" ]]; then
+        # NOTE: Uses the simplest UTF-8 locale
+        export LC_ALL=C.UTF-8
         # Print out Ansible configuration
         ansible-config dump --only-changed
     fi
