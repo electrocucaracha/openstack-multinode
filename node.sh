@@ -32,6 +32,17 @@ function mount_external_partition {
     local dev_name="/dev/$1"
     local mount_dir=$2
 
+    if ! command -v sfdisk >/dev/null; then
+        # shellcheck disable=SC1091
+        source /etc/os-release || source /usr/lib/os-release
+        case ${ID,,} in
+        ubuntu | debian)
+            sudo apt-get update -qq >/dev/null
+            sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 fdisk
+            ;;
+        esac
+    fi
+
     sudo sfdisk "$dev_name" --no-reread <<EOF
 ;
 EOF
