@@ -27,6 +27,7 @@ enable_magnum = ENV["OS_KOLLA_ENABLE_MAGNUM"] || "no"
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt
   config.vm.provider :virtualbox
+  config.vm.provider :google
 
   config.vm.synced_folder "../../", "/vagrant"
   config.vm.box = box["name"]
@@ -102,6 +103,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", privileged: false do |sh|
     sh.env = {
       SOCKS_PROXY: socks_proxy.to_s,
+      OS_DEBUG: ENV.fetch("OS_DEBUG", "false"),
       OPENSTACK_RELEASE: ENV.fetch("OPENSTACK_RELEASE", nil),
       OS_FOLDER: "/vagrant/",
       OS_KOLLA_DEPLOY_PROFILE: "minimal",
@@ -178,6 +180,35 @@ Vagrant.configure("2") do |config|
     v.management_network_name = "administration" # Administration - Provides Internet access for all nodes and is used for administration to install software packages
     v.storage :file, bus: "sata", size: 50 # ~30 GB Kolla Docker images
     v.storage :file, bus: "sata", size: 100 # Cinder volume
+  end
+
+  config.vm.provider :google do |v, override|
+    v.google_project_id = ENV.fetch("GOOGLE_PROJECT_ID", nil)
+    v.google_json_key_location = ENV.fetch("GOOGLE_JSON_KEY_LOCATION",
+                                           "~/.config/gcloud/application_default_credentials.json")
+    v.image_project_id = box["project_id"]
+    v.image_family = box["family"]
+    v.machine_type = "e2-standard-8"
+    v.name = "os-aio-#{[*('a'..'z')].sample(6).join}"
+    v.additional_disks = [
+      {
+        disk_size: 50,
+        disk_name: "docker",
+        disk_type: "pd-standard",
+        autodelete_disk: true
+      },
+      {
+        disk_size: 100,
+        disk_name: "cinder",
+        disk_type: "pd-standard",
+        autodelete_disk: true
+      }
+    ]
+
+    override.vm.box = "google/gce"
+    override.vm.box_version = "0.1.0"
+    override.ssh.username = ENV.fetch("USER", nil)
+    override.ssh.private_key_path = "~/.ssh/id_rsa"
   end
 
   if !ENV["http_proxy"].nil? && !ENV["https_proxy"].nil? && Vagrant.has_plugin?("vagrant-proxyconf")
