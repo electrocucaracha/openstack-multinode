@@ -40,7 +40,7 @@ kolla-ansible==16.5.0
     # via -r requirements/2023.1/debian_11.in
 markupsafe==2.1.5
     # via jinja2
-mitogen==0.3.4
+mitogen==0.3.5
     # via -r requirements/2023.1/debian_11.in
 netaddr==1.2.1
     # via
