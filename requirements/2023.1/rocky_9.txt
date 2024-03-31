@@ -65,7 +65,7 @@ pbr==6.0.0
     #   kolla-ansible
     #   oslo-i18n
     #   stevedore
-pycparser==2.21
+pycparser==2.22
     # via cffi
 pyparsing==3.1.2
     # via oslo-utils
