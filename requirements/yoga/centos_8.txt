@@ -45,7 +45,7 @@ kolla-ansible==14.11.0
     # via -r requirements/yoga/centos_8.in
 markupsafe==2.0.1
     # via jinja2
-mitogen==0.3.5
+mitogen==0.3.6
     # via -r requirements/yoga/centos_8.in
 netaddr==0.10.1
     # via
