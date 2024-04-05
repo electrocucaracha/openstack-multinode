@@ -38,7 +38,7 @@ kolla-ansible==15.6.0
     # via -r requirements/zed/rocky_9.in
 markupsafe==2.1.5
     # via jinja2
-mitogen==0.3.5
+mitogen==0.3.6
     # via -r requirements/zed/rocky_9.in
 netaddr==1.2.1
     # via
