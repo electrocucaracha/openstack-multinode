@@ -38,7 +38,7 @@ kolla-ansible==14.11.0
     # via -r requirements/yoga/debian_11.in
 markupsafe==2.1.5
     # via jinja2
-mitogen==0.3.6
+mitogen==0.3.7
     # via -r requirements/yoga/debian_11.in
 netaddr==1.2.1
     # via
