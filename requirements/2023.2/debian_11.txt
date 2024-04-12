@@ -26,7 +26,7 @@ debtcollector==3.0.0
     #   oslo-utils
 hvac==2.1.0
     # via kolla-ansible
-idna==3.6
+idna==3.7
     # via requests
 importlib-resources==5.0.7
     # via ansible-core
