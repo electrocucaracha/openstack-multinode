@@ -5,6 +5,8 @@
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 <!-- markdown-link-check-disable-next-line -->
 ![visitors](https://visitor-badge.laobi.icu/badge?page_id=electrocucaracha.openstack-multinode)
+[![Scc Code Badge](https://sloc.xyz/github/electrocucaracha/openstack-multinode?category=code)](https://github.com/boyter/scc/)
+[![Scc COCOMO Badge](https://sloc.xyz/github/electrocucaracha/openstack-multinode?category=cocomo)](https://github.com/boyter/scc/)
 
 Package based management has been replaced by container based
 management systems which help to solve the availability, management
