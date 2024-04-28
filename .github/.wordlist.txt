@@ -1,12 +1,15 @@
 aio
 Ansible
 BCM
+boyter
 brightgreen
 Broadcom
 CentOS
+COCOMO
 codebase
 contrib
 CPUS
+dd
 dev
 DHCP
 DISTRO
@@ -46,7 +49,9 @@ rubocop
 runonce
 SATA
 scalability
+scc
 SDRAM
+sloc
 src
 SSD
 subnets
@@ -59,4 +64,5 @@ VirtualBox
 VLAN
 VMs
 VXLAN
+xyz
 yml
