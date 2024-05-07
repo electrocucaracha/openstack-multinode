@@ -35,7 +35,7 @@ jobs:
       VAGRANT_EXPERIMENTAL: disks
       OS_NUM_COMPUTE_NODES: 1
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.5
       - uses: ./.github/actions/vagrant-setup
       - name: Install GNU tools
         run: brew install iproute2mac

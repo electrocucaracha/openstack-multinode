@@ -36,7 +36,7 @@ jobs:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.5
       - name: install dependencies
         shell: bash
         run: |
@@ -63,7 +63,7 @@ jobs:
   check-dictionary:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.5
       - uses: technote-space/create-pr-action@v2.1.4
         with:
           EXECUTE_COMMANDS: |
