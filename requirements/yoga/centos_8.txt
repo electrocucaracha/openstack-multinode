@@ -24,7 +24,7 @@ debtcollector==2.5.0
     #   oslo.utils
 hvac==1.2.1
     # via kolla-ansible
-idna==3.6
+idna==3.7
     # via requests
 importlib-metadata==4.8.3
     # via
@@ -45,7 +45,7 @@ kolla-ansible==14.11.0
     # via -r requirements/yoga/centos_8.in
 markupsafe==2.0.1
     # via jinja2
-mitogen==0.3.4
+mitogen==0.3.7
     # via -r requirements/yoga/centos_8.in
 netaddr==0.10.1
     # via

@@ -14,7 +14,7 @@ cffi==1.16.0
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
-cryptography==42.0.5
+cryptography==42.0.7
     # via
     #   ansible-core
     #   kolla-ansible
@@ -22,13 +22,13 @@ debtcollector==3.0.0
     # via
     #   oslo-config
     #   oslo-utils
-hvac==2.1.0
+hvac==2.2.0
     # via kolla-ansible
-idna==3.6
+idna==3.7
     # via requests
 iso8601==2.1.0
     # via oslo-utils
-jinja2==3.1.3
+jinja2==3.1.4
     # via
     #   ansible-core
     #   kolla-ansible
@@ -38,7 +38,7 @@ kolla-ansible==15.6.0
     # via -r requirements/zed/rocky_9.in
 markupsafe==2.1.5
     # via jinja2
-mitogen==0.3.4
+mitogen==0.3.7
     # via -r requirements/zed/rocky_9.in
 netaddr==1.2.1
     # via
@@ -63,7 +63,7 @@ pbr==6.0.0
     #   kolla-ansible
     #   oslo-i18n
     #   stevedore
-pycparser==2.21
+pycparser==2.22
     # via cffi
 pyparsing==3.1.2
     # via oslo-utils

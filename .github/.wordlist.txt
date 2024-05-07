@@ -9,7 +9,6 @@ COCOMO
 codebase
 contrib
 CPUS
-dd
 dev
 DHCP
 DISTRO
@@ -40,7 +39,6 @@ NUM
 NVMe
 opensource
 OpenStack
-oss
 pipermail
 png
 raspberrypi
@@ -50,7 +48,7 @@ rubocop
 runonce
 SATA
 scalability
-scc
+Scc
 SDRAM
 sloc
 src
