@@ -86,7 +86,7 @@ pyyaml==6.0.1
     #   ansible-core
     #   kolla-ansible
     #   oslo.config
-requests==2.27.1
+requests==2.32.0
     # via
     #   hvac
     #   oslo.config
