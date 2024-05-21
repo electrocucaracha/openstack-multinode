@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         image: ["docker.io/library/debian:11", "docker.io/library/ubuntu:22.04", "docker.io/library/rockylinux:9"]
-        os_release: ["zed", "2023.1", "2023.2"]
+        os_release: ["zed", "2023.1", "2023.2", "2024.1"]
         include:
           - image: "quay.io/centos/centos:stream8"
             os_release: "yoga"

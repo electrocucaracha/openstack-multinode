@@ -65,7 +65,7 @@ function _remove_conflicting_python_pkgs {
     case ${ID,,} in
     ubuntu | debian)
         sanity_pkgs=""
-        for pkg in python-cryptography python3-cryptography python3-distro-info python3-debian python3-openssl; do
+        for pkg in python-cryptography python3-cryptography python3-distro-info python3-debian python3-openssl python3-docker python3-urllib3; do
             if sudo dpkg -l "$pkg" >/dev/null; then
                 sanity_pkgs+="$pkg "
             fi
