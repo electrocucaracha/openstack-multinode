@@ -92,6 +92,13 @@ Vagrant.configure("2") do |config|
     sudo chmod +x /etc/rc.d/rc.local
   SHELL
 
+  # Configure fake cinder LVM
+  config.vm.provision "shell", privileged: false, inline: <<~SHELL
+    dd if=/dev/zero of=~/cinder.img bs=1 count=1 seek=100G
+    sudo losetup $(sudo losetup -f) ~/cinder.img
+    sudo losetup -l
+  SHELL
+
   # Ensure Permissive SELinux policy
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     if command -v sestatus; then
@@ -128,7 +135,7 @@ Vagrant.configure("2") do |config|
       cd /vagrant
       echo "127.0.0.1 localhost" | sudo tee /etc/hosts
 
-      ./node.sh -v sdb=/var/lib/docker/ -c /dev/sdc | tee ~/node_aio.log
+      ./node.sh -v sdb=/var/lib/docker/ -c "$(sudo losetup -l | grep cinder.img | awk '{ print $1 }')" | tee ~/node_aio.log
       ./install.sh
 
       grep --no-filename ": .* secs" ~/*.log
@@ -165,7 +172,6 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--vtxvpid", "on"]
   end
   config.vm.disk :disk, name: "docker", size: "50GB"
-  config.vm.disk :disk, name: "cinder", size: "100GB"
 
   config.vm.provider :libvirt do |v, override|
     override.vm.synced_folder "../../", "/vagrant", type: "virtiofs"
@@ -194,12 +200,6 @@ Vagrant.configure("2") do |config|
       {
         disk_size: 50,
         disk_name: "docker",
-        disk_type: "pd-standard",
-        autodelete_disk: true
-      },
-      {
-        disk_size: 100,
-        disk_name: "cinder",
         disk_type: "pd-standard",
         autodelete_disk: true
       }

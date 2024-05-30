@@ -77,8 +77,14 @@ if [ -n "${cinder_volumes-}" ]; then
     if ! command -v vgs; then
         curl -fsSL http://bit.ly/install_pkg | PKG="lvm2" bash
     fi
+    # Ensure that the volume is empty
+    sudo dd if=/dev/zero of="$cinder_volumes" bs=512 count=1
+
+    # Creation of cinder LVM
     sudo pvcreate "$cinder_volumes"
     sudo vgcreate cinder-volumes "$cinder_volumes"
+    sudo pvdisplay
+
     sudo modprobe dm_thin_pool
     echo "dm_thin_pool" | sudo tee /etc/modules-load.d/dm_thin_pool.conf
     sudo modprobe target_core_mod
