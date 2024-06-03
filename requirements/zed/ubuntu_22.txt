@@ -8,7 +8,7 @@ ansible==5.10.0
     # via -r requirements/zed/ubuntu_22.in
 ansible-core==2.12.10
     # via ansible
-certifi==2024.2.2
+certifi==2024.6.2
     # via requests
 cffi==1.16.0
     # via cryptography
