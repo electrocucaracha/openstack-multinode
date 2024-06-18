@@ -85,7 +85,7 @@ rfc3986==2.0.0
     # via oslo-config
 stevedore==5.2.0
     # via oslo-config
-urllib3==2.2.1
+urllib3==2.2.2
     # via requests
 wrapt==1.16.0
     # via debtcollector
