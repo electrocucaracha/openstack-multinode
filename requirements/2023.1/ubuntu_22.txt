@@ -10,13 +10,13 @@ ansible-core==2.13.0
     # via
     #   -r requirements/2023.1/ubuntu_22.in
     #   ansible
-certifi==2024.2.2
+certifi==2024.6.2
     # via requests
 cffi==1.16.0
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
-cryptography==42.0.7
+cryptography==42.0.8
     # via
     #   ansible-core
     #   kolla-ansible
@@ -24,7 +24,7 @@ debtcollector==3.0.0
     # via
     #   oslo-config
     #   oslo-utils
-hvac==2.2.0
+hvac==2.3.0
     # via kolla-ansible
 idna==3.7
     # via requests
@@ -42,7 +42,7 @@ markupsafe==2.1.5
     # via jinja2
 mitogen==0.3.7
     # via -r requirements/2023.1/ubuntu_22.in
-netaddr==1.2.1
+netaddr==1.3.0
     # via
     #   oslo-config
     #   oslo-utils
@@ -56,7 +56,7 @@ oslo-i18n==6.3.0
     #   oslo-utils
 oslo-utils==7.1.0
     # via kolla-ansible
-packaging==24.0
+packaging==24.1
     # via
     #   ansible-core
     #   oslo-utils
@@ -75,7 +75,7 @@ pyyaml==6.0.1
     #   kolla-ansible
     #   oslo-config
     #   oslo-utils
-requests==2.31.0
+requests==2.32.3
     # via
     #   hvac
     #   oslo-config
@@ -87,7 +87,7 @@ stevedore==5.2.0
     # via oslo-config
 tzdata==2024.1
     # via oslo-utils
-urllib3==2.2.1
+urllib3==2.2.2
     # via requests
 wrapt==1.16.0
     # via debtcollector
