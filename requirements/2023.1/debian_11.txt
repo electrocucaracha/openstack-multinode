@@ -36,7 +36,7 @@ jinja2==3.1.4
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==16.5.0
+kolla-ansible==16.6.0
     # via -r requirements/2023.1/debian_11.in
 markupsafe==2.1.5
     # via jinja2
