@@ -38,7 +38,7 @@ jinja2==3.1.4
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==17.3.0
+kolla-ansible==17.4.0
     # via -r requirements/2023.2/rocky_9.in
 markupsafe==2.1.5
     # via jinja2
