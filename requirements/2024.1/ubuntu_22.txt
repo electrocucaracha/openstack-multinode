@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/2024.1/ubuntu_22.txt requirements/2024.1/ubuntu_22.in
 #
-ansible-core==2.16.9
+ansible-core==2.16.10
     # via -r requirements/2024.1/ubuntu_22.in
 bcrypt==4.2.0
     # via
