@@ -86,7 +86,7 @@ function _install_deps {
     pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}_${VERSION_ID%.*}.txt"
     # PEP 370 -- Per user site-packages directory
     [[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
-    # https://review.opendev.org/#/c/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2@6
+    # https://review.opendev.org/c/openstack/kolla-ansible/+/584427/17/ansible/roles/rabbitmq/templates/rabbitmq-env.conf.j2#6
     sudo find / -name rabbitmq-env.conf.j2 -exec sed -i '/export ERL_EPMD_ADDRESS/d' {} \;
 }
 
