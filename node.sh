@@ -15,6 +15,10 @@ if [[ ${OS_DEBUG:-false} == "true" ]]; then
     export PKG_DEBUG=true
     set -o xtrace
 fi
+
+# shellcheck disable=SC1091
+source /etc/os-release || source /usr/lib/os-release
+
 _start=$(date +%s)
 trap 'printf "Node setup process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
 
@@ -33,8 +37,6 @@ function mount_external_partition {
     local mount_dir=$2
 
     if ! command -v sfdisk >/dev/null; then
-        # shellcheck disable=SC1091
-        source /etc/os-release || source /usr/lib/os-release
         case ${ID,,} in
         ubuntu | debian)
             sudo apt-get update -qq >/dev/null
@@ -66,6 +68,14 @@ while getopts "h?v:c:" opt; do
         ;;
     esac
 done
+
+if ! command -v cloud-init >/dev/null; then
+    case ${ID,,} in
+    ubuntu | debian)
+        sudo apt-get -y -qq purge cloud-init
+        ;;
+    esac
+fi
 
 if [ -n "${dict_volumes-}" ]; then
     for kv in ${dict_volumes//,/ }; do
