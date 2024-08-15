@@ -85,6 +85,9 @@ if [ -n "${cinder_volumes-}" ]; then
     sudo vgcreate cinder-volumes "$cinder_volumes"
     sudo pvdisplay
 
+    # Configure LVM to only scan devices that contain the cinder-volumes volume group
+    sudo sed -i -e '/# global_filter = \[.*\]/a\' -e "\tglobal_filter = [ \"a|$(sudo pvs --noheadings -o name | sed 's/ //g' | sed 's/\/dev\///g')|\", \"r|.*|\" ]" /etc/lvm/lvm.conf
+
     sudo modprobe dm_thin_pool
     echo "dm_thin_pool" | sudo tee /etc/modules-load.d/dm_thin_pool.conf
     sudo modprobe target_core_mod
