@@ -96,7 +96,12 @@ if [ -n "${cinder_volumes-}" ]; then
     sudo pvdisplay
 
     # Configure LVM to only scan devices that contain the cinder-volumes volume group
-    sudo sed -i -e '/# global_filter = \[.*\]/a\' -e "\tglobal_filter = [ \"a|$(sudo pvs --noheadings -o name | sed 's/ //g' | sed 's/\/dev\///g')|\", \"r|.*|\" ]" /etc/lvm/lvm.conf
+    filter_string=""
+    for pv_info in $(sudo pvs --noheadings -o name); do
+        filter_string+="\"a|${pv_info##*/}|\", "
+    done
+    # shellcheck disable=SC1003
+    sudo sed -i -e '/# global_filter = \[.*\]/a\' -e "\tglobal_filter = [ $filter_string \"r|.*|\" ]" /etc/lvm/lvm.conf
 
     sudo modprobe dm_thin_pool
     echo "dm_thin_pool" | sudo tee /etc/modules-load.d/dm_thin_pool.conf
