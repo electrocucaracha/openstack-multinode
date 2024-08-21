@@ -146,6 +146,7 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
     source /etc/kolla/admin-openrc.sh
     curl -fsSL "https://raw.githubusercontent.com/openstack/kolla-ansible/${OS_KOLLA_VERSION:-stable/2024.1}/tools/init-runonce" | bash
 
+    [ "${OS_KOLLA_ENABLE_CINDER:-yes}" == "yes" ] && ./scripts/cinder.sh
     [ "${OS_KOLLA_ENABLE_MAGNUM:-no}" == "yes" ] && ./scripts/magnum.sh
     [ "${OS_KOLLA_ENABLE_NEUTRON_TRUNK:-yes}" == "yes" ] && ./scripts/neutron_trunk.sh
 fi
