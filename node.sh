@@ -91,8 +91,8 @@ if [ -n "${cinder_volumes-}" ]; then
     sudo dd if=/dev/zero of="$cinder_volumes" bs=512 count=1
 
     # Creation of cinder LVM
-    sudo pvcreate "$cinder_volumes"
     sudo vgcreate cinder-volumes "$cinder_volumes"
+    sudo vgs
     sudo pvdisplay
 
     # Configure LVM to only scan devices that contain the cinder-volumes volume group
