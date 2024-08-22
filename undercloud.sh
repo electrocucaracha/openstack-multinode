@@ -79,7 +79,7 @@ function _install_deps {
     _remove_conflicting_python_pkgs
 
     # Install dependencies
-    curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud PKG_COMMANDS_LIST="yq" bash
+    curl -fsSL http://bit.ly/install_bin | PKG_BINDEP_PROFILE=undercloud PKG_COMMANDS_LIST="yq" PKG_UPDATE=true bash
 
     # Install Kolla-Ansible dependencies
     sudo ln -s "$(command -v pip3)" /usr/bin/pip3 || :
