@@ -50,7 +50,7 @@ netifaces==0.11.0
     # via oslo-utils
 oslo-config==9.5.0
     # via kolla-ansible
-oslo-i18n==6.3.0
+oslo-i18n==6.4.0
     # via
     #   oslo-config
     #   oslo-utils
