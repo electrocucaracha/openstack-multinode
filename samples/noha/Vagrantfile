@@ -44,9 +44,10 @@ hosts = "#{controller_ip}  controller\n"
   hosts += "#{subnet}.#{i + 8}  compute#{i.to_s.rjust(2, '0')}\n"
 end
 no_proxy += ",#{controller_ip}"
-public_nic = `ip r get 1.1.1.1 | awk 'NR==1{print $5}'`.strip! || "eth0"
-cloud_public_cidr = `ip r | grep "dev $(ip r get 1.1.1.1 | awk 'NR==1{print $5}') .* scope link" | awk '{print $1}'`.strip! || "192.168.0.0/24"
-cloud_public_gw = `ip r | grep "^default" | awk 'NR==1{print $3}'`.strip! || "192.168.0.1"
+# NOTE: Execute awk commands results in no outputs in stdout
+public_nic = `ip r get 1.1.1.1 | head -n 1 | cut -d ' ' -f 5`.strip! || "eth0"
+cloud_public_cidr = `ip r | grep "dev $(ip r get 1.1.1.1 | head -n 1 | cut -d ' ' -f 5) .* scope link" | cut -d ' ' -f 1`.strip! || "192.168.0.0/24"
+cloud_public_gw = `ip r | grep "^default" | head -n 1 | cut -d ' ' -f 3`.strip! || "192.168.0.1"
 
 def which(cmd)
   exts = ENV["PATHEXT"] ? ENV["PATHEXT"].split(";") : [""]
@@ -59,7 +60,7 @@ def which(cmd)
   nil
 end
 
-vb_public_nic = `VBoxManage list bridgedifs | grep "^Name:.*#{public_nic}" | awk -F "Name:[ ]*" '{ print $2}'`.strip! if which "VBoxManage"
+vb_public_nic = `VBoxManage list bridgedifs | grep "^Name:.*#{public_nic}" | cut -d "Name:[ ]*" -f 2`.strip! if which "VBoxManage"
 system("echo -e \"\n\n\n\" | ssh-keygen -f #{File.dirname(__FILE__)}/../../insecure_keys/key -t rsa -N ''") unless File.exist?("#{File.dirname(__FILE__)}/../../insecure_keys/key")
 
 Vagrant.configure("2") do |config|
@@ -163,7 +164,6 @@ Vagrant.configure("2") do |config|
         OS_DEBUG: debug.to_s,
         OS_ENABLE_LOCAL_REGISTRY: ENV["OS_ENABLE_LOCAL_REGISTRY"] || "true",
         OS_INVENTORY_FILE: "./samples/noha/hosts.ini",
-        OS_KOLLA_NEUTRON_PLUGIN_AGENT: "linuxbridge",
         OS_KOLLA_API_INTERFACE: "eth1",
         OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE: "eth2",
         OS_KOLLA_ENABLE_NEUTRON_PROVIDER_NETWORKS: "yes",
@@ -176,7 +176,7 @@ Vagrant.configure("2") do |config|
       sh.inline = <<-SHELL
         set -o errexit
 
-        for os_var in $(printenv | grep "OS_\|EXT_NET_" ); do echo "export $os_var" | sudo tee --append /etc/environment ; done
+        for os_var in $(printenv | grep "OS_|EXT_NET_" ); do echo "export $os_var" | sudo tee --append /etc/environment ; done
 
         cd /vagrant
         cat ./insecure_keys/key.pub >> ~/.ssh/authorized_keys
