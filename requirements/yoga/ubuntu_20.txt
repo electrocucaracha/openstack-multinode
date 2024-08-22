@@ -8,13 +8,13 @@ ansible==5.10.0
     # via -r requirements/yoga/ubuntu_20.in
 ansible-core==2.12.10
     # via ansible
-certifi==2024.2.2
+certifi==2024.7.4
     # via requests
-cffi==1.16.0
+cffi==1.17.0
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
-cryptography==42.0.7
+cryptography==43.0.0
     # via
     #   ansible-core
     #   kolla-ansible
@@ -22,7 +22,7 @@ debtcollector==3.0.0
     # via
     #   oslo-config
     #   oslo-utils
-hvac==2.2.0
+hvac==2.3.0
     # via kolla-ansible
 idna==3.7
     # via requests
@@ -38,23 +38,23 @@ kolla-ansible==14.11.0
     # via -r requirements/yoga/ubuntu_20.in
 markupsafe==2.1.5
     # via jinja2
-mitogen==0.3.7
+mitogen==0.3.9
     # via -r requirements/yoga/ubuntu_20.in
-netaddr==1.2.1
+netaddr==1.3.0
     # via
     #   oslo-config
     #   oslo-utils
 netifaces==0.11.0
     # via oslo-utils
-oslo-config==9.4.0
+oslo-config==9.5.0
     # via kolla-ansible
 oslo-i18n==6.3.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==7.1.0
+oslo-utils==7.2.0
     # via kolla-ansible
-packaging==24.0
+packaging==24.1
     # via
     #   ansible-core
     #   oslo-utils
@@ -69,13 +69,13 @@ pyparsing==3.1.2
     # via oslo-utils
 pytz==2024.1
     # via oslo-utils
-pyyaml==6.0.1
+pyyaml==6.0.2
     # via
     #   ansible-core
     #   kolla-ansible
     #   oslo-config
     #   oslo-utils
-requests==2.31.0
+requests==2.32.3
     # via
     #   hvac
     #   oslo-config
@@ -85,7 +85,7 @@ rfc3986==2.0.0
     # via oslo-config
 stevedore==5.2.0
     # via oslo-config
-urllib3==2.2.1
+urllib3==2.2.2
     # via requests
 wrapt==1.16.0
     # via debtcollector
