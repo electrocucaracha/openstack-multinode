@@ -76,14 +76,17 @@ jobs:
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
       ) || github.event_name != 'pull_request_review'
-    env:
-      OS_KOLLA_ENABLE_CINDER: "no"
     steps:
       - uses: actions/checkout@v4.1.7
       - name: Install requirements
         run: |
           sudo apt-get update
           sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends bridge-utils python3-testresources
+      - name: Create a loop device
+        run: |
+          dd if=/dev/zero of=~/cinder.img bs=1 count=1 seek=100G
+          sudo losetup $(sudo losetup -f) ~/cinder.img
+          sudo losetup -l
       - name: Setup network external interface
         run: |
           sudo ip link add veth0 type veth peer name veth1
@@ -99,6 +102,6 @@ jobs:
         env:
           OS_DEBUG: true
         run: |
-          ./node.sh
+          ./node.sh -c "$(sudo losetup -l | grep cinder.img | awk '{ print $1 }')"
           sed -i "s|localhost|$(hostname)|g" samples/aio/hosts.ini
           OS_FOLDER=$(git rev-parse --show-toplevel) ./install.sh
