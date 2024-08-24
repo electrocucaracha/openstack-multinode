@@ -24,7 +24,7 @@ debtcollector==3.0.0
     #   oslo-utils
 hvac==2.3.0
     # via kolla-ansible
-idna==3.7
+idna==3.8
     # via requests
 iso8601==2.1.0
     # via oslo-utils
