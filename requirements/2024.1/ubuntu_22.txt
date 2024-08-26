@@ -67,7 +67,7 @@ pbr==6.0.0
     #   stevedore
 pycparser==2.22
     # via cffi
-pyparsing==3.1.2
+pyparsing==3.1.4
     # via oslo-utils
 pyyaml==6.0.2
     # via
