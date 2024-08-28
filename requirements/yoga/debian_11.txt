@@ -58,7 +58,7 @@ packaging==24.1
     # via
     #   ansible-core
     #   oslo-utils
-pbr==6.0.0
+pbr==6.1.0
     # via
     #   kolla-ansible
     #   oslo-i18n
