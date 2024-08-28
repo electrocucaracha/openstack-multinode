@@ -60,7 +60,7 @@ packaging==24.1
     #   oslo-utils
 passlib[bcrypt]==1.7.4
     # via kolla-ansible
-pbr==6.0.0
+pbr==6.1.0
     # via
     #   kolla-ansible
     #   oslo-i18n
