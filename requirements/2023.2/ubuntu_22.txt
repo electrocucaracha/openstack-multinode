@@ -10,7 +10,7 @@ bcrypt==4.2.0
     # via
     #   kolla-ansible
     #   passlib
-certifi==2024.7.4
+certifi==2024.8.30
     # via requests
 cffi==1.17.0
     # via cryptography
