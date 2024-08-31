@@ -8,7 +8,7 @@ ansible==5.10.0
     # via -r requirements/zed/rocky_9.in
 ansible-core==2.12.10
     # via ansible
-certifi==2024.7.4
+certifi==2024.8.30
     # via requests
 cffi==1.17.0
     # via cryptography
