@@ -36,7 +36,7 @@ jobs:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # refs/tags/v4.1.7
       - name: install dependencies
         shell: bash
         run: |
@@ -52,7 +52,7 @@ jobs:
           esac
           $INSTALLER_CMD python3-pip git
           pip3 install pip-tools
-      - uses: technote-space/create-pr-action@v2.1.4
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
         with:
           EXECUTE_COMMANDS: |
             bash -c 'source /etc/os-release; pip-compile --output-file="requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.in" --upgrade'
@@ -63,8 +63,8 @@ jobs:
   check-dictionary:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.7
-      - uses: technote-space/create-pr-action@v2.1.4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # refs/tags/v4.1.7
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
         with:
           EXECUTE_COMMANDS: |
             sudo apt-get update
@@ -85,3 +85,15 @@ jobs:
           COMMIT_NAME: 'spellchecker bot'
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
           PR_TITLE: 'chore: update dictionary'
+  check-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # refs/tags/v4.1.7
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
+        with:
+          EXECUTE_COMMANDS: |
+            ./ci/update_versions.sh
+          COMMIT_MESSAGE: 'Update GitHub Actions'
+          COMMIT_NAME: 'gh versions bot'
+          PR_BRANCH_NAME: "gh-versions-update-${PR_ID}"
+          PR_TITLE: 'chore: update gh'
