@@ -69,6 +69,12 @@ while getopts "h?v:c:" opt; do
     esac
 done
 
+case ${ID,,} in
+ubuntu | debian)
+    sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 "linux-modules-extra-$(uname -r)"
+    ;;
+esac
+
 if ! command -v cloud-init >/dev/null; then
     case ${ID,,} in
     ubuntu | debian)
