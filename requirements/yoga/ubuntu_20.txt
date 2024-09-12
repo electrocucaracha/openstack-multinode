@@ -67,7 +67,7 @@ pycparser==2.22
     # via cffi
 pyparsing==3.1.4
     # via oslo-utils
-pytz==2024.1
+pytz==2024.2
     # via oslo-utils
 pyyaml==6.0.2
     # via
