@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/yoga/centos_8.txt requirements/yoga/centos_8.in
 #
-ansible==4.10.0
+ansible==10.4.0
     # via -r requirements/yoga/centos_8.in
 ansible-core==2.11.12
     # via ansible

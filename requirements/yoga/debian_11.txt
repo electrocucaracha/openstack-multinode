@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/yoga/debian_11.txt requirements/yoga/debian_11.in
 #
-ansible==5.10.0
+ansible==10.4.0
     # via -r requirements/yoga/debian_11.in
 ansible-core==2.12.10
     # via ansible

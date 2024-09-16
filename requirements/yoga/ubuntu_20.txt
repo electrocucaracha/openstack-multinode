@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/yoga/ubuntu_20.txt requirements/yoga/ubuntu_20.in
 #
-ansible==5.10.0
+ansible==10.4.0
     # via -r requirements/yoga/ubuntu_20.in
 ansible-core==2.12.10
     # via ansible
