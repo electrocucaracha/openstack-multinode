@@ -26,7 +26,6 @@ jobs:
     runs-on: ubuntu-22.04
     if: >-
       (
-
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
       ) || github.event_name != 'pull_request_review'
@@ -34,8 +33,20 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # refs/tags/v4.1.7
       - name: Install requirements
         env:
-          OS_KOLLA_BUILD_ARGS: 'keystone --registry 127.0.0.1:5000 --push --threads 4 --quiet --retries 5 --cache --push-threads 2 --squash --base ubuntu'
+          OS_KOLLA_BUILD_ARGS: 'keystone --registry 127.0.0.1:5000 --push --threads 4 --quiet --retries 5 --cache --push-threads 2 --squash --base ubuntu --tag latest'
         run: ./registry.sh
+      - name: Get Docker Base Image layer contents
+        uses: MaxymVlasov/dive-action@379af3fc636888ada5899c997e8b52db6ad45023 # refs/tags/v1.0.1
+        with:
+          image: '127.0.0.1:5000/kolla/base:latest'
+      - name: Get OpenStack Docker Image layer contents
+        uses: MaxymVlasov/dive-action@379af3fc636888ada5899c997e8b52db6ad45023 # refs/tags/v1.0.1
+        with:
+          image: '127.0.0.1:5000/kolla/openstack-base:latest'
+      - name: Get Kestone Docker Image layer contents
+        uses: MaxymVlasov/dive-action@379af3fc636888ada5899c997e8b52db6ad45023 # refs/tags/v1.0.1
+        with:
+          image: '127.0.0.1:5000/kolla/keystone:latest'
       - name: Validate images
         run: |
           sudo docker images
@@ -58,7 +69,6 @@ jobs:
     runs-on: macos-12
     if: >-
       (
-
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
       ) || github.event_name != 'pull_request_review'
