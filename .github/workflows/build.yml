@@ -35,16 +35,16 @@ jobs:
         env:
           OS_KOLLA_BUILD_ARGS: 'keystone --registry 127.0.0.1:5000 --push --threads 4 --quiet --retries 5 --cache --push-threads 2 --squash --base ubuntu --tag latest'
         run: ./registry.sh
-      - name: Get Docker Base Image layer contents
-        uses: MaxymVlasov/dive-action@379af3fc636888ada5899c997e8b52db6ad45023 # refs/tags/v1.0.1
+      - name: Analyze Docker Base Image
+        uses: ./.github/actions/docker-image
         with:
           image: '127.0.0.1:5000/kolla/base:latest'
-      - name: Get OpenStack Docker Image layer contents
-        uses: MaxymVlasov/dive-action@379af3fc636888ada5899c997e8b52db6ad45023 # refs/tags/v1.0.1
+      - name: Analyze OpenStack Base Image
+        uses: ./.github/actions/docker-image
         with:
           image: '127.0.0.1:5000/kolla/openstack-base:latest'
-      - name: Get Kestone Docker Image layer contents
-        uses: MaxymVlasov/dive-action@379af3fc636888ada5899c997e8b52db6ad45023 # refs/tags/v1.0.1
+      - name: Analyze Keystone Image
+        uses: ./.github/actions/docker-image
         with:
           image: '127.0.0.1:5000/kolla/keystone:latest'
       - name: Validate images
