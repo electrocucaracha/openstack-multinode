@@ -15,9 +15,9 @@ if [[ ${OS_DEBUG:-false} == "true" ]]; then
 fi
 
 # Update GitHub Action commit hashes
-gh_actions=$(grep -r "uses: [a-zA-Z\-]*/[\_a-z\-]*@" .github/workflows/ | sed 's/@.*//' | awk -F ': ' '{ print $3 }' | sort | uniq)
+gh_actions=$(grep -r "uses: [a-zA-Z\-]*/[\_a-z\-]*@" .github/ | sed 's/@.*//' | awk -F ': ' '{ print $3 }' | sort | uniq)
 for action in $gh_actions; do
     commit_hash=$(git ls-remote --tags "https://github.com/$action" | grep 'refs/tags/[v]\?[0-9][0-9\.]*$' | awk '{ print $NF,$0 }' | sort -k1,1 -V | cut -f2- -d' ' | grep -oh '.*refs/tags/[v0-9\.]*$' | tail -1 | awk '{ printf "%s # %s\n",$1,$2 }')
     # shellcheck disable=SC2267
-    grep -ElRZ "uses: $action@" .github/workflows/ | xargs -0 -l sed -i -e "s|uses: $action@.*|uses: $action@$commit_hash|g"
+    grep -ElRZ "uses: $action@" .github/ | xargs -0 -l sed -i -e "s|uses: $action@.*|uses: $action@$commit_hash|g"
 done
