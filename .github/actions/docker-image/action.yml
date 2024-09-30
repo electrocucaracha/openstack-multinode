@@ -7,7 +7,8 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-name: Analyzes security and size of a given docker image
+name: Docker image
+description: Analyzes security vulnerabilities and size of a given docker image
 inputs:
   image:
     description: Docker image name
