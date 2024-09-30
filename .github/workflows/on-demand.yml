@@ -12,7 +12,7 @@ name: Check Bash scripts
 on:
   push:
     paths:
-      - '*.sh'
+      - "*.sh"
   pull_request_review:
     types:
       - submitted
@@ -22,6 +22,7 @@ jobs:
     name: Check scripts format
     if: >-
       (
+
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
       ) || github.event_name != 'pull_request_review'

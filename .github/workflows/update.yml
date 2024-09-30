@@ -11,7 +11,7 @@ name: Scheduled Versions and Dictionary verification
 # yamllint disable-line rule:truthy
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   workflow_dispatch:
 permissions: read-all
 jobs:
@@ -21,7 +21,12 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        image: ["docker.io/library/debian:11", "docker.io/library/ubuntu:22.04", "docker.io/library/rockylinux:9"]
+        image:
+          [
+            "docker.io/library/debian:11",
+            "docker.io/library/ubuntu:22.04",
+            "docker.io/library/rockylinux:9",
+          ]
         os_release: ["zed", "2023.1", "2023.2", "2024.1"]
         include:
           - image: "quay.io/centos/centos:stream8"
@@ -54,10 +59,10 @@ jobs:
         with:
           EXECUTE_COMMANDS: |
             bash -c 'source /etc/os-release; pip-compile --output-file="requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.in" --upgrade'
-          COMMIT_MESSAGE: 'Upgrade OpenStack Kolla dependencies'
-          COMMIT_NAME: 'electrocucaracha bot'
+          COMMIT_MESSAGE: "Upgrade OpenStack Kolla dependencies"
+          COMMIT_NAME: "electrocucaracha bot"
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
-          PR_TITLE: 'chore: update versions'
+          PR_TITLE: "chore: update versions"
   check-dictionary:
     runs-on: ubuntu-latest
     steps:
@@ -79,10 +84,10 @@ jobs:
             # Add missing words
             pyspelling -c .spellcheck.yml | sed '/^<.*>/d;/^!!!/d;/^--/d;/^Misspelled words:/d;/^$/d;/^Spelling check passed :)$/d' | sort --ignore-case | uniq --ignore-case | tee --append .github/.wordlist.txt
             sort --ignore-case --output=.github/.wordlist.txt .github/.wordlist.txt
-          COMMIT_MESSAGE: 'Update dictionary definitions'
-          COMMIT_NAME: 'spellchecker bot'
+          COMMIT_MESSAGE: "Update dictionary definitions"
+          COMMIT_NAME: "spellchecker bot"
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
-          PR_TITLE: 'chore: update dictionary'
+          PR_TITLE: "chore: update dictionary"
   check-github-actions:
     runs-on: ubuntu-latest
     steps:
@@ -91,7 +96,7 @@ jobs:
         with:
           EXECUTE_COMMANDS: |
             ./ci/update_versions.sh
-          COMMIT_MESSAGE: 'Update GitHub Actions'
-          COMMIT_NAME: 'gh versions bot'
+          COMMIT_MESSAGE: "Update GitHub Actions"
+          COMMIT_NAME: "gh versions bot"
           PR_BRANCH_NAME: "gh-versions-update-${PR_ID}"
-          PR_TITLE: 'chore: update gh'
+          PR_TITLE: "chore: update gh"

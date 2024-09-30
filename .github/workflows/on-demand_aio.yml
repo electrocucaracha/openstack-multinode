@@ -12,11 +12,11 @@ name: Check All-in-One setup
 on:
   push:
     paths:
-      - '*.sh'
-      - '*.yml'
-      - 'samples/aio/*'
-      - 'etc/**'
-      - '!.github/**'
+      - "*.sh"
+      - "*.yml"
+      - "samples/aio/*"
+      - "etc/**"
+      - "!.github/**"
   pull_request_review:
     types:
       - submitted
@@ -26,6 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     if: >-
       (
+
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'
       ) || github.event_name != 'pull_request_review'
@@ -72,6 +73,7 @@ jobs:
     name: Check All-in-One deployment on Ubuntu Jammy Virtual Environment
     if: >-
       (
+
 
         github.event_name == 'pull_request_review' &&
         github.event.review.state == 'approved'

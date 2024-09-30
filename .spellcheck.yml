@@ -15,6 +15,6 @@ matrix:
     pipeline:
       - pyspelling.filters.markdown:
     sources:
-      - '**/*.md'
+      - "**/*.md"
     aspell:
       ignore-case: true

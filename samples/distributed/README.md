@@ -7,13 +7,13 @@
 The system that will host VMs for the solution must be big enough to
 support the +10 Virtual Machines displayed at above diagram.
 
-Some configuration details can be configured for the *Distributed*
+Some configuration details can be configured for the _Distributed_
 setup using its [PDF](pdf.yml).
 
 ### Current configuration
 
 | Amount | Node               | Memory(GB) | vCPUs | Disk(GB) |
-|--------|--------------------|------------|-------|----------|
+| ------ | ------------------ | ---------- | ----- | -------- |
 | 1      | Registry           | 8          | 1     | 50       |
 | 3      | Controller/Network | 8          | 1     |          |
 | 1      | Compute            | 8          | 1     |          |

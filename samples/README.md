@@ -2,7 +2,7 @@
 
 This project provides configurations which have been validated
 using [Vagrant tool][1] on Virtual Machines provisioned on VirtualBox
-or Libvirt. It's highly recommended to use the  *setup.sh* script
+or Libvirt. It's highly recommended to use the _setup.sh_ script
 of the [bootstrap-vagrant project][2] for installing Vagrant
 dependencies and plugins required for its project.
 

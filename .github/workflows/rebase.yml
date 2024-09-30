@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0  # otherwise, you will fail to push refs to dest repo
+          fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@b87d48154a87a85666003575337e27b8cd65f691 # refs/tags/1.8
         env:

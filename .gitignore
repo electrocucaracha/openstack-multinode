@@ -10,3 +10,5 @@ samples/noha/hosts.ini
 samples/noha/header.ini
 *.dic
 insecure_keys/key*
+node_modules/
+package*.json

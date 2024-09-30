@@ -12,8 +12,8 @@ name: Run misspell
 on:
   push:
     paths:
-      - '**.md'
-      - '!.github/*'
+      - "**.md"
+      - "!.github/*"
   pull_request_review:
     types:
       - submitted

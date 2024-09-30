@@ -30,7 +30,7 @@ jobs:
           should_push: false
       - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
         with:
-          COMMIT_MESSAGE: 'Upgrade documentation diagram'
-          COMMIT_NAME: 'electrocucaracha bot'
+          COMMIT_MESSAGE: "Upgrade documentation diagram"
+          COMMIT_NAME: "electrocucaracha bot"
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
-          PR_TITLE: 'chore: update diagram'
+          PR_TITLE: "chore: update diagram"
