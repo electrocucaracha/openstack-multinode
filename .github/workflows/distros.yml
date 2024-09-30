@@ -13,11 +13,9 @@ on:
   schedule:
     - cron: '0 0 1 * *'
   workflow_dispatch:
+permissions: read-all
 jobs:
   check-versions:
-    permissions:
-      contents: write  # for technote-space/create-pr-action to push code
-      pull-requests: write  # for technote-space/create-pr-action to create a PR
     name: Check for latest Vagrant box versions
     runs-on: macos-12
     steps:

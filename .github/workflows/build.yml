@@ -20,6 +20,7 @@ on:
   schedule:
     - cron: '0 0 * * 5'
   workflow_dispatch:
+permissions: read-all
 jobs:
   build-baremetal:
     name: Check building and publishing Kolla Docker images in a local Docker registry on an Ubuntu Jammy Virtual Environment

@@ -12,6 +12,7 @@ name: Automatic Rebase
 on:
   issue_comment:
     types: [created]
+permissions: read-all
 jobs:
   rebase:
     name: Rebase
