@@ -61,14 +61,16 @@ function _vagrant_pull {
         msg+="$name($version, $PROVIDER) box doesn't exist\n"
         return
     fi
+    # prettier-ignore-start
     cat <<EOT >>.distros_supported.yml
 $alias:
-    name: $name
-    vb_controller: $vb_controller
-    version: "$version"
-    project_id: $project_id
-    family: $family
+  name: $name
+  vb_controller: $vb_controller
+  version: "$version"
+  project_id: $project_id
+  family: $family
 EOT
+    # prettier-ignore-end
 }
 
 if ! command -v vagrant >/dev/null; then

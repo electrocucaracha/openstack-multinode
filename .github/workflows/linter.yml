@@ -9,10 +9,10 @@
 ##############################################################################
 name: Lint Code Base
 # yamllint disable-line rule:truthy
-permissions: read-all
 on:
   push:
   pull_request:
+permissions: read-all
 jobs:
   get-sloc:
     name: Count Lines of Code
