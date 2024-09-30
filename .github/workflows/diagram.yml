@@ -20,6 +20,9 @@ jobs:
   check-diagram:
     name: Update the codebase structure diagram
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for technote-space/create-pr-action to push code
+      pull-requests: write # for technote-space/create-pr-action to create a PR
     steps:
       - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
       - name: Update diagram

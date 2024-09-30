@@ -17,6 +17,9 @@ permissions: read-all
 jobs:
   check-versions:
     name: Update python requirements files
+    permissions:
+      contents: write # for technote-space/create-pr-action to push code
+      pull-requests: write # for technote-space/create-pr-action to create a PR
     strategy:
       max-parallel: 1
       fail-fast: false
@@ -58,6 +61,9 @@ jobs:
           PR_TITLE: "chore: update versions"
   check-dictionary:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for technote-space/create-pr-action to push code
+      pull-requests: write # for technote-space/create-pr-action to create a PR
     steps:
       - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
       - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
@@ -83,6 +89,9 @@ jobs:
           PR_TITLE: "chore: update dictionary"
   check-github-actions:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for technote-space/create-pr-action to push code
+      pull-requests: write # for technote-space/create-pr-action to create a PR
     steps:
       - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
       - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
