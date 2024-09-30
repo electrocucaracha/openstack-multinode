@@ -61,6 +61,7 @@ function _vagrant_pull {
         msg+="$name($version, $PROVIDER) box doesn't exist\n"
         return
     fi
+    # editorconfig-checker-disable
     # prettier-ignore-start
     cat <<EOT >>.distros_supported.yml
 $alias:
@@ -71,6 +72,7 @@ $alias:
   family: $family
 EOT
     # prettier-ignore-end
+    # editorconfig-checker-enable
 }
 
 if ! command -v vagrant >/dev/null; then
