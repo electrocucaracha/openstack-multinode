@@ -27,14 +27,7 @@ jobs:
             "docker.io/library/ubuntu:22.04",
             "docker.io/library/rockylinux:9",
           ]
-        os_release: ["zed", "2023.1", "2023.2", "2024.1"]
-        include:
-          - image: "quay.io/centos/centos:stream8"
-            os_release: "yoga"
-          - image: "docker.io/library/debian:11"
-            os_release: "yoga"
-          - image: "docker.io/library/ubuntu:20.04"
-            os_release: "yoga"
+        os_release: ["2023.1", "2023.2", "2024.1"]
     container:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest

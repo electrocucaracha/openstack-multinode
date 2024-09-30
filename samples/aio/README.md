@@ -30,14 +30,14 @@ vagrant up
 This table displays the environment variables used to configure some aspects of
 the cluster, hardware resources and workflow.
 
-| Name                   | Default | Description                                                     |
-| :--------------------- | :------ | :-------------------------------------------------------------- |
-| OS_DISTRO              | centos  | Specifies the Linux distribution to be used for this deployment |
-| ENABLE_WEAVE_SCOPE     |         | Enable/Disable Weave Scope                                      |
-| OS_KOLLA_RUN_INIT      |         | Executes the [initialization Kolla script][2]                   |
-| OS_KOLLA_ENABLE_MAGNUM | no      | Enable/Disable [OpenStack Magnum service][4]                    |
-| CPUS                   | 8       | Number of vCPUS assigned to the Virtual Machine                 |
-| MEMORY                 | 16 GB   | Memory assigned to the Virtual Machine                          |
+| Name                   | Default   | Description                                                     |
+| :--------------------- | :-------- | :-------------------------------------------------------------- |
+| OS_DISTRO              | debian_11 | Specifies the Linux distribution to be used for this deployment |
+| ENABLE_WEAVE_SCOPE     |           | Enable/Disable Weave Scope                                      |
+| OS_KOLLA_RUN_INIT      |           | Executes the [initialization Kolla script][2]                   |
+| OS_KOLLA_ENABLE_MAGNUM | no        | Enable/Disable [OpenStack Magnum service][4]                    |
+| CPUS                   | 8         | Number of vCPUS assigned to the Virtual Machine                 |
+| MEMORY                 | 16 GB     | Memory assigned to the Virtual Machine                          |
 
 <!-- markdown-link-check-disable-next-line -->
 
