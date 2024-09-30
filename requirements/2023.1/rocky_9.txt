@@ -10,13 +10,13 @@ ansible-core==2.13.0
     # via
     #   -r requirements/2023.1/rocky_9.in
     #   ansible
-certifi==2024.7.4
+certifi==2024.8.30
     # via requests
-cffi==1.17.0
+cffi==1.17.1
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
-cryptography==43.0.0
+cryptography==43.0.1
     # via
     #   ansible-core
     #   kolla-ansible
@@ -26,7 +26,7 @@ debtcollector==3.0.0
     #   oslo-utils
 hvac==2.3.0
     # via kolla-ansible
-idna==3.7
+idna==3.10
     # via requests
 iso8601==2.1.0
     # via oslo-utils
@@ -36,11 +36,11 @@ jinja2==3.1.4
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==16.6.0
+kolla-ansible==16.7.0
     # via -r requirements/2023.1/rocky_9.in
 markupsafe==2.1.5
     # via jinja2
-mitogen==0.3.9
+mitogen==0.3.11
     # via -r requirements/2023.1/rocky_9.in
 netaddr==1.3.0
     # via
@@ -48,26 +48,26 @@ netaddr==1.3.0
     #   oslo-utils
 netifaces==0.11.0
     # via oslo-utils
-oslo-config==9.5.0
+oslo-config==9.6.0
     # via kolla-ansible
-oslo-i18n==6.3.0
+oslo-i18n==6.4.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==7.2.0
+oslo-utils==7.3.0
     # via kolla-ansible
 packaging==24.1
     # via
     #   ansible-core
     #   oslo-utils
-pbr==6.0.0
+pbr==6.1.0
     # via
     #   kolla-ansible
     #   oslo-i18n
     #   stevedore
 pycparser==2.22
     # via cffi
-pyparsing==3.1.2
+pyparsing==3.1.4
     # via oslo-utils
 pyyaml==6.0.2
     # via
@@ -83,11 +83,11 @@ resolvelib==0.5.4
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-stevedore==5.2.0
+stevedore==5.3.0
     # via oslo-config
-tzdata==2024.1
+tzdata==2024.2
     # via oslo-utils
-urllib3==2.2.2
+urllib3==2.2.3
     # via requests
 wrapt==1.16.0
     # via debtcollector
