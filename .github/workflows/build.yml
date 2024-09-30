@@ -34,20 +34,20 @@ jobs:
       - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
       - name: Install requirements
         env:
-          OS_KOLLA_BUILD_ARGS: 'keystone --registry 127.0.0.1:5000 --push --threads 4 --quiet --retries 5 --cache --push-threads 2 --squash --base ubuntu --tag latest'
+          OS_KOLLA_BUILD_ARGS: 'keystone --registry 127.0.0.1:5000 --push --threads 4 --quiet --retries 5 --cache --push-threads 2 --squash --base ubuntu --tag ${{ github.sha }}'
         run: ./registry.sh
       - name: Analyze Docker Base Image
         uses: ./.github/actions/docker-image
         with:
-          image: '127.0.0.1:5000/kolla/base:latest'
+          image: '127.0.0.1:5000/kolla/base:${{ github.sha }}'
       - name: Analyze OpenStack Base Image
         uses: ./.github/actions/docker-image
         with:
-          image: '127.0.0.1:5000/kolla/openstack-base:latest'
+          image: '127.0.0.1:5000/kolla/openstack-base:${{ github.sha }}'
       - name: Analyze Keystone Image
         uses: ./.github/actions/docker-image
         with:
-          image: '127.0.0.1:5000/kolla/keystone:latest'
+          image: '127.0.0.1:5000/kolla/keystone:${{ github.sha }}'
       - name: Validate images
         run: |
           sudo docker images
