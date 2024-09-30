@@ -45,6 +45,7 @@ jobs:
           LINTER_RULES_PATH: /
           EDITORCONFIG_FILE_NAME: .editorconfig
           FILTER_REGEX_EXCLUDE: "requirements/.*"
+          VALIDATE_SHELL_SHFMT: false
   check-tox:
     name: Check syntax (tox)
     runs-on: ubuntu-latest

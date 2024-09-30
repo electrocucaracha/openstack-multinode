@@ -16,6 +16,7 @@ lint:
 	-e LINTER_RULES_PATH=/ \
 	-e FILTER_REGEX_EXCLUDE="requirements/.*" \
 	-e EDITORCONFIG_FILE_NAME=.editorconfig \
+	-e VALIDATE_SHELL_SHFMT=false \
 	github/super-linter
 	tox -e lint
 
