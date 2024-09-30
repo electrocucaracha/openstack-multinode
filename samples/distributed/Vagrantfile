@@ -158,6 +158,7 @@ Vagrant.configure("2") do |config|
           DOCKER_REGISTRY_IP: "10.10.13.2"
         }
         sh.inline = <<-SHELL
+          set -o errexit
           cd /vagrant/
           ./node.sh -v "#{volume_mounts_dict[0...-1]}" -c "#{cinder_volume[0...-1]}" | tee ~/node.log
         SHELL
