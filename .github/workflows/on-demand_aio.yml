@@ -85,7 +85,7 @@ jobs:
       - name: Create a loop device
         run: |
           dd if=/dev/zero of=~/cinder.img bs=1 count=1 seek=100G
-          sudo losetup $(sudo losetup -f) ~/cinder.img
+          sudo losetup "$(sudo losetup -f)" ~/cinder.img
           sudo losetup -l
       - name: Setup network external interface
         run: |
