@@ -9,33 +9,33 @@
 ##############################################################################
 
 Describe 'commons.sh'
-  Include commons.sh
+    Include commons.sh
 
-  Describe 'vercmp()'
-    Parameters
-      '1.1.1' '==' '1.1.1' success
-      '1.1.1' '==' '1.1.0' failure
-      '1.1.0' '<' '1.1.1' success
-      '1.1.1' '<' '1.1.0' failure
-      '1.1.1' '<' '1.1.1' failure
-      '1.1.1' '<=' '1.1.1' success
-      '1.1.0' '<=' '1.1.1' success
-      '1.1.1' '<=' '1.1.0' failure
-      '1.1.1' '>' '1.1.0' success
-      '1.1.0' '>' '1.1.1' failure
-      '1.1.1' '>' '1.1.1' failure
-      '1.1.1' '>=' '1.1.0' success
-      '1.1.1' '>=' '1.1.1' success
-      '1.1.0' '>=' '1.1.1' failure
+    Describe 'vercmp()'
+        Parameters
+            '1.1.1' '==' '1.1.1' success
+            '1.1.1' '==' '1.1.0' failure
+            '1.1.0' '<' '1.1.1' success
+            '1.1.1' '<' '1.1.0' failure
+            '1.1.1' '<' '1.1.1' failure
+            '1.1.1' '<=' '1.1.1' success
+            '1.1.0' '<=' '1.1.1' success
+            '1.1.1' '<=' '1.1.0' failure
+            '1.1.1' '>' '1.1.0' success
+            '1.1.0' '>' '1.1.1' failure
+            '1.1.1' '>' '1.1.1' failure
+            '1.1.1' '>=' '1.1.0' success
+            '1.1.1' '>=' '1.1.1' success
+            '1.1.0' '>=' '1.1.1' failure
+        End
+        It 'performs comparation'
+            When call vercmp "$1" "$2" "$3"
+            The status should be "$4"
+        End
+        It 'raises error when specified an invalid operator'
+            When run vercmp '1.0.0' '!=' '2.0.0'
+            The stdout should equal "unrecognised op: !="
+            The status should be failure
+        End
     End
-    It 'performs comparation'
-      When call vercmp "$1" "$2" "$3"
-      The status should be "$4"
-    End
-    It 'raises error when specified an invalid operator'
-      When run vercmp '1.0.0' '!=' '2.0.0'
-      The stdout should equal "unrecognised op: !="
-      The status should be failure
-    End
-  End
 End

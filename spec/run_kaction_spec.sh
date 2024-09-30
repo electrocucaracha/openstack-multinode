@@ -9,17 +9,17 @@
 ##############################################################################
 
 Describe 'run_kaction.sh'
-  Include run_kaction.sh
+    Include run_kaction.sh
 
-  Describe '_get_kolla_ansible_cmd()'
-    Parameters
-      'deploy' 'kolla-ansible deploy --inventory ./samples/aio/hosts.ini'
-      'destroy' 'kolla-ansible destroy --inventory ./samples/aio/hosts.ini --yes-i-really-really-mean-it'
+    Describe '_get_kolla_ansible_cmd()'
+        Parameters
+            'deploy' 'kolla-ansible deploy --inventory ./samples/aio/hosts.ini'
+            'destroy' 'kolla-ansible destroy --inventory ./samples/aio/hosts.ini --yes-i-really-really-mean-it'
+        End
+        It 'gets kolla-ansible action'
+            When call _get_kolla_ansible_cmd "$1"
+            The output should eq "$2"
+            The status should be success
+        End
     End
-    It 'gets kolla-ansible action'
-      When call _get_kolla_ansible_cmd "$1"
-      The output should eq "$2"
-      The status should be success
-    End
-  End
 End

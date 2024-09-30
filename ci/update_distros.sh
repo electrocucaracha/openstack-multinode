@@ -63,11 +63,11 @@ function _vagrant_pull {
     fi
     cat <<EOT >>.distros_supported.yml
 $alias:
-  name: $name
-  vb_controller: $vb_controller
-  version: "$version"
-  project_id: $project_id
-  family: $family
+    name: $name
+    vb_controller: $vb_controller
+    version: "$version"
+    project_id: $project_id
+    family: $family
 EOT
 }
 
