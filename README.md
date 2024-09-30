@@ -87,10 +87,7 @@ coding, documenting, testing, spreading the word at events within others.
 
 Thanks to all the people who already contributed!
 
-<a href="https://github.com/electrocucaracha/openstack-multinode/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=electrocucaracha/openstack-multinode" />
-</a>
-
+![Alternate text](https://contrib.rocks/image?repo=electrocucaracha/openstack-multinode)
 ![Visualization of the codebase](./codebase-structure.svg)
 
 [1]: https://docs.openstack.org/kolla/latest/
