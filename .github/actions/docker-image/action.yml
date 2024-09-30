@@ -22,11 +22,11 @@ runs:
     - name: Save Docker image
       shell: bash
       run: docker save -o ${{ github.sha }} ${{ inputs.image }}
-    - name: Grab cache DB
-      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # refs/tags/v4.0.2
+    - name: Update Clair DB
+      uses: quay/clair-action@3d70e770073b9ac97fc7a7e800822fee52f5cb22 # refs/tags/v0.0.9
       with:
-        path: matcher.db
-        key: matcher.db
+        db-file: matcher.db
+        mode: update
     - name: Check security vulnerabilities
       uses: quay/clair-action@3d70e770073b9ac97fc7a7e800822fee52f5cb22 # refs/tags/v0.0.9
       with:
