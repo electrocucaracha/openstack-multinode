@@ -24,6 +24,8 @@ permissions: read-all
 jobs:
   build-baremetal:
     name: Check building and publishing Kolla Docker images in a local Docker registry on an Ubuntu Jammy Virtual Environment
+    permissions:
+      security-events: write
     runs-on: ubuntu-22.04
     if: >-
       (
