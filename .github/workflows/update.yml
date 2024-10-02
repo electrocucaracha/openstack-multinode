@@ -35,7 +35,7 @@ jobs:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # 4.2.0
       - name: install dependencies
         shell: bash
         run: |
@@ -51,7 +51,7 @@ jobs:
           esac
           $INSTALLER_CMD python3-pip git
           pip3 install pip-tools
-      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
         with:
           EXECUTE_COMMANDS: |
             bash -c 'source /etc/os-release; pip-compile --output-file="requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.in" --upgrade'
@@ -65,8 +65,8 @@ jobs:
       contents: write # for technote-space/create-pr-action to push code
       pull-requests: write # for technote-space/create-pr-action to create a PR
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
-      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # 4.2.0
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
         with:
           EXECUTE_COMMANDS: |
             sudo apt-get update
@@ -93,8 +93,8 @@ jobs:
       contents: write # for technote-space/create-pr-action to push code
       pull-requests: write # for technote-space/create-pr-action to create a PR
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
-      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # refs/tags/v2.1.4
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # 4.2.0
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
         with:
           EXECUTE_COMMANDS: |
             ./ci/update_versions.sh

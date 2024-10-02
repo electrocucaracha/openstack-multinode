@@ -18,7 +18,7 @@ jobs:
   generate-json-matrix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # 4.2.0
       - name: Get matrix values
         id: set-matrix
         run: |
@@ -45,7 +45,7 @@ jobs:
         distro: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     runs-on: macos-12
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # refs/tags/v4.2.0
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # 4.2.0
       - uses: ./.github/actions/vagrant-setup
       - name: Deploy latest release in All-in-One instance
         env:
