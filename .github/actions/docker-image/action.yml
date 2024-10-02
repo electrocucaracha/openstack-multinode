@@ -19,27 +19,18 @@ runs:
       uses: MaxymVlasov/dive-action@379af3fc636888ada5899c997e8b52db6ad45023 # refs/tags/v1.0.1
       with:
         image: ${{ inputs.image }}
-    - name: Save Docker image
-      shell: bash
-      run: docker save -o ${{ github.sha }} ${{ inputs.image }}
-    - name: Grab cache DB
-      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # refs/tags/v4.0.2
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@6e7b7d1fd3e4fef0c5fa8cce1229c54b2c9bd0d8 # refs/tags/v0.24.0
       with:
-        path: matcher.db
-        key: matcher.db
-    - name: Check security vulnerabilities
-      uses: quay/clair-action@3d70e770073b9ac97fc7a7e800822fee52f5cb22 # refs/tags/v0.0.9
-      with:
-        image-path: ${{ github.sha }}
-        db-file: matcher.db
+        image-ref: "${{ inputs.image }}"
         format: sarif
-        output: clair_results.sarif
+        output: results.sarif
     - name: Upload artifact
       uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # refs/tags/v4.4.0
       with:
         name: sarif
-        path: clair_results.sarif
-    - name: Upload security image report
+        path: results.sarif
+    - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@86b04fb0e47484f7282357688f21d5d0e32175fe # refs/tags/v3.26.9
       with:
-        sarif_file: clair_results.sarif
+        sarif_file: results.sarif
