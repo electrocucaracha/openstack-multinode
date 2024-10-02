@@ -69,7 +69,7 @@ while getopts "h?v:c:" opt; do
     esac
 done
 
-if ${ID,,} == ubuntu; then
+if [ "${ID,,}" == "ubuntu" ]; then
     sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 "linux-modules-extra-$(uname -r)"
 fi
 

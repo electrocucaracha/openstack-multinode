@@ -90,7 +90,6 @@ cat <<EOT >.distros_supported.yml
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 EOT
 
 _vagrant_pull "rocky_9" "rockylinux/9" "rocky-linux-cloud" "rocky-linux-9"
