@@ -85,3 +85,10 @@ jobs:
             }}
         working-directory: ./samples/distributed
         run: vagrant up registry
+      - name: Check HW resources
+        if: failure()
+        run: |
+          vm_stat
+          top -l 1 -n 0
+          VBoxManage list runningvms --long
+          cat ~/VirtualBox\ VMs/*/Logs/*.log

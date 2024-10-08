@@ -60,8 +60,9 @@ jobs:
         working-directory: ./samples/noha
         run: vagrant up controller
       - name: Check HW resources
-        if: always()
+        if: failure()
         run: |
           vm_stat
           top -l 1 -n 0
           VBoxManage list runningvms --long
+          cat ~/VirtualBox\ VMs/*/Logs/*.log
