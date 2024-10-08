@@ -26,11 +26,7 @@ jobs:
     name: Check No High Availability deployment on Ubuntu Focal Virtual Machines
     runs-on: macos-12
     if: >-
-      (
-
-        github.event_name == 'pull_request_review' &&
-        github.event.review.state == 'approved'
-      ) || github.event_name != 'pull_request_review'
+      ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     env:
       VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
       VAGRANT_EXPERIMENTAL: disks

@@ -28,11 +28,7 @@ jobs:
       security-events: write
     runs-on: ubuntu-22.04
     if: >-
-      (
-
-        github.event_name == 'pull_request_review' &&
-        github.event.review.state == 'approved'
-      ) || github.event_name != 'pull_request_review'
+      ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # 4.2.0
       - name: Install requirements
@@ -74,11 +70,7 @@ jobs:
             image: neutron
     runs-on: macos-12
     if: >-
-      (
-
-        github.event_name == 'pull_request_review' &&
-        github.event.review.state == 'approved'
-      ) || github.event_name != 'pull_request_review'
+      ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # 4.2.0
       - uses: ./.github/actions/vagrant-setup
