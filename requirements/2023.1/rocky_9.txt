@@ -38,7 +38,7 @@ jmespath==1.0.1
     # via kolla-ansible
 kolla-ansible==16.7.0
     # via -r requirements/2023.1/rocky_9.in
-markupsafe==3.0.0
+markupsafe==3.0.1
     # via jinja2
 mitogen==0.3.12
     # via -r requirements/2023.1/rocky_9.in
