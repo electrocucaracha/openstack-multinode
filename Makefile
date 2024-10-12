@@ -17,7 +17,7 @@ lint:
 	-e FILTER_REGEX_EXCLUDE="requirements/.*" \
 	-e EDITORCONFIG_FILE_NAME=.editorconfig \
 	-e VALIDATE_SHELL_SHFMT=false \
-	github/super-linter
+	ghcr.io/super-linter/super-linter
 	tox -e lint
 
 .PHONY: fmt
