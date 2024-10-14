@@ -14,6 +14,8 @@ if [[ ${OS_DEBUG:-false} == "true" ]]; then
     set -o xtrace
 fi
 
+trap "make fmt" EXIT
+
 # Update GitHub Action commit hashes
 gh_actions=$(grep -r "uses: [a-zA-Z\-]*/[\_a-z\-]*@" .github/ | sed 's/@.*//' | awk -F ': ' '{ print $3 }' | sort -u)
 for action in $gh_actions; do
