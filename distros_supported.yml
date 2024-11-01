@@ -10,7 +10,7 @@
 rocky_9:
   name: rockylinux/9
   vb_controller: IDE Controller
-  version: "4.0.0"
+  version: "1.0.0"
   project_id: rocky-linux-cloud
   family: rocky-linux-9
 ubuntu_22:
