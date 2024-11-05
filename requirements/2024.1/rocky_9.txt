@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/2024.1/rocky_9.txt requirements/2024.1/rocky_9.in
 #
-ansible-core==2.15.12
+ansible-core==2.15.13
     # via -r requirements/2024.1/rocky_9.in
 bcrypt==4.2.0
     # via
