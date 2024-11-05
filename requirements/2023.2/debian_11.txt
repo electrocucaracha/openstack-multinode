@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/2023.2/debian_11.txt requirements/2023.2/debian_11.in
 #
-ansible-core==2.15.12
+ansible-core==2.15.13
     # via -r requirements/2023.2/debian_11.in
 bcrypt==4.2.0
     # via
