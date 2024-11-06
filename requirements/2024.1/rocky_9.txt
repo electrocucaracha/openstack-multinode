@@ -46,15 +46,13 @@ netaddr==1.3.0
     # via
     #   oslo-config
     #   oslo-utils
-netifaces==0.11.0
-    # via oslo-utils
 oslo-config==9.6.0
     # via kolla-ansible
 oslo-i18n==6.4.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==7.3.0
+oslo-utils==7.4.0
     # via kolla-ansible
 packaging==24.1
     # via
@@ -67,6 +65,8 @@ pbr==6.1.0
     #   kolla-ansible
     #   oslo-i18n
     #   stevedore
+psutil==6.1.0
+    # via oslo-utils
 pycparser==2.22
     # via cffi
 pyparsing==3.2.0
