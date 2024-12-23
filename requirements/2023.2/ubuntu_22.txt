@@ -87,7 +87,7 @@ stevedore==5.4.0
     # via oslo-config
 tzdata==2024.2
     # via oslo-utils
-urllib3==2.2.3
+urllib3==2.3.0
     # via requests
 wrapt==1.17.0
     # via debtcollector
