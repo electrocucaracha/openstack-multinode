@@ -30,7 +30,7 @@ jobs:
             "docker.io/library/ubuntu:22.04",
             "docker.io/library/rockylinux:9",
           ]
-        os_release: ["2023.1", "2023.2", "2024.1"]
+        os_release: ["2023.1", "2023.2", "2024.1", "2024.2"]
     container:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest

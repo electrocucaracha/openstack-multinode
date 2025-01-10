@@ -144,7 +144,7 @@ if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
     sudo chown "$USER:" /etc/kolla/clouds.yaml || :
     # shellcheck disable=SC1091
     source /etc/kolla/admin-openrc.sh
-    curl -fsSL "https://raw.githubusercontent.com/openstack/kolla-ansible/${OS_KOLLA_VERSION:-stable/2024.1}/tools/init-runonce" | bash
+    curl -fsSL "https://raw.githubusercontent.com/openstack/kolla-ansible/${OS_KOLLA_VERSION:-stable/2024.2}/tools/init-runonce" | bash
 
     [ "${OS_KOLLA_ENABLE_CINDER:-yes}" == "yes" ] && ./scripts/cinder.sh
     [ "${OS_KOLLA_ENABLE_MAGNUM:-no}" == "yes" ] && ./scripts/magnum.sh
