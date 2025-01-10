@@ -92,7 +92,7 @@ cat <<EOT >.distros_supported.yml
 ##############################################################################
 EOT
 
-_vagrant_pull "rocky_9" "rockylinux/9" "rocky-linux-cloud" "rocky-linux-9"
+_vagrant_pull "rocky_9" "community/rockylinux-9" "rocky-linux-cloud" "rocky-linux-9"
 _vagrant_pull "ubuntu_22" "generic/ubuntu2204" "ubuntu-os-cloud" "ubuntu-2204-lts"
 _vagrant_pull "debian_11" "debian/bullseye64" "debian-cloud" "debian-11" "SATA Controller"
 
