@@ -28,15 +28,6 @@ runs:
       shell: bash
       run: |
         if [[ "$(VBoxManage --version)" == "6.1.28r147628" ]]; then
-            find . -type f -iname "Vagrantfile" -exec sed -i '.bak' 's|v.gui = .*|v.gui = true|g' {} \;
+            find . -type f -iname "Vagrantfile" -exec sed -i 's|v.gui = .*|v.gui = true|g' {} \;
             find . -type f -name "*.bak" -delete
         fi
-    - name: Replace shorten links
-      shell: bash
-      run: |
-        find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_pkg|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/install.sh|g' {} \;
-        find . -type f -iname "*sh" -exec sed -i '.bak' 's|http://bit.ly/install_bin|https://raw.githubusercontent.com/electrocucaracha/pkg-mgr_scripts/master/bindep_install.sh|g' {} \;
-        find . -type f -name "*.bak" -delete
-    - name: Install vagrant tool
-      shell: bash
-      run: brew install vagrant

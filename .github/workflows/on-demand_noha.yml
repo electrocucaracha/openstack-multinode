@@ -24,7 +24,7 @@ permissions: read-all
 jobs:
   check-noha-ubuntu:
     name: Check No High Availability deployment on Ubuntu Focal Virtual Machines
-    runs-on: macos-12
+    runs-on: vm-self-hosted
     if: >-
       ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     env:
@@ -34,8 +34,6 @@ jobs:
     steps:
       - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # 4.2.0
       - uses: ./.github/actions/vagrant-setup
-      - name: Install GNU tools
-        run: brew install iproute2mac
       - name: Install Vagrant Reload plugin
         run: vagrant plugin install vagrant-reload
       - name: Deploy OpenStack Compute nodes
@@ -62,7 +60,5 @@ jobs:
       - name: Check HW resources
         if: failure()
         run: |
-          vm_stat
-          top -l 1 -n 0
           VBoxManage list runningvms --long
           cat ~/VirtualBox\ VMs/*/Logs/*.log

@@ -68,7 +68,7 @@ jobs:
           - distro: debian_11
             base: debian
             image: neutron
-    runs-on: macos-12
+    runs-on: vm-self-hosted
     if: >-
       ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     steps:
@@ -88,7 +88,5 @@ jobs:
       - name: Check HW resources
         if: failure()
         run: |
-          vm_stat
-          top -l 1 -n 0
           VBoxManage list runningvms --long
           cat ~/VirtualBox\ VMs/*/Logs/*.log
