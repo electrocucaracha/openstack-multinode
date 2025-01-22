@@ -23,14 +23,22 @@ jobs:
     strategy:
       max-parallel: 1
       fail-fast: false
+      # NOTE: https://docs.openstack.org/kolla-ansible/latest/user/support-matrix
       matrix:
         image:
           [
-            "docker.io/library/debian:11",
+            "docker.io/library/debian:12",
             "docker.io/library/ubuntu:22.04",
             "docker.io/library/rockylinux:9",
           ]
         os_release: ["2023.1", "2023.2", "2024.1", "2024.2"]
+        include:
+          - image: "docker.io/library/debian:11"
+            os_release: "2023.1"
+          - image: "docker.io/library/debian:11"
+            os_release: "2023.2"
+          - image: "docker.io/library/debian:11"
+            os_release: "2024.1"
     container:
       image: ${{ matrix.image }}
     runs-on: ubuntu-latest
@@ -44,17 +52,26 @@ jobs:
               ubuntu|debian)
                   apt update
                   INSTALLER_CMD="apt-get -y --no-install-recommends -q=3 install"
+                  if [[ $VERSION_ID == "11" ]]; then
+                      $INSTALLER_CMD python3-pip python3-venv git
+                      python3 -m pip install pipx
+                  else
+                      $INSTALLER_CMD pipx git
+                  fi
               ;;
               rhel|centos|fedora|rocky)
                   INSTALLER_CMD="$(command -v dnf || command -v yum) -y --quiet --errorlevel=0 install"
+                  $INSTALLER_CMD python3.12 git python3.12-pip
+                  rm -f /usr/bin/python3
+                  ln -s /usr/bin/python3.12 /usr/bin/python3
+                  python3 -m pip install pipx
               ;;
           esac
-          $INSTALLER_CMD python3-pip git
-          pip3 install pip-tools
+          pipx install pip-tools
       - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
         with:
           EXECUTE_COMMANDS: |
-            bash -c 'source /etc/os-release; pip-compile --output-file="requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.in" --upgrade'
+            bash -c 'source /etc/os-release; ~/.local/bin/pip-compile --output-file="requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.in" --upgrade'
           COMMIT_MESSAGE: "Upgrade OpenStack Kolla dependencies"
           COMMIT_NAME: "electrocucaracha bot"
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
