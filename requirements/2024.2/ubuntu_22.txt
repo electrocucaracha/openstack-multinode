@@ -22,7 +22,7 @@ charset-normalizer==3.4.1
     # via requests
 cliff==4.8.0
     # via kolla-ansible
-cmd2==2.5.8
+cmd2==2.5.9
     # via cliff
 cryptography==44.0.0
     # via
@@ -98,7 +98,7 @@ stevedore==5.4.0
     # via
     #   cliff
     #   oslo-config
-tzdata==2024.2
+tzdata==2025.1
     # via oslo-utils
 urllib3==2.3.0
     # via requests
@@ -106,5 +106,5 @@ wcwidth==0.2.13
     # via
     #   cmd2
     #   prettytable
-wrapt==1.17.0
+wrapt==1.17.2
     # via debtcollector
