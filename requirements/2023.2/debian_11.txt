@@ -87,7 +87,7 @@ rfc3986==2.0.0
     # via oslo-config
 stevedore==5.4.0
     # via oslo-config
-tzdata==2024.2
+tzdata==2025.1
     # via oslo-utils
 urllib3==2.3.0
     # via requests
