@@ -9,7 +9,7 @@
 ##############################################################################
 rocky_9:
   name: community/rockylinux-9
-  vb_controller: SATA Controller
+  vb_controller: IDE Controller
   version: "1.0.0"
   project_id: rocky-linux-cloud
   family: rocky-linux-9
@@ -22,6 +22,12 @@ ubuntu_22:
 debian_11:
   name: debian/bullseye64
   vb_controller: SATA Controller
-  version: "11.20240905.1"
+  version: "11.20241217.1"
   project_id: debian-cloud
   family: debian-11
+debian_12:
+  name: debian/bookworm64
+  vb_controller: SATA Controller
+  version: "12.20241217.1"
+  project_id: debian-cloud
+  family: debian-12
