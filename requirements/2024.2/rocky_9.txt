@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/2024.2/rocky_9.txt requirements/2024.2/rocky_9.in
 #
-ansible-core==2.17.7
+ansible-core==2.17.8
     # via
     #   -r requirements/2024.2/rocky_9.in
     #   kolla-ansible
