@@ -66,7 +66,7 @@ packaging==24.2
     #   oslo-utils
 passlib[bcrypt]==1.7.4
     # via kolla-ansible
-pbr==6.1.0
+pbr==6.1.1
     # via
     #   oslo-i18n
     #   stevedore
@@ -108,3 +108,6 @@ wcwidth==0.2.13
     #   prettytable
 wrapt==1.17.2
     # via debtcollector
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
