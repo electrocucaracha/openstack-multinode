@@ -16,7 +16,7 @@ runs:
   using: "composite"
   steps:
     - name: Get Docker Image layer contents
-      uses: MaxymVlasov/dive-action@379af3fc636888ada5899c997e8b52db6ad45023 # 1.0.1
+      uses: MaxymVlasov/dive-action@e31534713eb68e3a1be072cc99e56e51a551d544 # 1.2.1
       with:
         image: ${{ inputs.image }}
     - name: Run Trivy vulnerability scanner
