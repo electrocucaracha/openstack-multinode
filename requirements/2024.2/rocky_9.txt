@@ -24,7 +24,7 @@ cliff==4.8.0
     # via kolla-ansible
 cmd2==2.5.11
     # via cliff
-cryptography==44.0.0
+cryptography==44.0.1
     # via
     #   ansible-core
     #   kolla-ansible
@@ -44,7 +44,7 @@ jinja2==3.1.5
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==19.2.0
+kolla-ansible==19.3.0
     # via -r requirements/2024.2/rocky_9.in
 markupsafe==3.0.2
     # via jinja2
@@ -58,7 +58,7 @@ oslo-i18n==6.5.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==8.0.0
+oslo-utils==8.1.0
     # via kolla-ansible
 packaging==24.2
     # via
@@ -69,10 +69,11 @@ passlib[bcrypt]==1.7.4
 pbr==6.1.1
     # via
     #   oslo-i18n
+    #   oslo-utils
     #   stevedore
 prettytable==3.14.0
     # via cliff
-psutil==6.1.1
+psutil==7.0.0
     # via oslo-utils
 pycparser==2.22
     # via cffi
