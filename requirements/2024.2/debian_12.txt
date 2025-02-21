@@ -95,7 +95,7 @@ resolvelib==1.0.1
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-stevedore==5.4.0
+stevedore==5.4.1
     # via
     #   cliff
     #   oslo-config
