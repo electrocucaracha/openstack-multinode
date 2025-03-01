@@ -6,7 +6,7 @@
 #
 ansible-core==2.16.14
     # via -r requirements/2024.1/rocky_9.in
-bcrypt==4.2.1
+bcrypt==4.3.0
     # via
     #   kolla-ansible
     #   passlib
