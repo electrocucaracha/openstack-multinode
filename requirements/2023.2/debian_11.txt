@@ -6,7 +6,7 @@
 #
 ansible-core==2.15.13
     # via -r requirements/2023.2/debian_11.in
-bcrypt==4.2.1
+bcrypt==4.3.0
     # via
     #   kolla-ansible
     #   passlib
