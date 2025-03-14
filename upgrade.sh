@@ -48,7 +48,7 @@ function _install_deps {
     echo "Upgrade OpenStack services to ${OPENSTACK_RELEASE} release"
     # NOTE: Uninstall mitogen given that it's only supported in some Ansible versions (2.13.x)
     pip uninstall mitogen --yes
-    pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}_${VERSION_ID%.*}.txt"
+    python -m pip install --ignore-installed --no-warn-script-location --requirement "requirements/${OPENSTACK_RELEASE}/${ID,,}_${VERSION_ID%.*}.txt"
     setup_ansible
 }
 

@@ -133,7 +133,7 @@ fi
 
 # Post-Install actions
 if [ "${OS_KOLLA_RUN_INIT:-true}" == "true" ]; then
-    pip install --ignore-installed --no-warn-script-location python-openstackclient
+    python -m pip install --ignore-installed --no-warn-script-location python-openstackclient
 
     # PEP 370 -- Per user site-packages directory
     [[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin

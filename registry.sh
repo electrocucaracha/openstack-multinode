@@ -22,8 +22,8 @@ trap 'printf "Registry creation process: %s secs\n" "$(($(date +%s)-_start))"' E
 curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git,crudini" bash
 
 if ! command -v kolla-build; then
-    pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/2024.2}"
-    pip install docker-squash
+    python -m pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/2024.2}"
+    python -m pip install docker-squash
 fi
 
 # Start local registry
