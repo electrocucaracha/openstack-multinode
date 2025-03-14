@@ -28,7 +28,7 @@ os_magnum_cluster=${1:-kubernetes-cluster}
 curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,kubectl" bash
 
 if ! command -v magnum; then
-    pip install python-magnumclient
+    python -m pip install python-magnumclient
 fi
 
 if [ ! -f "$fedora_image_file" ]; then
