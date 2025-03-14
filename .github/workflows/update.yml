@@ -88,7 +88,7 @@ jobs:
           EXECUTE_COMMANDS: |
             sudo apt-get update
             sudo apt-get -y --no-install-recommends install aspell aspell-en
-            pip install pyspelling
+            python -m pip install pyspelling
 
             sort --ignore-case --output=original.dic .github/.wordlist.txt
             echo "" > .github/.wordlist.txt

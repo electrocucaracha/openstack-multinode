@@ -36,7 +36,7 @@ jobs:
                   apt-get update
                   apt-get install -y --no-install-recommends python3-pip
               fi
-              pip install shyaml
+              python -m pip install shyaml
           fi
           if ! command -v jq; then
               apt-get update

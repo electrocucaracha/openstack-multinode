@@ -24,7 +24,7 @@ port_prefix=demo-port
 [[ $PATH != *.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 
 if ! command -v neutron >/dev/null; then
-    pip install python-neutronclient
+    python -m pip install python-neutronclient
 fi
 
 # Create networks and subnets for the trunk and subports
