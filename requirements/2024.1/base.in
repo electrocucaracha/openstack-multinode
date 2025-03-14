@@ -1,2 +1,0 @@
-ansible-core>=2.15,<2.16.99 # GPLv3
-kolla-ansible<19.0 # Apache-2.0
