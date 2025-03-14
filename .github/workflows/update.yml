@@ -44,34 +44,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
-      - name: install dependencies
-        shell: bash
-        run: |
-          source /etc/os-release || source /usr/lib/os-release
-          case ${ID,,} in
-              ubuntu|debian)
-                  apt update
-                  INSTALLER_CMD="apt-get -y --no-install-recommends -q=3 install"
-                  if [[ $VERSION_ID == "11" ]]; then
-                      $INSTALLER_CMD python3-pip python3-venv git
-                      python3 -m pip install pipx
-                  else
-                      $INSTALLER_CMD pipx git
-                  fi
-              ;;
-              rhel|centos|fedora|rocky)
-                  INSTALLER_CMD="$(command -v dnf || command -v yum) -y --quiet --errorlevel=0 install"
-                  $INSTALLER_CMD python3.12 git python3.12-pip
-                  rm -f /usr/bin/python3
-                  ln -s /usr/bin/python3.12 /usr/bin/python3
-                  python3 -m pip install pipx
-              ;;
-          esac
-          pipx install pip-tools
+      - uses: astral-sh/setup-uv@f94ec6bedd8674c4426838e6b50417d36b6ab231 # 5.3.1
+        with:
+          enable-cache: true
       - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
         with:
           EXECUTE_COMMANDS: |
-            bash -c 'source /etc/os-release; ~/.local/bin/pip-compile --output-file="requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.in" --upgrade'
+            bash -c 'source /etc/os-release; uv pip compile --output-file="requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.in" --upgrade'
           COMMIT_MESSAGE: "Upgrade OpenStack Kolla dependencies"
           COMMIT_NAME: "electrocucaracha bot"
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
