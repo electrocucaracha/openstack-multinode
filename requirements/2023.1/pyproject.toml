@@ -3,7 +3,7 @@ name = "Antelope"
 version= "2023.1"
 dependencies = [
   "ansible>=6,<8", # GPLv3
-  "ansible-core>2.10,<=2.13", # GPLv3
+  "ansible-core>2.10,<=2.16.14rc1", # GPLv3
   "kolla-ansible<17.0", # Apache-2.0
   "mitogen", # BSD
 ]
