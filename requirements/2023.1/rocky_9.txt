@@ -80,7 +80,7 @@ resolvelib==0.5.4
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-setuptools==76.1.0
+setuptools==77.0.3
     # via pbr
 stevedore==5.4.1
     # via oslo-config
