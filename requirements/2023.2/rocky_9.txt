@@ -34,7 +34,7 @@ jinja2==3.1.6
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==17.8.0
+kolla-ansible==17.9.0
     # via bobcat (requirements/2023.2/pyproject.toml)
 markupsafe==3.0.2
     # via jinja2
@@ -82,7 +82,7 @@ resolvelib==1.0.1
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-setuptools==76.1.0
+setuptools==77.0.3
     # via pbr
 stevedore==5.4.1
     # via oslo-config
