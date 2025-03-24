@@ -84,7 +84,7 @@ setuptools==77.0.3
     # via pbr
 stevedore==5.4.1
     # via oslo-config
-tzdata==2025.1
+tzdata==2025.2
     # via oslo-utils
 urllib3==2.3.0
     # via requests
