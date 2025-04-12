@@ -19,11 +19,16 @@ _start=$(date +%s)
 trap 'printf "Registry creation process: %s secs\n" "$(($(date +%s)-_start))"' EXIT
 
 # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
-curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="pip,skopeo,docker,jq,git,crudini" bash
+curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="skopeo,docker,jq,git,crudini" bash
+
+if ! command -v uv; then
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 if ! command -v kolla-build; then
-    python -m pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/2024.2}"
-    python -m pip install docker-squash
+    sudo $(command -v uv) pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/2024.2}" --system
+    sudo $(command -v uv) pip install docker-squash --system
 fi
 
 # Start local registry
