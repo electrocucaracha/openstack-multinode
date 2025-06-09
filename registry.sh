@@ -27,8 +27,8 @@ if ! command -v uv; then
 fi
 
 if ! command -v kolla-build; then
-    sudo $(command -v uv) pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/2025.1}" --system
-    sudo $(command -v uv) pip install docker-squash --system
+    sudo "$(command -v uv)" pip install "git+https://github.com/openstack/kolla.git@${OS_KOLLA_VERSION:-stable/2025.1}" --system
+    sudo "$(command -v uv)" pip install docker-squash --system
 fi
 
 # Start local registry

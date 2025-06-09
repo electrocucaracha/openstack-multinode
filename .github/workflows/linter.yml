@@ -43,7 +43,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: /
-          EDITORCONFIG_FILE_NAME: .editorconfig
+          EDITORCONFIG_FILE_NAME: .editorconfig-checker.json
           FILTER_REGEX_EXCLUDE: "requirements/.*"
           VALIDATE_SHELL_SHFMT: false
   check-tox:

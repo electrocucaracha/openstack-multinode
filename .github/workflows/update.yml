@@ -31,7 +31,7 @@ jobs:
             "docker.io/library/ubuntu:22.04",
             "docker.io/library/rockylinux:9",
           ]
-        os_release: ["2023.2", "2024.1", "2024.2",]
+        os_release: ["2023.2", "2024.1", "2024.2"]
         include:
           - image: "docker.io/library/debian:11"
             os_release: "2023.2"
