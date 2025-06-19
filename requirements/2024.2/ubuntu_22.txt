@@ -101,7 +101,7 @@ stevedore==5.4.0
     #   oslo-config
 tzdata==2025.1
     # via oslo-utils
-urllib3==2.3.0
+urllib3==2.5.0
     # via requests
 wcwidth==0.2.13
     # via
