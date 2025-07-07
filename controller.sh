@@ -12,8 +12,8 @@ set -o nounset
 set -o pipefail
 set -o errexit
 if [[ ${OS_DEBUG:-false} == "true" ]]; then
-	export PKG_DEBUG=true
-	set -o xtrace
+    export PKG_DEBUG=true
+    set -o xtrace
 fi
 
 _start=$(date +%s)
