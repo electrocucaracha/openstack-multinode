@@ -12,8 +12,8 @@ set -o nounset
 set -o pipefail
 set -o errexit
 if [[ ${OS_DEBUG:-false} == "true" ]]; then
-    export PKG_DEBUG=true
-    set -o xtrace
+	export PKG_DEBUG=true
+	set -o xtrace
 fi
 
 _start=$(date +%s)
@@ -21,14 +21,14 @@ trap 'printf "Compute installation process: %s secs\n" "$(($(date +%s)-_start))"
 
 # Install dependencies
 if ! command -v curl; then
-    # shellcheck disable=SC1091
-    source /etc/os-release || source /usr/lib/os-release
-    case ${ID,,} in
-    ubuntu | debian)
-        sudo apt-get update
-        sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends curl
-        ;;
-    esac
+	# shellcheck disable=SC1091
+	source /etc/os-release || source /usr/lib/os-release
+	case ${ID,,} in
+	ubuntu | debian)
+		sudo apt-get update
+		sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 --no-install-recommends curl
+		;;
+	esac
 fi
 
 # NOTE: Shorten link -> https://github.com/electrocucaracha/pkg-mgr_scripts
