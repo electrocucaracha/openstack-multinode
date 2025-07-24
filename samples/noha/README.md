@@ -35,7 +35,7 @@ the cluster, hardware resources and workflow.
 | :----------------------- | :------ | :------------------------------------------------------------------------------------------------------------ |
 | OS_NUM_COMPUTE_NODES     | 2       | Specifies the number of OpenStack compute nodes                                                               |
 | OS_ENABLE_LOCAL_REGISTRY | true    | Determines if a local registry will be deployed on the Controller node. This includes the Kolla build process |
-| CPUS                     | 4       | Number of vCPUS assigned to the Virtual Machine                                                               |
+| CPU                      | 4       | Number of vCPUS assigned to the Virtual Machine                                                               |
 | MEMORY                   | 8 GB    | Memory assigned to the Virtual Machine (Compute nodes use 4 GB )                                              |
 
 <!-- markdown-link-check-disable-next-line -->

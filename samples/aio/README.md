@@ -36,7 +36,7 @@ the cluster, hardware resources and workflow.
 | ENABLE_WEAVE_SCOPE     |           | Enable/Disable Weave Scope                                      |
 | OS_KOLLA_RUN_INIT      |           | Executes the [initialization Kolla script][2]                   |
 | OS_KOLLA_ENABLE_MAGNUM | no        | Enable/Disable [OpenStack Magnum service][4]                    |
-| CPUS                   | 8         | Number of vCPUS assigned to the Virtual Machine                 |
+| CPU                    | 8         | Number of vCPUS assigned to the Virtual Machine                 |
 | MEMORY                 | 16 GB     | Memory assigned to the Virtual Machine                          |
 
 <!-- markdown-link-check-disable-next-line -->

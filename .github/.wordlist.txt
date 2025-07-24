@@ -8,7 +8,6 @@ CentOS
 COCOMO
 codebase
 contrib
-CPUS
 dev
 DHCP
 DISTRO
@@ -47,6 +46,7 @@ repo
 rubocop
 runonce
 SATA
+scalability
 Scc
 SDRAM
 sloc

@@ -8,7 +8,7 @@
 | [linter](./linter.yml)                 | Counts Line of Codes, verifies broken links in docs and runs linter tools | on new commit/push on master           |
 | [on-demand_aio](./on-demand_aio.yml)   | Runs upgrade process in all in one setups in different supported distros  | on new commit/push on master           |
 | [on-demand_noha](./on-demand_noha.yml) | Runs integration tests for No High Availability setup                     | on new commit/push on master           |
-| [on-demand](./on-demand.yml)           | Verifies bash scripts format                                              | on new commit/push on master           |
+| [on-demand](./on-demand.yml)           | Verifies Bash scripts format                                              | on new commit/push on master           |
 | [rebase](./rebase.yml)                 | Helps to rebase changes of the Pull request                               | manual trigger                         |
 | [scheduled_aio](./scheduled_aio.yml)   | Verifies all in one setups inf different supported distros                | scheduled/manual trigger               |
 | [spell](./spell.yml)                   | Verifies spelling errors on documentation                                 | on new commit/push on master           |

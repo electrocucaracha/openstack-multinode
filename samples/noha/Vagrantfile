@@ -194,7 +194,7 @@ Vagrant.configure("2") do |config|
     end
     %i[virtualbox libvirt].each do |provider|
       config.vm.provider provider do |p|
-        p.cpus = ENV["CPUS"] || 4
+        p.cpus = ENV["CPU"] || 4
         p.memory = ENV["MEMORY"] || (8 * 1024)
       end
     end

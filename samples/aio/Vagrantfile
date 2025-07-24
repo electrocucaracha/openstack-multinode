@@ -155,7 +155,7 @@ Vagrant.configure("2") do |config|
   # Intel's NUC BXNUC10i5FNH1
   %i[virtualbox libvirt].each do |provider|
     config.vm.provider provider do |p|
-      p.cpus = ENV["CPUS"] || 8 # sockets * cores * threads
+      p.cpus = ENV["CPU"] || 8 # sockets * cores * threads
       p.memory = ENV["MEMORY"] || (8 * 2 * 1024) # 2 x 8GB DDR4-2666
     end
   end

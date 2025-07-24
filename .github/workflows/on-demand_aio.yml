@@ -60,7 +60,7 @@ jobs:
           distro: ${{ matrix.distro }}
       - name: Deploy previous release in All-in-One instance
         env:
-          CPUS: 2
+          CPU: 2
           MEMORY: 12288
           OS_DISTRO: ${{ matrix.distro }}
         run: ./ci/check_aio.sh
