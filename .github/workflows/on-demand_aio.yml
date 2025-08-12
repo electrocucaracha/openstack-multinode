@@ -27,7 +27,7 @@ jobs:
     if: >-
       ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # 5.0.0
       - name: Get matrix values
         id: set-matrix
         run: |
@@ -54,7 +54,7 @@ jobs:
         distro: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     runs-on: vm-self-hosted
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # 5.0.0
       - uses: ./.github/actions/vagrant-setup
         with:
           distro: ${{ matrix.distro }}
@@ -75,7 +75,7 @@ jobs:
     if: >-
       ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # 5.0.0
       - name: Install requirements
         run: |
           sudo apt-get update
