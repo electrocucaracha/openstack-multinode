@@ -46,6 +46,7 @@ jobs:
           EDITORCONFIG_FILE_NAME: .editorconfig-checker.json
           FILTER_REGEX_EXCLUDE: "requirements/.*"
           VALIDATE_SHELL_SHFMT: false
+          DEFAULT_BRANCH: ${{ github.head_ref || github.ref_name }}
   check-tox:
     name: Check syntax (tox)
     runs-on: ubuntu-latest
