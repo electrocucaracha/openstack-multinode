@@ -37,7 +37,7 @@ jobs:
             python_version: 3.9
           - distro: ubuntu_22
             os_release: 2023.2
-            python_version: 3.10
+            python_version: "3.10"
           - distro: debian_11
             os_release: 2024.1
             python_version: 3.9
@@ -49,7 +49,7 @@ jobs:
             python_version: 3.9
           - distro: ubuntu_22
             os_release: 2024.1
-            python_version: 3.10
+            python_version: "3.10"
           - distro: debian_12
             os_release: 2024.2
             python_version: 3.11
@@ -58,7 +58,7 @@ jobs:
             python_version: 3.9
           - distro: ubuntu_22
             os_release: 2024.2
-            python_version: 3.10
+            python_version: "3.10"
           - distro: debian_12
             os_release: 2025.1
             python_version: 3.11
