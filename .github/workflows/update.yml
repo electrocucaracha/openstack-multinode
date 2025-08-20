@@ -70,7 +70,8 @@ jobs:
       - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
         with:
           EXECUTE_COMMANDS: |
-            bash -c 'source /etc/os-release; uv pip compile --output-file="${GITHUB_WORKSPACE}/requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "${GITHUB_WORKSPACE}/requirements/${{ matrix.os_release }}/pyproject.toml" --upgrade'
+            cd ${GITHUB_WORKSPACE}
+            bash -c 'source /etc/os-release; uv pip compile --output-file="requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "requirements/${{ matrix.os_release }}/pyproject.toml" --upgrade'
           COMMIT_MESSAGE: "Upgrade OpenStack Kolla dependencies"
           COMMIT_NAME: "electrocucaracha bot"
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
