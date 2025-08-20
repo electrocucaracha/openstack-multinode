@@ -25,52 +25,60 @@ jobs:
       fail-fast: false
       # NOTE: https://docs.openstack.org/kolla-ansible/latest/user/support-matrix
       matrix:
-        image:
-          [
-            "docker.io/library/debian:12",
-            "docker.io/library/ubuntu:22.04",
-            "docker.io/library/rockylinux:9",
-          ]
-        os_release: ["2023.2", "2024.1", "2024.2"]
         include:
-          - image: "docker.io/library/debian:11"
-            os_release: "2023.2"
-          - image: "docker.io/library/debian:11"
-            os_release: "2024.1"
-          - image: "docker.io/library/debian:12"
-            os_release: "2025.1"
-          - image: "docker.io/library/rockylinux:9"
-            os_release: "2025.1"
-          - image: "docker.io/library/ubuntu:24.04"
-            os_release: "2025.1"
-    container:
-      image: ${{ matrix.image }}
+          - distro: debian_11
+            os_release: 2023.2
+            python_version: 3.9
+          - distro: debian_12
+            os_release: 2023.2
+            python_version: 3.11
+          - distro: rocky_9
+            os_release: 2023.2
+            python_version: 3.9
+          - distro: ubuntu_22
+            os_release: 2023.2
+            python_version: 3.10
+          - distro: debian_11
+            os_release: 2024.1
+            python_version: 3.9
+          - distro: debian_12
+            os_release: 2024.1
+            python_version: 3.11
+          - distro: rocky_9
+            os_release: 2024.1
+            python_version: 3.9
+          - distro: ubuntu_22
+            os_release: 2024.1
+            python_version: 3.10
+          - distro: debian_12
+            os_release: 2024.2
+            python_version: 3.11
+          - distro: rocky_9
+            os_release: 2024.2
+            python_version: 3.9
+          - distro: ubuntu_22
+            os_release: 2024.2
+            python_version: 3.10
+          - distro: debian_12
+            os_release: 2025.1
+            python_version: 3.11
+          - distro: rocky_9
+            os_release: 2025.1
+            python_version: 3.9
+          - distro: ubuntu_24
+            os_release: 2025.1
+            python_version: 3.12
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # 5.0.0
       - uses: astral-sh/setup-uv@d9e0f98d3fc6adb07d1e3d37f3043649ddad06a1 # 6.5.0
         with:
           enable-cache: true
-      - name: install dependencies
-        shell: bash
-        run: |
-          if ! command -v git; then
-              source /etc/os-release || source /usr/lib/os-release
-              case ${ID,,} in
-                  ubuntu|debian)
-                      apt update
-                      INSTALLER_CMD="apt-get -y --no-install-recommends -q=3 install"
-                  ;;
-                  rhel|centos|fedora|rocky)
-                      INSTALLER_CMD="$(command -v dnf || command -v yum) -y --quiet --errorlevel=0 install"
-                  ;;
-              esac
-              $INSTALLER_CMD git
-          fi
+          python-version: ${{ matrix.python_version }}
       - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
         with:
           EXECUTE_COMMANDS: |
-            bash -c 'source /etc/os-release; uv pip compile --output-file="${GITHUB_WORKSPACE}/requirements/${{ matrix.os_release }}/${ID,,}_${VERSION_ID%.*}.txt" "${GITHUB_WORKSPACE}/requirements/${{ matrix.os_release }}/pyproject.toml" --upgrade'
+            uv pip compile --output-file=${GITHUB_WORKSPACE}/requirements/${{ matrix.os_release }}/${{ matrix.distro }}.txt ${GITHUB_WORKSPACE}/requirements/${{ matrix.os_release }}/pyproject.toml --upgrade
           COMMIT_MESSAGE: "Upgrade OpenStack Kolla dependencies"
           COMMIT_NAME: "electrocucaracha bot"
           PR_BRANCH_NAME: "versions-update-${PR_ID}"
