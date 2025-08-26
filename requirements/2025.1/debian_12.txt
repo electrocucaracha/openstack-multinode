@@ -52,11 +52,11 @@ netaddr==1.3.0
     #   oslo-utils
 oslo-config==10.0.0
     # via kolla-ansible
-oslo-i18n==6.5.1
+oslo-i18n==6.6.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==9.0.0
+oslo-utils==9.1.0
     # via kolla-ansible
 packaging==25.0
     # via
@@ -68,7 +68,6 @@ pbr==7.0.1
     # via
     #   oslo-i18n
     #   oslo-utils
-    #   stevedore
 prettytable==3.16.0
     # via cliff
 psutil==7.0.0
@@ -101,7 +100,7 @@ rich-argparse==1.7.1
     # via cmd2
 setuptools==80.9.0
     # via pbr
-stevedore==5.4.1
+stevedore==5.5.0
     # via
     #   cliff
     #   oslo-config
