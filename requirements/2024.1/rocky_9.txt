@@ -61,7 +61,7 @@ pbr==7.0.1
     #   oslo-utils
 psutil==7.0.0
     # via oslo-utils
-pycparser==2.22
+pycparser==2.23
     # via cffi
 pyparsing==3.2.3
     # via oslo-utils
