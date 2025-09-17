@@ -20,7 +20,7 @@ cliff==4.11.0
     # via kolla-ansible
 cmd2==2.7.0
     # via cliff
-cryptography==45.0.7
+cryptography==46.0.1
     # via
     #   ansible-core
     #   kolla-ansible
@@ -104,6 +104,8 @@ stevedore==5.5.0
     # via
     #   cliff
     #   oslo-config
+typing-extensions==4.15.0
+    # via cryptography
 tzdata==2025.2
     # via oslo-utils
 urllib3==2.5.0
