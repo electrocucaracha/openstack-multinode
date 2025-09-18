@@ -70,7 +70,7 @@ pbr==7.0.1
     #   oslo-utils
 prettytable==3.16.0
     # via cliff
-psutil==7.0.0
+psutil==7.1.0
     # via oslo-utils
 pycparser==2.23
     # via cffi
@@ -78,7 +78,7 @@ pygments==2.19.2
     # via rich
 pyparsing==3.2.4
     # via oslo-utils
-pyperclip==1.9.0
+pyperclip==1.10.0
     # via cmd2
 pyyaml==6.0.2
     # via
