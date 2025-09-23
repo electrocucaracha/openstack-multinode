@@ -110,7 +110,7 @@ tzdata==2025.2
     # via oslo-utils
 urllib3==2.5.0
     # via requests
-wcwidth==0.2.13
+wcwidth==0.2.14
     # via
     #   cmd2
     #   prettytable
