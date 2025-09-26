@@ -6,7 +6,7 @@ ansible-core==2.17.14
     #   kolla-ansible
 autopage==0.5.2
     # via cliff
-bcrypt==4.3.0
+bcrypt==5.0.0
     # via
     #   kolla-ansible
     #   passlib
@@ -80,7 +80,7 @@ pyparsing==3.2.5
     # via oslo-utils
 pyperclip==1.10.0
     # via cmd2
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   ansible-core
     #   cliff
