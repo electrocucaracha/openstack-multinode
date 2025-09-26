@@ -2,7 +2,7 @@
 #    uv pip compile --output-file=/home/runner/work/openstack-multinode/openstack-multinode/requirements/2024.1/debian_12.txt /home/runner/work/openstack-multinode/openstack-multinode/requirements/2024.1/pyproject.toml
 ansible-core==2.16.14
     # via caracal (requirements/2024.1/pyproject.toml)
-bcrypt==4.3.0
+bcrypt==5.0.0
     # via
     #   kolla-ansible
     #   passlib
@@ -63,7 +63,7 @@ pycparser==2.23
     # via cffi
 pyparsing==3.2.5
     # via oslo-utils
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   ansible-core
     #   kolla-ansible
