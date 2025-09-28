@@ -42,7 +42,7 @@ kolla-ansible==19.6.0
     # via dalmatian (requirements/2024.2/pyproject.toml)
 markdown-it-py==4.0.0
     # via rich
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via jinja2
 mdurl==0.1.2
     # via markdown-it-py
