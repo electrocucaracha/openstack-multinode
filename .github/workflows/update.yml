@@ -55,7 +55,7 @@ jobs:
             python_version: 3.11
           - distro: rocky_9
             os_release: 2024.2
-            python_version: 3.9
+            python_version: 3.11
           - distro: ubuntu_22
             os_release: 2024.2
             python_version: "3.10"
@@ -64,7 +64,7 @@ jobs:
             python_version: 3.11
           - distro: rocky_9
             os_release: 2025.1
-            python_version: 3.9
+            python_version: 3.11
           - distro: ubuntu_24
             os_release: 2025.1
             python_version: 3.12

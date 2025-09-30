@@ -1,6 +1,7 @@
 [project]
 name ="Dalmatian"
 version= "2024.2"
+requires-python = ">3.10"
 dependencies = [
   "ansible-core>=2.16,<2.17.99", # GPLv3
   "kolla-ansible<20.0", # Apache-2.0
