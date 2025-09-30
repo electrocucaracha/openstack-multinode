@@ -31,6 +31,8 @@ jobs:
       ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # 5.0.0
+        with:
+          persist-credentials: false
       - name: Install requirements
         env:
           OS_KOLLA_BUILD_ARGS:
@@ -69,10 +71,14 @@ jobs:
             base: debian
             image: neutron
     runs-on: vm-self-hosted
+    permissions:
+      contents: read
     if: >-
       ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # 5.0.0
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/vagrant-setup
         with:
           distro: ${{ matrix.distro }}

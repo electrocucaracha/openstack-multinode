@@ -17,8 +17,12 @@ permissions: read-all
 jobs:
   generate-json-matrix:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # 5.0.0
+        with:
+          persist-credentials: false
       - name: Get matrix values
         id: set-matrix
         run: |
@@ -44,8 +48,12 @@ jobs:
       matrix:
         distro: ${{ fromJson(needs.generate-json-matrix.outputs.matrix) }}
     runs-on: vm-self-hosted
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # 5.0.0
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/vagrant-setup
       - name: Deploy latest release in All-in-One instance
         env:

@@ -17,6 +17,7 @@ lint:
 	-e FILTER_REGEX_EXCLUDE="requirements/.*" \
 	-e EDITORCONFIG_FILE_NAME=.editorconfig-checker.json \
 	-e VALIDATE_SHELL_SHFMT=false \
+	-e VALIDATE_BIOME_FORMAT=false \
 	ghcr.io/super-linter/super-linter
 	tox -e lint
 
@@ -26,5 +27,5 @@ fmt:
 	shfmt -l -w -s  -i 4 .
 	command -v yamlfmt > /dev/null || curl -s "https://i.jpillora.com/google/yamlfmt!!" | bash
 	yamlfmt -dstar **/*.{yaml,yml}
-	command -v prettier > /dev/null || npm install prettier
+	npm list | grep -q prettier || npm install prettier
 	npx prettier . --write
