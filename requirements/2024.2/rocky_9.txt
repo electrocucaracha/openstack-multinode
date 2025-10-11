@@ -10,7 +10,7 @@ bcrypt==5.0.0
     # via
     #   kolla-ansible
     #   passlib
-certifi==2025.8.3
+certifi==2025.10.5
     # via requests
 cffi==2.0.0
     # via cryptography
@@ -94,7 +94,7 @@ resolvelib==1.0.1
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-rich==14.1.0
+rich==14.2.0
     # via rich-argparse
 rich-argparse==1.7.1
     # via cmd2
