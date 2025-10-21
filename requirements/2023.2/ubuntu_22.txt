@@ -57,7 +57,7 @@ pbr==7.0.1
     #   kolla-ansible
     #   oslo-i18n
     #   oslo-utils
-psutil==7.1.0
+psutil==7.1.1
     # via oslo-utils
 pycparser==2.23
     # via cffi
@@ -87,5 +87,5 @@ tzdata==2025.2
     # via oslo-utils
 urllib3==2.5.0
     # via requests
-wrapt==1.17.3
+wrapt==2.0.0
     # via debtcollector
