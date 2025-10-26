@@ -59,7 +59,7 @@ pbr==7.0.1
     #   kolla-ansible
     #   oslo-i18n
     #   oslo-utils
-psutil==7.1.1
+psutil==7.1.2
     # via oslo-utils
 pycparser==2.23
     # via cffi
