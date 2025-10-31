@@ -18,7 +18,7 @@ cryptography==46.0.3
     #   kolla-ansible
 debtcollector==3.0.0
     # via oslo-utils
-hvac==2.3.0
+hvac==2.4.0
     # via kolla-ansible
 idna==3.11
     # via requests
@@ -54,7 +54,7 @@ packaging==25.0
     #   oslo-utils
 passlib==1.7.4
     # via kolla-ansible
-pbr==7.0.1
+pbr==7.0.2
     # via
     #   kolla-ansible
     #   oslo-i18n
