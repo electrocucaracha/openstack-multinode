@@ -70,7 +70,7 @@ pbr==7.0.2
     #   oslo-utils
 prettytable==3.16.0
     # via cliff
-psutil==7.1.2
+psutil==7.1.3
     # via oslo-utils
 pycparser==2.23
     # via cffi
