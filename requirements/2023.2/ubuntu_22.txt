@@ -52,7 +52,7 @@ packaging==25.0
     #   oslo-utils
 passlib==1.7.4
     # via kolla-ansible
-pbr==7.0.2
+pbr==7.0.3
     # via
     #   kolla-ansible
     #   oslo-i18n
