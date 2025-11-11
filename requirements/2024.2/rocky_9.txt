@@ -38,7 +38,7 @@ jinja2==3.1.6
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==19.6.0
+kolla-ansible==19.7.0
     # via dalmatian (requirements/2024.2/pyproject.toml)
 markdown-it-py==4.0.0
     # via rich
