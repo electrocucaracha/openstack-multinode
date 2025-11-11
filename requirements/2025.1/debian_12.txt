@@ -38,7 +38,7 @@ jinja2==3.1.6
     #   kolla-ansible
 jmespath==1.0.1
     # via kolla-ansible
-kolla-ansible==20.2.0
+kolla-ansible==20.3.0
     # via epoxy (requirements/2025.1/pyproject.toml)
 markdown-it-py==4.0.0
     # via rich
