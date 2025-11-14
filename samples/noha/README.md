@@ -1,10 +1,13 @@
 # OpenStack No High Availability Configuration
 
-This configuration was designed to create a minimal OpenStack cluster using
-[Raspberry Pi 4 Model B][1] without High Availability. The [provisioning
-process](../../install.sh) is executed on the Controller node and creates a
-local registry on it using the [registry script](../../registry.sh) and deploys
-OpenStack services using the [undercloud script](../../undercloud.sh).
+This configuration was designed to create a minimal OpenStack cluster
+using a [Raspberry Pi 4 Model B][1] without High Availability.
+
+The [provisioning process](../../install.sh) is executed on the
+Controller node.
+It creates a local registry on it using the [registry script](../../registry.sh)
+and deploys OpenStack services using the [undercloud
+script](../../undercloud.sh).
 
 The following diagram shows the distribution of OpenStack Kolla containers
 created by this configuration.
@@ -28,8 +31,8 @@ vagrant up controller
 
 ### Environment variables
 
-This table displays the environment variables used to configure some aspects of
-the cluster, hardware resources and workflow.
+This table displays the environment variables used to configure some aspects
+of the cluster, hardware resources and workflow.
 
 | Name                     | Default | Description                                                                                                   |
 | :----------------------- | :------ | :------------------------------------------------------------------------------------------------------------ |

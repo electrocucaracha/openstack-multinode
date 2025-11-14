@@ -1,4 +1,20 @@
-# Vagrant Configurations
+# Samples
+
+This folder contains several Vagrant configurations which can be used to
+provision Virtual Machines for testing different deployment
+configurations.
+
+Each sample contains a `README.md` file with specific instructions.
+
+The current samples are:
+
+- `aio`: All-in-one configuration
+- `noha`: No High Availability configuration
+- `distributed`: Distributed configuration
+
+See the specific sample folders for more details.
+
+## Vagrant Configuration
 
 This project provides configurations which have been validated
 using [Vagrant tool][1] on Virtual Machines provisioned on VirtualBox

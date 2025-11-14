@@ -5,7 +5,7 @@
 ## Host System Requirements
 
 The system that will host VMs for the solution must be big enough to
-support the +10 Virtual Machines displayed at above diagram.
+support the 10+ Virtual Machines displayed in the diagram above.
 
 Some configuration details can be configured for the _Distributed_
 setup using its [PDF](pdf.yml).
