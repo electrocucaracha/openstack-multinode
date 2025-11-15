@@ -68,7 +68,7 @@ pbr==7.0.3
     # via
     #   oslo-i18n
     #   oslo-utils
-prettytable==3.16.0
+prettytable==3.17.0
     # via cliff
 psutil==7.1.3
     # via oslo-utils
