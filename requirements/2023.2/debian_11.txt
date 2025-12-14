@@ -85,7 +85,7 @@ stevedore==5.5.0
     # via oslo-config
 typing-extensions==4.15.0
     # via cryptography
-tzdata==2025.2
+tzdata==2025.3
     # via oslo-utils
 urllib3==2.6.2
     # via requests
