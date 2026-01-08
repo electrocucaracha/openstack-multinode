@@ -108,7 +108,7 @@ stevedore==5.6.0
     #   oslo-config
 tzdata==2025.3
     # via oslo-utils
-urllib3==2.6.2
+urllib3==2.6.3
     # via requests
 wcwidth==0.2.14
     # via prettytable
