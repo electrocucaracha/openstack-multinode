@@ -58,7 +58,7 @@ oslo-i18n==6.7.1
     #   oslo-utils
 oslo-utils==9.2.0
     # via kolla-ansible
-packaging==25.0
+packaging==26.0
     # via
     #   ansible-core
     #   oslo-utils
@@ -72,11 +72,11 @@ prettytable==3.17.0
     # via cliff
 psutil==7.2.1
     # via oslo-utils
-pycparser==2.23
+pycparser==3.0
     # via cffi
 pygments==2.19.2
     # via rich
-pyparsing==3.3.1
+pyparsing==3.3.2
     # via oslo-utils
 pyperclip==1.11.0
     # via cmd2
@@ -100,7 +100,7 @@ rich==14.2.0
     #   rich-argparse
 rich-argparse==1.7.2
     # via cmd2
-setuptools==80.9.0
+setuptools==80.10.1
     # via pbr
 stevedore==5.6.0
     # via
@@ -110,7 +110,7 @@ tzdata==2025.3
     # via oslo-utils
 urllib3==2.6.3
     # via requests
-wcwidth==0.2.14
+wcwidth==0.3.0
     # via prettytable
 wrapt==2.0.1
     # via debtcollector
