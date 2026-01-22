@@ -46,7 +46,7 @@ oslo-i18n==6.7.1
     #   oslo-utils
 oslo-utils==9.2.0
     # via kolla-ansible
-packaging==25.0
+packaging==26.0
     # via
     #   ansible-core
     #   oslo-utils
@@ -59,9 +59,9 @@ pbr==7.0.3
     #   oslo-utils
 psutil==7.2.1
     # via oslo-utils
-pycparser==2.23
+pycparser==3.0
     # via cffi
-pyparsing==3.3.1
+pyparsing==3.3.2
     # via oslo-utils
 pyyaml==6.0.3
     # via
@@ -77,7 +77,7 @@ resolvelib==1.0.1
     # via ansible-core
 rfc3986==2.0.0
     # via oslo-config
-setuptools==80.9.0
+setuptools==80.10.1
     # via pbr
 stevedore==5.6.0
     # via oslo-config
