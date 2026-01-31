@@ -4,7 +4,7 @@ ansible-core==2.17.14
     # via
     #   dalmatian (requirements/2024.2/pyproject.toml)
     #   kolla-ansible
-autopage==0.5.2
+autopage==0.6.0
     # via cliff
 bcrypt==5.0.0
     # via
