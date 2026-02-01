@@ -89,5 +89,5 @@ tzdata==2025.3
     # via oslo-utils
 urllib3==2.6.3
     # via requests
-wrapt==2.0.1
+wrapt==2.1.0
     # via debtcollector
