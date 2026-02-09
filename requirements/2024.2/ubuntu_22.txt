@@ -102,7 +102,7 @@ rich==14.3.2
     #   rich-argparse
 rich-argparse==1.7.2
     # via cmd2
-setuptools==81.0.0
+setuptools==82.0.0
     # via pbr
 stevedore==5.6.0
     # via
