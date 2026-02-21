@@ -58,7 +58,7 @@ oslo-i18n==6.7.2
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==9.2.0
+oslo-utils==10.0.0
     # via kolla-ansible
 packaging==26.0
     # via
@@ -104,7 +104,7 @@ rich-argparse==1.7.2
     # via cmd2
 setuptools==82.0.0
     # via pbr
-stevedore==5.6.0
+stevedore==5.7.0
     # via
     #   cliff
     #   oslo-config
@@ -112,8 +112,6 @@ typing-extensions==4.15.0
     # via
     #   cmd2
     #   cryptography
-tzdata==2025.3
-    # via oslo-utils
 urllib3==2.6.3
     # via requests
 wcwidth==0.6.0
