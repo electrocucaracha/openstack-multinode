@@ -16,7 +16,7 @@ certifi==2026.2.25
     # via requests
 cffi==2.0.0
     # via cryptography
-charset-normalizer==3.4.4
+charset-normalizer==3.4.5
     # via requests
 cliff==4.13.2
     # via kolla-ansible
@@ -116,5 +116,5 @@ urllib3==2.6.3
     # via requests
 wcwidth==0.6.0
     # via prettytable
-wrapt==2.1.1
+wrapt==2.1.2
     # via debtcollector
