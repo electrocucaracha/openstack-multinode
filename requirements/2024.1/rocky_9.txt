@@ -10,7 +10,7 @@ certifi==2026.2.25
     # via requests
 cffi==2.0.0
     # via cryptography
-charset-normalizer==3.4.4
+charset-normalizer==3.4.5
     # via requests
 cryptography==46.0.5
     # via
@@ -89,5 +89,5 @@ tzdata==2025.3
     # via oslo-utils
 urllib3==2.6.3
     # via requests
-wrapt==2.1.1
+wrapt==2.1.2
     # via debtcollector
