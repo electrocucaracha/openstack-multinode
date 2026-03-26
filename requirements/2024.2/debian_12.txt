@@ -20,7 +20,7 @@ cliff==4.13.2
     # via kolla-ansible
 cmd2==3.4.0
     # via cliff
-cryptography==46.0.5
+cryptography==46.0.6
     # via
     #   ansible-core
     #   kolla-ansible
@@ -86,7 +86,7 @@ pyyaml==6.0.3
     #   cliff
     #   oslo-config
     #   oslo-utils
-requests==2.32.5
+requests==2.33.0
     # via
     #   hvac
     #   oslo-config
