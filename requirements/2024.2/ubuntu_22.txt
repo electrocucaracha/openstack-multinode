@@ -22,7 +22,7 @@ cliff==4.13.2
     # via kolla-ansible
 cmd2==3.4.0
     # via cliff
-cryptography==46.0.6
+cryptography==46.0.7
     # via
     #   ansible-core
     #   kolla-ansible
