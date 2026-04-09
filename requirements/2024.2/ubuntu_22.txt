@@ -18,7 +18,7 @@ cffi==2.0.0
     # via cryptography
 charset-normalizer==3.4.7
     # via requests
-cliff==4.13.2
+cliff==4.13.3
     # via kolla-ansible
 cmd2==3.4.0
     # via cliff
@@ -58,7 +58,7 @@ oslo-i18n==6.7.2
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==10.0.0
+oslo-utils==10.0.1
     # via kolla-ansible
 packaging==26.0
     # via
