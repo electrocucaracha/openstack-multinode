@@ -6,7 +6,7 @@ bcrypt==5.0.0
     # via
     #   kolla-ansible
     #   passlib
-certifi==2026.2.25
+certifi==2026.4.22
     # via requests
 cffi==2.0.0
     # via cryptography
@@ -20,7 +20,7 @@ debtcollector==3.1.0
     # via oslo-utils
 hvac==2.4.0
     # via kolla-ansible
-idna==3.12
+idna==3.13
     # via requests
 iso8601==2.1.0
     # via oslo-utils
