@@ -114,7 +114,7 @@ typing-extensions==4.15.0
     #   cryptography
 urllib3==2.6.3
     # via requests
-wcwidth==0.6.0
+wcwidth==0.7.0
     # via prettytable
 wrapt==2.1.2
     # via debtcollector
