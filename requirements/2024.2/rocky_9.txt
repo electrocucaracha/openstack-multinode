@@ -108,7 +108,7 @@ stevedore==5.7.0
     #   oslo-config
 urllib3==2.6.3
     # via requests
-wcwidth==0.6.0
+wcwidth==0.7.0
     # via prettytable
 wrapt==2.1.2
     # via debtcollector
