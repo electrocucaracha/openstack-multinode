@@ -42,7 +42,7 @@ jmespath==1.1.0
     # via kolla-ansible
 kolla-ansible==19.8.0
     # via dalmatian (requirements/2024.2/pyproject.toml)
-markdown-it-py==4.1.0
+markdown-it-py==4.2.0
     # via rich
 markupsafe==3.0.3
     # via jinja2
@@ -112,7 +112,7 @@ typing-extensions==4.15.0
     # via
     #   cmd2
     #   cryptography
-urllib3==2.6.3
+urllib3==2.7.0
     # via requests
 wcwidth==0.7.0
     # via prettytable
