@@ -83,7 +83,7 @@ stevedore==5.7.0
     # via oslo-config
 typing-extensions==4.15.0
     # via cryptography
-urllib3==2.6.3
+urllib3==2.7.0
     # via requests
 wrapt==2.1.2
     # via debtcollector
