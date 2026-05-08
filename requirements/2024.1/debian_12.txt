@@ -81,7 +81,7 @@ setuptools==82.0.1
     # via pbr
 stevedore==5.7.0
     # via oslo-config
-urllib3==2.6.3
+urllib3==2.7.0
     # via requests
 wrapt==2.1.2
     # via debtcollector
