@@ -106,7 +106,7 @@ stevedore==5.7.0
     # via
     #   cliff
     #   oslo-config
-urllib3==2.6.3
+urllib3==2.7.0
     # via requests
 wcwidth==0.6.0
     # via prettytable
