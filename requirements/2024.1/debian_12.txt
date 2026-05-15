@@ -69,7 +69,7 @@ pyyaml==6.0.3
     #   kolla-ansible
     #   oslo-config
     #   oslo-utils
-requests==2.34.1
+requests==2.34.2
     # via
     #   hvac
     #   oslo-config
