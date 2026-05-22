@@ -28,7 +28,7 @@ debtcollector==3.1.0
     # via oslo-utils
 hvac==2.4.0
     # via kolla-ansible
-idna==3.15
+idna==3.16
     # via requests
 iso8601==2.1.0
     # via oslo-utils
@@ -110,5 +110,5 @@ urllib3==2.7.0
     # via requests
 wcwidth==0.7.0
     # via prettytable
-wrapt==2.1.2
+wrapt==2.2.0
     # via debtcollector
