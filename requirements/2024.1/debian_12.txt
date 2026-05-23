@@ -83,5 +83,5 @@ stevedore==5.8.0
     # via oslo-config
 urllib3==2.7.0
     # via requests
-wrapt==2.2.0
+wrapt==2.2.1
     # via debtcollector
