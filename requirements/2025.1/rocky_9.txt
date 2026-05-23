@@ -110,5 +110,5 @@ urllib3==2.7.0
     # via requests
 wcwidth==0.7.0
     # via prettytable
-wrapt==2.2.0
+wrapt==2.2.1
     # via debtcollector
