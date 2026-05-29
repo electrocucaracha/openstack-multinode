@@ -26,11 +26,9 @@ cryptography==48.0.0
     # via
     #   ansible-core
     #   kolla-ansible
-debtcollector==3.1.0
-    # via oslo-utils
 hvac==2.4.0
     # via kolla-ansible
-idna==3.16
+idna==3.17
     # via requests
 iso8601==2.1.0
     # via oslo-utils
@@ -58,7 +56,7 @@ oslo-i18n==6.8.0
     # via
     #   oslo-config
     #   oslo-utils
-oslo-utils==10.0.1
+oslo-utils==10.1.0
     # via kolla-ansible
 packaging==26.2
     # via
@@ -116,5 +114,3 @@ urllib3==2.7.0
     # via requests
 wcwidth==0.7.0
     # via prettytable
-wrapt==2.2.1
-    # via debtcollector
