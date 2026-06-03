@@ -28,7 +28,7 @@ cryptography==48.0.0
     #   kolla-ansible
 hvac==2.4.0
     # via kolla-ansible
-idna==3.17
+idna==3.18
     # via requests
 iso8601==2.1.0
     # via oslo-utils
