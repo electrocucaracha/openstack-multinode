@@ -70,10 +70,10 @@ jobs:
             python_version: 3.12
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+      - uses: actions/checkout@9f698171ed81b15d1823a05fc7211befd50c8ae0 # 6.0.3
         with:
           persist-credentials: true
-      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # 8.1.0
+      - uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # 8.2.0
         with:
           enable-cache: true
           python-version: ${{ matrix.python_version }}
@@ -91,7 +91,7 @@ jobs:
       contents: write # for technote-space/create-pr-action to push code
       pull-requests: write # for technote-space/create-pr-action to create a PR
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+      - uses: actions/checkout@9f698171ed81b15d1823a05fc7211befd50c8ae0 # 6.0.3
         with:
           persist-credentials: true
       - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
@@ -121,7 +121,7 @@ jobs:
       contents: write # for technote-space/create-pr-action to push code
       pull-requests: write # for technote-space/create-pr-action to create a PR
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+      - uses: actions/checkout@9f698171ed81b15d1823a05fc7211befd50c8ae0 # 6.0.3
         with:
           # Fine-grained PAT with contents:write and workflows:write scopes
           token: ${{ secrets.WORKFLOW_TOKEN }} # zizmor: ignore[secrets-outside-env]
