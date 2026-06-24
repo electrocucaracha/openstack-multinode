@@ -54,7 +54,7 @@ function _vagrant_pull {
 
     if [ "$(curl "https://app.vagrantup.com/${name%/*}/boxes/${name#*/}/versions/$version/providers/$PROVIDER.box" -o /dev/null -w '%{http_code}\n' -s)" == "302" ] && [ "$(vagrant box list | grep -c "$name .*$PROVIDER, $version")" != "1" ]; then
         vagrant box remove --provider "$PROVIDER" --all --force "$name" || :
-        vagrant box add --provider "$PROVIDER" --box-version "$version" "$name"
+        vagrant box add --architecture "amd64" --provider "$PROVIDER" --box-version "$version" "$name"
     elif [ "$(vagrant box list | grep -c "$name .*$PROVIDER, $version")" == "1" ]; then
         echo "$name($version, $PROVIDER) box is already present in the host"
     else
@@ -92,8 +92,11 @@ cat <<EOT >.distros_supported.yml
 ##############################################################################
 EOT
 
-_vagrant_pull "rocky_9" "rockylinux/9" "rocky-linux-cloud" "rocky-linux-9"
-_vagrant_pull "ubuntu_22" "generic/ubuntu2204" "ubuntu-os-cloud" "ubuntu-2204-lts"
+#_vagrant_pull "rocky_9" "rockylinux/9" "rocky-linux-cloud" "rocky-linux-9"
+#_vagrant_pull "rocky_10" "rockylinux/10" "rocky-linux-cloud" "rocky-linux-10"
+_vagrant_pull "ubuntu_22" "electrocucaracha-boxes/ubuntu-jammy" "ubuntu-os-cloud" "ubuntu-2204-lts"
+_vagrant_pull "ubuntu_24" "electrocucaracha-boxes/ubuntu-noble" "ubuntu-os-cloud" "ubuntu-2404-lts"
+_vagrant_pull "ubuntu_26" "electrocucaracha-boxes/ubuntu-resolute" "ubuntu-os-cloud" "ubuntu-2604-lts"
 _vagrant_pull "debian_11" "debian/bullseye64" "debian-cloud" "debian-11" "SATA Controller"
 _vagrant_pull "debian_12" "debian/bookworm64" "debian-cloud" "debian-12" "SATA Controller"
 

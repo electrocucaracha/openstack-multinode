@@ -1,24 +1,30 @@
 ---
 # SPDX-license-identifier: Apache-2.0
 ##############################################################################
-# Copyright (c) 2019 - 2025
+# Copyright (c) 2019 - 2026
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-rocky_9:
-  name: rockylinux/9
-  vb_controller: IDE Controller
-  version: "6.0.0"
-  project_id: rocky-linux-cloud
-  family: rocky-linux-9
 ubuntu_22:
-  name: generic/ubuntu2204
+  name: electrocucaracha-boxes/ubuntu-jammy
   vb_controller: IDE Controller
-  version: "4.3.12"
+  version: "22.04.5"
   project_id: ubuntu-os-cloud
   family: ubuntu-2204-lts
+ubuntu_24:
+  name: electrocucaracha-boxes/ubuntu-noble
+  vb_controller: IDE Controller
+  version: "24.04.4"
+  project_id: ubuntu-os-cloud
+  family: ubuntu-2404-lts
+ubuntu_26:
+  name: electrocucaracha-boxes/ubuntu-resolute
+  vb_controller: IDE Controller
+  version: "26.04"
+  project_id: ubuntu-os-cloud
+  family: ubuntu-2604-lts
 debian_11:
   name: debian/bullseye64
   vb_controller: SATA Controller
@@ -28,6 +34,6 @@ debian_11:
 debian_12:
   name: debian/bookworm64
   vb_controller: SATA Controller
-  version: "12.20250126.1"
+  version: "12.20260519.1"
   project_id: debian-cloud
   family: debian-12
