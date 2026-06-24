@@ -16,17 +16,17 @@ runs:
   using: "composite"
   steps:
     - name: Get Docker Image layer contents
-      uses: MaxymVlasov/dive-action@62dde811c401b3b342b69bd42b28e5042b79ef86 # 1.6.0
+      uses: MaxymVlasov/dive-action@62dde811c401b3b342b69bd42b28e5042b79ef86  # 1.6.0
       with:
         image: ${{ inputs.image }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
+      uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25  # v0.36.0
       with:
         image-ref: "${{ inputs.image }}"
         format: sarif
         output: results.sarif
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@86b04fb0e47484f7282357688f21d5d0e32175fe # 3.26.9
+      uses: github/codeql-action/upload-sarif@86b04fb0e47484f7282357688f21d5d0e32175fe  # 3.26.9
       with:
         sarif_file: results.sarif
         category: "${{ inputs.image }}"

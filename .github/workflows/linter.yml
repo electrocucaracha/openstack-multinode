@@ -20,11 +20,11 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # 6.0.2
         with:
           persist-credentials: false
       - name: Setup Go
-        uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # 6.3.0
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c  # v6.4.0
         with:
           go-version: ">=1.20.0"
           cache: false
@@ -38,11 +38,11 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # 6.0.2
         with:
           persist-credentials: false
       - name: Check broken links
-        uses: tcort/github-action-markdown-link-check@e7c7a18363c842693fadde5d41a3bd3573a7a225 # 1.1.2
+        uses: tcort/github-action-markdown-link-check@e7c7a18363c842693fadde5d41a3bd3573a7a225  # 1.1.2
   check-super-linter:
     name: Check syntax (super-linter)
     runs-on: ubuntu-latest
@@ -51,13 +51,13 @@ jobs:
       models: read
       issues: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # 6.0.2
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Run super-linter validation
         id: linter-validation
-        uses: super-linter/super-linter@61abc07d755095a68f4987d1c2c3d1d64408f1f9 # 8.5.0
+        uses: super-linter/super-linter@61abc07d755095a68f4987d1c2c3d1d64408f1f9  # 8.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: /
@@ -66,7 +66,7 @@ jobs:
           VALIDATE_SHELL_SHFMT: false
           VALIDATE_BIOME_FORMAT: false
           DEFAULT_BRANCH: ${{ github.head_ref || github.ref_name }}
-      - uses: GrantBirki/git-diff-action@7420e4d095c27bb23359787640976d60c94fd216 # 2.8.1
+      - uses: GrantBirki/git-diff-action@7420e4d095c27bb23359787640976d60c94fd216  # 2.8.1
         id: git-diff
         if: failure()
       - name: Get failed linter logs
@@ -74,7 +74,7 @@ jobs:
         if: failure()
         run: |
           find ./super-linter-output/super-linter/ -name '*.json' -exec sh -c 'jq -e ".Exitval != 0" "$1" >/dev/null && printf "%s\0" "$1"' _ {} \; | xargs -0 jq -s '.' > linter-errors.json
-      - uses: actions/ai-inference@a6101c89c6feaecc585efdd8d461f18bb7896f20 # 2.0.5
+      - uses: actions/ai-inference@a7805884c80886efc241e94a5351df715968a0ad  # v2.1.1
         id: ai-linter-analysis
         if: failure()
         with:
@@ -109,7 +109,7 @@ jobs:
             printf "\n%s\n" "$DELIM"
           } >> "$GITHUB_OUTPUT"
         # jscpd:ignore-end
-      - uses: jayqi/failed-build-issue-action@1a893bbf43ef1c2a8705e2b115cd4f0fe3c5649b # 1.2.0
+      - uses: jayqi/failed-build-issue-action@1a893bbf43ef1c2a8705e2b115cd4f0fe3c5649b  # 1.2.0
         if: failure()
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -128,7 +128,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # 6.0.2
         with:
           persist-credentials: false
       - name: Install tox
