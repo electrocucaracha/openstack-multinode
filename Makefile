@@ -24,8 +24,8 @@ lint:
 .PHONY: fmt
 fmt:
 	command -v shfmt > /dev/null || curl -s "https://i.jpillora.com/mvdan/sh!!?as=shfmt" | bash
-	shfmt -l -w -s  -i 4 .
+	shfmt -l -w -s -i 4 .
 	command -v yamlfmt > /dev/null || curl -s "https://i.jpillora.com/google/yamlfmt!!" | bash
 	yamlfmt -dstar **/*.{yaml,yml}
-	npm list | grep -q prettier || npm install prettier
+	command -v prettier > /dev/null || npm install prettier
 	npx prettier . --write
