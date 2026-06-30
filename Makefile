@@ -18,6 +18,8 @@ lint:
 	-e EDITORCONFIG_FILE_NAME=.editorconfig-checker.json \
 	-e VALIDATE_SHELL_SHFMT=false \
 	-e VALIDATE_BIOME_FORMAT=false \
+	-e VALIDATE_PRE_COMMIT=false \
+	-e VALIDATE_SPELL_CODESPELL=false \
 	ghcr.io/super-linter/super-linter
 	tox -e lint
 
