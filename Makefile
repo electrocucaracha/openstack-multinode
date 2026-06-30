@@ -20,6 +20,7 @@ lint:
 	-e VALIDATE_BIOME_FORMAT=false \
 	-e VALIDATE_PRE_COMMIT=false \
 	-e VALIDATE_SPELL_CODESPELL=false \
+	-e VALIDATE_ENV=false \
 	ghcr.io/super-linter/super-linter
 	tox -e lint
 

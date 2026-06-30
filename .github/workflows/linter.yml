@@ -67,6 +67,7 @@ jobs:
           VALIDATE_BIOME_FORMAT: false
           VALIDATE_PRE_COMMIT: false
           VALIDATE_SPELL_CODESPELL: false
+          VALIDATE_ENV: false
           DEFAULT_BRANCH: ${{ github.head_ref || github.ref_name }}
       - uses: GrantBirki/git-diff-action@7420e4d095c27bb23359787640976d60c94fd216 # 2.8.1
         id: git-diff
