@@ -47,7 +47,6 @@ repo
 rubocop
 runonce
 SATA
-scalability
 Scc
 SDRAM
 sloc
