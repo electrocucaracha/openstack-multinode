@@ -16,7 +16,7 @@ charset-normalizer==3.4.9
     # via requests
 cliff==4.14.0
     # via kolla-ansible
-cmd2==4.1.0
+cmd2==4.1.1
     # via cliff
 cryptography==49.0.0
     # via
