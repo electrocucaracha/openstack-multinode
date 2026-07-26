@@ -9,5 +9,5 @@
 formatter:
   type: basic
   include_document_start: true
-  max_line_length: 160
+  max_line_length: 250
   eof_newline: true
