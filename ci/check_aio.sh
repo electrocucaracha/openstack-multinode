@@ -38,14 +38,17 @@ function _print_msg {
 function get_release {
     local release_pointer=${CI_INITIAL_RELEASE_POINTER:-3}
 
-    until [ -f "./requirements/$(sed -n "${release_pointer}p" releases.txt)/${OS_DISTRO}.txt" ]; do
-        release_pointer=$((release_pointer - 1))
-        if [[ $release_pointer -lt "0" ]]; then
+    while ((release_pointer >= 1)); do
+        local release
+        release=$(sed -n "${release_pointer}p" releases.txt)
+
+        if [[ -f "./requirements/${release}/${OS_DISTRO}.txt" ]]; then
+            printf '%s\n' "$release"
             return
         fi
-    done
 
-    sed -n "${release_pointer}p" releases.txt
+        ((release_pointer--))
+    done
 }
 
 function upgrade {
