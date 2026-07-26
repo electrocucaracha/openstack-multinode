@@ -7,12 +7,6 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-ubuntu_22:
-  name: electrocucaracha-boxes/ubuntu-jammy
-  vb_controller: IDE Controller
-  version: "22.04.5"
-  project_id: ubuntu-os-cloud
-  family: ubuntu-2204-lts
 ubuntu_24:
   name: electrocucaracha-boxes/ubuntu-noble
   vb_controller: IDE Controller
@@ -34,6 +28,6 @@ debian_11:
 debian_12:
   name: debian/bookworm64
   vb_controller: SATA Controller
-  version: "12.20260519.1"
+  version: "12.20250126.1"
   project_id: debian-cloud
   family: debian-12

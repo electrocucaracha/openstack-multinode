@@ -94,7 +94,6 @@ EOT
 
 #_vagrant_pull "rocky_9" "rockylinux/9" "rocky-linux-cloud" "rocky-linux-9"
 #_vagrant_pull "rocky_10" "rockylinux/10" "rocky-linux-cloud" "rocky-linux-10"
-_vagrant_pull "ubuntu_22" "electrocucaracha-boxes/ubuntu-jammy" "ubuntu-os-cloud" "ubuntu-2204-lts"
 _vagrant_pull "ubuntu_24" "electrocucaracha-boxes/ubuntu-noble" "ubuntu-os-cloud" "ubuntu-2404-lts"
 _vagrant_pull "ubuntu_26" "electrocucaracha-boxes/ubuntu-resolute" "ubuntu-os-cloud" "ubuntu-2604-lts"
 _vagrant_pull "debian_11" "debian/bullseye64" "debian-cloud" "debian-11" "SATA Controller"

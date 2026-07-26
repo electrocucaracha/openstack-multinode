@@ -78,10 +78,10 @@ jobs:
           VBoxManage list runningvms --long
           cat ~/VirtualBox\ VMs/*/Logs/*.log
   check-aio-baremetal:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
-    name: Check All-in-One deployment on Ubuntu Jammy Virtual Environment
+    name: Check All-in-One deployment on Ubuntu Noble Virtual Environment
     if: >-
       ( github.event_name == 'pull_request_review' && github.event.review.state == 'approved' ) || github.event_name != 'pull_request_review'
     steps:
