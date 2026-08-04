@@ -10,7 +10,7 @@ bcrypt==4.3.0
     #   passlib
 certifi==2026.7.22
     # via requests
-cffi==2.1.0
+cffi==2.1.1
     # via cryptography
 charset-normalizer==3.4.9
     # via requests
