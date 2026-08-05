@@ -10,7 +10,7 @@ bcrypt==4.3.0
     #   passlib
 certifi==2026.7.22
     # via requests
-cffi==2.1.0
+cffi==2.1.1
     # via cryptography
 charset-normalizer==3.4.9
     # via requests
@@ -54,7 +54,7 @@ oslo-i18n==6.9.0
     #   oslo-utils
 oslo-utils==10.1.1
     # via kolla-ansible
-packaging==26.2
+packaging==26.3
     # via
     #   ansible-core
     #   oslo-utils
