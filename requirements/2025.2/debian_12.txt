@@ -16,7 +16,7 @@ charset-normalizer==3.4.9
     # via requests
 cliff==4.15.0
     # via kolla-ansible
-cmd2==4.1.2
+cmd2==4.2.0
     # via cliff
 cryptography==50.0.0
     # via
@@ -34,7 +34,7 @@ jinja2==3.1.6
     #   kolla-ansible
 jmespath==1.1.0
     # via kolla-ansible
-kolla-ansible==21.1.0
+kolla-ansible==21.2.0
     # via flamingo (requirements/2025.2/pyproject.toml)
 markdown-it-py==4.2.0
     # via rich
