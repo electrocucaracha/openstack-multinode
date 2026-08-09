@@ -94,7 +94,7 @@ rich==15.0.0
     #   rich-argparse
 rich-argparse==1.8.0
     # via cmd2
-setuptools==83.0.0
+setuptools==84.0.0
     # via pbr
 stevedore==5.9.0
     # via
