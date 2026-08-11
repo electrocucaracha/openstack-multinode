@@ -1,0 +1,3 @@
+Category: Changed
+
+The OpenStack Magnum service has been enabled, allowing users to manage container clusters within their OpenStack environment. This change affects the default images provided by Kolla, adding Magnum to the list of services included in the custom image configuration. The relevant configuration files have been updated accordingly, with no mention of breaking behavior or migration requirements.
