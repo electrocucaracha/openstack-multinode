@@ -1,0 +1,3 @@
+Category: Added
+
+Docker repository removal in controllers has been modified to avoid update conflicts by removing the docker source list from the system, which requires running an Ansible command to delete the file. This change affects users who manage Docker repositories and must manually remove the conflicting sources.list entry after updating. The underlying Ansible configuration remains unchanged.
