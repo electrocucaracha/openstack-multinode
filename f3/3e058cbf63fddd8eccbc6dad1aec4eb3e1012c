@@ -1,0 +1,3 @@
+Category: Changed
+
+The aio documentation has been updated, primarily to improve clarity on the hardware requirements for OpenStack services deployment. The configuration now explicitly mentions Intel's NUC 10 Performance kit and provides environment variables for customizing cluster settings. This update does not introduce any breaking changes or migration requirements, nor are there any API or CLI contract changes or security implications.
