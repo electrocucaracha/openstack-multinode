@@ -1,0 +1,3 @@
+Category: Changed
+
+github/super-linter was updated from version 4.8.3 to 4.8.4, which may introduce breaking changes in linter rules and configurations. The change affects the GitHub Actions workflow for code linting. No security impact is mentioned, but users should review release notes and changelogs for specific updates.
