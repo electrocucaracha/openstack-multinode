@@ -1,0 +1,3 @@
+Category: Changed
+
+The registry was upgraded from the rocky release to the stein release, which affects various components, including neutron-lbaas, neutron-vpnaas, and networking-ovn. This upgrade requires updating the source locations for these components in the kolla-build.ini file. The default images list has also been updated to remove nova-.
