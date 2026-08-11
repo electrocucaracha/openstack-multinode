@@ -1,0 +1,3 @@
+Category: Changed
+
+Network definitions were reorganized and simplified, removing redundant configuration options for individual nodes in favor of a more centralized approach using the `networks` key in node configurations. This change affects how network interfaces are defined and assigned IP addresses, requiring users to update their node configurations accordingly. The Vagrantfile now uses a loop to create private networks based on the `networks` array in each node's configuration.
