@@ -1,0 +1,3 @@
+Category: Changed
+
+Visitor link in README.md was updated to fix linting issue, which previously caused GitHub Super-Linter warnings due to an unsupported badge URL. The change replaces the original visitor badge with a new one that uses a supported service. This update ensures compliance with linter rules and maintains a clean codebase.
