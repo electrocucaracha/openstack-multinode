@@ -1,0 +1,3 @@
+Category: Changed
+
+Skydive has been enabled in the configuration, making its dashboard accessible at http://10.10.13.3:8085. This change affects the custom services listed in kolla-build.ini and enables Redis, Sahara, Searchlight, Senlin, Solum, Swift, and Telegraf by default. The Skydive service is now included in the provisioning tasks and can be accessed through its dashboard.
