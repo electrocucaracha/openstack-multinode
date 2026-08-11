@@ -1,0 +1,3 @@
+Category: Changed
+
+The list of supported Linux distributions has been updated to reflect the current matrix from openstack.org, removing some outdated entries and adding new ones for Debian 10 and RHEL 8. This change affects users who need to choose a distribution for their Kolla-Ansible deployment, as they should now select from the latest supported options.
