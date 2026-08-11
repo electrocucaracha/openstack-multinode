@@ -1,0 +1,3 @@
+Category: Added
+
+ShellSpec BDD support has been added to the project, enabling behavior-driven development for Bash shell scripts. This change introduces new workflows and configuration files to run Shellspec tests, including installing ShellSpec and running it with specific options. The `spec` directory now contains test files written in Shellspec syntax, covering various functions and behaviors.
