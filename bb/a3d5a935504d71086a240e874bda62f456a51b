@@ -1,0 +1,3 @@
+Category: Changed
+
+Ubuntu Bionic compatibility issues were addressed by updating various scripts to use per-user site-packages directories, as specified in PEP 370. This change affects install.sh, registry.sh, run_kaction.sh, undercloud.sh, and samples/aio/Vagrantfile. The updates ensure that Kolla Docker images are created correctly on Ubuntu Bionic systems, resolving compatibility issues.
