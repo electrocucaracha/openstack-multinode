@@ -1,0 +1,3 @@
+Category: Changed
+
+The CI task was updated to periodically check for the latest versions of dependencies, including OpenStack Kolla, and automatically update requirements.txt accordingly. This change affects users who rely on automated dependency updates in their workflows. The update process now uses pip-compile with a custom requirements.in file to generate requirements.txt.
