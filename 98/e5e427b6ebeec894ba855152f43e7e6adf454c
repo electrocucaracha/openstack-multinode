@@ -1,0 +1,3 @@
+Category: Changed
+
+Controller host list in inventory/hosts.ini has been expanded to include control01, control02, and control03. This change aims to fix an issue where kolla-ansible was not selecting the correct server for file copying and docker service startup. The updated hosts.ini now lists these three controllers, which should resolve the problem until a more permanent fix is implemented.
