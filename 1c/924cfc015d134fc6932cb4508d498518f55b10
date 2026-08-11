@@ -1,0 +1,3 @@
+Category: Changed
+
+MultiOS support has been added, allowing the system to run on various Linux distributions including Ubuntu, CentOS, and OpenSUSE. This change impacts the Vagrantfile, where box configurations have been updated for each supported OS. The primary user outcome is improved flexibility in selecting a Linux distribution for deployment.
