@@ -1,0 +1,3 @@
+Category: Changed
+
+The default image for openvswitch has been switched from opendaylight to openvswitch in the kolla-build.ini configuration, breaking any dependencies on the old image and requiring users to update their configurations accordingly. This change does not affect API or CLI contracts, nor is there a security impact. The config schema has also changed as a result of this switch. Users who were relying on the opendaylight image will need to adjust their setup to use openvswitch instead.
