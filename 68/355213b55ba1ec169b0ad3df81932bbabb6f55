@@ -1,0 +1,3 @@
+Category: Changed
+
+The vagrant setup custom GH action was created to automate tool installation and configuration for CI tasks, replacing repetitive steps in existing workflows. This change breaks behavior by removing the need for manual caching of Vagrant boxes and applying workarounds for VBoxHeadless issues on macOS. The new action also replaces shortened links with their full GitHub URLs.
