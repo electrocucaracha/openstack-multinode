@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla-build installation has been improved by changing how the kolla package is installed from pip to directly cloning the openstack/kolla repository at the specified version, which now requires OS_KOLLA_VERSION to be set. This change breaks existing installations that relied on pip installing a specific version of kolla and requires migration to use the new git-based installation method. The API or CLI contract remains unchanged.
