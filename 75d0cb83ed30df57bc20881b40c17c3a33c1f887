@@ -1,0 +1,3 @@
+Category: Removed
+
+The unnecessary upload action was removed from the Docker image GitHub Action, which no longer uploads an artifact to GitHub. This change aligns with the existing behavior of uploading Trivy scan results directly to the Security tab. The removal does not introduce any breaking changes and maintains the current API contract.
