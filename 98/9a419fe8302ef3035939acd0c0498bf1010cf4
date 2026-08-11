@@ -1,0 +1,3 @@
+Category: Changed
+
+VirtualBox support has been updated, fixing issues that affected various Linux distributions. The changes include updating the supported versions of CentOS, Ubuntu, and OpenSUSE, as well as adjusting VirtualBox controller settings in Vagrantfiles for these distributions. This update ensures compatibility with the latest distribution releases.
