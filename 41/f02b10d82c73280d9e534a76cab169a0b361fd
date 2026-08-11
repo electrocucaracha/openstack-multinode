@@ -1,0 +1,3 @@
+Category: Changed
+
+Config files updated for Xena release, adding Prometheus Libvirt Exporter to inventory and enabling it by default in globals.yml. This change affects users who manage Prometheus configurations, requiring them to update their setup accordingly. No breaking behavior or migration steps are mentioned; security impact is also not a concern here.
