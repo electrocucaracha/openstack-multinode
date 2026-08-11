@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded in this commit, affecting multiple requirements files across various distributions. The changes include updates to cryptography, certifi, netaddr, oslo-config, oslo-utils, and other packages. No breaking behavior or migration requirements are mentioned, and no API or CLI contract changes are noted.
