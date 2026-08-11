@@ -1,0 +1,3 @@
+Category: Changed
+
+Linting issues in sample deployment scripts were fixed, including broken links to external resources. The Horizon dashboard URL was updated for aio and noha samples, and the Skydive service link was removed due to its obsolescence. Additionally, a fix was applied to the undercloud.sh script to properly handle internal VIP address configuration.
