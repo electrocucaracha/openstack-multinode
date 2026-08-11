@@ -1,0 +1,3 @@
+Category: Changed
+
+The macOS CI version was bumped from 10.15 to 12, affecting several workflows that now run on the newer environment. This change requires no migration steps for users and maintainers, but it does impact how builds are executed on macOS-based systems. The primary outcome is a more up-to-date build environment with potentially improved performance and compatibility.
