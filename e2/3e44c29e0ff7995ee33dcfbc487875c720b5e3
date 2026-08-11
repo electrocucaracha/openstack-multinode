@@ -1,0 +1,3 @@
+Category: Changed
+
+The dependency on actions/checkout was updated from version 4.0.0 to 4.1.0, which may require migration steps in workflows that use this action. The update does not introduce any breaking behavior, API changes, security impact, or config schema changes. This change is primarily a maintenance update for the project's dependencies.
