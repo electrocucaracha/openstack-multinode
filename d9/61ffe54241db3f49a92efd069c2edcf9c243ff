@@ -1,0 +1,3 @@
+Category: Changed
+
+TravisCI support was added to the project, enabling automated builds on this continuous integration platform. This change affects users by allowing them to monitor build status through TravisCI's web interface and receive notifications about build failures. The .travis.yml configuration file was created to specify the build environment and commands for running tests with tox.
