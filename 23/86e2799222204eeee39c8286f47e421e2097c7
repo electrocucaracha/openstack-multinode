@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla-ansible actions are now included in the deployment process, allowing for streamlined execution of various tasks like bootstrap, prechecks, deploy, and post-deploy. This change impacts users by simplifying the deployment workflow and enabling automation of multiple steps. The config schema has been updated to include new settings such as host_key_checking, pipelining, forks, and inventory_file. Migration is not required, but users should note that kolla-ansible actions are now executed using ansible instead of kolla-ansible.
