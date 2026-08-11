@@ -1,0 +1,3 @@
+Category: Added
+
+Kolla build threads are now configured based on the number of available CPUs, automatically adjusting the thread count to utilize multiple cores for improved performance. This change affects users building Kolla environments, requiring no manual configuration adjustments. The configuration schema has been updated to reflect this new behavior, with the `threads` parameter now dynamically set according to system resources.
