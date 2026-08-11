@@ -1,0 +1,3 @@
+Category: Changed
+
+Workflow update permissions were modified to allow write access, enabling the update of python requirements files in jobs. This change affects how workflows are updated and requires no migration steps. The update.yml file now grants write permissions for contents and pull requests, allowing updates without restrictions. No breaking behavior or security impact is introduced by this modification.
