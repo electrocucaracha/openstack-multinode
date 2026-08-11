@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Actions versions used in workflows were updated to the latest available tags, replacing outdated references to specific commit hashes. This change affects all workflows that use actions/checkout and other GitHub Actions, potentially requiring updates to workflow files. The update process involves updating the version references using a script that scans for outdated commits and replaces them with new ones.
