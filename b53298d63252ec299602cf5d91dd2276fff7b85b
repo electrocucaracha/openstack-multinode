@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions were updated, upgrading OpenStack Kolla dependencies to the latest versions. This change affects various files, including GitHub Action workflows and requirements files for different operating systems. The update involves replacing specific package versions with newer ones in these files.
