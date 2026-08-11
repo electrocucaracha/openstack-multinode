@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla images were updated to support Stein release by creating a customized profile for managing Placement and OpenDaylight services, which have different names in this release compared to previous ones. This change adds these services to the default list of images built by Kolla. The profile switch also updates the Docker tag from 8.0.0 to stein.
