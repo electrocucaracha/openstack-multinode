@@ -1,0 +1,3 @@
+Category: Changed
+
+The addition of the Dive action on Keystone built images in CI workflows allows for layer contents inspection, potentially aiding debugging and optimization efforts. This change involves updating GitHub Action commit hashes to reflect new tags and adding new steps to run Dive actions on specific Docker images. The primary user outcome is improved troubleshooting capabilities through detailed image analysis.
