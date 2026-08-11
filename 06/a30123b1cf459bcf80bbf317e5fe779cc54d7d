@@ -1,0 +1,3 @@
+Category: Changed
+
+The number of hardware resources allocated to the controller VM in No HA CI workflows has been increased, specifically memory and CPU counts. This change affects users by potentially improving performance in OpenStack deployments, but also introduces breaking behavior for existing workflows that rely on the previous resource settings. Migration steps are required to update workflow configurations to accommodate the new resource allocations.
