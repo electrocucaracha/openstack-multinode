@@ -1,0 +1,3 @@
+Category: Added
+
+This initial commit establishes the foundation for an OpenStack Kolla deployment project, including licensing terms under Apache-2.0, setup instructions in README.md, and configuration files like Vagrantfile and postinstall.sh. The project requires Vagrant and VirtualBox or Libvirt for execution, with Docker and Python dependencies installed via apt-get and pip.
