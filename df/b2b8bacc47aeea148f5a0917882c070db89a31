@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla-Ansible was updated to the Stein release, which includes instructions for deploying OpenStack Stein. This change requires updating configuration files and inventory settings to reflect the new release. The update also modifies deployment scripts to use the Stein version of Kolla-Ansible. Users must review and adjust their configurations accordingly to ensure a smooth upgrade process.
