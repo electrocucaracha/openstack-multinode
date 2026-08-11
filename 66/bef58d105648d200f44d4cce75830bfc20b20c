@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Actions workflows for building and testing OpenStack samples now use the working directory instruction to change into the relevant sample directories before running Vagrant commands, simplifying workflow configurations and making them more consistent. This change does not introduce any breaking behavior or API changes but may require migration of existing workflows that relied on explicit `cd` commands.
