@@ -1,0 +1,3 @@
+Category: Changed
+
+The provisioning method has been completed, enabling users to deploy OpenStack services using the vagrant-kolla tool. This change introduces new configuration files, including globals.yml and kolla-build.conf, which define various settings for the deployment. The setup.sh script now includes a -p option to specify the provisioning method, allowing users to customize their deployments.
