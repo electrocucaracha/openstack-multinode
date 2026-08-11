@@ -1,0 +1,3 @@
+Category: Changed
+
+Volumes creation in the noha setup has been improved, allowing for easier deployment of OpenStack nodes. The Vagrant configuration now uses a more straightforward approach to create volumes, eliminating the need for custom disk creations and simplifying the setup process. This change does not introduce any breaking behavior or migration requirements, nor does it affect the API or CLI contract.
