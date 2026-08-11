@@ -1,0 +1,3 @@
+Category: Changed
+
+The run_kaction script has been refactored to improve its behavior and usability. The changes include the removal of redundant export statements, simplification of environment variable settings, and modification of Ansible command-line options. This update does not introduce any breaking behavior or require migration steps, but it does change the CLI contract by modifying how certain options are handled.
