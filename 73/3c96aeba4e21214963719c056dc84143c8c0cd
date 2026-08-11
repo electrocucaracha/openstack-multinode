@@ -1,0 +1,3 @@
+Category: Removed
+
+The test role has been removed from the configuration, which may break behavior if other components relied on this role. The roles section in pdf.yml now only includes registry and control01. This change does not affect the API or CLI contract, nor does it introduce any security risks. Users must review their configurations to ensure they are compatible with the updated setup.
