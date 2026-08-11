@@ -1,0 +1,3 @@
+Category: Changed
+
+The management IP range has been updated from 192.168.121 to 192.168.121.0/27, affecting how nodes are configured and connected in the virtual network. This change impacts the configuration of libvirt provider settings, including the management network address. The update is based on vagrant-libvirt network definitions and requires no migration steps or security considerations.
