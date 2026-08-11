@@ -1,0 +1,3 @@
+Category: Changed
+
+The typo in PKG_UDPATE was corrected to PKG_UPDATE, which affects the installation of packages via the install_pkg script. This change impacts users who rely on this script for package management, requiring them to update their scripts accordingly. The correction does not introduce any breaking behavior or security concerns.
