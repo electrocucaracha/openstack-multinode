@@ -1,0 +1,3 @@
+Category: Changed
+
+HTTP status codes for determining server health have been expanded to include forbidden responses, allowing for more comprehensive monitoring of servers that block requests. The config schema has been updated accordingly, adding 403 to the list of aliveStatusCodes. This change does not introduce any breaking behavior and does not require migration steps or changes to API or CLI contracts.
