@@ -1,0 +1,3 @@
+Category: Changed
+
+Dictionary definitions were updated, including the removal of "repo" from OpenStack's word list. Additionally, dependencies for OpenStack Kolla were upgraded to Python 3.10, affecting various project requirements files. This change does not introduce breaking behavior and is primarily a maintenance update. The upgrade should be seamless for users with compatible environments.
