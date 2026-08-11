@@ -1,0 +1,3 @@
+Category: Added
+
+sfdisk validation has been added to the node.sh script, ensuring its availability before attempting to use it for partition management. This change affects users who may encounter missing dependencies on certain Linux distributions, and requires no manual intervention for most cases. The affected systems will automatically install fdisk if sfdisk is not available.
