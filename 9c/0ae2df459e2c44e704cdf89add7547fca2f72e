@@ -1,0 +1,3 @@
+Category: Added
+
+Nested virtualization has been enabled for Intel and AMD architectures, allowing KVM to run nested VMs. This change modifies the node.sh script to dynamically check for and enable nested virtualization support on both platforms. The update also includes package installation steps for Ubuntu-based systems to ensure proper functionality. Users can now take advantage of improved performance with nested virtualization enabled.
