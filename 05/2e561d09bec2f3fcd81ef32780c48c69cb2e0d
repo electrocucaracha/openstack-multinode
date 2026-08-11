@@ -1,0 +1,3 @@
+Category: Changed
+
+The reviewdog/action-misspell dependency was updated from version 1.13.0 to 1.13.1, which may introduce minor changes in spell checking behavior. The update does not affect the API or CLI contract and has no security impact. This change is part of a routine dependency update and should be automatically handled by the workflow without requiring manual intervention.
