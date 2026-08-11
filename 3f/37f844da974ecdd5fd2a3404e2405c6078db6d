@@ -1,0 +1,3 @@
+Category: Changed
+
+The default OS_DISTRO variable was updated to use ubuntu_22 instead of the previous default, ubuntu. This change affects continuous integration checks that rely on this setting and may require adjustments in build scripts or configuration files. The update does not introduce any breaking behavior or security concerns.
