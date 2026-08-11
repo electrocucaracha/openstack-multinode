@@ -1,0 +1,3 @@
+Category: Changed
+
+The configuration files were upgraded to the yoga release, which includes changes to various services such as ironic, designate, and prometheus. The upgrade affects config schema changes in kolla-build.ini, passwords.yml, and registry.sh, with some services enabled by default. This update is likely a prerequisite for migration to the new openstack release, but no breaking behavior or API changes are mentioned.
