@@ -1,0 +1,3 @@
+Category: Removed
+
+The YAML line comments in workflow files now follow standard formatting conventions by removing extra padding, improving consistency across files. This change does not affect functional behavior but aligns with standard YAML formatting. The update affects multiple workflow files and uses various actions without introducing breaking changes or security vulnerabilities.
