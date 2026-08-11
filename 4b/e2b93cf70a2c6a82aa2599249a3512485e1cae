@@ -1,0 +1,3 @@
+Category: Changed
+
+The installation scripts now use the PKG_COMMANDS_LIST variable to specify packages that need to be installed, simplifying the process and reducing repetition. This change affects API contract by removing explicit package checks in several scripts. Migration steps are not required as the new approach is backwards compatible. The primary user outcome is improved script maintainability and reduced complexity.
