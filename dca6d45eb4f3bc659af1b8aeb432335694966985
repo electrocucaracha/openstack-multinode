@@ -1,0 +1,3 @@
+Category: Changed
+
+VBox HW metrics are now collected on failures in CI workflows, providing valuable information for debugging and troubleshooting. This change affects all workflows that run on VirtualBox environments, including build, on-demand aio, noha, and scheduled aio jobs. The added commands collect system statistics, running VMs, and logs to aid in identifying hardware-related issues.
