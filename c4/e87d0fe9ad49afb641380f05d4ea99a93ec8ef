@@ -1,0 +1,3 @@
+Category: Changed
+
+Failed image pull after build attempt was added to handle cases where images are missing from the registry, allowing for automatic retrieval of these images via quay.io or docker pull and push commands. This change affects users who encounter failed builds due to missing images in their local registry, ensuring they can still proceed with the build process once the required images are pulled. The impacted config schema remains unchanged.
