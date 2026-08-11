@@ -1,0 +1,3 @@
+Category: Changed
+
+Ansible configuration values were updated in the undercloud.sh script to enable pipeline execution and modify SSH connection settings, including pipelining, forks, remote temporary directory, and control persistence. The changes affect how Ansible operates during deployment, with potential implications for migration if existing configurations rely on default or overridden settings.
