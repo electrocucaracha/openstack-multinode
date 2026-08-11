@@ -1,0 +1,3 @@
+Category: Changed
+
+CI now validates upgrade actions by deploying the previous release in an All-in-One instance, checking hardware resources, upgrading to the latest release, and verifying OpenStack services. This change requires no migration steps but introduces a new `OPENSTACK_RELEASE` environment variable. The `upgrade.sh` script has been added to manage upgrades, and the `vercmp` function is used for version comparisons.
