@@ -1,0 +1,3 @@
+Category: Changed
+
+The network_interface value in the globals.yml configuration file has been updated from "eth0" to "eth1". This change may require users to update their networking configurations if they are relying on the previous interface name. The impact of this change is primarily related to user configuration, with no breaking behavior or API changes reported.
