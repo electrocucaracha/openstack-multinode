@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, updating GitHub Actions to use newer versions of super-linter and setup-uv actions. This change does not introduce breaking behavior or migration requirements but affects the security impact by potentially fixing vulnerabilities in outdated libraries. The primary user outcome is improved security through updated dependencies.
