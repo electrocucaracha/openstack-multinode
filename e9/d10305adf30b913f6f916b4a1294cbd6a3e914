@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded in this change, affecting multiple requirements files across various distributions. The updates include newer versions of cryptography, oslo-config, oslo-i18n, oslo-utils, and stevedore packages. These changes are likely to impact users who rely on these dependencies for their OpenStack deployments.
