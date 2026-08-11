@@ -1,0 +1,3 @@
+Category: Changed
+
+Magnum postinstall instructions are now enabled by default, allowing users to set up Magnum clusters during the installation process. This change requires users to configure the `OS_KOLLA_ENABLE_MAGNUM` environment variable in their deployment settings. The Magnum cluster setup is handled automatically if this variable is set to "yes".
