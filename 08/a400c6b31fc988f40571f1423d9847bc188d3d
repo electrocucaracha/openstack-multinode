@@ -1,0 +1,3 @@
+Category: Changed
+
+The Vagrantfile and related scripts were updated to support CentOS 8, replacing Ubuntu as the default operating system for All-in-One (AIO) deployments. This change affects users who rely on AIO to test OpenStack environments. The update also includes minor adjustments to network configuration and package management.
