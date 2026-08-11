@@ -1,0 +1,3 @@
+Category: Added
+
+SELinux validation was added to the installation script, requiring users to configure SELinux in Permissive mode for successful installation. This change affects users who have SELinux enabled and configured in Enforcing mode, prompting them to adjust their /etc/selinux/config file accordingly. The existing passwordless sudo validation remains unchanged.
