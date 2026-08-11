@@ -1,0 +1,3 @@
+Category: Changed
+
+The Distributed setup now uses fewer resources, reducing memory and vCPUs for most nodes while increasing disk space for the Storage Node. This change does not break existing behavior but may require migration steps to update node configurations. The API and CLI contracts remain unchanged, with no security impact or config schema changes. The primary outcome is a more efficient Distributed setup that can be scaled down for smaller environments.
