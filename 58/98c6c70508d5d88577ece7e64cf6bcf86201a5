@@ -1,0 +1,3 @@
+Category: Changed
+
+The number of vCPUs allocated to the registry has been reduced from 16 to 4, which may impact performance and require adjustments in resource allocation. This change affects the config schema for the registry, specifically the "cpus" parameter. No breaking behavior or migration requirements are mentioned, and there is no indication of security implications. The primary outcome will be a reduction in resources allocated to the registry.
