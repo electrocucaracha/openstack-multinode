@@ -1,0 +1,3 @@
+Category: Removed
+
+Ubuntu 22.04 support has been dropped, and the default Ubuntu base in workflows has been updated to Ubuntu 24.04 (Noble). This change ensures compatibility with the latest LTS release and reduces maintenance overhead for older versions. The Debian 12 image version was also updated for consistency, but no breaking behavior or migration requirements are mentioned.
