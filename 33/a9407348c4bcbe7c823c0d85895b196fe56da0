@@ -1,0 +1,3 @@
+Category: Changed
+
+The OpenStack Release version was exported, impacting users who rely on this information for their configurations. The change affects the `OPENSTACK_RELEASE` environment variable in several scripts and files, including Vagrant provisioning, undercloud setup, and registry configuration. This update ensures consistency across these components, but it may require manual updates to existing configurations that hardcoded the release version.
