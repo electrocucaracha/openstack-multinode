@@ -1,0 +1,3 @@
+Category: Changed
+
+Ansible inventory groups were reorganized across aio, distributed, and noha sample inventories to reflect current service architecture and deployment best practices. Obsolete or redundant groups like zun and venus were removed, and Redis was replaced with valkey groups in preparation for the upcoming migration. This change improves maintainability and ensures inventories accurately represent supported service layouts.
