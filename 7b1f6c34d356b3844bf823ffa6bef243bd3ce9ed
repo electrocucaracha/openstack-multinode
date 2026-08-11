@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting multiple versions of the requirements files for various distributions. The updates include newer versions of certifi, hvac, oslo-config, oslo-i18n, pbr, psutil, and wrapt. These changes are likely to require migrations in projects using these versions, but no breaking behavior or API/CLI contract changes were introduced.
