@@ -1,0 +1,3 @@
+Category: Changed
+
+The unnecessary installation of python-openstackclient has been removed from the requirements files, reducing dependencies and simplifying installations for users. This change affects Debian and Ubuntu package builds, where python-openstackclient was previously installed via pip-compile. The removal does not introduce any breaking behavior or API changes, nor does it impact security or config schema.
