@@ -1,0 +1,3 @@
+Category: Changed
+
+CPUS was renamed to CPU in various configuration files, affecting deployment scripts for All-in-One and No High Availability setups. This change does not impact migration requirements or API/CLI contracts but may require updates to environment variables in Vagrantfiles. The primary user outcome is improved consistency in variable naming across the project.
