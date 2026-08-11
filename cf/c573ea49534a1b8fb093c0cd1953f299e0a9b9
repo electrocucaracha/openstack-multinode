@@ -1,0 +1,3 @@
+Category: Changed
+
+The `api_interface` config value now requires quotes in the undercloud configuration file, affecting API interface settings for users who manually configure this option. This change does not introduce breaking behavior and no migration steps are required. The CLI contract remains unchanged as this is a configuration update only. No security impact or schema changes are present.
