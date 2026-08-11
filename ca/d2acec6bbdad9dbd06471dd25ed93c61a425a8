@@ -1,0 +1,3 @@
+Category: Changed
+
+The base OS requirements script has been centralized into a single file, `requirements/base.sh`, which installs necessary packages, including curl, for various operating systems. This change impacts Vagrantfile provisioning in several samples, removing redundant code and simplifying the installation process. The new script is now used to install basic requirements, streamlining the setup process for users.
