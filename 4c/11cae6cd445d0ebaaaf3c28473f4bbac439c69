@@ -1,0 +1,3 @@
+Category: Changed
+
+Docker image analysis GitHub Actions have been updated to include descriptions, which will improve user understanding of their functionality. This change does not introduce breaking behavior, API or CLI changes, security impact, or config schema changes. The primary outcome for users is enhanced clarity on what these actions accomplish.
