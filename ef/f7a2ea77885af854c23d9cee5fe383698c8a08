@@ -1,0 +1,3 @@
+Category: Added
+
+setup.sh now installs repositories for upgrading virsh, specifically adding the cloud-archive repository for Ubuntu 16.04 and 18.04 to enable package upgrades. This change affects users who need to upgrade their virsh packages, particularly those using libvirt on these Ubuntu versions. The setup process remains largely unchanged; only the package installation steps are updated.
