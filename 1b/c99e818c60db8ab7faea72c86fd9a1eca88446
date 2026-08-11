@@ -1,0 +1,3 @@
+Category: Changed
+
+Chrony services are now enabled by default, reversing the disabled state introduced in the Wallaby release. This change affects users who rely on chrony for time synchronization and may require adjustments to their configuration to accommodate this change. The relevant config schema has been updated accordingly.
