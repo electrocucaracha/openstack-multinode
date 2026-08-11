@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/cache dependency was updated from 3.2.2 to 3.2.3, which may require manual cache invalidation due to breaking changes in the new version. This update does not change the API or CLI contract and has no security impact. The config schema remains unchanged, and users do not need to take any specific migration steps.
