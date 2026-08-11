@@ -1,0 +1,3 @@
+Category: Added
+
+Config drive configuration enforcement was added, affecting users who rely on this feature for certain operations. The change involves setting the `force_config_drive` parameter to `true` in nova-compute.conf and introducing new config drive settings in glance-api.conf. This update may require manual intervention from maintainers to ensure compatibility with existing configurations.
