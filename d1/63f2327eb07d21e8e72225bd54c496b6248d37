@@ -1,0 +1,3 @@
+Category: Changed
+
+github/super-linter was upgraded from version 3 to 4.8.1, which may require migration steps due to the major version update. The GitHub Actions workflow now uses the updated linter version. This change affects users who rely on the super-linter for code analysis and maintenance tasks.
