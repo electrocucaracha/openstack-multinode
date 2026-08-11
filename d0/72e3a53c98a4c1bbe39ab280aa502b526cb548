@@ -1,0 +1,3 @@
+Category: Changed
+
+Cloudflare DNS usage is now enforced, which may break existing setups that rely on other DNS services. The change involves installing curl for Debian-based systems if necessary and configuring systemd-resolve to use Cloudflare's 1.1.1.1 DNS server when available. This update affects system configuration and requires migration steps for users who have customized their DNS settings.
