@@ -1,0 +1,3 @@
+Category: Fixed
+
+The group name for kolla-toolbox was corrected from using an underscore to a hyphen, resolving Ansible lookup errors during deployment due to inconsistent naming conventions. This change ensures consistency with other group names and does not affect any other groups. The correction is applied in the samples/aio/hosts.ini file, where the affected section has been updated accordingly.
