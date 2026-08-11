@@ -1,0 +1,3 @@
+Category: Changed
+
+cirrus-actions/rebase was updated from version 1.5 to 1.6, which may introduce breaking changes in the Automatic Rebase step of the .github/workflows/rebase.yml workflow. The update uses the new version of cirrus-actions/rebase directly without specifying a minor version number. This change affects users who rely on this workflow for automatic rebasing.
