@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting various system requirements files across different operating systems. The changes include updates to oslo-config, packaging, cryptography, certifi, and pytz versions. No breaking behavior or migration steps are mentioned; however, users may need to recompile their dependencies due to the version upgrades.
