@@ -1,0 +1,3 @@
+Category: Added
+
+GitHub Linter actions have been enabled for code base validation, triggered on push to the master branch. This involves running a linter in a Docker container, checking for syntax errors and other issues in Bash scripts. The process uses the super-linter action with version 2.0.0 and disables Bash validation.
