@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Super Linter dependency was updated from version 4.8.5 to 4.8.7, which may require migration steps if the previous version's configuration has changed. The update does not introduce any breaking behavior or API changes and has no security impact. This change affects users who rely on the linter for code quality checks in their GitHub workflows.
