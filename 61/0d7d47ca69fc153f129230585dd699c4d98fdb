@@ -1,0 +1,3 @@
+Category: Changed
+
+CI cache configuration has been improved by updating the key used to store and restore cached Vagrant boxes in GitHub Actions workflows. This change affects the `on-demand_aio.yml` and `on-demand_noha.yml` workflows, where the key now uses the hash of `distros_supported.yml` instead of `Vagrantfile`. The update ensures consistent cache behavior across different workflow runs.
