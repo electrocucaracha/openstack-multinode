@@ -1,0 +1,3 @@
+Category: Changed
+
+The Docker source list removal on Ubuntu Control VM was fixed to avoid update conflicts by updating the undercloud.sh script to remove the docker.list file in /etc/apt/sources.list.d/. This change affects users who rely on this setup, requiring no migration steps. The updated script now correctly removes the docker source list without breaking behavior or introducing security risks.
