@@ -1,0 +1,3 @@
+Category: Changed
+
+Magnum service is now disabled by default in Kolla, affecting users who rely on Magnum for container orchestration. This change involves updating the config schema in globals.yml and modifying undercloud.sh to reflect the new default setting. Users must manually enable Magnum if they require its functionality; no migration steps are necessary.
