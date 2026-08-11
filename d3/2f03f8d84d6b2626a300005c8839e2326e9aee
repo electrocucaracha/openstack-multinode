@@ -1,0 +1,3 @@
+Category: Added
+
+VBox instructions in aio samples were improved to better utilize virtualization features, including enabling nested paging, large pages, and virtual processor identifiers for performance optimization. The changes also address a known bug by configuring UART settings. These modifications do not introduce breaking behavior but require users to update their Vagrantfiles accordingly.
