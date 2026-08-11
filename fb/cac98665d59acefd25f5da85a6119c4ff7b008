@@ -1,0 +1,3 @@
+Category: Changed
+
+The NoHA CI job's hardware resources were modified to improve performance. The MEMORY environment variable was increased for both the compute01 vagrant up step and the subsequent reload of OpenStack Compute nodes, from 2048 MB to 4096 MB in one case and from 10240 MB to 8192 MB in another. This change may require adjustments to existing workflows or scripts that rely on these settings.
