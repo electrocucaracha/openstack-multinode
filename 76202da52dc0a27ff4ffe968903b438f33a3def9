@@ -1,0 +1,3 @@
+Category: Changed
+
+The versions in the requirements files were updated to reflect changes in dependencies, including OpenStack Kolla dependencies being upgraded from 17.8.0 to 18.7.0 for Debian 11 and 12, Ubuntu 22, and other platforms. This update affects various packages such as ansible-core, bcrypt, certifi, cryptography, and requests. The changes are likely due to security patches or dependency updates, but no specific migration steps or breaking behavior are mentioned.
