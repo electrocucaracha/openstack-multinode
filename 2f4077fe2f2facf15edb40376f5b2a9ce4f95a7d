@@ -1,0 +1,3 @@
+Category: Removed
+
+The workflow for automatic rebase was removed because it was no longer needed, which may affect users who relied on this feature to automate rebasing in pull requests. This change does not introduce any breaking behavior and does not alter the API or CLI contract. The removal of this workflow is a minor update that simplifies the repository's configuration.
