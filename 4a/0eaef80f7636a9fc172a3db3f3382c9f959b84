@@ -1,0 +1,3 @@
+Category: Changed
+
+The Vagrantfile was modified to include the name of the libvirt external network in its configuration, making it easier for users to manage and identify their networks. This change affects users who have configured their nodes with the 'network' role, as they will now need to specify the network name when setting up a private network. The migration step involves updating existing configurations to include the `libvirt__network_name` parameter.
