@@ -1,0 +1,3 @@
+Category: Changed
+
+The registry.sh script was updated for the Victoria release, changing various package locations to point to openstack directories instead of trunk.rdoproject.org. This change affects over 100 packages, including those from neutron, nova, and sahara projects, requiring users to update their configurations accordingly. The update is part of a larger effort to migrate to the new release.
