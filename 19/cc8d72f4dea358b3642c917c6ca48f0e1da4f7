@@ -1,0 +1,3 @@
+Category: Changed
+
+BASH_EXEC linting issues were fixed by changing the file modes of several test scripts from 644 to 755, which affects users who run these tests. This change does not introduce any breaking behavior and does not require migration steps. The API and CLI contracts remain unchanged. There is no security impact or config schema changes associated with this fix.
