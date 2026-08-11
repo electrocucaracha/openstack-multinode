@@ -1,0 +1,3 @@
+Category: Changed
+
+The debug mode in the run kolla action script has been fixed to correctly enable verbose output when OS_DEBUG is set to true, ensuring that users can troubleshoot issues effectively. This change affects how the script behaves in debug mode and does not introduce any breaking changes. The API or CLI contract remains unchanged, and there are no security implications or config schema modifications. Users will now see detailed output when running the script with debug enabled.
