@@ -1,0 +1,3 @@
+Category: Changed
+
+The workflow dependencies were updated by bumping the actions/checkout version from 4.1.0 to 4.1.1, which is a minor patch update that should not introduce breaking behavior or migration requirements. The change affects multiple workflows and uses of the actions/checkout action, but no API or CLI contract changes are mentioned. There is no indication of security impact, config schema changes, or primary user outcome beyond updating dependencies.
