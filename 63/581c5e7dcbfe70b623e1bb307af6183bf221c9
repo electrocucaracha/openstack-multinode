@@ -1,0 +1,3 @@
+Category: Changed
+
+The AIO installation script now accepts an optional environment variable OS_KOLLA_NETWORK_INTERFACE, allowing users to specify the network interface for Kolla deployment. This change enables customization of the network configuration during installation. The updated install.sh script includes this new parameter as a command-line option.
