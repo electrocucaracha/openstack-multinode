@@ -1,0 +1,3 @@
+Category: Changed
+
+The shellcheck tool was integrated into the build process to catch potential issues in bash scripts, and several scripts were modified to comply with its recommendations. This includes adding quotes around variable references and disabling certain checks where necessary. The changes are primarily related to configuration and script maintenance, with no breaking behavior or API changes.
