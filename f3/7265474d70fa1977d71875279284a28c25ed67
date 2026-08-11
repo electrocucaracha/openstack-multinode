@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub workflows for linter checks were updated to address issues introduced by super-linter v4.8.7, including the addition of a filter regex exclude path and changes to environment variables in on-demand aio workflow. The Makefile was also modified to include an environment variable for filtering out certain files during linting. These updates ensure compatibility with the latest linter version.
