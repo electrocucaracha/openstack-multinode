@@ -1,0 +1,3 @@
+Category: Changed
+
+The use of `pip` has been replaced with the `-m pip` command in various scripts, workflows, and installers to ensure compatibility with Python 3.x's module naming conventions. This change affects installation and update processes for OpenStack services and dependencies, but does not introduce any breaking behavior or migration requirements. The primary user outcome is improved compatibility with future Python versions.
