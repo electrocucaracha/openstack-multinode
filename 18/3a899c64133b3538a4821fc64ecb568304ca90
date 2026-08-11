@@ -1,0 +1,3 @@
+Category: Changed
+
+Travis CI execution has been improved by updating the configuration file to use a newer version of Ubuntu, specifying a Python version, and modifying scripts for lint validation and all-in-one testing. The changes also include updates to the undercloud.sh script to install packages and configure Kolla settings. This update requires no migration steps and does not affect API or CLI contracts.
