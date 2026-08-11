@@ -1,0 +1,3 @@
+Category: Changed
+
+Actions/cache and setup-go dependencies were updated to their latest patch versions, v6.1.0 and v6.5.0 respectively, in workflow definitions to ensure the use of upstream bug fixes and improvements, reducing known issue risk without modifying workflow logic or configuration. This change affects composite actions and workflows using these dependencies.
