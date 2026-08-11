@@ -1,0 +1,3 @@
+Category: Removed
+
+The unnecessary OPENSTACK_RELEASE variable in install.sh was removed, simplifying the script's configuration options. This change does not introduce breaking behavior or require migration steps. The config schema remains unchanged and there are no API or CLI contract changes. The primary outcome is a reduced complexity in the installation process for users.
