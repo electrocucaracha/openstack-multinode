@@ -1,0 +1,3 @@
+Category: Changed
+
+AIO nic now supports promiscuous mode, allowing all traffic to be forwarded to the host. This change enables more flexible network configurations in virtualized environments. The Vagrantfile has been updated with the necessary configuration options for Libvirt to permit promiscuous mode on the external network.
