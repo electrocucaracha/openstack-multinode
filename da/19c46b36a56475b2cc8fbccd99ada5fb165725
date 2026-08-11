@@ -1,0 +1,3 @@
+Category: Changed
+
+Contributors link was updated to use an alternate text format, replacing the previous image link. This change does not affect API or CLI contracts, nor does it introduce any breaking behavior or security concerns. The update maintains compatibility with existing contributors visualization and codebase structure visualizations.
