@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions were updated, OpenStack Kolla dependencies were upgraded, and dictionary definitions were updated. The update includes changes to GitHub Actions workflows, specifically in the `docker-image` action and the `update.yml` workflow, where actions and versions have been updated. Additionally, several requirements files have been updated with new version numbers for various libraries, including certifi, charset-normalizer, cryptography, idna, and rich.
