@@ -1,0 +1,3 @@
+Category: Changed
+
+Linter configurations were updated across various workflows to persist credentials by default, affecting jobs that use actions/checkout@v5.0.0 with the persist-credentials option. This change impacts workflows like on-demand.yml and update.yml, which now include permissions for contents: read. The primary outcome is improved linter functionality without requiring manual configuration adjustments.
