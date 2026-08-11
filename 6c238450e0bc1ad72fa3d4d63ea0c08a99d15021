@@ -1,0 +1,3 @@
+Category: Changed
+
+LVM group creation has been streamlined by removing unnecessary steps from the node setup script, reducing complexity for users who manage Cinder volumes. The changes include removing an empty volume check and simplifying the `vgcreate` command to reduce potential errors. This update does not introduce any breaking behavior or migration requirements.
