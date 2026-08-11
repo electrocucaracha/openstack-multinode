@@ -1,0 +1,3 @@
+Category: Changed
+
+The installation process for binary dependencies has been simplified by removing redundant steps and merging them into a single command. This change affects users who install the compute script, requiring no migration steps but introducing a new dependency installation method that uses `PKG_BINDEP_PROFILE=compute` to determine the required packages. The underlying package management remains unchanged.
