@@ -1,0 +1,3 @@
+Category: Added
+
+The editorconfig checker has been disabled in the update distros script to prevent interference with formatting rules, allowing for more flexibility in code styling during automated updates. This change does not affect API or CLI contracts and does not introduce any security vulnerabilities. The migration steps remain unchanged, and users can continue to use the updated script without modifications.
