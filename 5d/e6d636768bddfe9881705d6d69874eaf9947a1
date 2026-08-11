@@ -1,0 +1,3 @@
+Category: Changed
+
+The documentation for the noha configuration was updated to reflect changes in hardware specifications, specifically using Raspberry Pi 4 Model B instead of Intel's NUCs. The update includes new hardware details and environment variables used to configure the cluster. This change does not introduce any breaking behavior or migration requirements, nor does it affect API or CLI contracts, security, or config schema.
