@@ -1,0 +1,3 @@
+Category: Removed
+
+Cockpit installation in nodes has been removed, which may break functionality for users relying on it. This change does not affect the API or CLI contract, nor does it impact security or config schema. Users will need to manually remove Cockpit services if they were previously installed; otherwise, no migration steps are required.
