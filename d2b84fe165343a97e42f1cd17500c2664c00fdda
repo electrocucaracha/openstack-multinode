@@ -1,0 +1,3 @@
+Category: Added
+
+The super-linter's ENV validation has been disabled to prevent unnecessary failures during CI runs, streamlining the workflow and reducing noise. This change affects both GitHub Actions workflows and Makefile configurations, disabling the VALIDATE_ENV check by default. The primary outcome is improved efficiency in the linter process, with no breaking behavior or migration requirements necessary.
