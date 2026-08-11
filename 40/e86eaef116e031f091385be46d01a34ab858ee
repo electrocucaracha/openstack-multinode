@@ -1,0 +1,3 @@
+Category: Changed
+
+Registry provisioning now uses unprivileged permissions, changing how Docker images are built and configured. This affects the `kolla-build.ini` config file, where settings like `push_threads`, `logs_dir`, and `work_dir` have been adjusted to accommodate this change. The `registry.sh` script also reflects these changes, with modifications to ensure proper image creation and configuration.
