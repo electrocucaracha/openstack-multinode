@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla, an OpenStack project providing production-ready containers for deployment and management, was added to the README.md file along with its installer usage instructions. The change includes a brief description of Kolla's purpose and its relation to container-based architecture. This update aims to inform users about the available tools for deploying OpenStack services through Kolla.
