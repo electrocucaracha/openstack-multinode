@@ -1,0 +1,3 @@
+Category: Changed
+
+A PDF file was added to the project, which includes configuration settings for virtual machines. This change affects how Vagrant provisions and configures nodes in the cluster. The primary user outcome is improved flexibility in customizing node configurations.
