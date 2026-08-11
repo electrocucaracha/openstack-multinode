@@ -1,0 +1,3 @@
+Category: Changed
+
+The update versions bash script was modified to use the latest commit hashes for GitHub Actions, ensuring that workflows are updated to the correct version of each action. This change affects multiple workflows and actions, including checkout, vagrant setup, and create PR actions. The update is necessary to maintain compatibility with the latest action versions.
