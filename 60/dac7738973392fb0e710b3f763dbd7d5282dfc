@@ -1,0 +1,3 @@
+Category: Added
+
+Node support has been added to the bindep installation process, allowing users to specify node-specific dependencies. This change affects how dependencies are installed during setup, potentially requiring manual intervention for existing configurations. The new installation script is executed after role configuration, and its impact on security is minimal as it only installs a package manager profile.
