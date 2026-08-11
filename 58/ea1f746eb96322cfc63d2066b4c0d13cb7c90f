@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting various requirements files across different platforms. This update impacts certifi, urllib3, and pyyaml versions, which may necessitate migration steps for users relying on these packages. The changes do not appear to introduce breaking behavior or API/CLI contract modifications.
