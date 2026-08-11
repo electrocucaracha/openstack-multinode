@@ -1,0 +1,3 @@
+Category: Changed
+
+Time statistics are now printed out after various installation processes, including compute, install, node setup, registry creation, and undercloud provisioning. This change affects the user by providing additional information on process completion times. The implementation involves adding date stamps and trap commands to print elapsed time in seconds at the end of each process.
