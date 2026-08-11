@@ -1,0 +1,3 @@
+Category: Added
+
+Github custom actions are now enabled, allowing for automated workflows to be defined directly within the repository. This change introduces a new CI/CD pipeline that checks bare-metal installations and builds images on push events to master branch. The pipeline uses Ubuntu 18.04 as the base image and includes steps for deploying services and validating images. Migration is required to utilize this feature, with no breaking behavior or security impact noted.
