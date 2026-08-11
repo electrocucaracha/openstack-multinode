@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting various packages across multiple operating systems. The changes include updates to Ansible Core, cryptography libraries, and several other dependencies. This update may require migration steps for users, but no breaking behavior is expected. The primary outcome is improved security and stability through the latest dependency versions.
