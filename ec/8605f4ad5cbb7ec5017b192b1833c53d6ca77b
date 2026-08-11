@@ -1,0 +1,3 @@
+Category: Added
+
+The linuxbridge neutron agent was set for All-in-One VMs, changing the default plugin from openvswitch to linuxbridge. This update affects users who deploy All-in-One environments and requires no migration steps. The change impacts the underlying network configuration but does not alter the API or CLI contract. The security impact is minimal as this is a configuration adjustment rather than a vulnerability fix.
