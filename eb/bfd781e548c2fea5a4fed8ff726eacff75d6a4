@@ -1,0 +1,3 @@
+Category: Changed
+
+The undercloud.sh script now includes pull and check actions, expanding the set of tasks that can be performed by kolla-ansible. This change introduces no breaking behavior but requires users to adapt their workflow to include these new steps. The updated list of actions is: bootstrap-servers, prechecks, pull, deploy, check, post-deploy.
