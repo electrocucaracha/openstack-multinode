@@ -1,0 +1,3 @@
+Category: Added
+
+Nova now allows CPU and RAM overcommitting by default, enabling users to allocate more resources than are physically available in the system. The cpu_allocation_ratio and ram_allocation_ratio settings have been added to nova-api.conf, with initial values set to 16.0 and 1.5 respectively. This change may require re-evaluation of resource allocation strategies to prevent overcommitting issues.
