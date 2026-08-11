@@ -1,0 +1,3 @@
+Category: Changed
+
+The yoga and zed releases have been deprecated, removing support for these specific release types in favor of newer versions. This change impacts configuration files, including the removal of outdated requirements files and adjustments to environment variables in sample deployment scripts. The primary user outcome is a streamlined set of supported distributions, with no breaking behavior or migration requirements noted.
