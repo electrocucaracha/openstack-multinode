@@ -1,0 +1,3 @@
+Category: Changed
+
+The undercloud provisioning scripts have been refactored to improve maintainability, security, and user experience. The main changes include the introduction of new functions for dependency installation, Ansible setup, and proxy configuration, which replace the previous script's complex logic. Additionally, the code now handles Python package conflicts on Ubuntu-based systems and removes redundant docker source lists.
