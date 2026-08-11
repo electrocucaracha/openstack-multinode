@@ -1,0 +1,3 @@
+Category: Changed
+
+The spellchecker CI action was improved by adding a new workflow to check for spelling errors in Markdown files, using the pyspelling-any tool. The dictionary wordlist was also updated with common words and project-specific terms. This change does not break any behavior but introduces a new test environment for tox that uses pyspelling to run spellchecks against the .spellcheck.yml configuration file.
