@@ -1,0 +1,3 @@
+Category: Changed
+
+The script now uses uv instead of pip to manage package installations, which affects the installation process for kolla-build and docker-squash packages. This change requires users to have uv installed on their system; if not, it will be automatically installed via a curl command. The migration path involves updating scripts that use pip to use uv instead.
