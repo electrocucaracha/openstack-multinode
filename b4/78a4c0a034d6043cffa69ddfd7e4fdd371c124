@@ -1,0 +1,3 @@
+Category: Changed
+
+Dependencies for OpenStack Kolla were upgraded, affecting multiple distros and versions of various packages, including certifi, cryptography, kolla-ansible, packaging, pytz, and pyyaml. This update may require migration steps to ensure compatibility with the new dependencies. The changes do not appear to introduce breaking behavior or security vulnerabilities but are essential for maintaining package integrity and compatibility.
