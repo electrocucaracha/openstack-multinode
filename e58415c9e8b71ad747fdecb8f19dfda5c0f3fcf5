@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded in multiple versions of the requirements files, including debian_11.txt, debian_12.txt, rocky_9.txt, ubuntu_22.txt, and others. The upgrades include updates to certifi, charset-normalizer, cryptography, jinja2, jmespath, oslo-config, oslo-i18n, oslo-utils, packaging, pbr, psutil, pyyaml, resolvelib, setuptools, stevedore, urllib3, and wrapt.
