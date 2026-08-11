@@ -1,0 +1,3 @@
+Category: Changed
+
+Build validation has been enabled on CentOS, adding support for this operating system in addition to Ubuntu. The change involves updating GitHub Actions workflows and Vagrant configurations to accommodate CentOS-specific requirements. This update allows users to build and publish Kolla Docker images on CentOS 8 Virtual Machines. No breaking behavior or migration steps are required.
