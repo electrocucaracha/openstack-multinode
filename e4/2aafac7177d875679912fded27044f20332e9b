@@ -1,0 +1,3 @@
+Category: Changed
+
+Scripts now enable verbosity by setting the `OS_DEBUG` environment variable to true, allowing for increased logging and debugging output in various scripts, including workflows, deployment tools, and other automation scripts. This change affects multiple scripts and workflows, introducing no breaking behavior or migration requirements. The primary user outcome is improved debuggability and logging capabilities during script execution.
