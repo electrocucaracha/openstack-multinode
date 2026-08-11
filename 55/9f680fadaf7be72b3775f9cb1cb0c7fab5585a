@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting multiple distros and versions of requirements files. This change impacts the version numbers for kolla-ansible and pytz in various requirements files, specifically upgrading to 13.5.0 and 2022.4 respectively. No breaking behavior or migration steps are mentioned; however, users should review updated dependencies to ensure compatibility with their environments.
