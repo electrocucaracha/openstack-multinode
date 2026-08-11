@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting various OpenStack components. The changes include updates to Ansible Core, oslo-config, oslo-serialization, and other dependencies. This upgrade may require migration steps for users of the affected components. No breaking behavior or security impact is reported. The primary outcome is an improved version of the dependencies used by OpenStack Kolla.
