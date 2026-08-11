@@ -1,0 +1,3 @@
+Category: Changed
+
+Debian was updated from version 10 to the latest Bullseye release, which will affect users running on Debian-based systems. This change impacts the supported distributions in CI workflows and requires updating the `distros_supported.yml` file accordingly. The requirements for Debian have also been adjusted in the `requirements/debian.txt` file to reflect the new version.
