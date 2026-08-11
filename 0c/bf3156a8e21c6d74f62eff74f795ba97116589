@@ -1,0 +1,3 @@
+Category: Changed
+
+The registry provisioning script was improved, introducing changes to how Docker is installed and configured, including proxy settings and insecure registries. The script now uses the `docker` command instead of calling individual scripts for setup and configuration. Additionally, the script has been updated to work with different Linux distributions and versions of Kolla.
