@@ -1,0 +1,3 @@
+Category: Changed
+
+The Docker image scanning tool was replaced from Clair to Trivy, which affects users who rely on security vulnerability scans in their CI/CD pipelines. This change breaks the previous behavior of uploading results to the GitHub Security tab and requires updating configuration to use Trivy's output format. The Trivy action is now used for both scanning and uploading scan results.
