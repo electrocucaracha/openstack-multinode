@@ -1,0 +1,3 @@
+Category: Added
+
+Dependabot has been enabled on the project to automate dependency updates, which will now occur daily for all GitHub Actions packages across the entire repository. This change does not introduce any breaking behavior and does not require migration steps. The configuration schema has been updated with a new version, but this should be seamless as it is part of the initial setup.
