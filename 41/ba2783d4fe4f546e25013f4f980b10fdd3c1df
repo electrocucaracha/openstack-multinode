@@ -1,0 +1,3 @@
+Category: Changed
+
+The No HA ssh configuration was improved by removing insecure key handling from the Vagrantfile, instead using nodeconfig triggers to configure authorized keys after provisioning. This change simplifies the configuration process and reduces the risk of security vulnerabilities associated with hardcoded keys. The update also includes minor adjustments to environment variable exportation and OpenStack configuration.
