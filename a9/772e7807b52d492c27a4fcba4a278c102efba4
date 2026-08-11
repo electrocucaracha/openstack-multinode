@@ -1,0 +1,3 @@
+Category: Changed
+
+The kolla-ansible project has been upgraded to the Ussuri release, which affects various configuration settings and dependencies. The upgrade changes the default openstack_release from train to ussuri in globals.yml and kolla-build.ini, impacting container image tags and Docker registry settings. This update requires users to review and adjust their configurations accordingly.
