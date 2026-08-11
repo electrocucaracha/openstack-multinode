@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Super Linter dependency was updated from version 4.10.0 to 4.10.1, which may introduce minor changes in linter rules and behavior. The update does not affect the API or CLI contract, nor does it impact security or config schema. This change is primarily a maintenance update that ensures users have access to the latest linter features and bug fixes.
