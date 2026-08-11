@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla-build file extension was changed from .conf to .ini in kolla-build.conf and registry.sh, affecting the configuration file used by the kolla-build command. This change requires updating the config file path in scripts using the new extension. The kolla-build command now uses /etc/kolla/kolla-build.ini instead of /etc/kolla/kolla-build.conf.
