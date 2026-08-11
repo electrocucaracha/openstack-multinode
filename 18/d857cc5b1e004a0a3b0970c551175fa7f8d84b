@@ -1,0 +1,3 @@
+Category: Changed
+
+Tox configuration updated to resolve compatibility issues with version 4, specifically addressing environment variable handling and command execution in the linter test environment. The changes include updated `passenv` settings and modified `commands` for the linter test environment, ensuring proper behavior without introducing breaking changes or requiring migration steps.
