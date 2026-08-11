@@ -1,0 +1,3 @@
+Category: Changed
+
+Rocky Linux support has been added, enabling users to deploy on this distro alongside existing CentOS, Debian, and Ubuntu options. The update includes changes to CI workflows, Vagrantfile configurations, and dependencies in the requirements files for Rocky Linux. Migration steps involve updating the .github/workflows/update.yml file with the new image matrix and modifying the samples/aio/Vagrantfile accordingly.
