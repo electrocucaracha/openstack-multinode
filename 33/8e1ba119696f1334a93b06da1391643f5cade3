@@ -1,0 +1,3 @@
+Category: Changed
+
+The code now supports multiple Python requirements files, allowing for different dependencies to be installed based on the OpenStack release. This change affects how dependencies are resolved and installed in various environments. The primary user outcome is improved flexibility in managing project dependencies across different releases. No breaking behavior or migration requirements are mentioned.
