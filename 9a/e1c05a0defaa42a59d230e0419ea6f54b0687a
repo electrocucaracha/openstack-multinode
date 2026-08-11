@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions workflows were refactored, impacting deployment and build processes. The `build-images` job was removed from the CI workflow and split into separate jobs in the new `deploy.yml` file, introducing changes to the deployment process for OpenStack services. Additionally, a new job was added to check broken links in Markdown files. These updates affect users who rely on these workflows for automated build and deployment tasks.
