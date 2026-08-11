@@ -1,0 +1,3 @@
+Category: Changed
+
+The reviewdog/action-misspell dependency was updated from version 1.14.1 to 1.15.0, which may introduce breaking behavior if the previous version's configuration has changed. The workflow now uses the latest version of the action with its default settings. This change affects users who rely on spell checking in their GitHub workflows.
