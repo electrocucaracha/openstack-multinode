@@ -1,0 +1,3 @@
+Category: Changed
+
+SSH setup instructions in the AIO Vagrantfile were simplified by removing redundant steps, reducing the number of commands, and improving security by using more secure methods for generating and copying SSH keys. This change does not introduce any breaking behavior but may require manual cleanup of existing SSH key files before running the updated provisioning script. The primary user outcome is a streamlined setup process with improved security.
