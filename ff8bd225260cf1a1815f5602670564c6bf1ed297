@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions dependencies were updated to their latest versions, improving automation reliability and keeping CI dependencies current. The update_versions.sh script now uses a more robust approach to resolve the latest semver tags, skips pinned and exception actions, and ensures pre-commit hooks are also updated. This change does not introduce any breaking behavior or migration requirements, nor does it affect API or CLI contracts, security, or config schema.
