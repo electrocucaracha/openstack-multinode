@@ -1,0 +1,3 @@
+Category: Changed
+
+The no High Availability (HA) sample configuration has been fixed by updating the Vagrantfile, hosts.ini, and tail.ini files to use a more modern Ubuntu version and correct network settings. This change affects users who rely on these samples for HA configurations, requiring them to update their environments accordingly. The updated config should now work as expected with the latest Ubuntu versions.
