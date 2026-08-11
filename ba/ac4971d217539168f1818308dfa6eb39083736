@@ -1,0 +1,3 @@
+Category: Added
+
+NTP daemon validation has been disabled in Kolla due to a known bug. This change affects users who rely on NTP checks during the pre-deployment process and may need to adjust their configuration accordingly. The `prechecks_enable_host_ntp_checks` variable is now set to `false` by default, disabling this validation step.
