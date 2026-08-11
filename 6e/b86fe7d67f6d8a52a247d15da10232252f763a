@@ -1,0 +1,3 @@
+Category: Changed
+
+Dead links in README files were fixed, specifically two broken HTTP links to Weave Scope and Raspberry Pi documentation. The changes are minor and do not affect API or CLI contracts, config schema, security, or migration requirements. This update improves the reliability of sample deployment guides by replacing outdated link references with correct ones.
