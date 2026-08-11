@@ -1,0 +1,3 @@
+Category: Changed
+
+Dependencies for GitHub Actions were updated, including OpenStack Kolla dependencies and various action versions. The changes affect the Docker image layer contents, Trivy vulnerability scanner, Go setup, linter, syntax checking, and dependency installation in workflows. No breaking behavior is introduced; however, some actions have been upgraded to newer versions.
