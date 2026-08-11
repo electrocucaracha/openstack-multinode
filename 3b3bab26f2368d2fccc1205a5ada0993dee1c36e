@@ -1,0 +1,3 @@
+Category: Changed
+
+The build configuration was updated for the 2026.1 cycle, removing deprecated images like venus, zun, kuryr, and ironic-inspector to align with current OpenStack support. New images were added for improved database and monitoring support, including mariadb-server-plugin-mariadb-docker and prometheus-valkey-exporter. The Prometheus exporters were also updated to their latest upstream versions and checksums.
