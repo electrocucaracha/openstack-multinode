@@ -1,0 +1,3 @@
+Category: Added
+
+The synced folder type in the AIO Vagrantfile has been updated to use NFS, which may require changes to the underlying infrastructure for some users. This change does not affect the API or CLI contract and there are no security implications. Users who have customized their Vagrant setup will need to adjust their configuration accordingly.
