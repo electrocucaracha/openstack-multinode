@@ -1,0 +1,3 @@
+Category: Changed
+
+The installation script now includes statistics about CPU usage and memory free space, previously shown in the Vagrantfile. This change removes redundant code from the Vagrantfile, simplifying it. The new stats are displayed during the installation process via the install.sh script. The docker stats command is used to display container resource usage.
