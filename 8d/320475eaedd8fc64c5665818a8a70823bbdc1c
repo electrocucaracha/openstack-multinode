@@ -1,0 +1,3 @@
+Category: Changed
+
+VBox Internal Networking type was introduced for private communication between nodes, replacing the previous static IP configuration. This change affects Vagrantfile configurations in distributed and noha samples, requiring updates to network settings. The primary outcome is improved node connectivity within virtualized environments using VirtualBox. No breaking behavior or migration requirements are mentioned.
