@@ -1,0 +1,3 @@
+Category: Added
+
+Kolla build images are no longer built in NOHA CI due to changes in the workflow configuration. The OS_ENABLE_LOCAL_REGISTRY environment variable was set to false, which affects image deployment for OpenStack Control nodes. This change may require manual adjustments to ensure proper image usage and does not introduce any security vulnerabilities or schema modifications.
