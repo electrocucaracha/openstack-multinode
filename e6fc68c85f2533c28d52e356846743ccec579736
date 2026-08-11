@@ -1,0 +1,3 @@
+Category: Changed
+
+Tox installation has been modified to install system packages first, which may break existing workflows that relied on the previous behavior. This change affects users who run tox in their CI/CD pipelines and have previously installed it without specifying the `--break-system-packages` flag. The update does not impact the API or CLI contract of tox itself.
