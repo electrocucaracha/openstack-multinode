@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting multiple requirements files for different operating systems. The updates include changes to cryptography, debtcollector, keystoneauth1, and other libraries. No breaking behavior or migration steps are mentioned, nor any API, CLI contract changes, security impact, or config schema changes.
