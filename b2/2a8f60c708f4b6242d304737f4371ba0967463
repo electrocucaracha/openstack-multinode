@@ -1,0 +1,3 @@
+Category: Changed
+
+The default volume type configuration for Cinder services was updated to use the LVM-1 backend, replacing the previously used iSCSI backend. This change affects the underlying storage mechanism and may require migration steps for existing configurations. The update also introduces a new script to create the necessary volume type if it does not exist.
