@@ -1,0 +1,3 @@
+Category: Changed
+
+The heat service has been disabled in the NOHA configuration, impacting users who rely on this feature for orchestration tasks. This change affects the enable_heat parameter in globals.yml and the OS_KOLLA_ENABLE_HEAT environment variable in Vagrantfile. The migration requirement is to update configurations that previously enabled the heat service to reflect its new disabled state.
