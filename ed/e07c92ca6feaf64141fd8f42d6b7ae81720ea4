@@ -1,0 +1,3 @@
+Category: Changed
+
+Git SHA is now used as the image tag during build, replacing static tags like 'latest'. This change affects how images are tagged in the Docker registry, potentially breaking builds that rely on specific versions. Users must update their registries to use the new dynamic tagging scheme, which provides a unique identifier for each commit.
