@@ -1,0 +1,3 @@
+Category: Changed
+
+The Caracal release was added, updating the openstack_release to 2024.1 in defaults.env and .github/workflows/update.yml, and removing some plugins from horizon-plugin-* sections. This change affects users by enabling support for the new release and potentially breaking functionality if not properly migrated.
