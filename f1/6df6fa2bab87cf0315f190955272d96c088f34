@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Zed release support has been added to kolla, allowing users to build images for this new release. The change affects the default OpenStack release in `defaults.env` and `kolla-build.ini`, which now defaults to "zed". This update also modifies several configuration files, including `registry.sh` and `install.sh`, to use the new release tag. As a result, users will need to update their configurations to reflect this change.
