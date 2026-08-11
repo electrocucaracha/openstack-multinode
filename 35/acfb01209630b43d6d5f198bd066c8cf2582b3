@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla was upgraded from OpenStack Wallaby to Xena release, requiring users to update their configuration files accordingly. This change may necessitate migration steps for some services and potentially introduces API changes in certain components. The upgrade also brings security enhancements and updates various configurations, including network settings and service plugins. Users should review the updated configuration options and adjust their setup as needed to ensure a smooth transition.
