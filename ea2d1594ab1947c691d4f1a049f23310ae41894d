@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions dependencies were updated, including OpenStack Kolla dependencies, which may impact migration requirements for users running these versions. The update also affects the version of `cryptography` and `psutil`. No breaking behavior or API changes are reported.
