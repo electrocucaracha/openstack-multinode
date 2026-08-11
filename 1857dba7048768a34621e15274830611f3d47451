@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub workspace path in the update CI job was fixed to correctly handle various Linux distributions, ensuring compatibility and accurate dependency updates for OpenStack Kolla projects. This change affects the installation of dependencies and compilation process, requiring no migration steps or breaking behavior. The configuration schema remains unchanged, with no security impact noted.
