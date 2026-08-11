@@ -1,0 +1,3 @@
+Category: Changed
+
+Cinder service has been enabled for Magnum testing, allowing users to test Kubernetes clusters with Cinder storage backend. This change requires no migration steps but introduces new configuration options and dependencies. The primary user outcome is the ability to use Cinder volumes in Magnum clusters.
