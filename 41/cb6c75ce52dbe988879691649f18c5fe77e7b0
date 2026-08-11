@@ -1,0 +1,3 @@
+Category: Removed
+
+The intermediate step in provisioning the Registry node has been removed, allowing for parallel execution of the process without specific order requirements. This change affects the Vagrant configuration and the README instructions, eliminating the need to start the registry node separately before continuing with other steps. The removal simplifies the setup process but does not introduce any breaking behavior or security concerns.
