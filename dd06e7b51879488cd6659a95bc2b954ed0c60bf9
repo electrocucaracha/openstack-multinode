@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub workflows for spell checking were updated to fix issues with Zizmor, specifically changing the version of the reviewdog/action-misspell action used in the spell.yml file and updating the commit hash extraction logic in ci/update_versions.sh. These changes ensure continued functionality of the existing workflow without breaking behavior or requiring migration steps.
