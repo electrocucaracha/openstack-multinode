@@ -1,0 +1,3 @@
+Category: Added
+
+The GitHub Action linter configuration was added to enforce specific rules for self-hosted runners, including labeling them with the "vm-self-hosted" label. This change does not introduce breaking behavior and does not require migration steps. The configuration adheres to the Apache License 2.0.
