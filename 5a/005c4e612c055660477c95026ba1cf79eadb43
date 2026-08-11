@@ -1,0 +1,3 @@
+Category: Changed
+
+The OS_KOLLA_INTERNAL_VIP_ADDRESS definition can now be enabled in the install script, allowing users to customize internal VIP addresses for their OpenStack deployment. This change affects how internal network settings are configured during installation. The default behavior remains unchanged unless explicitly overridden by setting this variable before running the script.
