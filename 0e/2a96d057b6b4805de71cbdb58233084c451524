@@ -1,0 +1,3 @@
+Category: Changed
+
+Distributed configuration was updated to improve performance and reduce resource usage. Memory allocations for nodes were reduced, and CPU counts adjusted accordingly. The update also includes changes to the Vagrantfile and hosts.ini files to reflect these adjustments, with no breaking behavior or migration requirements noted.
