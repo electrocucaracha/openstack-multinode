@@ -1,0 +1,3 @@
+Category: Changed
+
+Ansible execution has been improved by incorporating the mitogen plugin, which enhances performance and efficiency. This change affects how Ansible runs on systems with multiple cores, utilizing multi-threading to boost speed. The mitogen plugin replaces the default SSH connection strategy in Ansible.
