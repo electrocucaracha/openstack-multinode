@@ -1,0 +1,3 @@
+Category: Changed
+
+The list of supported Linux distributions has been updated to reflect changes in version numbers and package names for CentOS, Ubuntu, and OpenSUSE. The updates include new versions for CentOS 8, Ubuntu 20.04, and OpenSUSE 42, while removing outdated entries. This change may require users to update their configurations or scripts that rely on the previous distribution information.
