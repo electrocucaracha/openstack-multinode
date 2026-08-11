@@ -1,0 +1,3 @@
+Category: Changed
+
+The creation of pip3 softlinks in undercloud.sh has been simplified by removing conditional checks for the pip3 command's existence and instead directly creating the link if it does not exist. This change removes the need to check for the presence of pip3 before attempting to create a symbolic link, making the script more straightforward. The resulting behavior is equivalent but with reduced complexity.
