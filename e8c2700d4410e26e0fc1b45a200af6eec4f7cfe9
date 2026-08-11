@@ -1,0 +1,3 @@
+Category: Added
+
+The SARIF GitHub permissions were updated to allow security events to be written, enabling the upload of code analysis results. This change affects workflows that use code scanning and requires no migration steps. The API contract remains unchanged, with no impact on config schema or breaking behavior. Security is enhanced by allowing write access to security events.
