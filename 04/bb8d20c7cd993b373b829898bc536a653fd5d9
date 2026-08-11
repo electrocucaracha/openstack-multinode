@@ -1,0 +1,3 @@
+Category: Changed
+
+A new CI task, "check-dictionary", was added to verify and update the dictionary definitions used by the spellchecker. This involves checking for misspelled words, adding missing ones, and updating the .wordlist.txt file accordingly. The changes also include modifications to existing workflows to accommodate this new task and ensure it runs regularly.
