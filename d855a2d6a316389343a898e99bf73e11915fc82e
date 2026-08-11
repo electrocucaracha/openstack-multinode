@@ -1,0 +1,3 @@
+Category: Fixed
+
+The Makefile now checks for the prettier binary directly, ensuring its availability regardless of installation method. This change prevents unnecessary npm installs and improves compatibility by avoiding reliance on package list checks. The previous logic checked for prettier in npm's package list, which could miss global or non-standard installations. The updated check ensures a smoother development experience.
