@@ -1,0 +1,3 @@
+Category: Changed
+
+The heat and horizon services are now disabled by default in the CI workflow, affecting users who rely on these services for testing and validation. This change impacts the config schema with updated settings to reflect the service disablement. Users must update their workflows accordingly to accommodate this change, particularly those utilizing the samples aio environment.
