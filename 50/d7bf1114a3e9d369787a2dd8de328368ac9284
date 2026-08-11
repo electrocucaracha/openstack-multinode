@@ -1,0 +1,3 @@
+Category: Changed
+
+The conditional for adding the user to the docker group has been improved to correctly handle existing group memberships. This change ensures that users are only added to the docker group if they do not already have it, preventing unnecessary modifications. The security impact of this change is minimal as it does not introduce any new vulnerabilities but rather corrects a logic error in the conditional statement.
