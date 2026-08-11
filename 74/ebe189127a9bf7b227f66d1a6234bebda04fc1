@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/setup-go dependency was updated from 5.0.0 to 5.0.1, which may introduce minor changes in setup behavior due to potential bug fixes or improvements in the new release. This update does not affect the API or CLI contract and has no security implications. The migration step involves updating the version number in the workflow file to use the latest version of actions/setup-go.
