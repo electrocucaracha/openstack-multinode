@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/cache action was updated from 3.3.3 to 4.0.0 in GitHub workflows, which may require migration steps due to breaking changes. The update affects caching behavior and should be reviewed for compatibility with existing configurations. This change is part of a dependency update triggered by Dependabot.
