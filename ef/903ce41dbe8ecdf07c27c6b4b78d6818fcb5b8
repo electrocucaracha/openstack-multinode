@@ -1,0 +1,3 @@
+Category: Changed
+
+The benefits section in the README document has been updated to reflect accurate information about containerized deployment. The removal of "OS agnostic" from the list of benefits does not introduce any breaking behavior, API changes, security impact, or config schema changes. This change primarily affects users by correcting a statement that may have led to misconceptions about containerization.
