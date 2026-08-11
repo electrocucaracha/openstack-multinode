@@ -1,0 +1,3 @@
+Category: Changed
+
+The setup.sh script has been updated to install the correct version of Vagrant, and dependencies like python-devel on SUSE-based systems and python-dev on Ubuntu/Debian systems have been added. This change affects users who rely on vagrant-plugin installation and tox testing, requiring a manual migration step to update pip and install required packages. The overall behavior remains unchanged but with improved dependency handling.
