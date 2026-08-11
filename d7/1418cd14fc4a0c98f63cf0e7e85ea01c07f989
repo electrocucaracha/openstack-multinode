@@ -1,0 +1,3 @@
+Category: Changed
+
+The OS_KOLLA_NEUTRON_PLUGIN_AGENT setting was updated in aio and noha configs to use the "linuxbridge" plugin agent, which may require users to adjust their existing configurations. This change does not introduce any breaking behavior, API changes, or security implications. The update is a simple configuration change that affects how Neutron plugins are managed.
