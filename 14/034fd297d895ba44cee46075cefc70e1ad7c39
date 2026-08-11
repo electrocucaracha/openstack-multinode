@@ -1,0 +1,3 @@
+Category: Changed
+
+Vagrant configuration was updated for cosmetic reasons, removing an unnecessary comment from the management network setting but leaving its name unchanged. The update does not affect API or CLI contracts, nor does it introduce any breaking behavior, security risks, or config schema changes that require migration steps. This change primarily impacts maintainers who will notice the minor formatting adjustment in the Vagrantfile.
