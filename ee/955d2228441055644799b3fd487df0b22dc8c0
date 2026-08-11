@@ -1,0 +1,3 @@
+Category: Added
+
+A GitHub Actions workflow for automatic rebasing was added to the repository, triggered by issue comments containing '/rebase'. The workflow checks out the latest code, runs an automatic rebase using cirrus-actions/rebase, and requires a GITHUB_TOKEN secret. This change introduces no breaking behavior or API changes but does require a migration step to configure the new workflow in the repository settings.
