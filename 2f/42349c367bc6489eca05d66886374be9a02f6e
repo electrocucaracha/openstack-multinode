@@ -1,0 +1,3 @@
+Category: Changed
+
+The node.sh instructions were improved to better handle various Linux distributions, including SUSE, by adding checks for the operating system and adjusting module loading accordingly. The script now also adds specific kernel modules to /etc/modules to ensure they persist across reboots. Additionally, user and group management was updated to correctly add the vagrant user to the docker group when necessary.
