@@ -1,0 +1,3 @@
+Category: Changed
+
+The IP management discovery method has been updated to use the public DNS service for determining the management network interface and IP address, replacing the previous approach based on IP routing tables. This change affects how the script determines the management network settings. The update does not introduce any breaking behavior or migration requirements.
