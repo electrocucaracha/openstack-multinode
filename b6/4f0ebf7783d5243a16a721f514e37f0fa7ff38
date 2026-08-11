@@ -1,0 +1,3 @@
+Category: Added
+
+The documentation for GitHub workflows has been added to the repository, providing an overview of available workflows and their descriptions, including run events and triggers. The table lists workflow files with corresponding descriptions and run events. This change does not introduce any breaking behavior, API changes, security impact, or config schema modifications.
