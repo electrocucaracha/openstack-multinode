@@ -1,0 +1,3 @@
+Category: Changed
+
+The GUI option was enabled in the build process to avoid an issue with VBoxHeadless on macOS, which is temporarily addressed by setting `v.gui = true` in Vagrantfiles. This change affects the behavior of builds on macOS and will require removal once a related VirtualBox ticket is resolved. The primary impact is on users running builds on macOS.
