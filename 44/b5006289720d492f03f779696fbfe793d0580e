@@ -1,0 +1,3 @@
+Category: Changed
+
+The Docker partition on the Registry VM in Distributed was updated to use a different disk device, changing from sda to sdb. This change affects users who have already set up their distributed environment and may require manual intervention to update their configuration. The Vagrantfile and pdf.yml files were modified accordingly to reflect this change.
