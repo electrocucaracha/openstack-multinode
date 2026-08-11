@@ -1,0 +1,3 @@
+Category: Changed
+
+The install type for Kolla was changed from source to binary, affecting how the software is installed on users' systems. This change impacts the configuration schema in various files, including `etc/kolla/globals.yml` and `defaults.env`, where `kolla_install_type` is now set to "binary" by default. Users may need to update their workflows and configurations accordingly, but no migration steps are required.
