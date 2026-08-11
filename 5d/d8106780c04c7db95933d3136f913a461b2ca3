@@ -1,0 +1,3 @@
+Category: Changed
+
+The log directory in the registry server was updated to /var/log/kolla/, requiring users to migrate existing logs to this new location if necessary. This change affects how logs are stored, but does not alter any API or CLI contracts. The update also removes unnecessary apt-get commands and adds a mkdir command to create the log directory. Users must ensure their logging setup is compatible with the new log directory.
