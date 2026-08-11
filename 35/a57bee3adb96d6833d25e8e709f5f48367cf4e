@@ -1,0 +1,3 @@
+Category: Changed
+
+CI workflows for No HA deployments were split into separate jobs, now requiring two distinct runs instead of one combined process. This change affects users who deploy OpenStack without high availability, necessitating updated configuration and deployment steps. The primary user outcome is an adjusted workflow that accommodates the separation of compute and control node deployments.
