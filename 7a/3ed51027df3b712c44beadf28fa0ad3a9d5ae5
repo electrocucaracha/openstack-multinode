@@ -1,0 +1,3 @@
+Category: Added
+
+The script now modifies the /etc/hosts file to include the hostname, which may break existing configurations that rely on this file. The change affects the API contract by adding a new configuration step and modifying the node.sh script. This update does not introduce any security risks but requires manual review of affected systems after migration. The primary outcome is improved hostname resolution for nodes in the cluster.
