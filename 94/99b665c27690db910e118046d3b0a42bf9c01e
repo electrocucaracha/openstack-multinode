@@ -1,0 +1,3 @@
+Category: Changed
+
+The reviewdog/action-misspell action was updated from version 1.13.1 to 1.14.0, which may introduce breaking changes in spell checking for GitHub workflows using this action. The update does not affect the API or CLI contract and has no security implications. Users of this action should verify that their workflows continue to function as expected with the new version.
