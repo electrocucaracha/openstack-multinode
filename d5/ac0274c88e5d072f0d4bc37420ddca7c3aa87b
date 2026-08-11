@@ -1,0 +1,3 @@
+Category: Changed
+
+The setup script for Debian systems now removes the /etc/systemd/system/docker.service.d directory, which previously caused issues during setup. This change ensures proper cleanup and prevents potential configuration conflicts. The setup_Debian.sh script is updated to reflect this new behavior, allowing for smoother installation of Docker services on Debian-based systems.
