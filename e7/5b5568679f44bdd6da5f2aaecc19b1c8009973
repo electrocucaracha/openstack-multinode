@@ -1,0 +1,3 @@
+Category: Added
+
+A scheduled CI task has been added for AIO setups, which will run weekly on Fridays to verify OpenStack All-in-One deployments. This change introduces no breaking behavior but does update the workflow to use `shyaml` and `jq` tools for matrix generation. The config schema remains unchanged, and users are not required to take any migration steps.
