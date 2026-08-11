@@ -1,0 +1,3 @@
+Category: Changed
+
+Linter configuration was updated to fix issues, primarily affecting the `permissions` setting in GitHub Actions workflows. The change involves updating permissions for code scanning and other jobs. This update ensures that linter checks are properly executed without permission errors.
