@@ -1,0 +1,3 @@
+Category: Changed
+
+CI task enabled on Ubuntu VM for All-in-One deployment checks, adding support for multiple distributions in the same workflow. The change introduces a new strategy matrix with distro options and modifies job scripts to accommodate different OS configurations. This update allows users to run the same CI workflow on various Linux distributions, including Ubuntu and CentOS.
