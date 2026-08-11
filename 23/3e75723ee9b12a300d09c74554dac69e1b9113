@@ -1,0 +1,3 @@
+Category: Added
+
+Neutron's type networks documentation was added to the project, providing users with information on configuring rich network topologies using provider and self-service networks. The documentation explains how these networks differ in terms of provisioning, connectivity, and features like DHCP and metadata services. This change is relevant to users who need to manage complex network configurations in their OpenStack projects.
