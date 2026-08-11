@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Action for markdown link checking was updated from version 1.0.14 to 1.0.15, which may introduce breaking changes in the way it handles broken links during the linter job. The update does not affect the API or CLI contract and has no security impact. This change is part of a dependency update, specifically upgrading the production dependency gaurav-nelson/github-action-markdown-link-check to the latest patch version.
