@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla build instructions were updated, changing the base architecture to centos8-wallaby from centos8-master, updating Docker registry host, removing ppc64le support, and modifying various plugin configurations. The update also changed the tag for images built by Kolla to 12.0.0 from 11.0.0.
