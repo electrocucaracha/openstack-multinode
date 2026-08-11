@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/cache dependency was updated from 3.3.1 to 3.3.2, which may require migration steps in workflows that use this action. The update does not appear to introduce any breaking behavior or API changes. This change is primarily a maintenance update and should not have a significant impact on users.
