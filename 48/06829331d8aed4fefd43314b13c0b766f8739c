@@ -1,0 +1,3 @@
+Category: Changed
+
+The Vagrantfile for the aio sample was refactored to remove hardcoded environment variables, instead using ENV[] lookups where applicable. This change aligns with best practices and simplifies maintenance. The refactor did not introduce any breaking behavior or migration requirements, nor did it affect the API or CLI contract, config schema, or security.
