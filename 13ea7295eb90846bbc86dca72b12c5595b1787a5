@@ -1,0 +1,3 @@
+Category: Changed
+
+The pinned Vagrant box for Rocky Linux was updated to use the community version, which may break existing builds that relied on the previously used version. The CI scripts and configuration files were also modified accordingly. This change affects users who have custom configurations or dependencies tied to the original version of Rocky Linux.
