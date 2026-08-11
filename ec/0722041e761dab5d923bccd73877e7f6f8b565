@@ -1,0 +1,3 @@
+Category: Removed
+
+The pinned version restriction for Ubuntu Focal has been removed from the CI configuration, allowing users to test on any compatible version of the operating system. This change affects the `distros_supported.yml` file and removes a specific version constraint in the `pinned_vagrant_boxes.txt` file. The primary outcome is that users can now run tests on newer versions of Ubuntu Focal without restrictions.
