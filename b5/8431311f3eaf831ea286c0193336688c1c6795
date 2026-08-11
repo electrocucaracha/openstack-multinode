@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Actions workflow for OnDemand AIO was updated to resolve shellcheck issues, specifically addressing a problem in the losetup command where quotes were missing around the loop device file path. This change ensures that the command is executed correctly and does not break the workflow's behavior. The update maintains compatibility with existing configurations without requiring any additional migration steps or changes to security settings.
