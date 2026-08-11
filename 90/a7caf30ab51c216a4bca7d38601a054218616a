@@ -1,0 +1,3 @@
+Category: Changed
+
+Shellcheck issues were fixed in the registry.sh and undercloud.sh scripts by updating the `wget` commands to use double quotes around URLs, addressing potential security vulnerabilities when downloading files. This change does not break any behavior but ensures secure file retrieval practices are followed. The updates do not affect API or CLI contracts, config schema, or migration requirements.
