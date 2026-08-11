@@ -1,0 +1,3 @@
+Category: Changed
+
+LVM instructions were refactored in the node.sh script, impacting how cinder volumes are created and managed. The change removes unnecessary pvcreate command and adds vgs to display information about volume groups. This update does not introduce any breaking behavior or migration requirements, nor does it affect API or CLI contracts, config schema, or security.
