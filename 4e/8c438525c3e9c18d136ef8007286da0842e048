@@ -1,0 +1,3 @@
+Category: Removed
+
+The NoHA Vagrant setup no longer uses the `awk` command, which was previously used to extract network interface information from IP routing tables. This change replaces `awk` with more portable alternatives using `head`, `cut`, and similar commands. The impact is minor, but users should note that this update does not affect any breaking behavior or migration requirements.
