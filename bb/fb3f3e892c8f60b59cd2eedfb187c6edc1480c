@@ -1,0 +1,3 @@
+Category: Changed
+
+cirrus-actions/rebase was updated from version 1.6 to 1.7, which may require manual intervention in workflows that use this action due to changes between versions. The update does not introduce any breaking behavior and preserves the existing API contract. This change affects direct production dependencies and is a minor version bump.
