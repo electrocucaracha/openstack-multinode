@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting the versions of several packages across different distros, including Ubuntu, Debian, and CentOS. This change impacts users who rely on these specific package versions for compatibility with their environments. The upgrade to newer versions may require migration steps to ensure smooth operation.
