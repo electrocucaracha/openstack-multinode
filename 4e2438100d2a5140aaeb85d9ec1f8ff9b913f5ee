@@ -1,0 +1,3 @@
+Category: Changed
+
+The workflow for generating requirements files has been updated to use the uv tool instead of pip-compile, which changes how dependencies are compiled and stored in the repository. This change affects users who rely on the generated requirements files, requiring them to adapt their workflows accordingly. The update also introduces a new dependency, uv, which must be installed and configured properly for the workflow to function correctly.
