@@ -1,0 +1,3 @@
+Category: Added
+
+DNS resolution has been improved by modifying the base requirements script to automatically configure system DNS settings when a specific netplan configuration file exists, replacing default addresses with Google's public DNS servers. This change affects systems using this configuration and may require manual intervention if custom DNS settings are in place. The update does not introduce any breaking behavior or security concerns.
