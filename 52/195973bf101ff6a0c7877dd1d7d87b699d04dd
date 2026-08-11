@@ -1,0 +1,3 @@
+Category: Added
+
+VirtualBox Disk Image files are now ignored by the .gitignore file, preventing them from being tracked in the repository. This change does not affect API or CLI contracts, nor does it introduce any security risks. The primary outcome for users and maintainers is that these specific file types will no longer be included in the repository's history.
