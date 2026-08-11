@@ -1,0 +1,3 @@
+Category: Changed
+
+Mitogen is no longer installed during the upgrade process due to its limited support in certain Ansible versions. The setup_ansible function now removes Mitogen configuration from the Ansible config file, and it is uninstalled using pip. This change affects users who rely on Mitogen for their Ansible workflows.
