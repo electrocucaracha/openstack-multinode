@@ -1,0 +1,3 @@
+Category: Changed
+
+The `VERSION_CODENAME` variable in the registry script was updated to use the version ID instead of the codename for Rocky OS, fixing an issue with incorrect tagging. This change affects how images are tagged and potentially impacts users who rely on correct image versions. No breaking behavior or migration steps were required; however, this update may necessitate rechecking existing tags.
