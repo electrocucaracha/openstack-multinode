@@ -1,0 +1,3 @@
+Category: Changed
+
+IP addresses in the config/pdf.yml file were reordered, affecting several nodes including compute01, network01, network02, storage01, and monitoring01. This change impacts the tunnel_ip and storage_ip settings for these nodes. The migration steps involve updating the IP address configurations in the affected nodes according to the new order.
