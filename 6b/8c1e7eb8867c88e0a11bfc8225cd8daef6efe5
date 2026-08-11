@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla build process was improved by adding new arguments to the OS_KOLLA_BUILD_ARGS environment variable in Travis CI configuration, including increased thread count, retries, and cache usage. This change also installed the docker-squash package for image optimization. The update affects users who rely on Kolla's automated build process, requiring no migration steps but potentially impacting performance with larger images.
