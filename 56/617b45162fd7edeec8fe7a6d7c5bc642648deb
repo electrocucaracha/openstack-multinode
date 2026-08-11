@@ -1,0 +1,3 @@
+Category: Changed
+
+The README.md file was updated, changing the project name in build status links from vagrant-kolla to openstack-multinode, and adding instructions for initializing nodes in parallel with the provisioning server. This change does not affect API or CLI contracts, nor does it introduce security risks. The update provides improved clarity on deployment steps, but users must re-run setup scripts due to the name change.
