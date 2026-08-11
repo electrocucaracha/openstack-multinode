@@ -1,0 +1,3 @@
+Category: Changed
+
+The CI schedule job has been updated to automatically check for the latest distro versions every first day of each month, replacing manual updates. This change affects the `distros_supported.yml` file, where version numbers have been updated to match the latest available on GitHub. The update process is now automated through a new script, reducing maintenance effort and ensuring consistency.
