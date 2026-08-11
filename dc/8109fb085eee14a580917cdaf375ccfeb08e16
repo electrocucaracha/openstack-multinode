@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/setup-python action was updated from 2 to 3 in the GitHub workflow file, which may require changes to Python versions used in the workflow and may necessitate re-running setup steps due to potential API contract changes. The update is a direct production dependency change with a semver-major update type.
