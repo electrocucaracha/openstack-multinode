@@ -1,0 +1,3 @@
+Category: Changed
+
+The registry CI task now correctly sets the base value for each distro, ensuring accurate builds by using the correct base image. This change affects the OS_KOLLA_BUILD_ARGS environment variable and its usage in the vagrant up command. The update does not introduce any breaking behavior or security concerns, but it may require users to review their workflows if they were relying on the previous incorrect base value setting.
