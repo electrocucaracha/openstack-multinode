@@ -1,0 +1,3 @@
+Category: Changed
+
+The registry configuration now uses the crudini tool to set custom values in kolla-build.ini, replacing manual sed commands. This change does not introduce breaking behavior and maintains API and CLI contract unchanged. The config schema has been updated with new keys for tag, profile, registry, openstack_release, base, threads, and push_threads. Users must update their configuration accordingly; no migration steps are required.
