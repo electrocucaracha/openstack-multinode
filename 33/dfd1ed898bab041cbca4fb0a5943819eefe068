@@ -1,0 +1,3 @@
+Category: Changed
+
+Dependabot was replaced by a custom script to update GitHub Actions commit hashes, which will break workflows that rely on the latest version of these actions. The change affects multiple workflows and involves updating action versions in `.github/workflows/` files. This change is likely to require manual review and updates for affected workflows.
