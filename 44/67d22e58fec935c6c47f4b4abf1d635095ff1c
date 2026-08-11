@@ -1,0 +1,3 @@
+Category: Added
+
+The locale settings in the Debian environment were adjusted to resolve issues, specifically setting LC_ALL to C.UTF-8 for UTF-8 encoding support. This change ensures compatibility with Debian's locale handling and allows for correct character encoding. The update does not introduce any breaking behavior or require migration steps.
