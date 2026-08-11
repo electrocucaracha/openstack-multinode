@@ -1,0 +1,3 @@
+Category: Added
+
+virsh client tools are now installed on compute nodes, enabling users to manage virtual machines directly from the command line. This change affects RHEL, CentOS, and Fedora systems, where libvirt-client is installed using package managers dnf or yum. The Vagrantfile has been updated to include a new role for compute nodes, reflecting this change in infrastructure setup.
