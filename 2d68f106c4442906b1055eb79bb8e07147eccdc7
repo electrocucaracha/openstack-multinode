@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions versions were updated across multiple workflows, affecting various dependencies including dive-action, trivy-action, actions/cache, actions/checkout, setup-go, reviewdog/action-misspell, and others. The changes do not introduce breaking behavior or migration requirements, but they may impact workflow execution due to the upgraded dependency versions.
