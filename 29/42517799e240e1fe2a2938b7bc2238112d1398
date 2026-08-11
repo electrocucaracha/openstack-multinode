@@ -1,0 +1,3 @@
+Category: Changed
+
+The ability to generate diagrams for the codebase has been enabled, allowing users to visualize the structure of their project. This feature was added through the creation of a new workflow in GitHub Actions and an update to the README.md file to include a link to the diagram. The diagram is generated using the repo-visualizer action and is stored as a SVG file named codebase-structure.svg.
