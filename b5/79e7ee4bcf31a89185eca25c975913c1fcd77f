@@ -1,0 +1,3 @@
+Category: Removed
+
+Smoke tests for kolla actions have been removed, replacing them with the `get_kolla_actions` function to dynamically generate the action sequence based on the Ansible version and deploy profile. This change affects migration requirements, as users must now use this new function to determine the correct sequence of actions. The default deploy profile has also been changed from "minimal" to "complete".
