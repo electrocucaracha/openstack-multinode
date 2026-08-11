@@ -1,0 +1,3 @@
+Category: Added
+
+The vagrant-google plugin was enabled in the AIO sample, allowing users to deploy OpenStack on Google Cloud. This change introduces new environment variables for Google project ID and JSON key location, which must be set by users for this feature to work. The Vagrantfile now supports Google provider-specific settings, including machine type and additional disks.
