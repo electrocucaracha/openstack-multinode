@@ -1,0 +1,3 @@
+Category: Changed
+
+The update requirements instruction in the GitHub workflow was modified to reduce parallelism during updates, changing the default behavior for updating dependencies. The `max-parallel` strategy parameter was added with a value of 1, and the EXECUTE_COMMANDS script was simplified by removing unnecessary bash commands. This change may require users to adjust their workflows if they rely on concurrent updates.
