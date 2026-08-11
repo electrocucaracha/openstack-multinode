@@ -1,0 +1,3 @@
+Category: Changed
+
+The dictionary definitions were updated, and OpenStack Kolla dependencies were upgraded to ensure compatibility with the latest Python versions. This change affects users who rely on these dependencies for their projects, requiring them to update their requirements accordingly. The upgrade ensures that the project remains compatible with the latest Python versions, preventing potential issues due to outdated dependencies.
