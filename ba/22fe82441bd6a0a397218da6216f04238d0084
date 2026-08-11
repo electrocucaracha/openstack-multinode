@@ -1,0 +1,3 @@
+Category: Changed
+
+Documentation was updated to reflect the shift from package-based management to container-based systems, highlighting benefits including OS-agnostic deployment, easy scaling, fast deployment, and self-healing capabilities. The All-in-One configuration now uses CentOS 7 instead of Ubuntu Xenial, and setup instructions were revised for a distributed environment. Host system requirements and current configuration details were also updated in the README files.
