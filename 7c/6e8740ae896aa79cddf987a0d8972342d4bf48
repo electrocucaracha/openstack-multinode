@@ -1,0 +1,3 @@
+Category: Changed
+
+github/super-linter was updated from version 4.9.4 to 4.9.5, which may break behavior in workflows that rely on the previous version's configuration. This update also removes paths from pull_request_review in GH workflows, potentially affecting automated review processes. The change is a dependency update with no reported security impact or config schema changes.
