@@ -1,0 +1,3 @@
+Category: Changed
+
+The neutron trunk demo script now uses the config drive to create demo1 server, which simplifies the setup process by eliminating the need for manual key injection. This change does not break existing behavior and requires no migration steps. The API and CLI contract remain unchanged, with no security impact or config schema changes.
