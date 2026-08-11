@@ -1,0 +1,3 @@
+Category: Fixed
+
+The kolla_logs group in the inventory was renamed to kolla-logs for consistency with the hyphenated naming convention used elsewhere, improving clarity and preventing confusion during automation or referencing. This change requires existing playbooks or scripts referencing the old group name to be updated accordingly. The rename affects a single line in the samples/aio/hosts.ini file.
