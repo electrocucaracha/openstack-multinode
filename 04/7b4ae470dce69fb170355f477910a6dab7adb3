@@ -1,0 +1,3 @@
+Category: Removed
+
+Compute dependencies no longer include Docker, which may break scripts relying on its presence. The API or CLI contract remains unchanged, but users must update their compute.sh script to reflect the removed dependency. No security impact is noted, and config schema changes are not applicable in this case. Users who had Docker installed will need to reinstall it separately if required for their workflow.
