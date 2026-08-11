@@ -1,0 +1,3 @@
+Category: Removed
+
+OpenStack multinode project updated its requirements to support OpenStack releases 2025.2 and 2026.1, dropping old requirements for unsupported releases 2023.2, 2024.1, and 2024.2. This change involves updating workflow matrix entries, adding new requirements files, and removing outdated ones. The project now tracks only currently supported OpenStack releases and platforms, reducing maintenance overhead.
