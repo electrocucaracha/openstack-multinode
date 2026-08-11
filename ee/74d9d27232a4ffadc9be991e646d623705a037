@@ -1,0 +1,3 @@
+Category: Changed
+
+The dependency actions/cache was updated from version 3.2.3 to 3.2.4, which may require migration steps in workflows that use the cache action. The update does not introduce any breaking behavior or API changes. This change affects users who rely on the actions/cache package for caching dependencies during builds.
