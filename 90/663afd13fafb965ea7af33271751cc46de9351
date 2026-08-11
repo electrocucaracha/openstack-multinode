@@ -1,0 +1,3 @@
+Category: Changed
+
+The push action has been disabled in the Kolla configuration, which will prevent images from being pushed after building. This change affects the default behavior of image deployment and requires no migration steps. The config schema has also been updated to reflect this change, with the `push` parameter now set to false by default.
