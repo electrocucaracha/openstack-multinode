@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub workflows for on-demand and scheduled AIO jobs were updated to fix linting issues, specifically addressing the use of `::set-output` syntax in favor of assigning the result directly to a variable. This change does not introduce breaking behavior or require migration steps. The configuration schema remains unchanged, and there is no security impact.
