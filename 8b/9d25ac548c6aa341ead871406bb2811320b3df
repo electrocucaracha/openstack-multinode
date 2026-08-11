@@ -1,0 +1,3 @@
+Category: Added
+
+A diagram has been added to the README.md file for user reference, improving project setup clarity. This change does not introduce any breaking behavior, API changes, security impact, or config schema modifications. The addition of an image in the documentation enhances the overall user experience by providing a visual representation of the project's setup process.
