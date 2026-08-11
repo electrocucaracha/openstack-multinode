@@ -1,0 +1,3 @@
+Category: Removed
+
+CentOS support has been dropped from the project, impacting users who relied on this distribution for building and testing. The change involves removing CentOS-specific configuration files and updating build workflows to exclude CentOS. This decision does not introduce any breaking behavior, API changes, or security vulnerabilities but may require users to adjust their environment settings to accommodate the new default distributions.
