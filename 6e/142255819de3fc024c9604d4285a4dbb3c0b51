@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting various Debian and Ubuntu versions. The changes include updates to certifi, cryptography, idna, kolla-ansible, oslo-config, oslo-i18n, oslo-utils, pbr, pyparsing, pyyaml, resolvelib, rfc3986, stevedore, tzdata, urllib3, and wrapt packages across multiple requirements files.
