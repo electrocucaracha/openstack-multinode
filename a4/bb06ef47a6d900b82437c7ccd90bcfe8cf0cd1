@@ -1,0 +1,3 @@
+Category: Added
+
+HTTP response codes are now considered valid, specifically including the previously invalid 429 code. This change affects how the system interprets responses from external services. The config schema has been updated to reflect this new behavior, with the "aliveStatusCodes" list now including 429 as a valid value. No migration steps or security implications are noted.
