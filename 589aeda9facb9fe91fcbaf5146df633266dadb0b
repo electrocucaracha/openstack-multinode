@@ -1,0 +1,3 @@
+Category: Added
+
+The super-linter workflow now disables pre-commit and codespell validations, which were redundant and caused unnecessary failures in CI. This change streamlines the lint job and reduces noise, with no impact on other linting steps or code quality enforcement. The existing tooling will continue to enforce code quality without these redundant checks.
