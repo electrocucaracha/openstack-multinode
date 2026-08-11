@@ -1,0 +1,3 @@
+Category: Changed
+
+Upgrades were made to OpenStack Kolla dependencies and GitHub Actions, affecting various workflows and requirements files. The changes include updates to version numbers for packages like ansible-core, bcrypt, cryptography, and others across different distributions and versions. These upgrades are likely intended to ensure compatibility and security but may require migration steps or configuration adjustments in some cases.
