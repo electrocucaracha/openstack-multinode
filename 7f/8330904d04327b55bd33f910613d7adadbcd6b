@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Super Linter dependency was updated from version 4.8.4 to 4.8.5, which may introduce breaking changes in linter rules or configuration. The update does not require migration steps and preserves the API contract. This change affects maintainers who manage the workflow's dependencies and users whose code is analyzed by the Super Linter.
