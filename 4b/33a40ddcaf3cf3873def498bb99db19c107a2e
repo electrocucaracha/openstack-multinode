@@ -1,0 +1,3 @@
+Category: Changed
+
+LVM filter instructions were updated to dynamically configure the global_filter in /etc/lvm/lvm.conf based on available physical volumes, replacing a hardcoded approach that may become outdated with changing storage configurations. This change ensures the system remains flexible and adaptable to various storage setups without manual intervention. The update also improves maintainability by avoiding static modifications to configuration files.
