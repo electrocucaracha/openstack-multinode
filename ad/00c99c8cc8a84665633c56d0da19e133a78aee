@@ -1,0 +1,3 @@
+Category: Changed
+
+The Debian build task has been added into the CI workflow, allowing for automated testing of Kolla Docker images on Debian-based systems. This change introduces support for building and publishing images in a local registry on Virtual Machines with different distributions: Ubuntu, CentOS, and Debian. The primary user outcome is improved test coverage for various Linux environments.
