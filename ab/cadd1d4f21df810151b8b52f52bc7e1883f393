@@ -1,0 +1,3 @@
+Category: Changed
+
+Vagrantfile updated to use single NIC instructions, adding virtual Ethernet interface veth0 with IP address 10.10.13.7/24 and setting up bridge uplinkbridge for network connectivity. The update also includes dependency installation of bridge-utils package if necessary. This change affects users who need to configure network settings in Vagrant environments, requiring no migration steps or security impact.
