@@ -1,0 +1,3 @@
+Category: Added
+
+The link check for Raspberry Pi has been disabled in the noha sample cluster setup, allowing users to run the example without encountering issues related to this specific hardware. This change does not affect the API or CLI contract and there are no security implications. The config schema remains unchanged, and migration steps are unnecessary as a result of this update.
