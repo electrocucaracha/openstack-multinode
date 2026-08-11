@@ -1,0 +1,3 @@
+Category: Changed
+
+The dependency on technote-space/create-pr-action was updated from version 2.1.3 to 2.1.4, which may introduce breaking changes in workflows that use this action. No API or CLI contract changes are expected, and there is no indication of security impact or config schema changes. The update primarily affects the primary user outcome by potentially modifying the behavior of existing GitHub Actions workflows.
