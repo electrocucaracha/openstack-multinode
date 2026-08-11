@@ -1,0 +1,3 @@
+Category: Changed
+
+The undercloud setup script now excludes the python3-openssl package by default on Ubuntu systems, adding it to the blacklist. This change affects Ubuntu installations where this package may be installed, potentially causing issues with other packages that depend on it being absent. The migration step for existing setups is not explicitly required, but users should review their undercloud configurations if they have manually installed or excluded python3-openssl in the past.
