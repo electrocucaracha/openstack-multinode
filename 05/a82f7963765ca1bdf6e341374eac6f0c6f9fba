@@ -1,0 +1,3 @@
+Category: Added
+
+A no HA setup sample configuration was added to the project, providing an example of how to set up a non-high-availability environment for testing purposes. This new configuration includes Vagrant files and hosts.ini templates that define compute nodes, a controller node, and network settings. The addition of this sample config allows users to easily test and experiment with different deployment scenarios without requiring HA setup.
