@@ -1,0 +1,3 @@
+Category: Changed
+
+The distro list versions were upgraded from 3.4.2 to 3.5.0, affecting the supported distributions including centos, ubuntu, debian, and rhel. This change may require migration steps for users relying on these outdated versions. The API or CLI contract remains unchanged, and there is no security impact or config schema changes.
