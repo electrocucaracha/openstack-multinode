@@ -1,0 +1,3 @@
+Category: Changed
+
+The CI job for updating Python requirements has been customized to handle different Linux distributions, allowing the use of specific package managers for each OS. This change enables the job to run on various platforms without modifications. The update process now uses pip-compile to generate requirements files based on the distribution's package manager.
