@@ -1,0 +1,3 @@
+Category: Added
+
+OS variables are now persisted in the controller for noha deployments, affecting users who rely on these settings. This change introduces an additional step to export environment variables to /etc/environment during deployment. The Vagrantfile has been updated with new shell commands to handle this task. Users must ensure their configurations adapt to the changed behavior.
