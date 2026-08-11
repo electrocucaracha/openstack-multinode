@@ -1,0 +1,3 @@
+Category: Changed
+
+The default OpenStack release was updated from 2024.1 to 2025.1, ensuring new deployments use the latest stable version by default. This change does not affect existing environments with an explicit release set, and it does not introduce any breaking behavior or migration requirements. The config schema for environment variables remains unchanged.
