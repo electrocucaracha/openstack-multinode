@@ -1,0 +1,3 @@
+Category: Added
+
+Cinder LVM backend now requires installation of kernel modules, which affects users on Ubuntu and Debian systems. This change involves installing the "linux-modules-extra" package with the current kernel version during setup. Users on affected platforms must ensure this module is installed to use the Cinder LVM backend without issues.
