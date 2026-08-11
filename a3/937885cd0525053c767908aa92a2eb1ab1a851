@@ -1,0 +1,3 @@
+Category: Changed
+
+CI workflows were migrated from Travis CI to GitHub Actions, impacting build and deployment processes for users. This change requires no migration steps but introduces breaking behavior in the form of updated environment variables and script commands. The primary user outcome is improved automation and reduced infrastructure costs.
