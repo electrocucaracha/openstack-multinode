@@ -1,0 +1,3 @@
+Category: Added
+
+All-in-One deployments now include hardware statistics, providing users with detailed information about CPU usage and memory availability within the deployment environment. This change affects how users monitor and manage their deployments, but does not introduce any breaking behavior or migration requirements. The added commands are executed during the deployment process to collect and display these statistics.
