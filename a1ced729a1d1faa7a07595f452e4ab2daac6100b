@@ -1,0 +1,3 @@
+Category: Added
+
+The `ci/update_versions.sh` script has been updated to automatically reformat code after updating versions, ensuring consistent formatting throughout the repository. This change introduces a new behavior where code will be reformatted on exit if necessary. The GitHub Action commit hashes are still updated as before. No API or CLI changes, security impact, or config schema changes are introduced by this update.
