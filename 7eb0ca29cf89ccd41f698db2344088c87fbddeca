@@ -1,0 +1,3 @@
+Category: Changed
+
+A new prompt was added for applying Semantic Line Breaks to Markdown files, following the SemBr specification. This change affects how Markdown documents are reformatted with semantic line breaks, which do not alter the final rendered output or intended meaning of the text. The prompt instructions and formatting rules were updated accordingly.
