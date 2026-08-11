@@ -1,0 +1,3 @@
+Category: Changed
+
+TravisCI execution was improved by modifying the .travis.yml file to use Ubuntu 18.04 LTS Bare Metal validation, updating the install scripts for All-in-One Ubuntu and CentOS 8 Vagrant validations, and adjusting the kolla-build.ini configuration. The changes also updated the registry.sh script to set the profile and registry settings in the kolla-build.ini file.
