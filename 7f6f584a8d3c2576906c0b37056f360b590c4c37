@@ -1,0 +1,3 @@
+Category: Added
+
+The wordlist has been updated to include the term "scalability", which was previously missing, leading to unnecessary spelling warnings during linting that caused friction for contributors. This change ensures smoother CI checks and improves developer experience by adding this commonly used technical term. The update is a minor addition to the existing list of terms.
