@@ -1,0 +1,3 @@
+Category: Changed
+
+The update distro CI job has been modified to install vagrant using a new script instead of an older one, changing the installation process for this dependency. This change affects users who rely on vagrant being installed correctly during the build process and may require manual intervention if their local environment is set up differently. The actual installation command remains similar but now uses a different URL and script to achieve the same result.
