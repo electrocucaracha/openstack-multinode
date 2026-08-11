@@ -1,0 +1,3 @@
+Category: Changed
+
+The project structure has been redefined, impacting deployment configurations for All-in-One, No High Availability, and Distributed setups. The kolla-ansible configuration files have been renamed and relocated to /etc/kolla/, while the passwords.yml file now contains default password values for various OpenStack services. This change requires users to update their deployment scripts and configurations accordingly.
