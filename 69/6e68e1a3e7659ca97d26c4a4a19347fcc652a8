@@ -1,0 +1,3 @@
+Category: Removed
+
+BareMetal deployment on TravisCI was removed due to unknown reasons, affecting users who relied on this deployment method for testing. The change breaks the BareMetal validation job and requires migration of existing configurations. The updated `.travis.yml` file now uses Vagrant for CentOS 8 validation instead.
