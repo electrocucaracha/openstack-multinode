@@ -1,0 +1,3 @@
+Category: Changed
+
+The CI script for updating supported distros has been improved to use a new `update_distros.sh` script, which fetches the latest versions of vagrant boxes from the Vagrant API. The updated script also adds support for Ubuntu 20.04 and Debian 10, and updates the version numbers in the `distros_supported.yml` file accordingly. This change does not break any behavior or require migration steps, but it does update the supported distros list.
