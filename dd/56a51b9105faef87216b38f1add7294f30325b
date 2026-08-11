@@ -1,0 +1,3 @@
+Category: Added
+
+Permissions for create-pr-action were added to various GitHub workflows, allowing the action to push code and create pull requests. This change enables the action's functionality but introduces no breaking behavior or migration requirements. The API or CLI contract remains unchanged, with no security impact noted. The primary outcome is improved automation capabilities within the workflows.
