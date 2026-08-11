@@ -1,0 +1,3 @@
+Category: Removed
+
+Cloud-init package removal from all OS nodes was made to simplify setup process. This change breaks behavior for Ubuntu and Debian systems, requiring manual purge of cloud-init after installation. The update script now checks for the presence of cloud-init before attempting to remove it.
