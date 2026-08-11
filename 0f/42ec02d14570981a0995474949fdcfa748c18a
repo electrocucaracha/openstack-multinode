@@ -1,0 +1,3 @@
+Category: Changed
+
+A new GitHub action, Clair GH action, was added to analyze security and size of Docker images. This action replaces previous uses of MaxymVlasov/dive-action in several workflows, including build.yml. The Clair GH action introduces no breaking behavior but does change the API used for image analysis, shifting from dive-action to clair-action with a different format output.
