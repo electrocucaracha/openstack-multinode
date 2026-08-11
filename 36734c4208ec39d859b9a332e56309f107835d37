@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions dependencies were updated, including OpenStack Kolla dependencies, to the latest versions. This update affects various workflows and requirements files, but no breaking changes are noted. The primary outcome is an improved dependency management system for the project.
