@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting various requirements files across different versions. The changes include updated versions of certifi, cffi, charset-normalizer, cliff, cmd2, cryptography, netaddr, oslo-config, oslo-i18n, pbr, prettytable, prompt-toolkit, psutil, rich, rich-argparse, setuptools, stevedore, urllib3, and wcwidth. These updates do not introduce breaking behavior or migration requirements, nor do they affect the API or CLI contract, config schema, or security.
