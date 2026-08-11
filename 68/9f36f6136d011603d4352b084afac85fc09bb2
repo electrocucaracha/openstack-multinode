@@ -1,0 +1,3 @@
+Category: Changed
+
+The Vagrant trigger instruction now correctly prints OpenStack environment variables by adding an OR operator to the printenv command, preventing errors when no matching variables are found. This change affects users who rely on these variables in their Vagrant configurations. The update does not introduce any breaking behavior or security risks and maintains compatibility with existing setups.
