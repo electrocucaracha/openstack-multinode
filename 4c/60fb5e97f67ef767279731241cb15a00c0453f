@@ -1,0 +1,3 @@
+Category: Changed
+
+The undercloud script now correctly installs pip packages using the system's pip executable, addressing issues with pip installation in the process. This change affects users who run the undercloud script and requires no special migration steps. The API and CLI contracts remain unchanged, and there are no security implications or config schema changes. The primary user outcome is improved reliability when installing pip packages during undercloud setup.
