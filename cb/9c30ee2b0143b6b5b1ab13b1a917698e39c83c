@@ -1,0 +1,3 @@
+Category: Changed
+
+CentOS base images are now used for Vagrant environments, replacing Ubuntu as the default base distribution. This change affects users who rely on these Vagrant configurations and may require migration steps to update their environment settings. The kolla_base_distro configuration variable has been updated accordingly in the undercloud.sh script and related files.
