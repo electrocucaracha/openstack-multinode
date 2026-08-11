@@ -1,0 +1,3 @@
+Category: Changed
+
+The CI job for updating distros was fixed by updating the virtualbox provider to version 3.4.2, which requires no migration steps but does break the previous version of virtualbox. The supported distros now also use this updated version. This change affects the update process and ensures compatibility with the latest virtualbox version.
