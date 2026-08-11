@@ -1,0 +1,3 @@
+Category: Changed
+
+Prettier was added for formatting, replacing Makefile's manual usage of `yamlfmt` and `shfmt`. This change does not introduce breaking behavior, API changes, security impact, config schema changes, or migration requirements. The primary user outcome is improved code consistency and readability due to the adoption of Prettier.
