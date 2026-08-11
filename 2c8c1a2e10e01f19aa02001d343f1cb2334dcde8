@@ -1,0 +1,3 @@
+Category: Changed
+
+The Markdown link checker action in the GitHub workflow has been updated to use a newer version, replacing the old one. This change affects the broken links check job and uses a different action with improved functionality. The update does not introduce any breaking behavior or require migration steps, nor does it impact security or config schema.
