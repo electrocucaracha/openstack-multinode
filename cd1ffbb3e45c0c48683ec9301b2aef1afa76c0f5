@@ -1,0 +1,3 @@
+Category: Changed
+
+Debian 12 has been added to the list of supported distributions, enabling users to test their projects on this platform. This change involves updating the `distros_supported.yml` file and modifying the `ci/update_distros.sh` script. The primary user outcome is that they can now use Debian 12 in their testing environments without requiring additional configuration or migration steps.
