@@ -1,0 +1,3 @@
+Category: Changed
+
+GH action versions were upgraded across the repository, affecting various workflows that use these actions for tasks like code checkout, caching, vulnerability scanning, and more. The upgrades are to 4.2.2 for `actions/checkout` and 5.2.0 for `actions/setup-go`, while other actions like `aquasecurity/trivy-action` and `github/super-linter` were also updated to versions 0.29.0 and 7, respectively.
