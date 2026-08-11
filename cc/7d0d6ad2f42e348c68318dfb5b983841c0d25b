@@ -1,0 +1,3 @@
+Category: Changed
+
+The Kolla build process has been improved to enhance performance and reliability. The on-demand workflow now allocates one CPU for building, and the kolla-build.ini file has been updated with increased retries and timeout settings. Additionally, the registry.sh script adjusts thread counts based on available CPUs. These changes aim to streamline the build process and improve overall efficiency.
