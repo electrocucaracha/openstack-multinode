@@ -1,0 +1,3 @@
+Category: Added
+
+LVM scanning tools are now configured to only scan devices containing the cinder-volumes volume group, avoiding non-cinder volumes. This change affects how LVM filters devices and may require adjustments in external scripts that rely on this configuration. The global_filter setting in /etc/lvm/lvm.conf has been updated accordingly.
