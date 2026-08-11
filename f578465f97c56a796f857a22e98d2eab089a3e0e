@@ -1,0 +1,3 @@
+Category: Changed
+
+The project now uses the pyproject.toml file for requirements, replacing individual files for each version. This change affects how dependencies are managed and compiled in CI workflows, requiring updates to these processes. The impact on users is minimal, with no breaking behavior introduced.
