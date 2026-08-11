@@ -1,0 +1,3 @@
+Category: Changed
+
+The Vagrantfile and registry.sh scripts were updated to use the Rocky stable release instead of master, requiring no migration steps but introducing breaking behavior for users relying on the previous version. The API contract remains unchanged, with no security impact reported. Config schema changes are minimal, primarily affecting the Kolla Docker images creation process.
