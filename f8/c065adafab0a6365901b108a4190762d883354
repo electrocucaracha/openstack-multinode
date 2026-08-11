@@ -1,0 +1,3 @@
+Category: Removed
+
+The enable_mariadb_clustercheck workaround in globals.yml was removed because the wsrep-notify.sh script, which it skipped validation for, has been deprecated in Xena Release. This change affects users who were relying on this variable to bypass cluster check validation, and they should be aware that this is no longer necessary due to the deprecation of the script.
