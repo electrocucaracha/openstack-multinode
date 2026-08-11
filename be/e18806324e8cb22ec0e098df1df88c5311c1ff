@@ -1,0 +1,3 @@
+Category: Changed
+
+The addition of SCC badges and GitHub actions has been made to the project, including code size counters and COCOMO complexity metrics. The linter workflow now counts lines of code and verifies broken links in documentation. This change affects users by providing more detailed code analysis and metrics. Migration steps are not required.
