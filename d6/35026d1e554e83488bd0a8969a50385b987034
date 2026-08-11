@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Action workflow for on-demand NOHA deployment was refactored to simplify the process, removing unnecessary environment variables and commands while maintaining compatibility with existing configurations. The changes include updating job names, adjusting deployment steps, and modifying environment variable settings. This update does not introduce any breaking behavior or require migration steps; however, users may need to review their workflow configuration for potential changes in environment variable usage.
