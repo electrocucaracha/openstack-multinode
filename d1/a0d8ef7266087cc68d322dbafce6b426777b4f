@@ -1,0 +1,3 @@
+Category: Changed
+
+The actions/cache dependency was updated from version 4.0.0 to 4.0.1, which may require migration steps in workflows using this action. The change affects the `actions/checkout` and `actions/cache` usage in `.github/workflows/distros.yml`.
