@@ -1,0 +1,3 @@
+Category: Changed
+
+The AIO CI task now enables Cinder, allowing for testing of cinder-related functionality. This change involves the addition of steps to create a loop device and modify the node.sh script to use it. The setup process remains largely unchanged, with only minor adjustments to accommodate the new configuration. No breaking behavior or migration requirements are introduced by this update.
