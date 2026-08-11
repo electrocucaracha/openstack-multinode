@@ -1,0 +1,3 @@
+Category: Changed
+
+The requirements installation process for undercloud has been improved by adding necessary dependencies to the bindep.txt file, including sshpass, pip, gcc, and git. This change affects how packages are installed during undercloud setup, potentially breaking previous installations that relied on outdated package lists. The primary outcome is a more comprehensive set of dependencies for undercloud installation.
