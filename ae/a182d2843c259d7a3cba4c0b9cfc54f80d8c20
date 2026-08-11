@@ -1,0 +1,3 @@
+Category: Changed
+
+Super-linter implementation was improved by updating GitHub Actions to use the latest version of the super-linter, changing the Docker image from v2.0.0 to v3, and adding environment variables for authentication and configuration. The linter rules path was also updated to root. Additionally, tox was installed and used to run lint validation.
