@@ -1,0 +1,3 @@
+Category: Changed
+
+Device provisioning in Vagrant samples now correctly handles device busy issues by reassigning the device to use /dev/sdc instead of /dev/sdb, ensuring successful installation and operation. This change affects users running Vagrant-based deployments and requires no migration steps. The API or CLI contract remains unchanged, with no security impact or config schema changes introduced.
