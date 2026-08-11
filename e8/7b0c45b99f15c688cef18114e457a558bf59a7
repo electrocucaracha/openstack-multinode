@@ -1,0 +1,3 @@
+Category: Changed
+
+Virtiofs mount type has been enabled for libvirt provider in Vagrantfiles, replacing nfs synced folder type. This change affects users of distributed and noha samples, requiring them to update their configurations accordingly. No breaking behavior or API changes are introduced; the primary outcome is improved performance with virtiofs.
