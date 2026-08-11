@@ -1,0 +1,3 @@
+Category: Changed
+
+Linter configuration was updated to use the `.editorconfig-checker.json` file instead of `.editorconfig`, breaking behavior for linting tools that rely on the default editor configuration file. The `EDITORCONFIG_FILE_NAME` environment variable in GitHub Actions workflows and Makefile was also updated accordingly. This change does not affect security or migration requirements, but users may need to update their linter configurations to reflect the new file name.
