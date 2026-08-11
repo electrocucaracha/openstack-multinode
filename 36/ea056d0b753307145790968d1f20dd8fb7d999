@@ -1,0 +1,3 @@
+Category: Added
+
+The undercloud script now includes an option to enable autocomplete for the openstack CLI, which can be done by adding the `--autocomplete` flag when running the script. This change affects users who interact with the CLI and may require them to update their bash configuration. The impact on security or config schema is minimal, but users should note that enabling autocomplete adds a new file to their system.
