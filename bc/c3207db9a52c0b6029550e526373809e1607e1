@@ -1,0 +1,3 @@
+Category: Changed
+
+AIO instructions were refactored, impacting network configuration and SSH key management. The API interface was updated to use the kolla external VIP interface, and the Vagrantfile now uses a more permissive SELinux policy by default. Additionally, IPv6 is disabled on systems that support it. Users must update their AIO configurations accordingly.
