@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla-build.ini configuration has been updated to skip existing images by default, allowing for faster rebuilds when the image cache is intact. This change affects users who frequently rebuild containers and maintainers updating the build process. The migration step involves setting `skip_existing` to `true` in kolla-build.ini files.
