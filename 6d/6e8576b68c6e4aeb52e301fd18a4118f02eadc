@@ -1,0 +1,3 @@
+Category: Added
+
+configure_docker_proxy function was updated to support bifrost image build instructions, adding environment variable handling for proxies and no-proxy settings. The template-overrides.j2 file was also created to extend the parent template with bifrost header and footer blocks. This change is relevant to users building kolla images, particularly those using Docker services behind proxies or no-proxies.
