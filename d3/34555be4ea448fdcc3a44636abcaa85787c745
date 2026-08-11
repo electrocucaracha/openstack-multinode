@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla version was updated from 11.0.0 to 12.0.0, requiring users to update their kolla-build installations if they were previously using the master branch. The autodiscover base distro in registry.sh now uses the OS_KOLLA_BASE variable's value, which is set to the current Linux distribution ID (e.g., centos or ubuntu). This change affects how Kolla builds are generated and may require users to adjust their configuration accordingly.
