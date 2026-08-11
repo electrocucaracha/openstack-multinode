@@ -1,0 +1,3 @@
+Category: Changed
+
+The undercloud setup script was updated to fix AIO issues, including changes to the installation of dependencies, configuration files, and Ansible settings. The update also modified the Vagrantfile for the aio samples to set up SELinux in permissive mode. Additionally, the kolla-genpwd command was added to generate passwords for the undercloud setup.
