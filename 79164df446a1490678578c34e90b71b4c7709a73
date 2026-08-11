@@ -1,0 +1,3 @@
+Category: Changed
+
+Self-hosted runners are now enabled, allowing users to run GitHub Actions on their own virtual machines instead of relying on GitHub's infrastructure. This change affects workflows that previously ran on macOS-12, which are now migrated to vm-self-hosted. The underlying code for vagrant setup and resource checking has been updated accordingly.
