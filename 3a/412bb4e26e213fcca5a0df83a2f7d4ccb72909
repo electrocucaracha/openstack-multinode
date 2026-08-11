@@ -1,0 +1,3 @@
+Category: Changed
+
+Config files now managed using yq tool, replacing manual sed edits in undercloud.sh script. This change impacts config schema, requiring users to adjust their environment variables accordingly. Migration steps involve updating the undercloud.sh script and ensuring correct variable setup for kolla-ansible. Security impact is minimal as this change does not introduce new vulnerabilities.
