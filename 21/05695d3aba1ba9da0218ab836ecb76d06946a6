@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub actions workflow has been reconfigured to run on demand, allowing for more flexibility in deployment. The primary change involves renaming existing workflows and updating the triggers to include both push and pull request events. Additionally, some environment variables have been updated to accommodate different deployment scenarios. This change does not introduce any breaking behavior or security concerns but may require users to update their workflow configurations accordingly.
