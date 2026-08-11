@@ -1,0 +1,3 @@
+Category: Changed
+
+The vagrant version was bumped from 2.1.2 to 2.1.4, affecting users who may need to update their Vagrant setup due to potential changes in the new version. This change does not introduce any breaking behavior and no migration steps are required. The API or CLI contract remains unchanged and there is no security impact.
