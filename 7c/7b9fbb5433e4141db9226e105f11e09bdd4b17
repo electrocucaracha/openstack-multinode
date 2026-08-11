@@ -1,0 +1,3 @@
+Category: Changed
+
+Actions cache dependency was updated from version 3.2.5 to 3.2.6, which may require migration steps in workflows that use this action. The update does not introduce any breaking behavior and preserves the existing API contract. This change is a routine dependency update with no security implications or config schema changes.
