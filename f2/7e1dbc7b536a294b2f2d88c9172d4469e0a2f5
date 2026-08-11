@@ -1,0 +1,3 @@
+Category: Changed
+
+The vagrant user's group membership was updated to include the docker group, which allows for container management capabilities. This change involves adding the docker group and modifying the vagrant user to be part of it. The setup process now also includes updating apt sources and installing necessary packages.
