@@ -1,0 +1,3 @@
+Category: Changed
+
+The kolla-ansible version was updated from 10.1.0 to 10.2.0, which may require users to adjust their configuration if they have customized scripts that rely on the previous version's settings. No API or CLI changes are introduced by this update. This change does not impact security and no migration steps are required. The primary outcome is an updated kolla-ansible environment with new features and bug fixes.
