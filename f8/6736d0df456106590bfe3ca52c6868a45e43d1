@@ -1,0 +1,3 @@
+Category: Changed
+
+The cinder service has been enabled in the no HA configuration, allowing for the creation of Cinder volumes on compute nodes. This change involves modifying Vagrant configurations to create and attach Cinder volumes to virtual machines. The primary user outcome is improved flexibility in deploying OpenStack services without high availability requirements.
