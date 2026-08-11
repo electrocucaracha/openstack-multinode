@@ -1,0 +1,3 @@
+Category: Added
+
+LVM issues loading kernel modules were fixed, which affects users who rely on iSCSI volume types. The default volume type was set to iSCSI in the Cinder configuration. Additionally, necessary kernel modules for LVM and target-core-mod were loaded during node setup. This change requires no migration steps or updates.
