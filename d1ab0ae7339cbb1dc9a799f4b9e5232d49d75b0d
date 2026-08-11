@@ -1,0 +1,3 @@
+Category: Changed
+
+This update includes changes to GitHub Actions, OpenStack Kolla dependencies, and various scripts used in the installation process. The primary user outcome of this change is an updated version of the undercloud setup with new dependencies and configuration settings. Breaking behavior or migration requirements are not explicitly mentioned, but API or CLI contract changes may be present due to the upgrade of OpenStack Kolla dependencies.
