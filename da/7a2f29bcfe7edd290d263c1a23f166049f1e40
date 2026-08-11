@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting multiple distros, including Ubuntu and Debian. This change impacts the versions of various packages, including Ansible, certifi, cffi, and requests, but does not introduce breaking behavior or require migrations. The upgrade also includes minor updates to other dependencies like kolla-ansible and oslo-utils.
