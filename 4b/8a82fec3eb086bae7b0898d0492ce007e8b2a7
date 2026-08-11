@@ -1,0 +1,3 @@
+Category: Changed
+
+The `shfmt` script formatter has been enabled, which affects the formatting of Bash scripts in the project. This change impacts various scripts, including those for undercloud and node setup, where `shfmt` will be used to format code according to its rules. The primary outcome is improved code consistency and readability.
