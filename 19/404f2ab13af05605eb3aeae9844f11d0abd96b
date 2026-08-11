@@ -1,0 +1,3 @@
+Category: Changed
+
+Ansible version restrictions were added, requiring at least Ansible 6.0.0 and Ansible Core 2.13.0, while also limiting the upper bound of these versions to prevent potential breaking changes. This change affects users who rely on older versions of Ansible, potentially requiring them to update their environments or configurations. The restrictions are intended to ensure compatibility with newer features and bug fixes.
