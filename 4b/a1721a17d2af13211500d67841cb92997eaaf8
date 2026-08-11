@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla log folder was moved from /var/log/kolla to /tmp/kolla, breaking behavior for any scripts relying on the original path. The change affects config schema and primary user outcome, requiring migration of logs to the new location. API or CLI contract changes are not present in this update.
