@@ -1,0 +1,3 @@
+Category: Changed
+
+The dependency on actions/checkout was updated from version 4.1.2 to 4.1.3, which is a minor patch update. This change does not break any behavior and does not require migration steps. The primary outcome of this update is that the workflow will now use the latest version of actions/checkout, which may include bug fixes or performance improvements.
