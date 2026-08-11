@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub repository visualizer dependency was updated from version 0.8.2 to 0.9.1, which may require migration steps if users have customized the diagram workflow. The update does not change the API or CLI contract and has no known security impact or config schema changes. This minor version bump is intended to provide new features or bug fixes without breaking existing behavior.
