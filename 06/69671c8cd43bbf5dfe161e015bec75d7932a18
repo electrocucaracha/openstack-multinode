@@ -1,0 +1,3 @@
+Category: Changed
+
+Vagrantfiles were updated to address Rubocop issues, making them compliant with the tool's guidelines. This change does not introduce any breaking behavior or migration requirements. The updates involve minor adjustments to environment variable handling and configuration settings, ensuring consistency in code style and adherence to best practices.
