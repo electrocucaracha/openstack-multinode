@@ -1,0 +1,3 @@
+Category: Changed
+
+The node.sh script has been improved by removing unnecessary configuration steps, Intel Nested-Virtualization checks, and vendor-specific code. The script now correctly handles AMD-based systems and enables vhost_net. Additionally, the setup process for proxy variables and hostnames remains unchanged. This update ensures a more streamlined and compatible experience for users with varying system configurations.
