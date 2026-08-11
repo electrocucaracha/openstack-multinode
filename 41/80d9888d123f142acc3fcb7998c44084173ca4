@@ -1,0 +1,3 @@
+Category: Changed
+
+The groupadd instruction was modified to create the docker group only if it does not already exist, ensuring that the group is created consistently across different environments. This change affects the installation process and ensures that the necessary permissions are set up correctly. The modification also improves robustness by avoiding potential errors when creating duplicate groups.
