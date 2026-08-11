@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub CI actions were refactored to improve automation and efficiency, introducing new workflows for specific scenarios while modifying existing ones. Breaking changes include updated trigger paths and job names, while API/CLI contracts remain unaffected. Security impact is minimal as no sensitive data is exposed. The primary user outcome is improved build and deployment processes with enhanced flexibility.
