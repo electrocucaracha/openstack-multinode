@@ -1,0 +1,3 @@
+Category: Changed
+
+The CI matrix for All-in-One deployment on Virtual Machines now dynamically generates the list of supported distributions, replacing the hardcoded list. This change introduces a new job to generate the JSON matrix from distros_supported.yml and updates the check-aio-vms job to use this generated matrix. The process also installs required tools shyaml and jq if necessary.
