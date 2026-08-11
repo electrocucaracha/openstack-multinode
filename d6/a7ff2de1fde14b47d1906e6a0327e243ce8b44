@@ -1,0 +1,3 @@
+Category: Changed
+
+The OS selection option has been enabled in the All-In-One (AIO) setup, allowing users to choose their preferred operating system distribution from the environment variable `OS_DISTRO`. This change affects the Vagrantfile configuration and requires no migration steps. The default OS remains centos, but users can now select alternative distributions by setting this environment variable.
