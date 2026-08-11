@@ -1,0 +1,3 @@
+Category: Removed
+
+Ansible was dropped from the requirements in the 2023.2 release, specifically ansible-core>=2.14,<2.16 was added instead of ansible>=6,<8 and ansible-core>2.14,<2.16. This change affects users who rely on Ansible for their deployments.
