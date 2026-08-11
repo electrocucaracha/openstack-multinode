@@ -1,0 +1,3 @@
+Category: Added
+
+The requirements script now handles the case where dpkg-reconfigure is unavailable, ensuring that locales are configured correctly even in this scenario. This change affects users who may encounter unsupported local settings and need to configure their system accordingly. The update adds a conditional check for dpkg-reconfigure's presence before attempting configuration.
