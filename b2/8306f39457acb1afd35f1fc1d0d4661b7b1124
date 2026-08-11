@@ -1,0 +1,3 @@
+Category: Changed
+
+The Debian-specific removal of python3-cryptography has been simplified, removing the dependency on python-cryptography for Debian systems. This change affects Ubuntu and Debian users who may need to migrate their configurations. The updated undercloud.sh script now correctly removes only the necessary cryptography package for these distributions, ensuring a smooth deployment process.
