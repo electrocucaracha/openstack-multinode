@@ -1,0 +1,3 @@
+Category: Changed
+
+Textlint configuration was updated to exclude Node.js terminology from checks, addressing issues that arose from this exclusion. This change affects how textlint evaluates documentation, but does not introduce breaking behavior or migration requirements. The update involves modifying the .textlintrc file and making a minor adjustment in doc/src/neutron/network_types.md to correct "Internet" capitalization.
