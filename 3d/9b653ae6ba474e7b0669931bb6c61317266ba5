@@ -1,0 +1,3 @@
+Category: Changed
+
+The Vagrantfile for distributed environments has been refactored to improve maintainability and flexibility. Key changes include the removal of hardcoded values, replacing them with environment variables; updating OS distribution and release names to match current versions; and adjusting variable names to follow a consistent naming convention. These changes do not introduce any breaking behavior or require migration steps.
