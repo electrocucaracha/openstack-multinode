@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions workflows now use read-only permissions by default, changing how these automated processes interact with repository contents. This update affects various workflows, including build, diagram, distros, linter, on-demand, and scheduled tasks, but does not introduce breaking behavior or migration requirements. The primary user outcome is a more secure environment for automated actions to run without modifying the codebase.
