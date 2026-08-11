@@ -1,0 +1,3 @@
+Category: Changed
+
+VirtualBox volume sizes were adjusted to use kilobytes instead of bytes for consistency, affecting Vagrantfile configurations in aio, distributed, and noha samples. This change requires no migration steps but may impact users who manually set volume sizes. The API contract remains unchanged, and there is no security impact or config schema changes.
