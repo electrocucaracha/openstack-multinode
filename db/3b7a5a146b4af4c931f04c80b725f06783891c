@@ -1,0 +1,3 @@
+Category: Changed
+
+The Vagrantfile for the noha sample was updated to reflect changes in hardware specifications, including CPU and memory allocations for compute nodes and the controller. The configuration also now includes Intel's NUC BXNUC10I7FNHAA1 processor details and adjusts settings accordingly. This change is relevant to users setting up this specific environment with Vagrant.
