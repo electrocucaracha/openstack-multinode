@@ -1,0 +1,3 @@
+Category: Changed
+
+The `actions/checkout` dependency was updated from version 2 to 3, which may affect workflows that use this action. This change does not introduce breaking behavior and no migration steps are required. The update affects various workflows that utilize the `actions/checkout` action for checking out code in different environments.
