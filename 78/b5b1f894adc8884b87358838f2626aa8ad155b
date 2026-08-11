@@ -1,0 +1,3 @@
+Category: Added
+
+The vhost_net kernel module has been enabled, which affects users who rely on this feature for their workloads. This change involves adding the necessary command to load the module in the node.sh script and requires no migration steps. The primary user outcome is improved performance for certain applications that utilize this module.
