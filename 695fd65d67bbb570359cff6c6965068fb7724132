@@ -1,0 +1,3 @@
+Category: Added
+
+The GitHub action for super-linter reporter has been added, which includes running the scc tool and analyzing failed linter logs using AI inference to provide structured reasoning and proposed fixes. This change requires no migration steps and does not affect API or CLI contracts. The config schema changes include adding cache: false and fetch-depth: 0 in the workflow file.
