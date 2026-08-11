@@ -1,0 +1,3 @@
+Category: Removed
+
+The setup.sh script file has been removed, and users are now directed to use the bootstrap-vagrant project's setup.sh script for installing Vagrant dependencies and plugins. This change affects initial setup instructions in README.md and requires users to install Vagrant using the provided curl command. The removal does not introduce breaking behavior or API changes.
