@@ -1,0 +1,3 @@
+Category: Added
+
+HW stats are now enabled in the NoHA workflow, allowing users to monitor hardware resources during deployment. This change adds commands to check virtual machine statistics and running VMs, providing more insight into system performance. The workflow remains unchanged otherwise, with no breaking behavior or migration requirements necessary.
