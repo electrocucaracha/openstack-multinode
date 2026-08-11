@@ -1,0 +1,3 @@
+Category: Changed
+
+Python version was bumped in various workflows and requirements files from 3.9 to 3.11 for Rocky 9, and from 3.10 to 3.12 for Ubuntu 24. This change affects users running these distributions, requiring them to update their Python versions accordingly. No breaking behavior or API changes are introduced by this update.
