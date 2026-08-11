@@ -1,0 +1,3 @@
+Category: Changed
+
+The default values in the globals.yml configuration file have been updated to reflect changes in supported OpenStack releases and services enabled by default. Specifically, the openstack_release has been changed from "stein" to "train", and enable_haproxy has been switched from disabled to enabled. These updates affect how users configure their environments and what services are available out of the box.
