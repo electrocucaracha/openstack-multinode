@@ -1,0 +1,3 @@
+Category: Changed
+
+The node's provisioning script has been updated to remove proxy setup and modify logging for certain roles. This change affects users who rely on the script for setting up nodes, particularly those with custom roles defined in their environment. The update also removes a purge command that was previously commented out, potentially impacting system state after running the script.
