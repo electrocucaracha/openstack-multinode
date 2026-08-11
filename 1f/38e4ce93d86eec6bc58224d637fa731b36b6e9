@@ -1,0 +1,3 @@
+Category: Changed
+
+The undercloud provisioning script was improved by removing deprecated variables, updating the inventory file format, and adjusting configuration settings for various OpenStack services. The changes also involved refactoring the undercloud.sh script to use more modern installation methods and update dependencies. These modifications aim to simplify the deployment process and ensure compatibility with newer versions of Kolla-Ansible.
