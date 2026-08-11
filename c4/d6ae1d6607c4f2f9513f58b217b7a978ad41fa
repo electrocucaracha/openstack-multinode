@@ -1,0 +1,3 @@
+Category: Changed
+
+The installation of cURL on Ubuntu nodes was added to the node.sh script, ensuring that the necessary package is installed before attempting to use its functionality. This change affects API and CLI usage by enabling the execution of curl commands without requiring manual package installation. The updated script now automatically installs cURL on Ubuntu systems during node setup.
