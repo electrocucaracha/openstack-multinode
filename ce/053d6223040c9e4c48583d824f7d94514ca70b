@@ -1,0 +1,3 @@
+Category: Changed
+
+The cache action in GitHub workflows was updated from version 3.0.11 to 3.2.2, which may require migration steps if using the previous version's configuration. The update does not change the API or CLI contract, nor does it introduce any security concerns. This change affects users who have customized their workflow configurations for caching actions.
