@@ -1,0 +1,3 @@
+Category: Added
+
+The Vagrantfile for the aio sample now creates persistent veth0 pair connections by adding configuration to rc.local, ensuring that the network interface remains available after rebooting the virtual machine. This change introduces no breaking behavior and affects only the aio sample's setup process. The added network forwarding port 6080 is also noted as a minor supporting point.
