@@ -1,0 +1,3 @@
+Category: Changed
+
+A setup script for an All-in-One OpenStack configuration was created, providing instructions for deployment via install.sh. The script configures kolla-ansible settings to use a specific network interface and IP addresses for management, API, and external networks. It also enables HAProxy by default unless the external VIP address matches the management IP address.
