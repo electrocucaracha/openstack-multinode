@@ -1,0 +1,3 @@
+Category: Changed
+
+The current configuration format has been changed, now using a table-based layout to display VM settings. This change affects how users view and manage their virtual machine configurations, with the new format providing a clearer and more organized presentation of resource allocations. The updated format also includes a total row for easy comparison of overall system resources.
