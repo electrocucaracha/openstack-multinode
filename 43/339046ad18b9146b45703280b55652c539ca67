@@ -1,0 +1,3 @@
+Category: Changed
+
+The setup.sh script was updated to install Vagrant version 2.1.2 instead of 2.1.1, adding checks for the installed version and enabling installation if it's outdated. The update also includes changes to handle proxy configurations and libvirt network settings. Additionally, pip is now upgraded and tox is installed via pip.
