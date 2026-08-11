@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/cache dependency was updated from 3.2.4 to 3.2.5, which may require migration steps in workflows that use this action. The change does not affect the API or CLI contract and has no security implications. This update is a minor patch release with likely bug fixes or performance improvements.
