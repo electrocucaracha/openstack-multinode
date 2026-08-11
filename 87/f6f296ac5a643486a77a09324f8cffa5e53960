@@ -1,0 +1,3 @@
+Category: Changed
+
+The CI checks for the All-in-One deployment have been improved by introducing a new script, `ci/check_aio.sh`, which simplifies and streamlines the process. This change eliminates several environment variables and replaces complex commands with a single script call. The primary outcome is that users can now easily deploy and upgrade their All-in-One instances without manual intervention.
