@@ -1,0 +1,3 @@
+Category: Removed
+
+RHEL support has been dropped in the AIO, affecting users who rely on this distribution. The change impacts CI workflows, specifically the `.github/workflows/on-demand_aio.yml` file and `ci/update_distros.sh`, where RHEL-related configurations have been removed. This update does not introduce breaking behavior or API changes but requires migration to supported distributions such as Ubuntu and CentOS.
