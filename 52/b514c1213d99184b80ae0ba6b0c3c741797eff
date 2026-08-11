@@ -1,0 +1,3 @@
+Category: Removed
+
+The venus-* registry configuration was removed from the kolla-build.ini file, impacting users who relied on this configuration for source installation. This change removes support for specific versions of Venus and may require migration to use the latest version. The config schema has been updated accordingly, but no breaking behavior or API changes are introduced by this removal.
