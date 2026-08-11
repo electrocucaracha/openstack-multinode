@@ -1,0 +1,3 @@
+Category: Added
+
+Reviewdog Github action added for code quality checks, triggered on push to master branch, using misspell tool and requiring a github token secret. This introduces no breaking behavior but requires configuration of the secret in the repository settings. The reviewdog workflow runs on an ubuntu-latest environment and uses actions/checkout@v2 and reviewdog/action-misspell@v1.
