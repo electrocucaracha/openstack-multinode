@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla_external_vip_interface value was updated to use the management network interface by default, changing the external VIP address assignment behavior. This update affects users who rely on Kolla's defaults for assigning external endpoints. The change does not introduce any breaking behavior and is backward compatible with previous configurations. Users must review their configuration files to ensure they align with the new default settings.
