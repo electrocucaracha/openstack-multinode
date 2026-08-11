@@ -1,0 +1,3 @@
+Category: Changed
+
+The AIO Ubuntu CI job now installs the testresources Python module, which is required for testing. This change affects users who run tests on Ubuntu systems, as they must install this module separately to avoid installation errors. The installation command has been updated in the CI workflow to include python3-testresources and remove bridge-utils recommendations.
