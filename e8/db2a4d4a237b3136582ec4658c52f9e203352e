@@ -1,0 +1,3 @@
+Category: Changed
+
+The registry.sh script has been updated to resolve shellcheck errors, which improves the script's maintainability and reliability. The changes involve disabling specific checks for sourcing os-release files and adjusting case handling for Debian-based systems. These updates do not introduce breaking behavior or require migration steps; however, they may affect users running the script on non-Debian platforms.
