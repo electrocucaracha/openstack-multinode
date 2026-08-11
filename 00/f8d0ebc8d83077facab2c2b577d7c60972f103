@@ -1,0 +1,3 @@
+Category: Changed
+
+Inventory host file updated with new group definitions, including baremetal children groups for control, network, compute, storage, and monitoring hosts. This change affects the configuration of various services, including Sahara, Ceilometer, Congress, Panko, and Trove, which now inherit from these groups. No breaking behavior or migration requirements are mentioned.
