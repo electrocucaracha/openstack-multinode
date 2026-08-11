@@ -1,0 +1,3 @@
+Category: Changed
+
+Diagrams were added to the documentation, including images of containers and Skydive architecture. The distributed configuration sample's README now links to a diagram specific to distributed setups, replacing the previous generic one. This change primarily affects users who want to understand how to configure their OpenStack setup for distributed environments.
