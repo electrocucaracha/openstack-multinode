@@ -1,0 +1,3 @@
+Category: Changed
+
+Versions of OpenStack Kolla dependencies were upgraded, affecting supported distros and requirements files. The upgrade impacts the version of Ubuntu 20.04 and Debian Bullseye, with potential migration steps required for users running these versions. No breaking behavior or API changes are introduced; config schema remains unchanged.
