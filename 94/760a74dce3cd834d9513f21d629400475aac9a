@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla release support was updated to include Antelope, which involves changes in various configuration files and scripts. The update affects the base images, container engine cache, and registry setup, requiring users to adjust their configurations accordingly. Additionally, some services like Opensearch and Skyline are now included in the Kolla release, while others like Elasticsearch Curator have been removed. Users will need to review and adapt their deployment settings for these changes.
