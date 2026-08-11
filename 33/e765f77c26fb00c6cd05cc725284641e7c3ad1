@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub cache management was improved by adding support for Linux distributions other than Ubuntu, allowing users to specify their preferred distribution in the workflow configuration. This change also updated dependencies and introduced conditional logic based on event types to optimize caching behavior. The updates are backward compatible but require no migration steps.
