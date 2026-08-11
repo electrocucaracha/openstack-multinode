@@ -1,0 +1,3 @@
+Category: Changed
+
+The PKG_COMMANDS_LIST environment variable now determines the list of packages to install, replacing a hardcoded list in registry.sh. This change simplifies package management and eliminates the need for repetitive code. The script still installs missing packages via a shortened link to an installation script. No migration steps are required due to this change.
