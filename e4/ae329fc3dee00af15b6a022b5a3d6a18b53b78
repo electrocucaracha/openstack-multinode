@@ -1,0 +1,3 @@
+Category: Changed
+
+The init-runonce script initialization process was modified to directly download the latest version of the script from the Kolla-Ansible repository, eliminating the need for manual updates and ensuring users have access to the most current tool. This change affects users who rely on the init-runonce script, requiring no additional configuration or migration steps. The update also removes potential security risks associated with manually downloading scripts from external sources.
