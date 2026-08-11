@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/cache dependency was updated from 4.0.1 to 4.0.2, which may require migration steps in workflows that use this action. The update does not introduce any breaking behavior or API changes and has no security impact. This change is primarily a maintenance update with minor improvements likely included in the release notes for actions/cache.
