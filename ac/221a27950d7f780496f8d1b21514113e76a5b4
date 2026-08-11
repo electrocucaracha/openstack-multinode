@@ -1,0 +1,3 @@
+Category: Changed
+
+The local Docker registry has become an optional component, allowing users to choose whether to use the built-in registry or a separate one. This change does not introduce any breaking behavior, API changes, or security impact. The primary user outcome is that they can now decide how to manage their Docker images and repositories.
