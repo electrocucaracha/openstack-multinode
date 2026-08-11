@@ -1,0 +1,3 @@
+Category: Changed
+
+The project switched from using CentOS 8 to CentOS Stream, which is a rolling-release distribution that receives updates directly from Red Hat without the need for major version upgrades. This change affects how virtual machines are provisioned and configured in Vagrant files, with updated commands and settings reflecting the new distro's naming conventions and package versions. The switch also impacts registry scripts and configuration files, requiring adjustments to accommodate CentOS Stream's unique update cycle.
