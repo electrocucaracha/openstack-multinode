@@ -1,0 +1,3 @@
+Category: Changed
+
+The setup.sh script was updated to improve compatibility with newer versions of Vagrant and VirtualBox, specifically updating the version checks and package installation commands. This change affects users who rely on these tools for their development environment. The update also includes minor adjustments to ensure correct functionality across different Linux distributions.
