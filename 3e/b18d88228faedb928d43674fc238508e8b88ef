@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/checkout dependency was bumped from 3.3.0 to 3.4.0, which may require migration steps in workflows that use this dependency. The update does not appear to introduce any breaking behavior, API changes, security risks, or config schema modifications. This change is likely a minor maintenance update aimed at ensuring the workflow uses the latest version of actions/checkout.
