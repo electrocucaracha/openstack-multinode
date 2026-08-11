@@ -1,0 +1,3 @@
+Category: Changed
+
+cirrus-actions/rebase dependency was updated from version 1.7 to 1.8, which may introduce breaking changes in the Automatic Rebase job of the .github/workflows/rebase.yml workflow. The update uses the new version's syntax and may require manual review for any migration requirements or API contract changes.
