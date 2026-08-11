@@ -1,0 +1,3 @@
+Category: Changed
+
+The mitogen module is now optional, allowing users to choose whether to use its optimized Ansible strategy. This change adds conditional configuration for mitogen_linear settings if the module is installed. The undercloud.sh script no longer requires pip install of mitogen and instead checks for its presence before configuring it. Users must manually add or remove the mitogen_ansible_cfg section in /etc/ansible/ansible.cfg as needed.
