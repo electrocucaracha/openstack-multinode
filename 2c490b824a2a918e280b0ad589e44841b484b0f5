@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Actions workflow for code linting has been updated to use the super-linter/super-linter repository instead of github/super-linter, requiring no migration steps and introducing no breaking behavior. The change affects the linter version used in the workflow, upgrading from 7 to 7.3.0.
