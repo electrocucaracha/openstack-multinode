@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions were updated, including upgrading dependencies for OpenStack Kolla and updating the list of supported distributions. The spellchecking tool was also upgraded from version 1.0.4 to 1.0.5. This change does not introduce breaking behavior or require migration steps, nor does it affect API or CLI contracts, security, or configuration schema.
