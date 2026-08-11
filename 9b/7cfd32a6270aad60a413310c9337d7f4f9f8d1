@@ -1,0 +1,3 @@
+Category: Removed
+
+The installation script has been simplified by removing unnecessary instructions, which were previously used to configure the environment. This change does not introduce any breaking behavior or API changes and does not impact security. The config schema remains unchanged, and there are no migration requirements. The removal of these steps should improve the overall user experience during the installation process.
