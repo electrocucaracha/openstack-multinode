@@ -1,0 +1,3 @@
+Category: Removed
+
+The setup instructions for proxy variables were removed from the undercloud.sh script, simplifying the installation process. This change does not break any behavior or migration requirements and has no impact on API or CLI contracts, security, or config schema changes. The removal of these unnecessary steps makes it easier to install and run the undercloud environment.
