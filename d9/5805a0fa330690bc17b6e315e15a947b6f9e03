@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla now exposes the enable_neutron_provider_networks variable, allowing users to connect compute instances directly to physical networks without using tunnels. This change affects config schema and requires migration steps for existing deployments. The default value remains "no", but users can override it in their environment files or Vagrant configurations.
