@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the actions/checkout dependency was updated from 3.5.2 to 3.5.3 in multiple workflows, which may require migration steps if previous versions relied on specific behavior. The API contract remains unchanged, and there are no security concerns or config schema changes associated with this update. This change primarily affects maintainers who must review and potentially adjust their workflows to accommodate the updated dependency version.
