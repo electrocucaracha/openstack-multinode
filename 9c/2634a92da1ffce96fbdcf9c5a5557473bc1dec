@@ -1,0 +1,3 @@
+Category: Added
+
+Shfmt validation has been disabled in the linter workflow, affecting how code is checked for syntax errors. This change impacts users who rely on shfmt validation to enforce shell scripting standards. The Makefile and GitHub Actions configuration have been updated accordingly. No breaking behavior or migration requirements are necessary due to this change.
