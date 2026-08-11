@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla configuration file was updated, changing source locations for various OpenStack projects to new version numbers. This update affects over 50 projects, including Keystone, Nova, and Horizon, with most changes being simple version bumps in the tarball locations. The update does not introduce any breaking behavior or require migration steps.
