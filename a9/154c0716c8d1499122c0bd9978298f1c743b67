@@ -1,0 +1,3 @@
+Category: Added
+
+The link to Intel's NUC documentation was added to the aio sample README, providing users with a reference for the hardware resource. This change does not introduce any breaking behavior and maintains compatibility with existing configurations. The addition of this link aims to enhance user experience by offering relevant information about the cluster setup.
