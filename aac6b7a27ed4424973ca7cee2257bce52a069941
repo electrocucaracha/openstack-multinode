@@ -1,0 +1,3 @@
+Category: Added
+
+The Vagrant box sources for CI testing were updated to support Ubuntu 24.04 and 26.04, replacing Rocky Linux boxes pending future updates. The architecture was set to amd64 when adding boxes to ensure compatibility. Debian 12 box version was also updated and the copyright year changed to 2026. This change expands the range of supported distributions for CI testing.
