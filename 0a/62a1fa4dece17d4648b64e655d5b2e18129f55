@@ -1,0 +1,3 @@
+Category: Changed
+
+cinder LVMs are now implemented on AIO, allowing for fake cinder volumes to be created using LVM. This change impacts node.sh and Vagrantfile, where cinder volumes are now created with pvcreate and vgcreate commands. The config.vm.disk block in Vagrantfile is also modified to remove the reference to a 100GB cinder disk. Users must update their Vagrant configurations accordingly.
