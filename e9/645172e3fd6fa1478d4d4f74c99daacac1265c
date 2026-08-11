@@ -1,0 +1,3 @@
+Category: Changed
+
+Local registry usage has been updated to use the insecure option by default, allowing users to configure their own local Docker registry without requiring additional setup. This change affects config schema and requires migration steps for existing installations. The `docker_registry_insecure` setting is now set to "yes" in the globals.yml file, enabling insecure registry usage.
