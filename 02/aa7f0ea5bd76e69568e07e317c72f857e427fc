@@ -1,0 +1,3 @@
+Category: Changed
+
+The yaml formatter was enabled, which affects various workflows that lint or format YAML files. This includes the .github/workflows/linter.yml file, where the check-broken-links job now uses the new yaml-lint.yml configuration to enable formatting of YAML files with a maximum line length of 160 characters. The change also impacts other workflows, such as on-demand.yml and update.yml, which use the same configuration.
