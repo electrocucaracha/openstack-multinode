@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting the versions of several libraries used by the project. This change impacts users who rely on these libraries for functionality and may require migration steps to ensure compatibility. The updated dependencies include Ansible Core 2.18.18, bcrypt 4.3.0, certifi 2026.6.17, and others.
