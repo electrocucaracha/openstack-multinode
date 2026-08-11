@@ -1,0 +1,3 @@
+Category: Changed
+
+The installation process now includes an update check, which will automatically install the latest dependencies if necessary. This change affects users who have previously installed the undercloud and want to ensure they are running with the most up-to-date packages. No breaking behavior or API changes were introduced as a result of this modification.
