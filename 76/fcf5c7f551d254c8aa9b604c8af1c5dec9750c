@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the pyspelling-any library was updated from 0.0.2 to 1.0.4, which may require migration steps due to the major version update. The Spellcheck job in the GitHub workflow now uses the latest version of the library. This change does not affect the API or CLI contract and has no reported security impact.
