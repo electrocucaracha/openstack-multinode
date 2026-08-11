@@ -1,0 +1,3 @@
+Category: Changed
+
+The local registry now checks if the registry container is already running before starting it, preventing unnecessary restarts. This change does not affect API or CLI contracts, nor does it introduce any security vulnerabilities. The config schema remains unchanged and no migration steps are required. Users will benefit from improved performance due to reduced registry restarts.
