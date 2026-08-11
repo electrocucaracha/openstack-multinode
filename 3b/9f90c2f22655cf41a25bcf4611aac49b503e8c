@@ -1,0 +1,3 @@
+Category: Added
+
+The /etc/hosts file on controller nodes has been cleaned up to allow for HA setups where rabbit hostname resolves uniquely to the proper IP address, requiring no changes from users but necessitating a one-time manual intervention to update the hosts file. This change does not introduce any breaking behavior or API changes and is primarily related to configuration adjustments. The cleanup involves adding an echo statement to append an empty line to /etc/hosts via sudo.
