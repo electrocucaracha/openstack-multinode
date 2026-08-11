@@ -1,0 +1,3 @@
+Category: Changed
+
+Hosts.ini file refactored for improved readability and consistency. The change affects how groups of nodes are defined, replacing explicit node names with range-based syntax. This update does not introduce breaking behavior or require migration steps, but it may impact users who rely on the original hostnames. The config schema remains unchanged.
