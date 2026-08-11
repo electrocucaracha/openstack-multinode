@@ -1,0 +1,3 @@
+Category: Changed
+
+Dictionary definitions were updated, including removing scalability from the wordlist. OpenStack Kolla dependencies were also upgraded to certifi 2025.8.3 and cryptography 45.0.6 in requirements files for Rocky 9. These updates may require migration steps when applying new versions of these dependencies.
