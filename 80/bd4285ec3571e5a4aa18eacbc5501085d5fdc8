@@ -1,0 +1,3 @@
+Category: Changed
+
+Saving environment variables was fixed by modifying the install script to export OS_ prefixed variables directly into /etc/environment, removing an intermediate step that was causing issues. This change ensures correct variable propagation and avoids potential inconsistencies in environment settings. The update affects how environment variables are set during installation, requiring no further action from users or maintainers.
