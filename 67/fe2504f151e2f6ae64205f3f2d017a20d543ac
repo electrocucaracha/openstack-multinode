@@ -1,0 +1,3 @@
+Category: Changed
+
+The Neutron external interface selection logic was improved to ensure correct public network interface usage, particularly when the management network uses IP addresses in the 10.10 range. This change introduces a new check for the OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE config variable and provides an error message if it's not set, preventing potential loss of external connectivity. The public_nic variable is now correctly determined based on the presence of the 10.10 network route.
