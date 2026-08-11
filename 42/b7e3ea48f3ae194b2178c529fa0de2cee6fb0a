@@ -1,0 +1,3 @@
+Category: Changed
+
+The `no_proxy` IP list was updated to include tunnel and storage IPs from nodes, but this behavior now breaks when nodes have the new "networks" configuration instead of "nics". The update also removes the ability to specify custom tunnel and storage IPs. This change affects users relying on these specific network settings in their node configurations.
