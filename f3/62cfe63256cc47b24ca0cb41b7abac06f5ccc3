@@ -1,0 +1,3 @@
+Category: Removed
+
+The build image process in TravisCI has been removed, affecting users who relied on this feature for OpenStack Kolla images validation. This change breaks the `after_success` script and removes environment variables related to image validation and registry configuration. Users must now handle these tasks manually or adjust their workflow accordingly.
