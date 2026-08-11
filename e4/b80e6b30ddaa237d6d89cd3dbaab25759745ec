@@ -1,0 +1,3 @@
+Category: Changed
+
+pip installation now uses the specific user's Python environment instead of relying on system-wide installations, which may break existing undercloud configurations that assume pip is installed globally. This change affects users who run undercloud.sh and rely on pip to install requirements. No API or CLI changes are introduced; however, config schema remains unchanged, and migration steps involve updating undercloud.sh scripts to use the user's Python environment for pip installation.
