@@ -1,0 +1,3 @@
+Category: Changed
+
+Virtualbox configurations have been improved by enabling nested paging, large pages, and virtual processor identifiers to enhance performance. The changes also include customizing the network interface type to virtio and disabling the GUI for faster boot times. This update affects users of Virtualbox provider in distributed and noha samples, requiring no migration steps or security impact.
