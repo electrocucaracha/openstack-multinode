@@ -1,0 +1,3 @@
+Category: Changed
+
+The setup script for provisioning virtual machines was updated to correctly handle proxy settings and NFS dependencies, ensuring proper configuration for users running the script. The changes also include improved error handling and security measures, specifically opening necessary ports for NFS access when firewalld is enabled. Additionally, the script now checks for root privileges before execution.
