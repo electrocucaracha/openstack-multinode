@@ -1,0 +1,3 @@
+Category: Changed
+
+Editorconfig format was updated, affecting various scripts and files, including distros_supported.yml, which now reflects version updates for specific distributions. The vercmp() function in commons_spec.sh was also modified to handle invalid operators. Additionally, the _get_kolla_actions() function in undercloud_spec.sh was updated with new kolla actions for different versions. These changes are likely part of a larger effort to maintain consistency and accuracy in project configurations and scripts.
