@@ -1,0 +1,3 @@
+Category: Removed
+
+Insecure keys were removed from the repository to prevent potential security risks, including unauthorized access. This change affects users who relied on these insecure keys for SSH connections and may require them to generate new keys. The removal of these keys also impacts the Vagrantfiles in the samples directory, which previously used these keys for SSH authentication.
