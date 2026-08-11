@@ -1,0 +1,3 @@
+Category: Changed
+
+Neutron trunk demo was added, which requires `OS_KOLLA_ENABLE_NEUTRON_TRUNK` to be set to "yes" for the feature to work. This change also updates undercloud configuration to enable Neutron trunk by default and introduces new scripts for Magnum and Neutron trunk setup. The Magnum script is now located in a separate directory, and the Neutron trunk demo creates networks, subnets, ports, and a server with a trunk port.
