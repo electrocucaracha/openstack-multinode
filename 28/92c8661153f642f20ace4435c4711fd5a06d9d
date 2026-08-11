@@ -1,0 +1,3 @@
+Category: Changed
+
+Dependencies for OpenStack Kolla were upgraded, affecting multiple versions of requirements files across various distributions. This change impacts users who rely on these dependencies, particularly those using kolla-ansible and cryptography packages. The upgrade to newer versions ensures compatibility with the latest software releases, but may require manual review or updates in some cases.
