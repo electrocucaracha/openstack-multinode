@@ -1,0 +1,3 @@
+Category: Changed
+
+Multi-provider support has been added, allowing users to specify the provider in the Vagrantfile instead of relying on the `VAGRANT_DEFAULT_PROVIDER` environment variable. This change affects how nodes are provisioned and configured, with separate settings for libvirt and virtualbox providers. The config schema has been updated accordingly, but no migration steps are required as the changes are backward compatible.
