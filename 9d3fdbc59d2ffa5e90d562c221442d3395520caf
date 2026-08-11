@@ -1,0 +1,3 @@
+Category: Fixed
+
+The release selection logic in the check_aio.sh script has been improved to ensure robust and predictable selection of the appropriate release file. The new approach uses a while loop that safely decrements the pointer, checks for the existence of the requirements file, and returns the correct release as soon as it is found. This change addresses potential infinite loops or referencing invalid lines when the initial pointer is out of range or files are missing.
