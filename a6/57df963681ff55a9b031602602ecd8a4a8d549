@@ -1,0 +1,3 @@
+Category: Changed
+
+The GitHub Super-Linter dependency was updated from version 4.9.5 to 4.9.6, which may introduce breaking changes in linter rules or configurations. The update does not change the API or CLI contract and has no security impact. Migration steps involve updating the `.github/workflows/linter.yml` file with the new version reference. This change affects maintainers who need to review updated linter rules and configurations.
