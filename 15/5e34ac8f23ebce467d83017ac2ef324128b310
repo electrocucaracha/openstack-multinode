@@ -1,0 +1,3 @@
+Category: Added
+
+Vagrant triggers have been added in the AIO sample to display OpenStack environment variables when the VM starts up, allowing users to view OS-related settings directly from the Vagrant console. This change introduces no breaking behavior and does not require migration steps. The config schema remains unchanged, and there is no security impact. Users can now easily access relevant environment variables without needing additional setup or configuration.
