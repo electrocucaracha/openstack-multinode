@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded in this change, affecting multiple operating systems including Debian 11, Ubuntu 20, Rocky 9, and others. The upgrade includes updates to certifi, cryptography, hvac, idna, iso8601, netaddr, oslo-config, oslo-i18n, oslo-utils, packaging, pbr, pytz, requests, urllib3, and wrapt libraries. This change is primarily a maintenance update with no breaking behavior or migration requirements mentioned in the commit history.
