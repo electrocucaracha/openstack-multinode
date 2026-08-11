@@ -1,0 +1,3 @@
+Category: Changed
+
+The workflow for on-demand NoHA setup has been modified to include experimental features from iproute2mac and Vagrant, specifically the `VAGRANT_EXPERIMENTAL` environment variable. This change introduces breaking behavior in that it requires users to set this variable when using Vagrant with NoHA. The installation process now also includes installing GNU tools via Homebrew.
