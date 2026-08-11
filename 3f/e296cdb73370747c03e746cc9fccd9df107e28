@@ -1,0 +1,3 @@
+Category: Changed
+
+The way to support different Linux distributions has been changed, allowing for more flexible configuration of supported distros through environment variables. The `distros_supported.yml` file now contains a list of supported distros and their corresponding box names and versions. This change affects the Vagrantfile's behavior when provisioning nodes, particularly in terms of box selection and versioning.
