@@ -1,0 +1,3 @@
+Category: Changed
+
+Vagrant box versions for supported distributions were updated to 3.2.10, which may break existing VMs if they rely on the previous version. The change affects centos, ubuntu, debian, and rhel configurations in distros_supported.yml, requiring users to update their environments accordingly. This upgrade is likely intended to fix known issues or improve performance.
