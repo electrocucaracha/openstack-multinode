@@ -1,0 +1,3 @@
+Category: Changed
+
+The version of the github/super-linter dependency was updated from 4.8.5 to 4.8.7, which may introduce breaking behavior if the previous version's configuration is incompatible with the new one. The distros_supported.yml file has been updated accordingly, changing the version of Ubuntu and Debian distributions from "3.6.4" to "3.6.6". This update affects users who rely on these distributions for testing or development purposes.
