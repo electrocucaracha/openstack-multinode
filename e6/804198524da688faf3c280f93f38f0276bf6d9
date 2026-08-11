@@ -1,0 +1,3 @@
+Category: Changed
+
+The requirements files for the project have been split into separate files based on the Linux distribution, specifically for CentOS, Debian, and Ubuntu. This change affects how dependencies are installed and managed, particularly in the `undercloud.sh` script which now uses the corresponding distribution-specific file. The primary user outcome is improved flexibility in managing dependencies across different distributions.
