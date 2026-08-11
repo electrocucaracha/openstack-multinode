@@ -1,0 +1,3 @@
+Category: Added
+
+registry.sh and undercloud.sh files were added to the registry and undercloud directories, respectively, providing softlinks for autocomplete functionality. This change affects users by introducing new commands that can be autocompleted in the terminal. The addition of these files does not impact the API or CLI contract, nor does it introduce any security vulnerabilities or config schema changes.
