@@ -1,0 +1,3 @@
+Category: Changed
+
+The Debian registry node dependencies were updated in the `node.sh` script to ensure correct installation of required packages. This change affects users running on Debian systems, who will now have their dependencies installed automatically when using the `node.sh` script. The update also includes a minor modification to the Vagrantfile for distributed environments.
