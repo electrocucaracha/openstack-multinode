@@ -1,0 +1,3 @@
+Category: Changed
+
+ClearLinux support has been added, breaking behavior includes changes to the Travis CI configuration and Vagrantfile, where shellcheck now uses the -x flag for explicit exit codes. The API contract remains unchanged, but config schema changes include updates to the pdf.yml file with new network names. Migration steps are not explicitly documented, but users should note that the ClearLinux box has been added to the Vagrantfile and the management network address has changed.
