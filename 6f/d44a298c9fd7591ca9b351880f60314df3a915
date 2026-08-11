@@ -1,0 +1,3 @@
+Category: Changed
+
+Compute instructions were improved by updating dependency installation scripts to handle various Linux distributions, including Debian-based systems, which previously required manual configuration. The changes also introduced the use of `curl` for package installation and updated the `bindep` command to install dependencies. This update ensures that the compute platform can be installed on multiple platforms without breaking behavior or requiring additional migration steps.
