@@ -1,0 +1,3 @@
+Category: Changed
+
+Create-pr-action permissions were updated to allow the workflow to push code and create pull requests, requiring no migration steps but introducing breaking behavior for workflows that previously lacked these permissions. The change affects the permissions in three workflows: diagram.yml, distros.yml, and update.yml, which now include write access to contents and pull-requests. This update is necessary for the create-pr-action workflow to function correctly.
