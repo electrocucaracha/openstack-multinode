@@ -1,0 +1,3 @@
+Category: Fixed
+
+The scheduled job for verifying latest Vagrant Boxes now runs daily at 4am instead of 1am, updating the cron expression in the GitHub Actions workflow configuration to reflect this change. This update affects the timing of automated verification tasks and may require no further action from users or maintainers unless they rely on the specific 1am schedule.
