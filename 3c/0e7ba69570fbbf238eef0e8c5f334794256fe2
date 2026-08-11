@@ -1,0 +1,3 @@
+Category: Changed
+
+NOHA nodes now automatically install base requirements, simplifying setup for users. The change involves adding a provisioning script to the Vagrant configuration, ensuring all nodes meet basic requirements without manual intervention. This update does not introduce breaking behavior and does not require migration steps from previous versions.
