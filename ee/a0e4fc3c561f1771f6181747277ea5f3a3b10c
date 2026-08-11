@@ -1,0 +1,3 @@
+Category: Added
+
+Apache website link checker functionality was disabled in the project, impacting users who relied on this feature for validation. The change does not introduce any breaking behavior, API changes, security concerns, or config schema modifications. A new comment was added to README.md to suppress markdown link checking, allowing the deployment process to proceed without interruption. This update maintains compatibility with existing workflows and configurations.
