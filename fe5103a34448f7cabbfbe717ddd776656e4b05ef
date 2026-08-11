@@ -1,0 +1,3 @@
+Category: Added
+
+ProxySQL is now enabled by default in all deployments, providing advanced MySQL load balancing and high availability features unless explicitly disabled. This change addresses previous issues where ProxySQL-dependent services failed due to the service being off by default. The configuration schema has been updated accordingly, with no breaking behavior or migration requirements noted. Further testing may be required to validate compatibility with custom MySQL configurations.
