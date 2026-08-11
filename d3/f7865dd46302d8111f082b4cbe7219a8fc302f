@@ -1,0 +1,3 @@
+Category: Changed
+
+Configuration values were updated to reflect changes in OpenStack release from queens to 7.0.0, including increased memory and CPU allocations for certain nodes, and updates to network interfaces and external IP addresses. The configuration also now uses the kolla-ansible directory instead of etc/. Additionally, the Docker registry was updated to use a newer version. These changes are relevant to users and maintainers who need to adapt their configurations to the new OpenStack release.
