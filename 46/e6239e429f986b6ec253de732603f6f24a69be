@@ -1,0 +1,3 @@
+Category: Changed
+
+Specific versions for GitHub Actions were updated in various workflows to ensure compatibility and consistency across different environments. This change affects the `actions/checkout` action, updating its version from 3 to 3.1.0 in multiple files, as well as other actions like `githubocto/repo-visualizer`, `technote-space/create-pr-action`, and `luizm/action-sh-checker`. The update is necessary for maintaining compatibility with the latest GitHub Actions features and dependencies.
