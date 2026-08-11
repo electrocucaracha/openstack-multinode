@@ -1,0 +1,3 @@
+Category: Changed
+
+The compute script now correctly installs the pip package using its actual path, rather than relying on the system's PATH environment variable. This change ensures that the installation process works even if the system has multiple versions of pip installed. The update also removes a redundant curl command and uses a more reliable method to execute the bash script.
