@@ -1,0 +1,3 @@
+Category: Changed
+
+Documentation for the project was improved by adding license information to the README files in various directories, including samples. This change affects users who want to use the project's configurations and scripts, as they now have clear licensing details. The update also includes Vagrant configuration instructions in some sample directories.
