@@ -1,0 +1,3 @@
+Category: Changed
+
+The all-in-one deployment configuration for OpenStack services has been updated to use Ubuntu Bionic instead of CentOS 7, affecting the underlying operating system and package management. This change requires users to adapt their development environments and may necessitate adjustments in Vagrantfile configurations. The update is limited to development purposes due to its non-production status.
