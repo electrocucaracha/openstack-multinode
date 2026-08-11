@@ -1,0 +1,3 @@
+Category: Changed
+
+The Vagrantfile for Ubuntu Control VMs now updates CA certificates by reinstalling ca-certificates and running update-ca-certificates, ensuring the latest trusted certificates are used. This change affects users who rely on curl, which is reinstalled if necessary after updating CA certificates. The process remains largely unchanged from before but with added robustness in certificate management.
