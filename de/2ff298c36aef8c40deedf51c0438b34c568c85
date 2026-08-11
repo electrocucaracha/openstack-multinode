@@ -1,0 +1,3 @@
+Category: Changed
+
+The rabbitmq PR link was updated in the undercloud.sh script to point to the correct location, fixing an outdated reference. This change does not introduce any breaking behavior and does not require migration steps. The config schema remains unchanged, and there are no security implications. The update ensures users can access the latest information on rabbitmq configuration.
