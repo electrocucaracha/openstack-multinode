@@ -1,0 +1,3 @@
+Category: Added
+
+Cockpit services are now installed by default, enabling users to access system monitoring and management tools through a web interface. This change introduces no breaking behavior but requires manual migration for existing installations that relied on custom service installation procedures. The Cockpit API and CLI contracts remain unchanged. No security impact or config schema changes are associated with this update.
