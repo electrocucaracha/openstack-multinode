@@ -1,0 +1,3 @@
+Category: Changed
+
+The kolla configuration was updated to support Epoxy releases, specifically adding support for new operating system versions in the `.github/workflows/update.yml` file and removing an outdated `kolla-build.conf` file. This change affects how kolla builds and updates its images, with potential implications for users and maintainers who rely on these configurations.
