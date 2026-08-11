@@ -1,0 +1,3 @@
+Category: Changed
+
+VirtualBox has released a fix for the VBoxHeadless issue, so this change adds a conditional to use the workaround only when running on macOS with VirtualBox version 6.1.28r147628. The workaround applies a temporary fix by setting `v.gui = true` in Vagrantfiles. This change does not introduce any breaking behavior or API changes and has no security impact.
