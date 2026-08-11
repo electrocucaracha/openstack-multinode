@@ -1,0 +1,3 @@
+Category: Removed
+
+The Vagrant setup for the aio sample now omits volume files, which previously defined disk images for Cinder and storage devices. This change does not introduce breaking behavior or require migration steps. The config schema remains unchanged, and there are no security implications. As a result, users will need to manually configure these volumes if they rely on them in their setup.
