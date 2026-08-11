@@ -1,0 +1,3 @@
+Category: Removed
+
+The removal of python OS dependencies from the undercloud.sh script simplifies installation by eliminating package-specific code for different operating systems. This change removes API calls to apt and other system commands, reducing potential breakage during upgrades or migrations. The primary impact is on users who need to install the undercloud, as they will no longer encounter errors due to missing packages or unsupported OS versions.
