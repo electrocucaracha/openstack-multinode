@@ -1,0 +1,3 @@
+Category: Changed
+
+xena configuration files were updated, affecting how Kolla deploys OpenStack services. The changes include updating network interface settings, modifying TLS options, and adjusting Glance image options. Additionally, the config schema was altered to use environment variables for some settings, potentially requiring migration steps for existing deployments. These updates aim to improve performance and security in Kolla's OpenStack deployment process.
