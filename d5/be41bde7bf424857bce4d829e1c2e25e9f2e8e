@@ -1,0 +1,3 @@
+Category: Changed
+
+The core thesis of the change is adding support for Bobcat release in Kolla Ansible, which involves updating various configuration files to reflect the new release. This includes changes to the `defaults.env` file, where the `OPENSTACK_RELEASE` variable is updated to use the `2023.2` value by default. Additionally, the `kolla-build.ini` file is modified to set the `openstack_release` variable to `2023.2`. These updates are likely intended to support deployment and configuration of OpenStack services using the Bobcat release.
