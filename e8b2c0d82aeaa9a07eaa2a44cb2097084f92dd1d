@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, and GitHub Actions versions were updated across various workflows to ensure compatibility and maintain the latest features. This change may require re-running some workflows due to the version updates, but it does not introduce any breaking behavior or security risks. The primary outcome is improved reliability and efficiency in workflow execution.
