@@ -1,0 +1,3 @@
+Category: Changed
+
+GitHub Actions workflows were updated to resolve zizmor linting failures, suppressing warnings about archived-uses and secrets-outside-env. The update involved replacing outdated versions of actions/checkout and super-linter/super-linter with newer ones in the linter.yml workflow file. This change ensures smoother execution of GitHub Actions without triggering unnecessary warnings or errors.
