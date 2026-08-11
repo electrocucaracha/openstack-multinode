@@ -1,0 +1,3 @@
+Category: Changed
+
+The code now uses OS VERSION_IDs to identify operating system versions, replacing explicit version numbers in configuration files and workflows. This change affects various GitHub Actions, Vagrantfiles, and scripts that install dependencies, with the primary outcome being improved flexibility and accuracy in handling different Linux distributions. The update also involves renaming files and directories to reflect the new naming convention.
