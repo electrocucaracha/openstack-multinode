@@ -1,0 +1,3 @@
+Category: Changed
+
+Linting issues were fixed in various scripts, including ci/update_distros.sh, ci/update_versions.sh, distros_supported.yml, and node.sh. The changes involved removing unnecessary whitespace, updating grep patterns, and modifying conditional statements to improve code consistency and readability. These updates do not introduce breaking behavior or migration requirements, nor do they affect the API or CLI contract, config schema, or security impact.
