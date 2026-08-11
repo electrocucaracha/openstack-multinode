@@ -1,0 +1,3 @@
+Category: Removed
+
+Markdown linting issues were fixed in the `.github/prompts/sembr.prompt.md` file, ensuring compliance with Semantic Line Breaks (SemBr) specification. The changes do not introduce breaking behavior or migration requirements, nor do they affect API or CLI contracts, security, or config schema. The primary user outcome is improved Markdown formatting consistency and adherence to SemBr guidelines.
