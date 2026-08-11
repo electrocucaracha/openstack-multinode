@@ -1,0 +1,3 @@
+Category: Added
+
+The script now sets the PYTHONPATH environment variable to facilitate Ansible's python module verification, which was previously failing due to missing dependencies. This change affects users who run kolla-ansible with Ansible's python module and requires no migration steps or config schema changes. The updated script exports the PYTHONPATH variable before running kolla-ansible commands.
