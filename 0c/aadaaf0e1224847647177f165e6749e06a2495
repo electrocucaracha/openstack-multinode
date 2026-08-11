@@ -1,0 +1,3 @@
+Category: Changed
+
+Kuryr and etcd services are now enabled by default in the configuration, affecting how images are built and deployed. This change impacts the default image list, adding kuryr and etcd to the set of services included. No breaking behavior or migration requirements were specified, and no API or CLI contract changes are mentioned.
