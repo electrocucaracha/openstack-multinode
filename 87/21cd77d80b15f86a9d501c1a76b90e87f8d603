@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla user specification has been added to the undercloud setup, allowing users to customize the Ansible user used for deployment. This change impacts the `kolla-ansible` command and its configuration, requiring users to specify the desired user via the `OS_KOLLA_USER` environment variable or a new config option. The default behavior remains unchanged with 'kolla' as the default user.
