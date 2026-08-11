@@ -1,0 +1,3 @@
+Category: Changed
+
+Kolla-ansible was upgraded from version 11.0.0 to the wallaby release, which requires changes in how dependencies are installed and managed. The upgrade also involves switching to using git for cloning kolla-ansible instead of downloading tarballs. This change may require manual intervention or migration steps to ensure a smooth transition.
