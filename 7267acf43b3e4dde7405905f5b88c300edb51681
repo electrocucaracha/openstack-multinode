@@ -1,0 +1,3 @@
+Category: Added
+
+The GitHub workflow for updating the repository now uses a secret token, WORKFLOW_TOKEN, to authenticate actions instead of a personal access token. This change affects users who manage workflows and maintainers responsible for configuring secrets. The migration requires no changes as the new token is used in place of the old one.
