@@ -1,0 +1,3 @@
+Category: Changed
+
+The removal process for unnecessary packages in undercloud.sh has been improved to be more accurate and flexible. The code now checks if each package is installed before attempting to remove it, preventing potential errors when running on different Linux distributions. This change ensures that the removal process is safe and reliable, even when dealing with various package configurations.
