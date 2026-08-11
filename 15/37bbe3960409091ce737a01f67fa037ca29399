@@ -1,0 +1,3 @@
+Category: Changed
+
+The IP addresses in the inventory file were corrected to ensure accurate host connections. This change affects users who rely on the inventory file for Ansible playbook execution, requiring them to update their configurations accordingly. No breaking behavior or API changes are introduced by this fix. The correction does not impact security settings or config schema.
