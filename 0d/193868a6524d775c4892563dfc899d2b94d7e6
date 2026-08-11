@@ -1,0 +1,3 @@
+Category: Added
+
+A setup script for installing dependencies was added, enabling users to easily install Vagrant and its required packages on various Linux distributions. The script supports Ubuntu, Debian, RHEL, CentOS, Fedora, and SUSE, handling different package managers and repositories as needed. However, this change introduces a new installation process that may require manual configuration adjustments in some cases.
