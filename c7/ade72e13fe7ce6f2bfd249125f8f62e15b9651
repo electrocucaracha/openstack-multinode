@@ -1,0 +1,3 @@
+Category: Changed
+
+The openstack nodes provisioning scripts have been updated to fix issues and improve functionality. The changes include enabling etcd by default, disabling kuryr, and updating the Vagrantfile to use the correct box version. Additionally, the node.sh script has been modified to mount external partitions correctly and enable nested virtualization. These updates should ensure a smoother provisioning process for OpenStack nodes.
