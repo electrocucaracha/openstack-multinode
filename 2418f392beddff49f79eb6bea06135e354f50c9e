@@ -1,0 +1,3 @@
+Category: Changed
+
+The format for GitHub conditions in workflows was fixed, removing redundant checks that were causing unnecessary complexity. This change affects all on-demand and build workflows, where the condition now correctly filters based on pull request review approval status. The update simplifies workflow logic without introducing breaking behavior or security risks.
