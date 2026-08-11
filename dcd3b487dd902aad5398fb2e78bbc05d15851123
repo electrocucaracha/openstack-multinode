@@ -1,0 +1,3 @@
+Category: Added
+
+The project now includes automated code quality checks through pre-commit configuration, which enforces consistent formatting, removes trailing whitespace, and validates YAML files. This setup also lints shell scripts with shellcheck and bashate, and generates AI-assisted commit messages. The changes aim to standardize the codebase and catch common issues before commits, improving overall consistency and reliability.
