@@ -1,0 +1,3 @@
+Category: Changed
+
+The Go setup action in the linter workflow was updated from version 5.0.1 to 5.0.2, which is a minor patch release that does not introduce breaking changes or require migration steps. This update ensures users have access to the latest features and bug fixes provided by the new version of the action.
