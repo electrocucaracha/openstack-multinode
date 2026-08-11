@@ -1,0 +1,3 @@
+Category: Changed
+
+The CI environment now uses the generic/centos8s box instead of centos/stream8, requiring no migration steps for users. This change affects the config schema in .distros_supported.yml and distros_supported.yml files, updating the name, version, and controller settings for CentOS 8. The API or CLI contract remains unchanged, with no security impact reported.
