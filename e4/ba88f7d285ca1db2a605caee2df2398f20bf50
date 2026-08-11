@@ -1,0 +1,3 @@
+Category: Changed
+
+OpenStack Kolla dependencies were upgraded, affecting distros supported versions in `distros_supported.yml` and requirements files for various distributions (`centos.txt`, `debian.txt`, and `ubuntu.txt`). The upgrade impacts version numbers for several packages, including `kolla-ansible`. This change may require migration steps or updates to dependent projects.
