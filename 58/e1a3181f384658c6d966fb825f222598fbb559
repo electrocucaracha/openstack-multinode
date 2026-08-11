@@ -1,0 +1,3 @@
+Category: Removed
+
+VirtualBox instructions for UART configuration were removed from Vagrantfiles in the aio, distributed, and noha samples due to an upstream bug that made these configurations unnecessary. This change does not introduce breaking behavior, API changes, security concerns, or config schema modifications. The primary outcome is a reduction in unnecessary code, which may simplify maintenance and development workflows for users of these sample Vagrantfiles.
