@@ -1,0 +1,3 @@
+Category: Changed
+
+GCE images were added to the list of supported distributions, which are used for testing and development. This change affects the vagrant_pull function in ci/update_distros.sh, where project IDs and families are now specified for each distribution. The distros_supported.yml file was also updated with new version numbers and project IDs for each GCE image.
