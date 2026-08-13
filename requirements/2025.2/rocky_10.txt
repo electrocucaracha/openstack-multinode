@@ -12,7 +12,7 @@ certifi==2026.7.22
     # via requests
 cffi==2.1.1
     # via cryptography
-charset-normalizer==3.4.9
+charset-normalizer==3.5.0
     # via requests
 cliff==4.15.0
     # via kolla-ansible
