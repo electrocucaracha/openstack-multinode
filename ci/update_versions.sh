@@ -37,6 +37,8 @@ readonly exceptions=(
 
 readonly pinned_actions=()
 
+declare -A remote_tags
+
 for action in $gh_actions; do
     is_pinned=false
     for pinned in "${pinned_actions[@]}"; do
@@ -63,39 +65,62 @@ for action in $gh_actions; do
         continue
     fi
 
+    # An action reference can be either:
+    #
+    #   owner/repo
+    #
+    # or:
+    #
+    #   owner/repo/path/to/action
+    #
+    # In both cases, the repository is the first two path components.
+    owner="${action%%/*}"
+    rest="${action#*/}"
+    repo="${owner}/${rest%%/*}"
+
+    # Fetch tags only once per repository. This is important when multiple
+    # actions come from the same repository, e.g.:
+    #
+    #   github/codeql-action/upload-sarif
+    #   github/codeql-action/init
+    #   github/codeql-action/analyze
+    if [[ -z ${remote_tags[$repo]+x} ]]; then
+        remote_tags[$repo]=$(git ls-remote --tags "https://github.com/$repo")
+    fi
+
     commit_hash=$(
-        git ls-remote --tags "https://github.com/$action" |
+        printf '%s\n' "${remote_tags[$repo]}" |
             awk '
-        {
-            sha=$1
-            ref=$2
+            {
+                sha=$1
+                ref=$2
 
-            if (ref ~ /\^\{\}$/) {
-                tag=ref
-                sub(/\^\{\}$/, "", tag)
-                commits[tag]=sha
-            } else {
-                tags[ref]=sha
-            }
-        }
-        END {
-            for (ref in tags) {
-                sha = (ref in commits ? commits[ref] : tags[ref])
-
-                tag = ref
-                sub(/^refs\/tags\//, "", tag)
-
-                # semver only
-                if (tag ~ /^v?[0-9]+(\.[0-9]+)*$/) {
-                    sortkey = tag
-                    sub(/^v/, "", sortkey)
-                    print sortkey "\t" sha "\t" tag
+                if (ref ~ /\^\{\}$/) {
+                    tag=ref
+                    sub(/\^\{\}$/, "", tag)
+                    commits[tag]=sha
+                } else {
+                    tags[ref]=sha
                 }
             }
-        }' |
-            sort -V |
+            END {
+                for (ref in tags) {
+                    sha = (ref in commits ? commits[ref] : tags[ref])
+
+                    tag = ref
+                    sub(/^refs\/tags\//, "", tag)
+
+                    # semver only
+                    if (tag ~ /^v?[0-9]+(\.[0-9]+)*$/) {
+                        sortkey = tag
+                        sub(/^v/, "", sortkey)
+                        print sortkey "\t" sha "\t" tag
+                    }
+                }
+            }' |
+            sort -V -k1,1 |
             tail -1 |
-            awk -F'\t' '{ printf "%s # %s\n", $2, $3 }'
+            awk -F'\t' '{ print $2 " # " $3 }'
     )
 
     if [[ -z $commit_hash ]]; then

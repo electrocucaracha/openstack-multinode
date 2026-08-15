@@ -58,11 +58,11 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
         with:
           persist-credentials: true
-      - uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
           enable-cache: true
           python-version: ${{ matrix.python_version }}
-      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # v2.1.4
         with:
           EXECUTE_COMMANDS: |
             uv pip compile --output-file=${GITHUB_WORKSPACE}/requirements/${{ matrix.os_release }}/${{ matrix.distro }}.txt ${GITHUB_WORKSPACE}/requirements/${{ matrix.os_release }}/pyproject.toml --upgrade
@@ -79,7 +79,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
         with:
           persist-credentials: true
-      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # v2.1.4
         with:
           EXECUTE_COMMANDS: |
             sudo apt-get update
@@ -111,7 +111,7 @@ jobs:
           # Fine-grained PAT with contents:write and workflows:write scopes
           token: ${{ secrets.WORKFLOW_TOKEN }} # zizmor: ignore[secrets-outside-env]
           persist-credentials: true
-      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # v2.1.4
         with:
           EXECUTE_COMMANDS: |
             ./ci/update_versions.sh

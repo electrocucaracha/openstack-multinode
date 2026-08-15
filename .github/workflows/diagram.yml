@@ -33,7 +33,7 @@ jobs:
           excluded_paths: "ignore,.github"
           output_file: codebase-structure.svg
           should_push: false
-      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # 2.1.4
+      - uses: technote-space/create-pr-action@91114507cf92349bec0a9a501c2edf1635427bc5 # v2.1.4
         with:
           COMMIT_MESSAGE: "Upgrade documentation diagram"
           COMMIT_NAME: "electrocucaracha bot"

@@ -16,7 +16,7 @@ runs:
   using: "composite"
   steps:
     - name: Get Docker Image layer contents
-      uses: MaxymVlasov/dive-action@62dde811c401b3b342b69bd42b28e5042b79ef86 # 1.6.0
+      uses: MaxymVlasov/dive-action@9bfaea6c0b1e49111459b2cb3f9275fa4094a63e # v2.0.1
       with:
         image: ${{ inputs.image }}
     - name: Run Trivy vulnerability scanner
@@ -26,7 +26,7 @@ runs:
         format: sarif
         output: results.sarif
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@86b04fb0e47484f7282357688f21d5d0e32175fe # 3.26.9
+      uses: github/codeql-action/upload-sarif@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4.37.7
       with:
         sarif_file: results.sarif
         category: "${{ inputs.image }}"
