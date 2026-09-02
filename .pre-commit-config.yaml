@@ -37,7 +37,7 @@ repos:
     hooks:
       - id: yamlfmt
   - repo: https://github.com/electrocucaracha/ai-prepare-commit-msg
-    rev: v9.0.0
+    rev: v14.0.0
     hooks:
       - id: ai-prepare-commit
         stages:
