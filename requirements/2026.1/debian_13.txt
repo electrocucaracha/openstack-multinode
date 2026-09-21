@@ -70,7 +70,7 @@ pycparser==3.0
     # via cffi
 pygments==2.21.0
     # via rich
-pyparsing==3.3.2
+pyparsing==3.3.3
     # via oslo-utils
 pyperclip==1.11.0
     # via cmd2
