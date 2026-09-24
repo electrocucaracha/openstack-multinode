@@ -106,7 +106,7 @@ stevedore==5.9.1
     #   oslo-config
 urllib3==2.8.0
     # via requests
-wcwidth==0.8.4
+wcwidth==0.9.1
     # via
     #   prettytable
     #   prompt-toolkit
