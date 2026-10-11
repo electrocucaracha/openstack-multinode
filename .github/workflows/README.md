@@ -11,5 +11,4 @@
 | [on-demand](./on-demand.yml)           | Verifies Bash scripts format                                              | on new commit or push on master    |
 | [rebase](./rebase.yml)                 | Helps to rebase changes of the Pull Request                               | manual trigger                     |
 | [scheduled_aio](./scheduled_aio.yml)   | Verifies all-in-one setups in different supported distros                 | scheduled or manual trigger        |
-| [spell](./spell.yml)                   | Verifies spelling errors on documentation                                 | on new commit or push on master    |
 | [update](./update.yml)                 | Updates Python requirements files and word list in the dictionary         | scheduled or manual trigger        |
