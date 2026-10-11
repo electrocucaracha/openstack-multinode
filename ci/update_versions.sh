@@ -21,24 +21,102 @@ if ! command -v uvx >/dev/null; then
 fi
 uvx pre-commit autoupdate
 
-gh_actions=$(grep -rhoE 'uses: [^@]+@' .github |
-    sed -E 's/uses: ([^@]+)@/\1/' |
-    sort -u)
+resolve_action_commit_hash() {
+    local action=$1
+    local version_pattern=$2
 
-readonly exceptions=(
-    'reviewdog/action-misspell'
-    'actions/attest-build-provenance'
-    'GrantBirki/git-diff-action'
-    'golangci/golangci-lint-action'
-    'actions/checkout'
-    'actions/upload-artifact'
-    'tcort/github-action-markdown-link-check'
-)
+    git ls-remote --tags "https://github.com/$action" |
+        awk -v version_pattern="$version_pattern" '
+        {
+            sha=$1
+            tag=$2
+            deref = (tag ~ /\^\{\}$/) ? 1 : 0
 
-readonly pinned_actions=()
+            sub(/^refs\/tags\//, "", tag)
+            sub(/\^\{\}$/, "", tag)
 
-declare -A remote_tags
+            if (tag ~ version_pattern) {
+                sortkey=tag
+                sub(/^[vV]/, "", sortkey)
 
+                print sortkey "\t" deref "\t" sha "\t" tag
+            }
+        }' |
+        sort -V -k1,1 -k2,2n |
+        tail -1 |
+        awk -F'\t' '{ printf "%s # %s\n", $3, $4 }'
+}
+
+resolve_reusable_workflow_commit_hash() {
+    local workflow=$1
+    local ref=$2
+    local repo=${workflow%%/.github/workflows/*}
+    local commit_hash
+
+    # A full SHA is already immutable; no lookup required.
+    if [[ $ref =~ ^[0-9a-fA-F]{40}$ ]]; then
+        printf "%s # %s\n" "$ref" "$ref"
+        return
+    fi
+
+    # For version-like refs, resolve the latest matching tag.
+    commit_hash=$(resolve_action_commit_hash "$repo" '^[vV]?[0-9]+(\.[0-9]+)*$')
+    if [[ -n $commit_hash ]]; then
+        printf "%s\n" "$commit_hash"
+        return
+    fi
+
+    # Otherwise resolve the ref directly as a branch or tag.
+    git ls-remote \
+        "https://github.com/$repo" \
+        "refs/heads/$ref" \
+        "refs/tags/$ref" \
+        "refs/tags/$ref^{}" |
+        awk -v ref="$ref" '
+        {
+            sha=$1
+            target=$2
+            deref = (target ~ /\^\{\}$/) ? 1 : 0
+
+            if (target ~ /^refs\/heads\// || deref || best == "") {
+                best=sha
+            }
+        }
+
+        END {
+            if (best == "") {
+                exit 1
+            }
+
+            printf "%s # %s\n", best, ref
+        }'
+}
+
+resolve_reusable_workflow_ref() {
+    local workflow=$1
+
+    grep -rhoE "uses: $workflow@[^[:space:]]+( # [^[:space:]]+)?" .github |
+        awk '
+    {
+        sub(/^.*@/, "")
+        if ($2 == "#" && $3 != "") {
+            print $3
+        } else {
+            print $1
+        }
+    }' |
+        sort -u |
+        tail -1
+}
+
+# Update GitHub Action commit hashes
+gh_actions=$(grep -rhoE 'uses: [^@]+@' .github | sed -E 's/uses: ([^@]+)@/\1/' | sort -u)
+exceptions=('reviewdog/action-misspell' 'actions/attest-build-provenance' 'GrantBirki/git-diff-action' 'golangci/golangci-lint-action' 'actions/checkout' 'actions/upload-artifact')
+# Actions pinned to a specific version and excluded from auto-updates.
+# Remove an entry only once the underlying issue is confirmed resolved.
+# austenstone/copilot-cli: v3.0+ depends on actions/setup-copilot@v0 which does
+# not yet exist publicly; keep at v2.0 until that action is released.
+readonly pinned_actions=('austenstone/copilot-cli')
 for action in $gh_actions; do
     is_pinned=false
     for pinned in "${pinned_actions[@]}"; do
@@ -47,88 +125,17 @@ for action in $gh_actions; do
             break
         fi
     done
-
-    if [[ $is_pinned == true ]]; then
+    if [[ $is_pinned == "true" ]]; then
         echo "Skipping auto-update for pinned action: $action"
         continue
     fi
-
-    is_exception=false
-    for ex in "${exceptions[@]}"; do
-        if [[ $action == "$ex" ]]; then
-            is_exception=true
-            break
-        fi
-    done
-
-    if [[ $is_exception == true ]]; then
-        continue
+    if [[ $action == */.github/workflows/*.yml ]]; then
+        ref=$(resolve_reusable_workflow_ref "$action")
+        commit_hash=$(resolve_reusable_workflow_commit_hash "$action" "$ref")
+    elif [[ ${exceptions[*]} =~ (^|[^[:alpha:]])$action([^[:alpha:]]|$) ]]; then
+        commit_hash=$(resolve_action_commit_hash "$action" '^v?[0-9]+(\.[0-9]+)*$')
+    else
+        commit_hash=$(resolve_action_commit_hash "$action" '^[vV]?[0-9]+(\.[0-9]+)*$')
     fi
-
-    # An action reference can be either:
-    #
-    #   owner/repo
-    #
-    # or:
-    #
-    #   owner/repo/path/to/action
-    #
-    # In both cases, the repository is the first two path components.
-    owner="${action%%/*}"
-    rest="${action#*/}"
-    repo="${owner}/${rest%%/*}"
-
-    # Fetch tags only once per repository. This is important when multiple
-    # actions come from the same repository, e.g.:
-    #
-    #   github/codeql-action/upload-sarif
-    #   github/codeql-action/init
-    #   github/codeql-action/analyze
-    if [[ -z ${remote_tags[$repo]+x} ]]; then
-        remote_tags[$repo]=$(git ls-remote --tags "https://github.com/$repo")
-    fi
-
-    commit_hash=$(
-        printf '%s\n' "${remote_tags[$repo]}" |
-            awk '
-            {
-                sha=$1
-                ref=$2
-
-                if (ref ~ /\^\{\}$/) {
-                    tag=ref
-                    sub(/\^\{\}$/, "", tag)
-                    commits[tag]=sha
-                } else {
-                    tags[ref]=sha
-                }
-            }
-            END {
-                for (ref in tags) {
-                    sha = (ref in commits ? commits[ref] : tags[ref])
-
-                    tag = ref
-                    sub(/^refs\/tags\//, "", tag)
-
-                    # semver only
-                    if (tag ~ /^v?[0-9]+(\.[0-9]+)*$/) {
-                        sortkey = tag
-                        sub(/^v/, "", sortkey)
-                        print sortkey "\t" sha "\t" tag
-                    }
-                }
-            }' |
-            sort -V -k1,1 |
-            tail -1 |
-            awk -F'\t' '{ print $2 " # " $3 }'
-    )
-
-    if [[ -z $commit_hash ]]; then
-        echo "WARNING: unable to resolve tag for $action; skipping" >&2
-        continue
-    fi
-
-    while IFS= read -r -d '' file; do
-        sed -i -e "s|uses: $action@.*|uses: $action@$commit_hash|g" "$file"
-    done < <(grep -ElRZ "uses: $action@" .github/)
+    grep -ElRZ "uses: $action@" .github/ | xargs -0 -L 1 sed -i -e "s|uses: $action@.*|uses: $action@$commit_hash|g"
 done
