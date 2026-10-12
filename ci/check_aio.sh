@@ -35,21 +35,7 @@ function _print_msg {
     echo "$(date +%H:%M:%S) - $1: $2"
 }
 
-function get_release {
-    local release_pointer=${CI_INITIAL_RELEASE_POINTER:-3}
-
-    while ((release_pointer >= 1)); do
-        local release
-        release=$(sed -n "${release_pointer}p" releases.txt)
-
-        if [[ -f "./requirements/${release}/${OS_DISTRO}.txt" ]]; then
-            printf '%s\n' "$release"
-            return
-        fi
-
-        ((release_pointer--))
-    done
-}
+source ./ci/aio_releases.sh
 
 function upgrade {
     local initial_release=$1
@@ -83,7 +69,7 @@ function print_hw_stats {
 initial_release=$(get_release)
 if [[ -z $initial_release ]]; then
     warn "There is no OpenStack release supported for ${OS_DISTRO}"
-    exit
+    exit 1
 fi
 pushd samples/aio/ >/dev/null
 info "Deploying ${OS_DISTRO} distro with OpenStack ${initial_release} release"
