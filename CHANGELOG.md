@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Simplified the formatting of the Skydive dashboard URL and the actions/checkout@v5.0.0 version reference in the changelog to use backticks for consistency and improved readability. [9e804b5a](https://github.com/electrocucaracha/openstack-multinode/commit/9e804b5a540de31447094e4e76e2b9f18e6822a2)
+- Simplified the formatting of the Skydive dashboard URL and the `actions/checkout@v5.0.0` version reference in the changelog to use backticks for consistency and improved readability. [9e804b5a](https://github.com/electrocucaracha/openstack-multinode/commit/9e804b5a540de31447094e4e76e2b9f18e6822a2)
 
 ## [33.4.1] - 2026-10-17
 
