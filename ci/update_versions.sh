@@ -21,3 +21,4 @@ if ! command -v uvx >/dev/null; then
 fi
 uvx pre-commit autoupdate
 uv run --no-project --with git+https://github.com/electrocucaracha/gh-updater.git gh-updater .
+uvx --refresh zizmor --offline --min-severity low .github/ --fix=all
