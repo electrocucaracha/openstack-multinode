@@ -2071,7 +2071,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Switched to CentOS Stream distro which is a rolling-release distribution that receives updates directly from Red Hat without the need for major version upgrades impacting how virtual machines are provisioned and configured in Vagrant files with updated commands and settings reflecting the new distro's naming conventions and package versions also affecting registry scripts and configuration files requiring adjustments to accommodate CentOS Stream's unique update cycle. [8138f51e](https://github.com/electrocucaracha/openstack-multinode/commit/8138f51e853893bda631ad4b5e5f475eca5d3369)
+- Switched to CentOS Stream distro which is a rolling-release distribution that receives updates directly from Red Hat without the need for major version upgrades impacting how virtual machines are provisioned and configured in Vagrant files with updated commands and settings reflecting the new distro's naming conventions and package versions
+  also affecting registry scripts and configuration files requiring adjustments to accommodate CentOS Stream's unique update cycle. [8138f51e](https://github.com/electrocucaracha/openstack-multinode/commit/8138f51e853893bda631ad4b5e5f475eca5d3369)
 
 ## [16.2.2] - 2022-01-27
 
