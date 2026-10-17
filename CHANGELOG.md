@@ -259,7 +259,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Optimized linter configurations persist credentials by default for jobs using actions/checkout@v5.0.0 with the persist-credentials option, requiring updated permissions in workflows like on-demand.yml and update.yml. [715ce1e9](https://github.com/electrocucaracha/openstack-multinode/commit/715ce1e9b323c69928b3561a086ee1963b7e25b2)
+- Optimized linter configurations persist credentials by default for jobs using `actions/checkout@v5.0.0` with the persist-credentials option, requiring updated permissions in workflows like on-demand.yml and update.yml. [715ce1e9](https://github.com/electrocucaracha/openstack-multinode/commit/715ce1e9b323c69928b3561a086ee1963b7e25b2)
 
 ## [27.4.4] - 2025-09-29
 
@@ -2995,7 +2995,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Enabled Skydive by default in provisioning tasks and configuration, making its dashboard accessible at http://10.10.13.3:8085 for custom services listed in kolla-build.ini. [4a9fdcc7](https://github.com/electrocucaracha/openstack-multinode/commit/4a9fdcc78a393e9799816417554632eb3a2362e5)
+- Enabled Skydive by default in provisioning tasks and configuration, making its dashboard accessible at `http://10.10.13.3:8085` for custom services listed in kolla-build.ini. [4a9fdcc7](https://github.com/electrocucaracha/openstack-multinode/commit/4a9fdcc78a393e9799816417554632eb3a2362e5)
 
 ## [4.4.0] - 2019-05-09
 
