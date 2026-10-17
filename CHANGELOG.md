@@ -55,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated the ai-prepare-commit-msg hook to ensure compatibility with recent upstream improvements and bug fixes, potentially improving commit message suggestions and overall hook reliability without requiring configuration changes. [b412068a](https://github.com/electrocucaracha/openstack-multinode/commit/b412068a85508dae7ac6aa3f1e5a0585a5048d20)
+- Updated the ai-prepare-commit-msg hook to ensure compatibility with recent upstream improvements and bugfixes, potentially improving commit message suggestions and overall hook reliability without requiring configuration changes. [b412068a](https://github.com/electrocucaracha/openstack-multinode/commit/b412068a85508dae7ac6aa3f1e5a0585a5048d20)
 
 ## [32.0.0] - 2026-07-26
 
@@ -85,7 +85,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Upgraded actions/cache and setup-go dependencies to their latest patch versions in workflow definitions to ensure the use of upstream bug fixes and improvements, reducing known issue risk without modifying workflow logic or configuration. [6544f373](https://github.com/electrocucaracha/openstack-multinode/commit/6544f373536c1d35084ab9e6339b6b2140b03d41)
+- Upgraded actions/cache and setup-go dependencies to their latest patch versions in workflow definitions to ensure the use of upstream bugfixes and improvements, reducing known issue risk without modifying workflow logic or configuration. [6544f373](https://github.com/electrocucaracha/openstack-multinode/commit/6544f373536c1d35084ab9e6339b6b2140b03d41)
 
 ## [31.0.6] - 2026-06-29
 
@@ -163,7 +163,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Enabled support for super-linter reporter in GitHub actions through running scc tool and analyzing failed linter logs using AI inference to provide structured reasoning and proposed fixes without requiring any migration steps or affecting API or CLI contracts. [695fd65d](https://github.com/electrocucaracha/openstack-multinode/commit/695fd65d67bbb570359cff6c6965068fb7724132)
+- Enabled support for super-linter reporter in GitHub Actions through running scc tool and analyzing failed linter logs using AI inference to provide structured reasoning and proposed fixes without requiring any migration steps or affecting API or CLI contracts. [695fd65d](https://github.com/electrocucaracha/openstack-multinode/commit/695fd65d67bbb570359cff6c6965068fb7724132)
 
 ## [29.0.1] - 2026-03-13
 
@@ -577,7 +577,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Enabled flexibility in automated updates by disabling editorconfig checker in update distros script without introducing any breaking changes or modifying API contracts. [78fe180b](https://github.com/electrocucaracha/openstack-multinode/commit/78fe180b6fead4e13d7c56480d4581c547e4269d)
+- Enabled flexibility in automated updates by disabling EditorConfig checker in update distros script without introducing any breaking changes or modifying API contracts. [78fe180b](https://github.com/electrocucaracha/openstack-multinode/commit/78fe180b6fead4e13d7c56480d4581c547e4269d)
 
 ## [26.3.15] - 2024-09-30
 
@@ -601,7 +601,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated editorconfig format to maintain consistency and accuracy in project configurations and scripts affecting various files including distros_supported.yml and modifying the vercmp() function in commons_spec.sh and the _get_kolla_actions() function in undercloud_spec.sh. [f4c40bb3](https://github.com/electrocucaracha/openstack-multinode/commit/f4c40bb33cede9030bd6f56273922d8d49096026)
+- Updated EditorConfig format to maintain consistency and accuracy in project configurations and scripts affecting various files including distros_supported.yml and modifying the vercmp() function in commons_spec.sh and the _get_kolla_actions() function in undercloud_spec.sh. [f4c40bb3](https://github.com/electrocucaracha/openstack-multinode/commit/f4c40bb33cede9030bd6f56273922d8d49096026)
 
 ## [26.3.11] - 2024-09-30
 
@@ -769,7 +769,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated the Go setup action in the linter workflow to version 5.0.2, which includes minor bug fixes and new features without introducing breaking changes or requiring migration steps. [29cefbf2](https://github.com/electrocucaracha/openstack-multinode/commit/29cefbf24476f06600987f87c73827c5a39775d7)
+- Updated the Go setup action in the linter workflow to version 5.0.2, which includes minor bugfixes and new features without introducing breaking changes or requiring migration steps. [29cefbf2](https://github.com/electrocucaracha/openstack-multinode/commit/29cefbf24476f06600987f87c73827c5a39775d7)
 
 ## [24.2.7] - 2024-07-08
 
@@ -793,7 +793,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated the actions/checkout dependency to version 4.1.7, which likely stabilizes the checkout process for multiple workflows with possible bug fixes and improvements in this minor patch update. [1341b9ab](https://github.com/electrocucaracha/openstack-multinode/commit/1341b9ab0cab0391fb751b0f8ef65a1b5d84ecca)
+- Updated the actions/checkout dependency to version 4.1.7, which likely stabilizes the checkout process for multiple workflows with possible bugfixes and improvements in this minor patch update. [1341b9ab](https://github.com/electrocucaracha/openstack-multinode/commit/1341b9ab0cab0391fb751b0f8ef65a1b5d84ecca)
 
 ## [24.2.3] - 2024-06-10
 
@@ -847,25 +847,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated the actions/setup-go dependency to version 5.0.1, which includes minor setup behavior improvements and bug fixes from the previous release. [74ebe189](https://github.com/electrocucaracha/openstack-multinode/commit/74ebe189127a9bf7b227f66d1a6234bebda04fc1)
+- Updated the actions/setup-go dependency to version 5.0.1, which includes minor setup behavior improvements and bugfixes from the previous release. [74ebe189](https://github.com/electrocucaracha/openstack-multinode/commit/74ebe189127a9bf7b227f66d1a6234bebda04fc1)
 
 ## [24.1.7] - 2024-04-26
 
 ### Changed
 
-- Enabled detailed code analysis and metrics for users through the addition of SCC badges and GitHub actions. [bee18806](https://github.com/electrocucaracha/openstack-multinode/commit/bee18806324e8cb22ec0e098df1df88c5311c1ff)
+- Enabled detailed code analysis and metrics for users through the addition of SCC badges and GitHub Actions. [bee18806](https://github.com/electrocucaracha/openstack-multinode/commit/bee18806324e8cb22ec0e098df1df88c5311c1ff)
 
 ## [24.1.6] - 2024-04-25
 
 ### Changed
 
-- Updated actions/checkout to version 4.1.4 for access to the latest features and bug fixes without introducing any breaking behavior or API contract changes. [762a3b50](https://github.com/electrocucaracha/openstack-multinode/commit/762a3b50d1abd68e7a667dc46ed26a56f27350ae)
+- Updated actions/checkout to version 4.1.4 for access to the latest features and bugfixes without introducing any breaking behavior or API contract changes. [762a3b50](https://github.com/electrocucaracha/openstack-multinode/commit/762a3b50d1abd68e7a667dc46ed26a56f27350ae)
 
 ## [24.1.5] - 2024-04-22
 
 ### Changed
 
-- Updated actions/checkout to version 4.1.3, which may include bug fixes and performance improvements without requiring any migration steps or breaking behavior. [c8aa569e](https://github.com/electrocucaracha/openstack-multinode/commit/c8aa569ea4d1638a7ed1a41ff1ff0d571de66588)
+- Updated actions/checkout to version 4.1.3, which may include bugfixes and performance improvements without requiring any migration steps or breaking behavior. [c8aa569e](https://github.com/electrocucaracha/openstack-multinode/commit/c8aa569ea4d1638a7ed1a41ff1ff0d571de66588)
 
 ## [24.1.4] - 2024-03-28
 
@@ -907,7 +907,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Resolved outdated link references in README files to improve sample deployment guide reliability without affecting API or CLI contracts, config schema, security, or migration requirements. [6eb86fe7](https://github.com/electrocucaracha/openstack-multinode/commit/6eb86fe7d67f6d8a52a247d15da10232252f763a)
+- Resolved outdated link references in readme files to improve sample deployment guide reliability without affecting API or CLI contracts, config schema, security, or migration requirements. [6eb86fe7](https://github.com/electrocucaracha/openstack-multinode/commit/6eb86fe7d67f6d8a52a247d15da10232252f763a)
 
 ## [23.4.0] - 2024-03-14
 
@@ -937,7 +937,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated the reviewdog/action-misspell dependency to version 1.16.0, introducing no breaking behavior and preserving the API and CLI contract, with no security impact but potentially affecting users relying on the spell-checking feature in their workflows. [c0791c39](https://github.com/electrocucaracha/openstack-multinode/commit/c0791c39ece245abde42fe189d250f41a5e4de56)
+- Updated the reviewdog/action-misspell dependency to version 1.16.0, introducing no breaking behavior and preserving the API and CLI contract, with no security impact but potentially affecting users relying on the spell checking feature in their workflows. [c0791c39](https://github.com/electrocucaracha/openstack-multinode/commit/c0791c39ece245abde42fe189d250f41a5e4de56)
 
 ## [23.2.5] - 2024-03-01
 
@@ -973,7 +973,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Enabled users to access relevant information about cluster setup by introducing a link to Intel's NUC documentation in the aio sample README. [a9154c07](https://github.com/electrocucaracha/openstack-multinode/commit/a9154c0716c8d1499122c0bd9978298f1c743b67)
+- Enabled users to access relevant information about cluster setup by introducing a link to Intel's NUC documentation in the aio sample readme. [a9154c07](https://github.com/electrocucaracha/openstack-multinode/commit/a9154c0716c8d1499122c0bd9978298f1c743b67)
 
 ## [23.1.0] - 2024-01-09
 
@@ -991,7 +991,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Optimized deployment requirements for the 2023.2 release by replacing ansible with ansible-core>=2.14,<2.16. [55c2add0](https://github.com/electrocucaracha/openstack-multinode/commit/55c2add0d7a56be9ca8aea906ca272f8d67d18ca)
+- Optimized deployment requirements for the 2023.2 release by replacing Ansible with ansible-core>=2.14,<2.16. [55c2add0](https://github.com/electrocucaracha/openstack-multinode/commit/55c2add0d7a56be9ca8aea906ca272f8d67d18ca)
 
 ## [22.1.34] - 2023-12-20
 
@@ -1093,7 +1093,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated the default OS_DISTRO variable to ubuntu_22 from its previous default of ubuntu without introducing any breaking behavior. [3f37f844](https://github.com/electrocucaracha/openstack-multinode/commit/3f37f844da974ecdd5fd2a3404e2405c6078db6d)
+- Updated the default OS_DISTRO variable to ubuntu_22 from its previous default of Ubuntu without introducing any breaking behavior. [3f37f844](https://github.com/electrocucaracha/openstack-multinode/commit/3f37f844da974ecdd5fd2a3404e2405c6078db6d)
 
 ## [22.1.17] - 2023-07-20
 
@@ -1111,7 +1111,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Restrictions were enforced on Ansible version usage to ensure compatibility with newer features and bug fixes, requiring at least Ansible 6.0.0 and Ansible Core 2.13.0 while limiting the upper bound of these versions. [19404f2a](https://github.com/electrocucaracha/openstack-multinode/commit/19404f2ab13af05605eb3aeae9844f11d0abd96b)
+- Restrictions were enforced on Ansible version usage to ensure compatibility with newer features and bugfixes, requiring at least Ansible 6.0.0 and Ansible Core 2.13.0 while limiting the upper bound of these versions. [19404f2a](https://github.com/electrocucaracha/openstack-multinode/commit/19404f2ab13af05605eb3aeae9844f11d0abd96b)
 
 ## [22.1.14] - 2023-07-20
 
@@ -1153,7 +1153,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Upgraded the GitHub repository visualizer dependency to version 0.9.1, introducing new features and bug fixes without altering the API or CLI contract, breaking existing behavior, or affecting config schema integrity. [14c49833](https://github.com/electrocucaracha/openstack-multinode/commit/14c49833e2bbbdc6ab5afffeaabdb5464b7a26a8)
+- Upgraded the GitHub repository visualizer dependency to version 0.9.1, introducing new features and bugfixes without altering the API or CLI contract, breaking existing behavior, or affecting config schema integrity. [14c49833](https://github.com/electrocucaracha/openstack-multinode/commit/14c49833e2bbbdc6ab5afffeaabdb5464b7a26a8)
 
 ## [22.1.7] - 2023-04-14
 
@@ -1219,7 +1219,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Simplified the undercloud provisioning scripts to improve maintainability and user experience by replacing complex logic with streamlined functions for dependency installation, Ansible setup, proxy configuration, Python package conflict resolution on Ubuntu-based systems, and removal of redundant docker source lists. [db4d7f62](https://github.com/electrocucaracha/openstack-multinode/commit/db4d7f6271a828f17f6c6ad9ed49efa860bc0824)
+- Simplified the undercloud provisioning scripts to improve maintainability and user experience by replacing complex logic with streamlined functions for dependency installation, Ansible setup, proxy configuration, Python package conflict resolution on Ubuntu-based systems, and removal of redundant Docker source lists. [db4d7f62](https://github.com/electrocucaracha/openstack-multinode/commit/db4d7f6271a828f17f6c6ad9ed49efa860bc0824)
 
 ## [22.0.0] - 2023-04-04
 
@@ -1375,7 +1375,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated the GitHub Action for markdown link checking to version 1.0.14, which may introduce breaking behavior if the previous configuration relied on specific features of 1.0.13. [83724d5e](https://github.com/electrocucaracha/openstack-multinode/commit/83724d5e4253dfeb8002ea19b16c3ceaccc9783e)
+- Updated the GitHub Action for Markdown link checking to version 1.0.14, which may introduce breaking behavior if the previous configuration relied on specific features of 1.0.13. [83724d5e](https://github.com/electrocucaracha/openstack-multinode/commit/83724d5e4253dfeb8002ea19b16c3ceaccc9783e)
 
 ## [20.0.9] - 2023-04-04
 
@@ -1411,7 +1411,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated actions/cache to version 3.2.5, which includes bug fixes and performance improvements likely resulting from minor patch release changes. [704ade46](https://github.com/electrocucaracha/openstack-multinode/commit/704ade46526bbc447877a1e521503d52b4c79f8f)
+- Updated actions/cache to version 3.2.5, which includes bugfixes and performance improvements likely resulting from minor patch release changes. [704ade46](https://github.com/electrocucaracha/openstack-multinode/commit/704ade46526bbc447877a1e521503d52b4c79f8f)
 
 ## [20.0.3] - 2023-04-04
 
@@ -1423,7 +1423,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Upgraded to version 3.3.0 of the actions/cache dependency, enabling users to take advantage of new features and bug fixes without requiring any breaking changes or alterations to existing workflows. [5f87f3f4](https://github.com/electrocucaracha/openstack-multinode/commit/5f87f3f45d3178da802e5f1cab9f910175b74f05)
+- Upgraded to version 3.3.0 of the actions/cache dependency, enabling users to take advantage of new features and bugfixes without requiring any breaking changes or alterations to existing workflows. [5f87f3f4](https://github.com/electrocucaracha/openstack-multinode/commit/5f87f3f45d3178da802e5f1cab9f910175b74f05)
 
 ## [20.0.1] - 2023-04-04
 
@@ -1501,7 +1501,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Upgraded the GitHub Action for markdown link checking to version 1.0.15, introducing no breaking changes and maintaining compatibility with existing API and CLI contracts. [23a9b653](https://github.com/electrocucaracha/openstack-multinode/commit/23a9b653c7a4dd10dbb4bcc736724b54e37f0951)
+- Upgraded the GitHub Action for Markdown link checking to version 1.0.15, introducing no breaking changes and maintaining compatibility with existing API and CLI contracts. [23a9b653](https://github.com/electrocucaracha/openstack-multinode/commit/23a9b653c7a4dd10dbb4bcc736724b54e37f0951)
 
 ## [19.2.22] - 2023-04-04
 
@@ -1525,7 +1525,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Corrected the benefits section in the README document to accurately reflect containerized deployment characteristics. [ef903ce4](https://github.com/electrocucaracha/openstack-multinode/commit/ef903ce41dbe8ecdf07c27c6b4b78d6818fcb5b8)
+- Corrected the benefits section in the readme document to accurately reflect containerized deployment characteristics. [ef903ce4](https://github.com/electrocucaracha/openstack-multinode/commit/ef903ce41dbe8ecdf07c27c6b4b78d6818fcb5b8)
 
 ## [19.2.18] - 2022-08-29
 
@@ -1627,7 +1627,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Users are now correctly added to the docker group only if they do not already have it preventing unnecessary modifications. [50d7bf11](https://github.com/electrocucaracha/openstack-multinode/commit/50d7bf1114a3e9d369787a2dd8de328368ac9284)
+- Users are now correctly added to the Docker group only if they do not already have it preventing unnecessary modifications. [50d7bf11](https://github.com/electrocucaracha/openstack-multinode/commit/50d7bf1114a3e9d369787a2dd8de328368ac9284)
 
 ## [19.2.1] - 2022-06-08
 
@@ -1657,7 +1657,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Simplified No HA ssh configuration by removing insecure key handling and using nodeconfig triggers to configure authorized keys after provisioning. [41ba2783](https://github.com/electrocucaracha/openstack-multinode/commit/41ba2783d4fe4f546e25013f4f980b10fdd3c1df)
+- Simplified No HA SSH configuration by removing insecure key handling and using nodeconfig triggers to configure authorized keys after provisioning. [41ba2783](https://github.com/electrocucaracha/openstack-multinode/commit/41ba2783d4fe4f546e25013f4f980b10fdd3c1df)
 
 ## [19.1.0] - 2022-06-08
 
@@ -1687,7 +1687,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Enabled suppression of Apache website link checking during deployment to prevent validation interruptions for users relying on this feature. [eea0e4fc](https://github.com/electrocucaracha/openstack-multinode/commit/eea0e4fc3c561f1771f6181747277ea5f3a3b10c)
+- Enabled suppression of Apache site link checking during deployment to prevent validation interruptions for users relying on this feature. [eea0e4fc](https://github.com/electrocucaracha/openstack-multinode/commit/eea0e4fc3c561f1771f6181747277ea5f3a3b10c)
 
 ## [17.0.15] - 2022-06-06
 
@@ -1759,7 +1759,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Enabled automation of tool installation and configuration for CI tasks through the creation of a custom Vagrant setup GitHub action, eliminating manual caching of Vagrant boxes and resolving VBoxHeadless issues on macOS by applying workarounds. [68355213](https://github.com/electrocucaracha/openstack-multinode/commit/68355213b55ba1ec169b0ad3df81932bbabb6f55)
+- Enabled automation of tool installation and configuration for CI tasks through the creation of a custom Vagrant setup GitHub Action, eliminating manual caching of Vagrant boxes and resolving VBoxHeadless issues on macOS by applying workarounds. [68355213](https://github.com/electrocucaracha/openstack-multinode/commit/68355213b55ba1ec169b0ad3df81932bbabb6f55)
 
 ## [17.0.3] - 2022-05-03
 
@@ -1897,7 +1897,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Introduced an option to enable autocomplete for the openstack CLI through the undercloud script by adding the --autocomplete flag when running it which adds a new file to the system and may require users to update their bash configuration. [36ea056d](https://github.com/electrocucaracha/openstack-multinode/commit/36ea056d0b753307145790968d1f20dd8fb7d999)
+- Introduced an option to enable autocomplete for the openstack CLI through the undercloud script by adding the --autocomplete flag when running it which adds a new file to the system and may require users to update their Bash configuration. [36ea056d](https://github.com/electrocucaracha/openstack-multinode/commit/36ea056d0b753307145790968d1f20dd8fb7d999)
 
 ## [16.3.6] - 2022-03-03
 
@@ -1951,7 +1951,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated dictionary definitions to remove "repo" from OpenStack's word list and upgraded dependencies for OpenStack Kolla to Python 3.10, requiring compatible project requirements files. [9ec1c7dd](https://github.com/electrocucaracha/openstack-multinode/commit/9ec1c7dd9769508a25b5a0ad880167e279ceec53)
+- Updated dictionary definitions to remove "repository" from OpenStack's word list and upgraded dependencies for OpenStack Kolla to Python 3.10, requiring compatible project requirements files. [9ec1c7dd](https://github.com/electrocucaracha/openstack-multinode/commit/9ec1c7dd9769508a25b5a0ad880167e279ceec53)
 
 ## [16.2.5] - 2022-02-28
 
@@ -1975,7 +1975,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Stabilized GitHub workflows for linter checks to ensure compatibility with super-linter v4.8.7 by updating environment variables and filter regex exclude paths. [f3726547](https://github.com/electrocucaracha/openstack-multinode/commit/f37265474d70fa1977d71875279284a28c25ed67)
+- Stabilized GitHub workflows for linter checks to ensure compatibility with super-linter v4.8.7 by updating environment variables and filter regular expression exclude paths. [f3726547](https://github.com/electrocucaracha/openstack-multinode/commit/f37265474d70fa1977d71875279284a28c25ed67)
 
 ## [16.2.1] - 2022-01-26
 
@@ -1987,7 +1987,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Enabled contributors to be easily identified and recognized by adding their names in a list, including contribution guidelines and thanks for existing contributors in the README. [0d2ecd46](https://github.com/electrocucaracha/openstack-multinode/commit/0d2ecd46cc0ef1473df5fc816345e1e21042e03c)
+- Enabled contributors to be easily identified and recognized by adding their names in a list, including contribution guidelines and thanks for existing contributors in the readme. [0d2ecd46](https://github.com/electrocucaracha/openstack-multinode/commit/0d2ecd46cc0ef1473df5fc816345e1e21042e03c)
 
 ## [16.1.7] - 2022-01-03
 
@@ -2143,7 +2143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Upgraded supported distribution versions to 3.5.0 from 3.4.2 for centos ubuntu debian and rhel without modifying the API contract or introducing security concerns. [91a3ed11](https://github.com/electrocucaracha/openstack-multinode/commit/91a3ed11372501c410d8afc0bb6de5c5e79b3f65)
+- Upgraded supported distribution versions to 3.5.0 from 3.4.2 for CentOS Ubuntu debian and rhel without modifying the API contract or introducing security concerns. [91a3ed11](https://github.com/electrocucaracha/openstack-multinode/commit/91a3ed11372501c410d8afc0bb6de5c5e79b3f65)
 
 ## [13.0.1] - 2021-10-26
 
@@ -2173,7 +2173,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Optimized the undercloud installation process by updating dependencies in bindep.txt to include sshpass, pip, gcc, and git. [fbd1d56c](https://github.com/electrocucaracha/openstack-multinode/commit/fbd1d56c9447ab20109fa53f8282edb42062004b)
+- Optimized the undercloud installation process by updating dependencies in bindep.txt to include sshpass, pip, gcc, and Git. [fbd1d56c](https://github.com/electrocucaracha/openstack-multinode/commit/fbd1d56c9447ab20109fa53f8282edb42062004b)
 
 ## [12.1.0] - 2021-10-20
 
@@ -2215,7 +2215,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Enabled automatic retrieval of missing images from the registry via quay.io or docker pull and push commands to handle cases where images are missing after a build attempt. [c4e87d0f](https://github.com/electrocucaracha/openstack-multinode/commit/c4e87d0fe9ad49afb641380f05d4ea99a93ec8ef)
+- Enabled automatic retrieval of missing images from the registry via quay.io or Docker pull and push commands to handle cases where images are missing after a build attempt. [c4e87d0f](https://github.com/electrocucaracha/openstack-multinode/commit/c4e87d0fe9ad49afb641380f05d4ea99a93ec8ef)
 
 ## [12.0.8] - 2021-10-20
 
@@ -2227,7 +2227,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated CA certificates are now automatically managed on Ubuntu Control VMs to ensure the latest trusted certificates are used by applications that rely on curl. [6315a3a8](https://github.com/electrocucaracha/openstack-multinode/commit/6315a3a82f6ab8c0baada9cbe744a669e03b7540)
+- Updated CA certificates are now automatically managed on Ubuntu Control VMs to ensure the latest trusted certificates are used by applications that rely on cURL. [6315a3a8](https://github.com/electrocucaracha/openstack-multinode/commit/6315a3a82f6ab8c0baada9cbe744a669e03b7540)
 
 ## [12.0.6] - 2021-10-20
 
@@ -2317,13 +2317,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The spellchecker CI action has been optimized to include Markdown files in spelling error checks using the pyspelling-any tool and a project-specific dictionary wordlist. [2344fb72](https://github.com/electrocucaracha/openstack-multinode/commit/2344fb721965738261947a9c38acc3a30534e134)
+- The spell checker CI action has been optimized to include Markdown files in spelling error checks using the pyspelling-any tool and a project-specific dictionary wordlist. [2344fb72](https://github.com/electrocucaracha/openstack-multinode/commit/2344fb721965738261947a9c38acc3a30534e134)
 
 ## [11.3.3] - 2021-08-20
 
 ### Changed
 
-- Corrected typos in README files for OpenStack deployment configurations to ensure accurate information is presented to users. [c8337bb2](https://github.com/electrocucaracha/openstack-multinode/commit/c8337bb29609a3afbd5c6cb1fa2629772eb58f2f)
+- Corrected typos in readme files for OpenStack deployment configurations to ensure accurate information is presented to users. [c8337bb2](https://github.com/electrocucaracha/openstack-multinode/commit/c8337bb29609a3afbd5c6cb1fa2629772eb58f2f)
 
 ## [11.3.2] - 2021-08-20
 
@@ -2461,7 +2461,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated GitHub actions workflow configurations to run on demand and triggered by both push and pull request events requiring users to update their workflow configurations accordingly. [2105695d](https://github.com/electrocucaracha/openstack-multinode/commit/2105695d3aba1ba9da0218ab836ecb76d06946a6)
+- Updated GitHub Actions workflow configurations to run on demand and triggered by both push and pull request events requiring users to update their workflow configurations accordingly. [2105695d](https://github.com/electrocucaracha/openstack-multinode/commit/2105695d3aba1ba9da0218ab836ecb76d06946a6)
 
 ## [10.3.0] - 2021-07-01
 
@@ -2479,7 +2479,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Upgraded dependencies to be managed through git instead of tarballs allowing for smoother updates and easier maintenance. [93130c53](https://github.com/electrocucaracha/openstack-multinode/commit/93130c53c55d90976deeff8199a7d8a1cdf011f6)
+- Upgraded dependencies to be managed through Git instead of tarballs allowing for smoother updates and easier maintenance. [93130c53](https://github.com/electrocucaracha/openstack-multinode/commit/93130c53c55d90976deeff8199a7d8a1cdf011f6)
 
 ## [10.2.4] - 2021-07-01
 
@@ -2503,7 +2503,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated the list of supported distributions to include version 3.2.20 for centos 8, ubuntu focal, debian buster, and rhel 8, while dropping support for ubuntu bionic and centos 8 version 3.2.18, requiring potential migration steps to ensure compatibility with the updated versions. [4fadb3df](https://github.com/electrocucaracha/openstack-multinode/commit/4fadb3dfb0283f72b500d73295bd0ce9dacb29ce)
+- Updated the list of supported distributions to include version 3.2.20 for CentOS 8, Ubuntu focal, debian buster, and rhel 8, while dropping support for Ubuntu bionic and CentOS 8 version 3.2.18, requiring potential migration steps to ensure compatibility with the updated versions. [4fadb3df](https://github.com/electrocucaracha/openstack-multinode/commit/4fadb3dfb0283f72b500d73295bd0ce9dacb29ce)
 
 ## [10.2.0] - 2021-07-01
 
@@ -2587,19 +2587,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Enabled code quality checks through integration of Reviewdog Github action triggered on push to master branch requiring configuration of a github token secret for automated review and feedback. [6652d2ea](https://github.com/electrocucaracha/openstack-multinode/commit/6652d2eacf28fec0751f72483020ace57173ee23)
+- Enabled code quality checks through integration of Reviewdog GitHub Action triggered on push to master branch requiring configuration of a GitHub token secret for automated review and feedback. [6652d2ea](https://github.com/electrocucaracha/openstack-multinode/commit/6652d2eacf28fec0751f72483020ace57173ee23)
 
 ## [8.5.1] - 2021-04-12
 
 ### Changed
 
-- Updated kolla-ansible to version 10.2.0, enabling users to leverage new features and bug fixes without requiring configuration adjustments or migration steps. [536c5329](https://github.com/electrocucaracha/openstack-multinode/commit/536c532902559995c844a0391d30039aa3e48f8a)
+- Updated kolla-ansible to version 10.2.0, enabling users to leverage new features and bugfixes without requiring configuration adjustments or migration steps. [536c5329](https://github.com/electrocucaracha/openstack-multinode/commit/536c532902559995c844a0391d30039aa3e48f8a)
 
 ## [8.5.0] - 2021-04-12
 
 ### Added
 
-- Automated workflows are now enabled within repositories through Github custom actions, introducing a new CI/CD pipeline that checks bare-metal installations and builds images on push events to the master branch with Ubuntu 18.04 as the base image and including steps for deploying services and validating images, requiring migration with no breaking behavior or security impact noted. [0e494008](https://github.com/electrocucaracha/openstack-multinode/commit/0e494008958840bbbf7e14ae72c3c982dcd337f7)
+- Automated workflows are now enabled within repositories through GitHub custom actions, introducing a new CI/CD pipeline that checks bare-metal installations and builds images on push events to the master branch with Ubuntu 18.04 as the base image and including steps for deploying services and validating images, requiring migration with no breaking behavior or security impact noted. [0e494008](https://github.com/electrocucaracha/openstack-multinode/commit/0e494008958840bbbf7e14ae72c3c982dcd337f7)
 
 ## [8.4.2] - 2021-04-12
 
@@ -2785,7 +2785,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Enhanced documentation to include specific diagrams for distributed configurations, replacing the generic previous version and directly linking from the distributed configuration sample's README. [1cf89bbd](https://github.com/electrocucaracha/openstack-multinode/commit/1cf89bbdd66266c863b10a8a8c4d38c72a9ccd13)
+- Enhanced documentation to include specific diagrams for distributed configurations, replacing the generic previous version and directly linking from the distributed configuration sample's readme. [1cf89bbd](https://github.com/electrocucaracha/openstack-multinode/commit/1cf89bbdd66266c863b10a8a8c4d38c72a9ccd13)
 
 ## [6.0.4] - 2020-03-18
 
@@ -2821,7 +2821,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The node setup process now automatically installs cURL on Ubuntu systems, enabling the execution of curl commands without requiring manual package installation. [c4d6ae1d](https://github.com/electrocucaracha/openstack-multinode/commit/c4d6ae1d6607c4f2f9513f58b217b7a978ad41fa)
+- The node setup process now automatically installs cURL on Ubuntu systems, enabling the execution of cURL commands without requiring manual package installation. [c4d6ae1d](https://github.com/electrocucaracha/openstack-multinode/commit/c4d6ae1d6607c4f2f9513f58b217b7a978ad41fa)
 
 ## [5.4.2] - 2020-03-16
 
@@ -2929,7 +2929,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Optimized registry bash script functionality to allow dynamic OpenStack release and branch specification in configuration files for Horizon plugins, Neutron services, and other affected projects. [2652d5e8](https://github.com/electrocucaracha/openstack-multinode/commit/2652d5e89c17d709cdb0e0c7150a3463cae247f5)
+- Optimized registry Bash script functionality to allow dynamic OpenStack release and branch specification in configuration files for Horizon plugins, Neutron services, and other affected projects. [2652d5e8](https://github.com/electrocucaracha/openstack-multinode/commit/2652d5e89c17d709cdb0e0c7150a3463cae247f5)
 
 ## [5.1.8] - 2020-01-07
 
@@ -2989,7 +2989,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Simplified initial setup instructions by directing users to leverage the bootstrap-vagrant project's setup.sh script for installing Vagrant dependencies and plugins via a provided curl command. [037ed691](https://github.com/electrocucaracha/openstack-multinode/commit/037ed691687d435ac105e6a50698dc8eaf0cd59d)
+- Simplified initial setup instructions by directing users to leverage the bootstrap-vagrant project's setup.sh script for installing Vagrant dependencies and plugins via a provided cURL command. [037ed691](https://github.com/electrocucaracha/openstack-multinode/commit/037ed691687d435ac105e6a50698dc8eaf0cd59d)
 
 ## [4.4.1] - 2019-09-20
 
@@ -3115,7 +3115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The configuration and maintenance of bash scripts were optimized to comply with shellcheck recommendations by adding quotes around variable references and disabling certain checks where necessary without introducing any breaking behavior or API changes. [58a13a46](https://github.com/electrocucaracha/openstack-multinode/commit/58a13a46938dd7ac9500342791b5975c48b0ebc5)
+- The configuration and maintenance of Bash scripts were optimized to comply with shellcheck recommendations by adding quotes around variable references and disabling certain checks where necessary without introducing any breaking behavior or API changes. [58a13a46](https://github.com/electrocucaracha/openstack-multinode/commit/58a13a46938dd7ac9500342791b5975c48b0ebc5)
 
 ## [4.1.7] - 2019-02-28
 
@@ -3205,7 +3205,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Expanded controller host list in inventory/hosts.ini to include control01, control02, and control03, resolving an issue where kolla-ansible was selecting the wrong server for file copying and docker service startup. [98e5e427](https://github.com/electrocucaracha/openstack-multinode/commit/98e5e427b6ebeec894ba855152f43e7e6adf454c)
+- Expanded controller host list in inventory/hosts.ini to include control01, control02, and control03, resolving an issue where kolla-ansible was selecting the wrong server for file copying and Docker service startup. [98e5e427](https://github.com/electrocucaracha/openstack-multinode/commit/98e5e427b6ebeec894ba855152f43e7e6adf454c)
 
 ## [3.2.2] - 2018-10-15
 
@@ -3217,7 +3217,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The groupadd instruction now consistently creates the docker group across different environments by avoiding duplicate group creation errors and ensuring correct permissions setup during installation. [4180d988](https://github.com/electrocucaracha/openstack-multinode/commit/4180d9888d123f142acc3fcb7998c44084173ca4)
+- The groupadd instruction now consistently creates the Docker group across different environments by avoiding duplicate group creation errors and ensuring correct permissions setup during installation. [4180d988](https://github.com/electrocucaracha/openstack-multinode/commit/4180d9888d123f142acc3fcb7998c44084173ca4)
 
 ## [3.2.0] - 2018-10-08
 
@@ -3265,7 +3265,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The vagrant user has been enabled to manage containers through membership in the docker group. [f27e1dbc](https://github.com/electrocucaracha/openstack-multinode/commit/f27e1dbc7b536a294b2f2d88c9172d4469e0a2f5)
+- The vagrant user has been enabled to manage containers through membership in the Docker group. [f27e1dbc](https://github.com/electrocucaracha/openstack-multinode/commit/f27e1dbc7b536a294b2f2d88c9172d4469e0a2f5)
 
 ## [1.2.2] - 2018-09-02
 
@@ -3301,7 +3301,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The README file has been modernized to describe the deployment of OpenStack services through Kolla in a Multi-Node configuration. [db703262](https://github.com/electrocucaracha/openstack-multinode/commit/db703262e9f3c936882d802d8a1d43e1d53fb482)
+- The readme file has been modernized to describe the deployment of OpenStack services through Kolla in a Multi-Node configuration. [db703262](https://github.com/electrocucaracha/openstack-multinode/commit/db703262e9f3c936882d802d8a1d43e1d53fb482)
 
 ## [1.1.9] - 2018-08-31
 
@@ -3319,7 +3319,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Enabled streamlined deployment of various tasks including bootstrap, prechecks, deploy, and post-deploy through the inclusion of kolla-ansible actions in the deployment process with no migration required but noting that these actions are now executed using ansible instead. [2386e279](https://github.com/electrocucaracha/openstack-multinode/commit/2386e2799222204eeee39c8286f47e421e2097c7)
+- Enabled streamlined deployment of various tasks including bootstrap, prechecks, deploy, and post-deploy through the inclusion of kolla-ansible actions in the deployment process with no migration required but noting that these actions are now executed using Ansible instead. [2386e279](https://github.com/electrocucaracha/openstack-multinode/commit/2386e2799222204eeee39c8286f47e421e2097c7)
 
 ## [1.1.6] - 2018-08-20
 
