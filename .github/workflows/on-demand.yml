@@ -13,6 +13,9 @@ on:
   push:
     paths:
       - "*.sh"
+      - "ci/setup_virtualbox.sh"
+      - "spec/setup_virtualbox_spec.sh"
+      - ".github/actions/vagrant-setup/action.yml"
   pull_request_review:
     types:
       - submitted
