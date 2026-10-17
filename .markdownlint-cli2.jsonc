@@ -1,0 +1,12 @@
+{
+  // CLI behavior settings
+  "fix": true,
+  "gitignore": true,
+  "ignores": ["node_modules/**", "CHANGELOG.md"],
+
+  // Markdown rule adjustments
+  "config": {
+    "default": true, // Enable all default markdownlint rules
+    "MD013": false, // Disable line-length limitations
+  },
+}
