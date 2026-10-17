@@ -9,6 +9,108 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [33.4.2] - 2026-10-17
+
+### Changed
+
+- Simplified the formatting of the Skydive dashboard URL and the actions/checkout@v5.0.0 version reference in the changelog to use backticks for consistency and improved readability. [9e804b5a](https://github.com/electrocucaracha/openstack-multinode/commit/9e804b5a540de31447094e4e76e2b9f18e6822a2)
+
+## [33.4.1] - 2026-10-17
+
+### Changed
+
+- Enabled automatic enforcement of consistent Markdown terminology and formatting across documentation, with the Makefile's fmt target now running textlint with automatic fixes and the markdownlint-cli2 tool ensuring consistent Markdown formatting. [f8e9a6d8](https://github.com/electrocucaracha/openstack-multinode/commit/f8e9a6d83c931fa254e2ecb4245be3544920cf92)
+
+## [33.4.0] - 2026-10-17
+
+### Added
+
+- Enabled automated detection and remediation of issues in GitHub workflow files during CI runs without requiring network access. [804d3c07](https://github.com/electrocucaracha/openstack-multinode/commit/804d3c07e91193fafc3cd52443defaeab8a92004)
+
+## [33.3.0] - 2026-10-17
+
+### Added
+
+- Enabled reliable VirtualBox provisioning in Linux-based CI runs by loading required kernel modules before caching Vagrant boxes. [cf3f400b](https://github.com/electrocucaracha/openstack-multinode/commit/cf3f400bfcac044049b24c6443e3ebcd1c2822a5)
+
+## [33.2.1] - 2026-10-17
+
+### Changed
+
+- Simplified execution of aio_releases.sh and test_aio_releases.sh by making them directly executable from the command line, thus streamlining automation and reducing manual steps in CI workflows. [e8ae25b9](https://github.com/electrocucaracha/openstack-multinode/commit/e8ae25b9d502faf8cc0f22bc04263cb2d60cf00b)
+
+## [33.2.0] - 2026-10-17
+
+### Added
+
+- Enabled reliable VirtualBox kernel driver setup across CI systems by introducing automation for loading and rebuilding the driver on kernel version and host environment variations. [1a896b08](https://github.com/electrocucaracha/openstack-multinode/commit/1a896b08a62082e0fccf0274aa307b02b7b9e90c)
+
+## [33.1.4] - 2026-10-17
+
+### Changed
+
+- Improved GitHub workflows now use absolute paths and include VirtualBox setup and specification files in the on-demand workflow trigger, while also providing enhanced documentation and accessibility features. [38c6a1d9](https://github.com/electrocucaracha/openstack-multinode/commit/38c6a1d95408beac1aceea770c0423bf029a1498)
+
+## [33.1.3] - 2026-10-13
+
+### Changed
+
+- Upgraded GitHub Actions workflows and dependencies to leverage newer versions of `gh-workflows` and `cmd2`. [b23648ad](https://github.com/electrocucaracha/openstack-multinode/commit/b23648ad0dae1bd7d8ed9b0aed23023af980dfd1)
+
+## [33.1.2] - 2026-10-11
+
+### Changed
+
+- Automatically updated GitHub Action commit hashes are now managed with the gh-updater tool, optimizing maintenance and ensuring consistency for future improvements. [64096dd6](https://github.com/electrocucaracha/openstack-multinode/commit/64096dd66d8a6ee51dc7f3be1ac20b0ecb812d88)
+
+## [33.1.1] - 2026-10-11
+
+### Changed
+
+- Restricted AIO VM matrices to only include distros with supported releases, ensuring AIO deployments are only attempted on supported distros, and matrices without a matching requirements file or direct deployment attempts on unsupported distros now fail with an error. [d20c03eb](https://github.com/electrocucaracha/openstack-multinode/commit/d20c03ebd815672f4ff7a4973a3c8741047a691f)
+
+## [33.1.0] - 2026-10-11
+
+### Added
+
+- Enabled support for continued maintenance and development by introducing links to GitHub Sponsors and Buy Me a Coffee in a .github/funding.yml file. [9dba9d8b](https://github.com/electrocucaracha/openstack-multinode/commit/9dba9d8b3748bdff822b25ac4eac514e07b3f863)
+
+## [33.0.2] - 2026-10-11
+
+### Changed
+
+- Modernized GitHub workflows to use the latest version of the actions/checkout action, version 7.0.1, providing security and feature improvements for all CI jobs. [c89d6f50](https://github.com/electrocucaracha/openstack-multinode/commit/c89d6f50168a7abad824fb2c326a522411999652)
+
+## [33.0.1] - 2026-10-11
+
+### Changed
+
+- Simplified the super-linter job by delegating maintenance, log management, failed build analysis, and AI-assisted diagnostics to a reusable workflow. [2dfe068a](https://github.com/electrocucaracha/openstack-multinode/commit/2dfe068a289ca611e048c74b5ece0682f2913471)
+
+## [33.0.0] - 2026-10-11
+
+### Removed
+
+- Simplified project tooling by eliminating the requirement for spelling checks, thereby reducing maintenance efforts. [f4703976](https://github.com/electrocucaracha/openstack-multinode/commit/f4703976000924c9235b6d61a9eea3699a109a29)
+
+## [32.2.3] - 2026-10-10
+
+### Changed
+
+- Upgraded OpenStack Kolla dependencies and GitHub Actions configuration to use newer versions of several actions. [edc966a5](https://github.com/electrocucaracha/openstack-multinode/commit/edc966a55e597a2cf6717ffe01d72a999848eaca)
+
+## [32.2.2] - 2026-10-10
+
+### Changed
+
+- Upgraded OpenStack Kolla dependencies to newer versions, primarily addressing security and maintenance concerns without introducing breaking behavior or requiring migration actions. [d75ec19b](https://github.com/electrocucaracha/openstack-multinode/commit/d75ec19b7007d9edb85a4e8305fe04786d86d0d5)
+
+## [32.2.1] - 2026-08-14
+
+### Changed
+
+- Optimized the update_versions.sh script to cache remote tags per repository and reuse them for all actions from the same source, significantly improving performance and reliability without introducing any breaking behavior or migration requirements. [bb55e7b8](https://github.com/electrocucaracha/openstack-multinode/commit/bb55e7b88cfde923c8c0da7d965426ac3fdf8130)
+
 ## [32.2.0] - 2026-08-11
 
 ### Added
