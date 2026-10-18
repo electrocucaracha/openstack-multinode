@@ -58,7 +58,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: $/.github/actions/vagrant-setup
+      - uses: ./.github/actions/vagrant-setup # zizmor: ignore[self-repository]
       - name: Deploy latest release in All-in-One instance
         env:
           CI_INITIAL_RELEASE_POINTER: 1
