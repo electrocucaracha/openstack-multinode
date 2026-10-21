@@ -98,7 +98,7 @@ rich==15.0.0
     #   rich-argparse
 rich-argparse==1.8.0
     # via cmd2
-setuptools==84.2.0
+setuptools==84.2.1
     # via pbr
 stevedore==5.9.1
     # via
@@ -106,7 +106,7 @@ stevedore==5.9.1
     #   oslo-config
 urllib3==2.8.0
     # via requests
-wcwidth==0.9.2
+wcwidth==0.9.3
     # via
     #   prettytable
     #   prompt-toolkit
