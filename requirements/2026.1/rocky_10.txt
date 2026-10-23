@@ -6,13 +6,13 @@ autopage==0.6.0
     # via cliff
 bcrypt==5.0.0
     # via kolla-ansible
-certifi==2026.7.22
+certifi==2026.10.19
     # via requests
 cffi==2.1.1
     # via cryptography
 charset-normalizer==3.5.2
     # via requests
-cliff==4.16.0
+cliff==4.17.0
     # via kolla-ansible
 cmd2==4.3.0
     # via cliff
@@ -66,7 +66,7 @@ prompt-toolkit==3.0.53
     # via cmd2
 psutil==7.2.2
     # via oslo-utils
-pycparser==3.11
+pycparser==3.12
     # via cffi
 pygments==2.21.0
     # via rich
@@ -94,7 +94,7 @@ rich==15.0.0
     #   rich-argparse
 rich-argparse==1.8.0
     # via cmd2
-setuptools==84.0.0
+setuptools==84.2.1
     # via pbr
 stevedore==5.9.1
     # via
@@ -102,7 +102,7 @@ stevedore==5.9.1
     #   oslo-config
 urllib3==2.8.0
     # via requests
-wcwidth==0.9.2
+wcwidth==0.9.3
     # via
     #   prettytable
     #   prompt-toolkit
