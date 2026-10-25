@@ -16,7 +16,7 @@ charset-normalizer==3.5.2
     # via requests
 cliff==4.17.0
     # via kolla-ansible
-cmd2==4.3.0
+cmd2==4.3.1
     # via cliff
 cryptography==50.0.2
     # via
@@ -106,7 +106,7 @@ stevedore==5.9.1
     #   oslo-config
 urllib3==2.8.0
     # via requests
-wcwidth==0.9.3
+wcwidth==0.9.4
     # via
     #   prettytable
     #   prompt-toolkit
