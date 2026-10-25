@@ -24,8 +24,12 @@ fi
 # OpenStack Components. The IP addresses on this network should be
 # reachable only within the data center and is considered the
 # Management Security Domain.
-mgmt_nic=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $5 }')
-mgmt_ip=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $7 }')
+mgmt_nic=${OS_KOLLA_NETWORK_INTERFACE:-$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $5 }')}
+mgmt_ip=$(ip -4 -o addr show dev "$mgmt_nic" scope global | awk 'NR == 1 { sub(/\/.*/, "", $4); print $4 }')
+if [ -z "$mgmt_ip" ]; then
+    echo "ERROR: No IPv4 address found on management interface '$mgmt_nic'"
+    exit 1
+fi
 
 # Guest network - Used for VM data communication within the cloud
 # deployment. The IP addressing requirements of this network depend
@@ -45,14 +49,17 @@ mgmt_ip=$(ip route get 8.8.8.8 | grep "^8." | awk '{ print $7 }')
 # the external network that uses IP allocation ranges to use only less
 # than the full range of IP addresses in an IP block. This network is
 # considered the Public Security Domain.
-if ip route | grep -q "^10.10"; then
+if [ -n "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE-}" ]; then
+    public_nic=$OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE
+elif ip route | grep -q "^10.10"; then
     public_nic=$(ip route | grep "^10.10" | awk '{ print $3 }')
 else
-    if [ -z "${OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE-}" ]; then
-        echo "ERROR: Using the management network interface as Neutron External can result in losing external connectivity"
-        exit 1
-    fi
-    public_nic=${mgmt_nic}
+    echo "ERROR: Set OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE to a dedicated Neutron external interface"
+    exit 1
+fi
+if [ "$public_nic" == "$mgmt_nic" ]; then
+    echo "ERROR: Neutron external interface '$public_nic' must differ from management interface '$mgmt_nic'"
+    exit 1
 fi
 public_ip=$(ip addr | awk "/${public_nic}\$/ { sub(/\/[0-9]*/, \"\","' $2); print $2}')
 
