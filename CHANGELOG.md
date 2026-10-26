@@ -9,6 +9,84 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [33.8.1] - 2026-10-25
+
+### Changed
+
+- Modernized documentation to improve maintainability, separate project and user documentation, and simplify onboarding and updates for future deployments and contributors. [a6dd6378](https://github.com/electrocucaracha/openstack-multinode/commit/a6dd63781ec589427954552bee2db92393b97220)
+
+## [33.8.0] - 2026-10-25
+
+### Added
+
+- Enabled robust network interface detection and separation enforcement, preventing connectivity issues by ensuring the Neutron external interface differs from the management interface and providing explicit error messages for invalid or missing configurations. [bc88b0f2](https://github.com/electrocucaracha/openstack-multinode/commit/bc88b0f2b65d2dc555bc4c0ce38f748248a48103)
+
+## [33.7.3] - 2026-10-18
+
+### Changed
+
+- Clarified the behavior of local actions in workflow files by suppressing warnings from code scanning tools with the addition of the "# zizmor: ignore[self-repository]" comment, ensuring clean CI output without introducing any functional changes to workflow behavior. [31711251](https://github.com/electrocucaracha/openstack-multinode/commit/31711251c37c4138db2b18c0fb317dcb64a4463a)
+
+## [33.7.2] - 2026-10-18
+
+### Changed
+
+- Refreshed zizmor checks are now automatically applied with minimum severity set to low, significantly enhancing security coverage and automation, and streamlining maintenance by reducing manual intervention in security scanning and workflow updates. [6529ce43](https://github.com/electrocucaracha/openstack-multinode/commit/6529ce43ca27eee386171d67997b8eeb29286df8)
+
+## [33.7.1] - 2026-10-18
+
+### Changed
+
+- Modernized the Biome configuration to use the latest 2.5.14 schema, now including all files by default except codebase-structure.svg, improving compatibility with new features and robustness as the project evolves. [1c6f47e9](https://github.com/electrocucaracha/openstack-multinode/commit/1c6f47e954ad0f12eae0f37a3da2fea494f0bfb3)
+
+## [33.7.0] - 2026-10-17
+
+### Added
+
+- Enforced consistent Markdown formatting across the project by introducing a configuration file that enables all default rules except for line-length limitations and includes autofixing and .gitignore support, with node_modules and CHANGELOG.md ignored by default. [e8880f58](https://github.com/electrocucaracha/openstack-multinode/commit/e8880f58759b2e27ddd3cfb3d36c8457cacf22b5)
+
+## [33.6.2] - 2026-10-17
+
+### Changed
+
+- Updated the workflow and pre-commit tool versions to the latest, including CodeQL upload to v4.39.0, shared linter workflow to v12.0.1, and ai-prepare-commit-msg pre-commit hook to v20.3.7, with the removal of the outdated zizmor linter invocation streamlining maintenance. [2d2e464b](https://github.com/electrocucaracha/openstack-multinode/commit/2d2e464b3814f9badfd6243cd9fc8d95294d428a)
+
+## [33.6.1] - 2026-10-17
+
+### Changed
+
+- Updated GitHub Actions directory references in workflow files to use the correct relative path syntax ensuring workflows can locate and run custom actions reliably on GitHub runners. [e1132662](https://github.com/electrocucaracha/openstack-multinode/commit/e1132662504a1a17d36004fd9e7f08dca1530660)
+
+## [33.6.0] - 2026-10-17
+
+### Added
+
+- Enabled configuration of formatting and linting through the introduction of a biome.json file, which explicitly excludes codebase-structure.svg from Biome processing. [1097a5c4](https://github.com/electrocucaracha/openstack-multinode/commit/1097a5c43ae6e6c4ee4fa06e06d15c0c34eba63e)
+
+## [33.5.3] - 2026-10-17
+
+### Changed
+
+- Stabilized the CentOS Stream entry in the changelog by splitting a long line into two lines for improved readability. [f1d89494](https://github.com/electrocucaracha/openstack-multinode/commit/f1d89494df83296b0254ffc4d5fc632dac765230)
+
+## [33.5.2] - 2026-10-17
+
+### Changed
+
+- Enabled direct script execution for setup_virtualbox_spec.sh, making it accessible for test automation or developer convenience without affecting the script's content. [8a212372](https://github.com/electrocucaracha/openstack-multinode/commit/8a2123729ceeed19d8550ca833ff9f48463c43f9)
+
+## [33.5.1] - 2026-10-17
+
+### Changed
+
+- Simplified the changelog entry for actions/checkout@v5.0.0 to consistently use backticks around version references for improved readability and to distinguish code tokens from plain text, aligning with the documentation style without introducing any breaking behavior, API or CLI changes, or security impact. [127b6adc](https://github.com/electrocucaracha/openstack-multinode/commit/127b6adcdc06f95fad6b1863911d170784a64bd8)
+
+## [33.5.0] - 2026-10-17
+
+### Added
+
+- Enabled detailed release notes for versions 32.2.1 through 33.4.2, providing historical context and documenting the project's ongoing maintenance, and facilitating transparency and tracking of changes for users and contributors. [600c28bd](https://github.com/electrocucaracha/openstack-multinode/commit/600c28bdb0c58645fe008104045bfb099e8356f2)
+
 ## [33.4.2] - 2026-10-17
 
 ### Changed
