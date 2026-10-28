@@ -10,10 +10,16 @@ and testing.
 
 ## Choose a deployment
 
+- [Install and use OpenStack Multi-Node](installation.html)
 - [All-in-one deployment](sample-aio.html)
 - [No-HA deployment](sample-noha.html)
 - [Distributed deployment](sample-distributed.html)
 - [No-HA deployment on Raspberry Pi 4](raspberry-pi-noha.html)
+
+## Understand and extend
+
+- [How the deployment works](architecture.html)
+- [Extend a deployment](extending.html)
 
 ## Reference
 

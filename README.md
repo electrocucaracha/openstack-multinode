@@ -19,6 +19,31 @@ distributed topology.
 They are intended for development and testing, not as production reference
 architectures.
 
+## Why containerized OpenStack?
+
+[Kolla](https://docs.openstack.org/kolla/latest/) provides container images for
+OpenStack services, while Kolla-Ansible configures and deploys those services.
+Container-based deployment offers several benefits:
+
+- **Repeatable environments:** Reusing the same image versions keeps service
+  binaries and dependencies consistent across deployments.
+- **Faster provisioning:** Prebuilt images reduce the need to install service
+  packages individually on each host.
+- **Scaling:** Additional compute nodes can run the same service images,
+  with host preparation and inventory changes managed through Kolla-Ansible.
+- **Service selection:** Services can be enabled or disabled through
+  Kolla-Ansible configuration rather than manually installing or removing
+  their packages.
+- **Image-based updates:** Service containers can be recreated with updated
+  images. Previous images can help recovery, but database migrations and
+  persistent data mean upgrades are not automatically atomic or reversible.
+- **Service recovery:** Container restart policies can restart failed
+  containers; they do not by themselves provide high availability or recovery
+  from host failures.
+
+Containers still depend on a supported host operating system, networking,
+and persistent storage. Image portability does not remove those requirements.
+
 ## Deployment examples
 
 - [All-in-one](docs/sample-aio.md): run the OpenStack services on one VM.
@@ -31,9 +56,51 @@ For prerequisites, setup guidance, and networking references, start at the
 [documentation index](docs/index.md).
 
 The deployment scripts prepare nodes, configure Kolla-Ansible, and optionally
-build and publish container images to a local registry.
-See [install.sh](install.sh), [node.sh](node.sh), and
-[registry.sh](registry.sh) for the implementation.
+build and publish container images to a local registry:
+
+- [node.sh](node.sh) prepares hosts and can partition, format, and mount
+  additional volumes. Only pass disposable disks to its volume options.
+- [registry.sh](registry.sh) sets up the local container image registry.
+- [undercloud.sh](undercloud.sh) configures and runs Kolla-Ansible. The
+  distributed sample uses a separate undercloud VM to provision service nodes.
+- [install.sh](install.sh) coordinates an all-in-one deployment, including
+  optional registry setup and post-deployment initialization.
+
+## Deploy all-in-one directly
+
+The [all-in-one Vagrant guide](docs/sample-aio.md) provides the VM-based path.
+You can also run the installer directly on a dedicated, supported Linux host
+with passwordless sudo. This changes host packages and system configuration;
+do not run it on your workstation or a host with workloads you need to keep.
+
+From the repository root, replace `eno1` and `eno2` with your host's interfaces:
+
+```bash
+OS_FOLDER="$PWD" \
+  OS_KOLLA_NETWORK_INTERFACE=eno1 \
+  OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE=eno2 \
+  bash ./install.sh
+```
+
+The management interface must have an IPv4 address. The Neutron external
+interface must be separate, dedicated to Neutron, and have no host IP address.
+Review the [networking reference](docs/neutron-network-types.md) and
+[upstream prerequisites](https://docs.openstack.org/kolla-ansible/latest/user/quickstart.html)
+before deploying.
+
+To bootstrap without an existing checkout, download and review the installer
+before running it with the same interface settings:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/electrocucaracha/openstack-multinode/master/install.sh -o install-openstack.sh
+less install-openstack.sh
+OS_KOLLA_NETWORK_INTERFACE=eno1 \
+  OS_KOLLA_NEUTRON_EXTERNAL_INTERFACE=eno2 \
+  bash ./install-openstack.sh
+```
+
+In this case, the installer clones the repository into `/opt/openstack-multinode`
+unless `OS_FOLDER` points to another location.
 
 ![Codebase structure](./codebase-structure.svg)
 
