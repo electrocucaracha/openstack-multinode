@@ -101,7 +101,7 @@ rich-argparse==1.8.0
     # via cmd2
 setuptools==84.2.1
     # via pbr
-stevedore==5.9.1
+stevedore==5.10.0
     # via
     #   cliff
     #   oslo-config
