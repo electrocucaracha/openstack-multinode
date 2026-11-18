@@ -61,7 +61,7 @@ pbr==7.1.3
     #   oslo-config
     #   oslo-i18n
     #   oslo-utils
-prettytable==3.18.0
+prettytable==3.19.0
     # via cliff
 prompt-toolkit==3.0.53
     # via cmd2
