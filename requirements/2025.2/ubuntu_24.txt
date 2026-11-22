@@ -109,7 +109,7 @@ typing-extensions==4.16.0
     # via oslo-config
 urllib3==2.8.0
     # via requests
-wcwidth==0.9.4
+wcwidth==0.9.5
     # via
     #   prettytable
     #   prompt-toolkit
